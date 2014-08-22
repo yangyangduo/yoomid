@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DrawerViewController.h"
-#import "LeftDrawerViewController.h"
 #import "UINavigationViewInitializer.h"
 #import "ViewControllerAccessor.h"
 #import "LoginViewController.h"
@@ -23,13 +21,9 @@
 #import "PunchBoxAd.h"
 #import "Account.h"
 #import "ActivitiesViewController.h"
-#import "PortalViewController.h"
 #import "GuideViewController.h"
 #import "MiidiManager.h"
 #import "MiidiAdWall.h"
-#import "HomePageViewController.h"
-#import "NewTaskViewController.h"
-#import "MyPointsRecordViewController.h"
 #import "HomePageViewController.h"
 
 @implementation AppDelegate
@@ -38,8 +32,6 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
-  
     
     /*
     // Configure drawer view controller's defaut appearance
@@ -62,19 +54,19 @@
     
     self.window.rootViewController = drawerViewController;
     [self.window makeKeyAndVisible];
-    
     */
     
-    
-    self.window.rootViewController = [[HomePageViewController alloc] init];
+    HomePageViewController *homeViewController = [[HomePageViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
     if(![GlobalConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        //[drawerViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
-        
-        [loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
+        [homeViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
+        //[loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
     } else {
         [self doAfterLogin];
     }

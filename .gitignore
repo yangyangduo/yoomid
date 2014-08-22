@@ -22,3 +22,7 @@ xcuserdata
 profile
 *.moved-aside
 *.pbxproj
+
+*.xcbkptlist
+
+*.xcuserstate
