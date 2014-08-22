@@ -1,0 +1,296 @@
+//
+//  PurchaseViewController.m
+//  private_share
+//
+//  Created by Zhao yang on 7/25/14.
+//  Copyright (c) 2014 hentre. All rights reserved.
+//
+
+#import "PurchaseViewController.h"
+#import "ShoppingCart.h"
+#import "ShoppingItemConfirmCell.h"
+#import "ShoppingItemHeaderView.h"
+#import "ShoppingItemFooterView.h"
+#import "UIDevice+ScreenSize.h"
+#import "ContactDisplayView.h"
+#import "AddContactInfoViewController.h"
+#import "HomePageViewController.h"
+
+NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
+NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHeaderIdentifier";
+NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFooterIdentifier";
+
+@implementation PurchaseViewController {
+    UIView *backgroundView;
+    UICollectionView *_collectionView_;
+    SettlementView *settlementView;
+    ContactDisplayView *contactDisplayView;
+    
+    NSArray *_shopShoppingItemss_;
+    NSMutableArray *contactArray;
+    NSInteger fag;
+}
+
+- (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss {
+    self = [super init];
+    if(self) {
+        _shopShoppingItemss_ = shopShoppingItemss;
+        fag = 0;
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
+    
+    contactArray = [[NSMutableArray alloc]init];
+    self.title = NSLocalizedString(@"confirm_order", @"");
+    self.view.backgroundColor = [UIColor appSilver];
+    
+    settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
+    settlementView.delegate = self;
+    [settlementView setSelectButtonHidden];
+    [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPayment];
+    [self.view addSubview:settlementView];
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _collectionView_ = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60) collectionViewLayout:layout];
+    _collectionView_.backgroundColor = [UIColor clearColor];
+    [_collectionView_ registerClass:[ShoppingItemConfirmCell class] forCellWithReuseIdentifier:ShoppingItemConfirmCellIdentifier];
+    
+    [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ShoppingItemConfirmFooterIdentifier];
+    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier];
+    
+    _collectionView_.alwaysBounceVertical = YES;
+    _collectionView_.delegate = self;
+    _collectionView_.dataSource = self;
+    [self.view addSubview:_collectionView_];
+    
+    contactDisplayView = [[ContactDisplayView alloc] initWithFrame:
+                          CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0) contact:[ShoppingCart myShoppingCart].orderContact];
+    [self getContactInfo];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
+    [contactDisplayView addGestureRecognizer:tapGesture];
+    
+    _collectionView_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
+    [_collectionView_ addSubview:contactDisplayView];
+    
+}
+
+-(void)deleteContactArray:(NSNotification*)notif
+{
+    contactArray = notif.object;
+    if (fag==contactArray.count) {
+        fag = 0;
+    }
+
+    if (contactArray.count == 0) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+        return;
+    }
+    
+    NSDictionary *tempD = [contactArray objectAtIndex:0];
+    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
+    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
+    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
+    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+
+}
+
+
+-(void)updateContactArray:(NSNotification*)notif
+{
+    contactArray = notif.object;
+    
+    NSDictionary *tempD = [contactArray objectAtIndex:fag];
+    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
+    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
+    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
+    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+
+}
+
+-(void)getContactInfo
+{
+    ContactService *contactService = [[ContactService alloc]init];
+    [contactService getContactInfo:self success:@selector(getContactSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
+-(void)getContactSuccess:(HttpResponse *)resp
+{
+    if(resp.statusCode == 200)
+    {
+        NSMutableDictionary *contactDictionary =  [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        
+        for (NSDictionary *tmpDic in contactDictionary)
+        {
+            [contactArray addObject:tmpDic];
+        }
+        
+        if (contactArray.count == 0) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
+            return;
+        }
+        
+        NSDictionary *tempD = [contactArray objectAtIndex:0];
+        [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
+        [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
+        [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
+        [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+        [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+    }else
+    {
+        [self handleFailureHttpResponse:resp];
+    }
+}
+
+-(void)pushContactInfo:(id)sender
+{
+    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contactArray fag:fag];
+    selectContactAddress.delegate = self;
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"";
+    self.navigationItem.backBarButtonItem = backItem;
+    [self.navigationController pushViewController:selectContactAddress animated:YES];
+}
+
+#pragma mark UIAlertView delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+//        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]initWithContactArray:0];
+        [self.navigationController pushViewController:add animated:YES];
+    }
+}
+
+#pragma mark selectContactInfo delegate
+-(void)contactInfo:(NSDictionary *)dictionary_contact fag:(NSInteger)fags
+{
+    [ShoppingCart myShoppingCart].orderContact.identifier = [dictionary_contact objectForKey:@"id"];
+    [ShoppingCart myShoppingCart].orderContact.name = [dictionary_contact objectForKey:@"name"];
+    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [dictionary_contact objectForKey:@"contactPhone"];
+    [ShoppingCart myShoppingCart].orderContact.address = [dictionary_contact objectForKey:@"deliveryAddress"];
+    
+    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+
+    fag = fags;
+}
+
+#pragma mark -
+#pragma mark Collection view delegate
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return _shopShoppingItemss_ == nil ? 0 : _shopShoppingItemss_.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:section];
+    return ssi.selectShoppingItems.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
+    ShoppingItem *si = [ssi.selectShoppingItems objectAtIndex:indexPath.row];
+    ShoppingItemConfirmCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShoppingItemConfirmCellIdentifier forIndexPath:indexPath];
+    cell.shoppingCartViewController = self;
+    cell.shoppingItem = si;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
+    CGFloat height = [ShoppingItemConfirmCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
+    return CGSizeMake(self.view.bounds.size.width, height);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 20;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(self.view.bounds.size.width, 60);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(self.view.bounds.size.width, 44);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
+    if(UICollectionElementKindSectionFooter == kind) {
+        ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmFooterIdentifier forIndexPath:indexPath];
+        [footerView setTotalPayment:shopShoppingItems.totalSelectPayment];
+        return footerView;
+    } else {
+        ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier forIndexPath:indexPath];
+        [headerView setSelectButtonHidden];
+        headerView.shopId = shopShoppingItems.shopID;
+        return headerView;
+    }
+    return nil;
+}
+
+- (void)purchaseButtonPressed:(id)sender {
+    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"contact_required", @"") forType:AlertViewTypeFailed];
+        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+        return;
+    }
+    
+    NSMutableArray *ordersToSubmit = [NSMutableArray array];
+    for(ShopShoppingItems *ssi in _shopShoppingItemss_) {
+        NSMutableArray *shoppingItems = [NSMutableArray array];
+        for(ShoppingItem *si in ssi.selectShoppingItems) {
+            [shoppingItems addObject:@{
+                                       @"merchandiseId" : si.merchandise.identifier,
+                                       @"number" : [NSNumber numberWithInteger:si.number],
+                                       @"paymentType" : [NSNumber numberWithUnsignedInteger:si.paymentType],
+                                       @"properties" : si.propertiesAsString
+                                       }];
+        }
+        NSDictionary *shopOrder = @{
+                                    @"basicInfo" : @{
+                                    @"shopId" : ssi.shopID,
+                                    @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
+                                    @"remark" : @""
+                                    },
+                                    @"shoppingItems" : shoppingItems
+        };
+        [ordersToSubmit addObject:shopOrder];
+    }
+    
+    [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
+
+}
+
+
+@end

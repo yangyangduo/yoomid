@@ -1,0 +1,224 @@
+/* 
+  Localizable.strings
+  private_share
+
+  Created by Zhao yang on 6/3/14.
+  Copyright (c) 2014 hentre. All rights reserved.
+*/
+
+"app_name"                             =     "有米得";
+
+"login_view_title"                     =     "登录";
+"activity_view_title"                  =     "活动";
+"task_view_title"                      =     "任务";
+"mall_view_title"                      =     "商城";
+"points_record_view_title"             =     "积分记录";
+"settings_view_title"                  =     "关于";
+
+
+"portal"                               =     "我的有米得";
+"activity"                             =     "有米得活动";
+"task"                                 =     "有米得任务";
+"mall"                                 =     "商城";
+"yoomid"                               =     "多余的";
+"points_record"                        =     "积分记录";
+
+
+"home"                                 =     "首页";
+"settings"                             =     "设置";
+"about_yoomid"                         =     "关于有米得";
+
+
+"request_timeout"                      =     "请求超时";
+"system_error"                         =     "系统异常";
+"server_error"                         =     "服务器异常";
+"network_error"                        =     "网络异常";
+"waitting"                             =     "请稍后";
+"tips"                                 =     "提示";
+"done"                                 =     "完成";
+"close"                                =     "关闭";
+"return"                               =     "返回";
+"loading"                              =     "加载中";
+"bad_request"                          =     "请求错误";
+"processing"                           =     "正在处理";
+"determine"                            =     "确定";
+"ok"                                   =     "好的";
+"getting"                              =     "正在获取";
+"next"                                 =     "下一步";
+"please_enter"                         =     "请输入";
+"please_select"                        =     "请选择";
+"cancel"                               =     "取消";
+"access_token_invalid"                 =     "验证码已失效";
+"submitted_success"                    =     "提交成功";
+"modify_success"                       =     "修改成功";
+
+
+"login"                                =     "登录";
+"mobile"                               =     "手机号";
+"new_password"                         =     "新密码";
+"password"                             =     "密码";
+"forgot_password"                      =     "忘记密码";
+"invitation_code"                      =     "邀请码";
+"register_success"                     =     "注册成功";
+"account_register"                     =     "账号注册";
+"verify_code"                          =     "验证码";
+"verify_phone_number"                  =     "手机验证";
+"get_verify_code"                      =     "获取验证码";
+"input_verify_code"                    =     "填写验证码";
+"please_input_verify_code"             =     "验证码";
+"verify_code_message1"                 =     "* 确认后短信获取验证码,请在收到后30分钟内完成注册,否则将失效";
+"verify_code_message2"                 =     "* 验证码输入后将会作为初始密码,进入系统后重新设置您的密码";
+"complete_register"                    =     "完成注册并登录";
+"verify_code_send_success"             =     "已发送";
+"login_success"                        =     "登录成功";
+"login_failed"                         =     "登录失败";
+"get_verify_code"                      =     "获取";
+"mobile_required"                      =     "请输入手机号码";
+"register_mobile_tips"                 =     "11位手机号";
+"mobile_invalid"                       =     "手机号码格式错误";
+"register_vc_tips"                     =     "短信验证码";
+"invitation_code_required"             =     "请输入邀请码";
+"register_pwd_tips"                    =     "6-16位字母+数字";
+"register_ic_tips"                     =     "请填入邀请码";
+"read_and_agree"                       =     "我已阅读并同意";
+"disclaimer"                           =     "免责声明";
+"should_agree_disclaimer"              =     "请先同意免责声明";
+"username_password_required"           =     "请输入用户名或密码";
+
+
+"account_settings"                     =     "账号设置";
+
+
+"my_exchange"                          =     "我的兑换";
+"add_to_exchange"                      =     "加入兑换";
+"purchase"                             =     "立即购买";
+"points"                               =     "积分";
+"points_short"                         =     "分";
+"cash"                                 =     "现金";
+"points_short_name"                    =     "分";
+"full_points"                          =     "全额";
+"return_points"                        =     "返";
+"yuan"                                 =     "元";
+"shop"                                 =     "店铺";
+"shopping_cart"                        =     "购物车";
+"merchandise_detail"                   =     "商品详情";
+"my_merchandise_orders"                =     "我的订单";
+"order_qr_code"                        =     "订单二维码";
+"merchandise_delete_tips"              =     "确定删除此商品?";
+"availablePoints"                      =     "可用积分";
+"total_points"                         =     "总积分";
+"points_today"                         =     "今日累计";
+"remain_points"                        =     "剩余";
+"order_id"                             =     "订单号";
+"order_time"                           =     "下单时间";
+"view_qr_code"                         =     "查看二维码";
+"my_address"                           =     "我的地址";
+"points_exchange"                      =     "积分兑换";
+"cash_exchange"                        =     "现金兑换";
+"points_not_enough"                    =     "积分不够";
+"points_exchange_total"                =     "积分兑换小计";
+"cash_exchange_total"                  =     "现金兑换小计";
+"added_to_shopping_cart"               =     "已加入购物车";
+"submit_order"                         =     "提交订单";
+"shopping_first"                       =     "请先选择商品";
+"order_being_submitted"                =     "正在提交订单";
+"contact_info"                         =     "联系人信息";
+"save_contact_tips"                    =     "是否保存为常用联系人";
+"contact"                              =     "联系人";
+"contact_name"                         =     "联系人姓名";
+"contact_info"                         =     "联系人信息";
+"contact_phone"                        =     "联系电话";
+"remark"                               =     "备       注";
+"remark_no_blank"                      =     "备注";
+"delivery_address"                     =     "收获地址";
+"mi_repo2"                             =     "米库";
+"contact_info_modify"                  =     "信息修改";
+"order_unfinished"                     =     "未完成";
+"order_finished"                       =     "已完成";
+"order_cancelled"                      =     "已取消";
+"payment_tips_title"                   =     "提示:\r\n";
+"payment_tips1"                        =     "1. 积分在本系统中进行抵扣,现金部分请在兑换点支付给店家。\r\n";
+"payment_tips2"                        =     "2. 兑换成功后现金支付的部分将有10%的积分返回到您的账号。";
+"custom_service_phone"                 =     "客服电话";
+"wechat_account"                       =     "微信账号";
+"continue_shopping"                    =     "继续购物";
+"shopping_complete_tips"               =     "非常感谢您的支持,您购买的商品将在24小时内发货,敬请期待,如有需要请联系如下服务号码:";
+"shopping_complete"                    =     "购物完成";
+"chicked_recommend"                    =     "小吉推荐";
+"all_merchandises"                     =     "全部商品";
+"has_exchanges"                        =     "人已兑换";
+"purchase_number"                      =     "购买数量";
+"exchange_type"                        =     "兑换方式";
+"delivery_point"                       =     "兑换点";
+"settlement"                           =     "结算";
+"confirm_order"                        =     "确认订单";
+"contact_required"                     =     "请选择联系人";
+
+
+"earn_record"                          =     "赚取记录";
+"exchange_record"                      =     "兑换记录";
+"order_type_ad_task"                   =     "广告任务";
+"order_type_shopping"                  =     "兑换商品";
+"order_type_return_points"             =     "现金购物返还";
+
+
+"pull.refresh"                         =     "下拉刷新";
+"pull.loadmore"                        =     "上拉加载更多";
+"release.pull.loadmore"                =     "释放加载更多";
+"release.refresh"                      =     "释放立即刷新";
+"refreshing"                           =     "刷新中...";
+"last.update"                          =     "最后更新";
+"no_more"                              =     "已经到底了";
+"ago"                                  =     "以前";
+"just_now"                             =     "刚刚";
+"minute"                               =     "分钟";
+"hour"                                 =     "小时";
+"day"                                  =     "天";
+
+
+"qr_code_scanner"                      =     "扫一扫";
+"qr_code_tips"                         =     "将二维码放入框内 即可自动扫描";
+
+
+"platform"                             =     "平台";
+"youmi"                                =     "有米";
+"yijifen"                              =     "易积分";
+"domob"                                =     "多盟";
+"cocounion"                            =     "触控";
+"dianru"                               =     "点入";
+"limei"                                =     "力美";
+"adwo"                                 =     "安沃";
+"miidi"                                =     "米迪";
+
+"my_account"                           =     "我的账户";
+"logout"                               =     "退出当前账号";
+"password_modify"                      =     "密码修改";
+"old_password"                         =     "原密码";
+"type_old_password"                    =     "请输入原密码";
+"new_password"                         =     "新密码";
+"type_new_password"                    =     "请设置登录密码";
+"confirm_password"                     =     "确认密码";
+"type_password_again"                  =     "请再次填入";
+"password_tips"                        =     "密码由6-16个字符组成, 区分大小写(不能是9位以下纯数字, 不能包含空格)";
+"new_password_not_blank"               =     "请输入新密码";
+"password_not_blank"                   =     "请输入原密码";
+"new_password_not_blank"               =     "请输入新密码";
+"confirm_password_invalid"             =     "两次密码不一致";
+"being_logout"                         =     "退出登录";
+
+
+"thinks_good"                          =     "人觉得赞";
+"participate"                          =     "我要参加";
+"from_beginning_of_activity_start"     =     "距离活动开抢还有";
+"from_beginning_of_activity_end"       =     "距离活动下线还有";
+"activity_ended"                       =     "活动已下线";
+"i_want_to_grab"                       =     "我要抢";
+
+
+"my_points"                            =     "我的积分";
+"my_activity"                          =     "我的活动";
+"my_mall"                              =     "我的商城";
+"invitation"                           =     "邀请朋友";
+"earn_points"                          =     "赚积分";
+
+
