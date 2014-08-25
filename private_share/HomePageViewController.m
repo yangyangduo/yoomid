@@ -12,6 +12,7 @@
 #import "UINavigationViewInitializer.h"
 #import "MallViewController.h"
 #import "UIDevice+ScreenSize.h"
+#import "ShoppingCartViewController2.h"
 
 NSString * const homePageCell = @"homePageCell";
 
@@ -53,10 +54,6 @@ NSString * const homePageCell = @"homePageCell";
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypePresentation;
     
-    // Do any additional setup after loading the view.
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController setNavigationBarHidden:YES];
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
     _collectionView = [[CustomCollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
@@ -66,10 +63,8 @@ NSString * const homePageCell = @"homePageCell";
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:homePageCell];
     [self.view addSubview:_collectionView];
     
-    
     pullImagesView = [[PullScrollZoomImagesView alloc]initAndEmbeddedInScrollView:_collectionView viewHeight:[UIDevice is4InchDevice] ? 340 : 280];
     pullImagesView.delegate = self;
-    
     
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, pullImagesView.bounds.size.height-20, 80, 30)];
     pageControl.numberOfPages = 3;
@@ -80,10 +75,11 @@ NSString * const homePageCell = @"homePageCell";
     
     [pullImagesView addSubview:pageControl];
     
+    /*
     UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
     topMaskImageView.image = [UIImage imageNamed:@"black_top"];
     topMaskImageView.userInteractionEnabled = YES;
-    [self.view addSubview:topMaskImageView];
+    [self.view addSubview:topMaskImageView]; */
     
     NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
     ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
@@ -134,12 +130,16 @@ NSString * const homePageCell = @"homePageCell";
     }
 }
 
--(void)actionRepo:(id)sender
-{
+-(void)actionRepo:(id)sender {
+    ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
+    self.animationController.animationType = PanAnimationControllerTypePresentation;
+    shoppingCartVC.modalPresentationStyle = UIModalPresentationCustom;
+    if(self.navigationController != nil) {
+        [self.navigationController pushViewController:shoppingCartVC animated:YES];
+    }
 }
 
--(void)actionChangePage:(id)sender
-{
+-(void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
 }
@@ -267,6 +267,17 @@ NSString * const homePageCell = @"homePageCell";
 
 - (CGFloat)rightPresentViewControllerOffset {
     return 88.f;
+}
+
+#pragma mark -
+#pragma mark Navigation controller delegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if([viewController isKindOfClass:[HomePageViewController class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    } else {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 @end

@@ -1069,6 +1069,8 @@
 		6DD565D0EB8CC937D438E546 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				6FD9DF7719A713C60066CA88 /* TransitionViewController.h */,
+				6FD9DF7819A713C60066CA88 /* TransitionViewController.m */,
 				6FF5332D19386196001D607C /* BaseViewController.h */,
 				6FF5332E19386196001D607C /* BaseViewController.m */,
 				6F72A3EE193DF7D2001DAA3E /* DrawerMenuViewController.h */,
@@ -1703,8 +1705,6 @@
 				D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */,
 				D6941CA819A6F3F300946E97 /* TaskSubCategoryViewController.h */,
 				D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */,
-				6FD9DF7719A713C60066CA88 /* TransitionViewController.h */,
-				6FD9DF7819A713C60066CA88 /* TransitionViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";

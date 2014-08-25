@@ -17,13 +17,14 @@
 @implementation NewTaskViewController {
     UICollectionView *activitiesCollectionView;
     
-    PanAnimationController *panAnimation;
     PullScrollZoomImagesView *pullImagesView;
     NSString *cellIdentifier;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"hello world";
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     activitiesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) collectionViewLayout:flowLayout];
@@ -38,14 +39,13 @@
     pullImagesView = [[PullScrollZoomImagesView alloc] initAndEmbeddedInScrollView:activitiesCollectionView];
     pullImagesView.delegate = self;
     
-    ImageItem *i1 = [[ImageItem alloc] initWithUrl:@"http://b.hiphotos.baidu.com/image/pic/item/adaf2edda3cc7cd9b44d3f7c3b01213fb80e9136.jpg" title:nil];
-    ImageItem *i2 = [[ImageItem alloc] initWithUrl:@"http://g.hiphotos.baidu.com/image/pic/item/a50f4bfbfbedab64e5a67473f536afc378311ea8.jpg" title:nil];
-    pullImagesView.imageItems = [NSArray arrayWithObjects:i2, i1, nil];
+    ImageItem *i1 = [[ImageItem alloc] initWithUrl:@"http://pic.aigou.com/upload/shopping/2010/11/06/33304537.snap.jpg" title:nil];
+    ImageItem *i2 = [[ImageItem alloc] initWithUrl:@"http://imgtest-dl.meiliworks.com/pic/_o/b1/15/5b7abb16a7861ebe0770211b69c3_1772_1485.jpg?refer_type=&expr_alt=b&frm=out_pic" title:nil];
+    pullImagesView.imageItems = [NSArray arrayWithObjects:i1, i2, nil];
     
-    panAnimation = [[PanAnimationController alloc] initWithContainerController:self];
-    panAnimation.leftPanAnimationType = PanAnimationControllerTypePresentation;
-    panAnimation.rightPanAnimationType = PanAnimationControllerTypePresentation;
-    panAnimation.delegate = self;
+
+    self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
+    self.navigationController.delegate = self;
     
 //    self.navigationController.delegate = self;
     
@@ -62,83 +62,69 @@
 - (void)test {
     ViewQRCodeViewController *v = [[ViewQRCodeViewController alloc] init];
     v.modalPresentationStyle = UIModalPresentationCustom;
-    
-    self.navigationController.delegate = self;
+    self.animationController.animationType = PanAnimationControllerTypePresentation;
     [self.navigationController pushViewController:v animated:YES];
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    panAnimation.animationType = PanAnimationControllerTypePresentation;
-    return panAnimation;
-}
-
-
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
-    if([animator isKindOfClass:[PanAnimationController class]]) {
-        PanAnimationController *animation = (PanAnimationController *)animator;
-        if(animation.isInteractive) return animation;
-    }
-    return nil;
-}
-
-
-- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
-    if([animationController isKindOfClass:[PanAnimationController class]]) {
-        PanAnimationController *animation = (PanAnimationController *)animationController;
-        return animation;
-    }
-    return nil;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    NSLog(@"jsoifjsoidfjiosdjfosjfosidjfosifj");
-    if(UINavigationControllerOperationPop == operation) {
-        panAnimation.animationType = PanAnimationControllerTypeDismissal;
-        return panAnimation;
-    }
-    return nil;
-}
-
-
-
-/*
-
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-- (UIViewController *)leftPresentationViewController {
-    ViewQRCodeViewController *v = [[ViewQRCodeViewController alloc] init];
-    v.view.backgroundColor = [UIColor purpleColor];
-    return v;
-}
-
-- (CGFloat)leftPresentViewControllerOffset {
-    return 150.f;
-}
-
-- (CGFloat)rightPresentViewControllerOffset {
-    return 88.f;
-}
 
 - (UIViewController *)rightPresentationViewController {
     ViewQRCodeViewController *v = [[ViewQRCodeViewController alloc] init];
     v.view.backgroundColor = [UIColor purpleColor];
     return v;
 }
+
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC {
+    if(operation == UINavigationControllerOperationPop) {
+        NSLog(@"to vc : %@", [toVC description]);
+        TransitionViewController *tvc = (TransitionViewController *)fromVC;
+        tvc.animationController.animationType = PanAnimationControllerTypeDismissal;
+        return tvc.animationController;
+    } else {
+        return nil;
+        self.animationController.animationType = PanAnimationControllerTypePresentation;
+    }
+    
+    NSLog(@"先  %@ .%@..  %@",[fromVC description], [toVC description] , (self.animationController.animationType == PanAnimationControllerTypeDismissal ? @"dismiss" : @"present"));
+    return self.animationController;
+}
+
+
+
+- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+    if([animationController isKindOfClass:[PanAnimationController class]]) {
+        PanAnimationController *pc = (PanAnimationController *)animationController;
+        if(pc.animationType == PanAnimationControllerTypePresentation) return nil;
+        return pc;
+    }
+    
+    /*
+     
+     问题出在这里:
+     
+     
+     这里不要return self.animationController,
+     因为要return 第二个页面的animationController, 不能用 self.   ,  解决 !!! ~~~
+     
+     */
+    
+    
+    return nil;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

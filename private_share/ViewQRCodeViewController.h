@@ -7,9 +7,9 @@
 //
 
 #import "BaseViewController.h"
-//#import "QRCode.h"
+#import "TransitionViewController.h"
 
-@interface ViewQRCodeViewController : BaseViewController<UIViewControllerTransitioningDelegate>
+@interface ViewQRCodeViewController : TransitionViewController
 
 - (instancetype)initWithOrderId:(NSString *)orderId;
 

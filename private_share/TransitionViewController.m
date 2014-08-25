@@ -17,6 +17,13 @@
     
     _animationController_ = [[PanAnimationController alloc] initWithContainerController:self];
     self.animationController.delegate = self;
+    
+    if(self.navigationController != nil) {
+        BOOL isRootViewController = [self.navigationController.viewControllers firstObject] == self;
+        if(isRootViewController) {
+            self.navigationController.delegate = self;
+        }
+    }
 }
 
 #pragma mark -
@@ -47,6 +54,36 @@
     }
     return nil;
 }
+
+#pragma mark -
+#pragma mark Navigation controller delegate (only dismiss)
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC {
+    if(operation == UINavigationControllerOperationPop) {
+        if([fromVC isKindOfClass:[TransitionViewController class]]) {
+            TransitionViewController *tvc = (TransitionViewController *)fromVC;
+            tvc.animationController.animationType = PanAnimationControllerTypeDismissal;
+            return tvc.animationController;
+        }
+    }
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+    if([animationController isKindOfClass:[PanAnimationController class]]) {
+        PanAnimationController *_pan_animation_controller_ = (PanAnimationController *)animationController;
+        if(_pan_animation_controller_.animationType == PanAnimationControllerTypeDismissal
+                && _pan_animation_controller_.isInteractive) {
+            return _pan_animation_controller_;
+        }
+    }
+    return nil;
+}
+
 
 #pragma mark -
 #pragma mark Animation delegate

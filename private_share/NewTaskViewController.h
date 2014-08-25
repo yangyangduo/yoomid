@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PullScrollZoomImagesView.h"
-#import "PanAnimationController.h"
+#import "TransitionViewController.h"
 
-@interface NewTaskViewController : UIViewController<
-                UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIViewControllerTransitioningDelegate, PullScrollZoomImagesViewDelegate, PanAnimationControllerDelegate, UINavigationControllerDelegate>
+@interface NewTaskViewController : TransitionViewController<
+                UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullScrollZoomImagesViewDelegate,
+                UINavigationControllerDelegate>
 
 
 @end

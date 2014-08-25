@@ -34,6 +34,8 @@
 
 @synthesize isInteractive;
 
+@synthesize dismissStyle;
+
 @synthesize containerController = _containerController_;
 @synthesize delegate;
 
@@ -47,6 +49,8 @@
         
         isAnimating = NO;
         isGestureFailure = NO;
+        
+        dismissStyle = PanAnimationControllerDismissStyleDefault;
         
         dismissalStartOffset = 0;
         presentationEndOffset = 0;
@@ -128,11 +132,18 @@
                              panDirection = PanDirectionNone;
                          }];
     } else {
+        if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+            toViewController.view.center = CGPointMake(0, toViewController.view.center.y);
+            [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
+        }
         [UIView animateWithDuration:[self transitionDuration:transitionContext]
                          animations:^{
                              fromViewController.view.center = CGPointMake((PanDirectionLeft == panDirection ? -SCREEN_CENTER_X : SCREEN_CENTER_X * 3), fromViewController.view.center.y);
                              UIView *_mask_view_ = [containerView viewWithTag:MASK_VIEW_TAG];
                              if(_mask_view_) _mask_view_.alpha = 0;
+                             if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+                                  toViewController.view.center = CGPointMake(SCREEN_CENTER_X, toViewController.view.center.y);
+                             }
                          }
                          completion:^(BOOL finished){
                              [transitionContext completeTransition:YES];
@@ -174,6 +185,10 @@
         }
         presentationEndOffset = presentationEndOffset / 2;
     } else {
+        if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+            toViewController.view.center = CGPointMake(0, toViewController.view.center.y);
+            [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
+        }
         transitionView = fromViewController.view;
         dismissalStartOffset = abs(abs(transitionView.center.x) - SCREEN_CENTER_X);
     }
@@ -187,7 +202,7 @@
 
 - (void)updateInteractiveTransitionWithPercent:(CGFloat)percent translationX:(CGFloat)translationX {
     if(transitionView == nil) return;
-    
+
     if(PanAnimationControllerTypePresentation == animationType) {
         CGFloat x = (PanDirectionRight == panDirection ?  -SCREEN_CENTER_X : SCREEN_CENTER_X * 3) + translationX;
         transitionView.center = CGPointMake(x, transitionView.center.y);
@@ -196,6 +211,11 @@
         transitionView.center = CGPointMake((PanDirectionLeft == panDirection ? (SCREEN_CENTER_X - abs(translationX) - dismissalStartOffset) : (SCREEN_CENTER_X + translationX + dismissalStartOffset)), transitionView.center.y);
         UIView *_mask_view_ =  [_containerView_ viewWithTag:MASK_VIEW_TAG];
         if(_mask_view_) _mask_view_.alpha = MASK_VIEW_FINAL_ALPHA * (1 - percent);
+        
+        if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+            UIViewController *toViewController = [context viewControllerForKey:UITransitionContextToViewControllerKey];
+            toViewController.view.center = CGPointMake(translationX / 2, toViewController.view.center.y);
+        }
     }
     
     [context updateInteractiveTransition:percent];
@@ -206,6 +226,7 @@
     
     CGPoint toPosition = CGPointZero;
     CGFloat toAlpha = 0;
+    CGPoint containerPosition = CGPointZero;
     
     if(PanAnimationControllerTypePresentation == animationType) {
         if(PanDirectionRight == panDirection) {
@@ -221,11 +242,12 @@
             toPosition = CGPointMake(cancelled ? SCREEN_CENTER_X - dismissalStartOffset : -SCREEN_CENTER_X, transitionView.center.y);
         }
         toAlpha = cancelled ? MASK_VIEW_FINAL_ALPHA : 0;
+        containerPosition = CGPointMake(cancelled ? 0 : SCREEN_CENTER_X, 0);
     }
     
     isAnimating = YES;
     
-    [UIView animateWithDuration:0.3f
+    [UIView animateWithDuration:0.2f
             animations:^{
                 transitionView.center = toPosition;
                 if(PanAnimationControllerTypeDismissal == self.animationType) {
@@ -234,10 +256,13 @@
                 } else {
                     maskView.alpha = toAlpha;
                 }
+                if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+                    UIViewController *toViewController = [context viewControllerForKey:UITransitionContextToViewControllerKey];
+                     toViewController.view.center = CGPointMake(containerPosition.x, toViewController.view.center.y);
+                }
             }
             completion:^(BOOL finished){
                 if(cancelled) {
-                    //transitionView.layer.position = toPosition;
                     [context cancelInteractiveTransition];
                     [context completeTransition:NO];
 #ifdef DEBUG
@@ -245,7 +270,6 @@
                           (PanAnimationControllerTypePresentation == animationType ? @"Presentation" : @"Dismissal"));
 #endif
                 } else {
-                    //transitionView.layer.position = toPosition;
                     [context finishInteractiveTransition];
                     [context completeTransition:YES];
 #ifdef DEBUG
@@ -306,16 +330,21 @@
                     isGestureFailure = YES;
                 }
             } else if(PanAnimationControllerTypeDismissal == self.rightPanAnimationType) {
-                // 在其父 parent controller presentation 自己结束后
-                // 需要将控制权交给自己了
-                if(self.containerController.navigationController == nil) {
-                    self.containerController.transitioningDelegate = self.containerController;
+                if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
                     self.isInteractive = YES;
-                    [self.containerController dismissViewControllerAnimated:YES completion:^{ }];
+                    [self.containerController.navigationController popViewControllerAnimated:YES];
                 } else {
-                    self.containerController.navigationController.transitioningDelegate = self.containerController;
-                    self.isInteractive = YES;
-                    [self.containerController.navigationController dismissViewControllerAnimated:YES completion:^{ }];
+                    // 在其父 parent controller presentation 自己结束后
+                    // 需要将控制权交给自己了
+                    if(self.containerController.navigationController == nil) {
+                        self.containerController.transitioningDelegate = self.containerController;
+                        self.isInteractive = YES;
+                        [self.containerController dismissViewControllerAnimated:YES completion:^{ }];
+                    } else {
+                        self.containerController.navigationController.transitioningDelegate = self.containerController;
+                        self.isInteractive = YES;
+                        [self.containerController.navigationController dismissViewControllerAnimated:YES completion:^{ }];
+                    }
                 }
             }
         } else if(PanDirectionLeft == panDirection) {
@@ -350,6 +379,7 @@
                 }
             }
         }
+        return;
     }
     
     if(UIGestureRecognizerStateChanged == gesture.state

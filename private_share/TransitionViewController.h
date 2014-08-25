@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "PanAnimationController.h"
 
-@interface TransitionViewController : BaseViewController<UIViewControllerTransitioningDelegate, PanAnimationControllerDelegate>
+@interface TransitionViewController : BaseViewController<UIViewControllerTransitioningDelegate, PanAnimationControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) PanAnimationController *animationController;
 

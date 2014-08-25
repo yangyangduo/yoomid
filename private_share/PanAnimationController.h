@@ -20,6 +20,11 @@ typedef NS_ENUM(NSUInteger, PanDirection)  {
     PanDirectionRight  =   2
 };
 
+typedef NS_ENUM(NSUInteger, PanAnimationControllerDismissStyle) {
+    PanAnimationControllerDismissStyleDefault         =     0,
+    PanAnimationControllerDismissStyleTransition      =     1
+};
+
 @protocol PanAnimationControllerDelegate;
 
 @interface PanAnimationController : NSObject<UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
@@ -31,6 +36,8 @@ typedef NS_ENUM(NSUInteger, PanDirection)  {
 @property (nonatomic, assign) PanDirection panDirection;
 
 @property (nonatomic, assign) BOOL isInteractive;
+
+@property (nonatomic, assign) PanAnimationControllerDismissStyle dismissStyle;
 
 @property (nonatomic, weak) id<PanAnimationControllerDelegate> delegate;
 

@@ -26,6 +26,8 @@
 #import "MiidiAdWall.h"
 #import "HomePageViewController.h"
 
+#import "NewTaskViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

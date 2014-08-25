@@ -13,13 +13,11 @@
 
 @implementation ViewQRCodeViewController {
     NSString *_order_id_;
-    PanAnimationController *panAnimation;
 }
 
 - (instancetype)initWithOrderId:(NSString *)orderId {
     self = [super init];
     if(self) {
-        _order_id_ = orderId;
     }
     return self;
 }
@@ -36,11 +34,8 @@
     UIButton *btn = [ButtonUtil newTestButtonForTarget:self action:@selector(fj:)];
     [self.view addSubview:btn];
     
-    panAnimation = [[PanAnimationController alloc] initWithContainerController:self];
-    panAnimation.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-    
-    NSLog(@"end did load");
-    
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    self.animationController.dismissStyle = PanAnimationControllerDismissStyleTransition;
     /*
     if(_order_id_ == nil) return;
 
@@ -52,34 +47,9 @@
      */
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    panAnimation.animationType = PanAnimationControllerTypePresentation;
-    return panAnimation;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    panAnimation.animationType = PanAnimationControllerTypeDismissal;
-    return panAnimation;
-}
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
-    if([animator isKindOfClass:[PanAnimationController class]]) {
-        PanAnimationController *animation = (PanAnimationController *)animator;
-        if(animation.isInteractive) return animation;
-    }
-    return nil;
-}
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    if([animator isKindOfClass:[PanAnimationController class]]) {
-        PanAnimationController *animation = (PanAnimationController *)animator;
-        if(animation.isInteractive) return animation;
-    }
-    return nil;
-}
 
 - (void)fj:(id)sender {
-    panAnimation.panDirection = PanDirectionRight;
+    self.animationController.panDirection = PanDirectionRight;
     self.transitioningDelegate = self;
     [self dismissViewControllerAnimated:YES completion:^{}];
 }

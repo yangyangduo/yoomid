@@ -11,7 +11,8 @@
 #import "XXEventSubscriptionPublisher.h"
 #import "UIParameterAlertView.h"
 #import "SettlementView.h"
+#import "TransitionViewController.h"
 
-@interface ShoppingCartViewController2 : DrawerMenuViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, XXEventSubscriber, SettlementViewDelegate>
+@interface ShoppingCartViewController2 : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, XXEventSubscriber, SettlementViewDelegate>
 
 @end

@@ -33,6 +33,9 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     self.title = NSLocalizedString(@"mi_repo2", @"");
     self.view.backgroundColor = [UIColor appSilver];
     
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    self.animationController.dismissStyle = PanAnimationControllerDismissStyleTransition;
+    
     [ShoppingCart myShoppingCart].allSelect = NO;
     
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
