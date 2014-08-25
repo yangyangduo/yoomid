@@ -111,7 +111,7 @@ static CGRect oldframe;
     [topView addSubview:mm];
     
     levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 28, 50, 50)];
-    levelImage.image = [UIImage imageNamed:@"icon_domob"];
+    levelImage.image = [UIImage imageNamed:@"level1"];
     
     [topView addSubview:levelImage];
     

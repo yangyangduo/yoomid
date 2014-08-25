@@ -36,13 +36,20 @@ NSString * const homePageCell = @"homePageCell";
     UIButton *repoButton;
 }
 
+-(NSString *)dirDoc{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSLog(@"app_home_doc: %@",documentsDirectory);
+    return documentsDirectory;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         categoriesArray = [[NSMutableArray alloc]init];
         parentCategoryArray = [[NSMutableArray alloc]init];
-        [self getCategoriesInfo];
+        
     }
     return self;
 }
@@ -103,6 +110,51 @@ NSString * const homePageCell = @"homePageCell";
     [repoButton addTarget:self action:@selector(actionRepo:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:repoButton];
     
+    [self isFileExistsAtPath];
+}
+
+-(void)isFileExistsAtPath
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath =[self dirDoc];
+    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
+    BOOL isB = [fileManager fileExistsAtPath:testPath];
+    
+    if (!isB)
+    {
+        BOOL res=[fileManager createFileAtPath:testPath contents:nil attributes:nil];
+        if (res)
+        {
+            NSLog(@"文件创建成功: %@" ,testPath);
+        }else
+            NSLog(@"文件创建失败");
+    }
+    [self readFile];
+}
+
+//读文件
+-(void)readFile{
+    NSString *documentsPath =[self dirDoc];
+    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
+    NSArray *array = [[NSArray alloc]initWithContentsOfFile:testPath];
+    
+    NSLog(@"文件读取成功: %@",array);
+    if (array == NULL) {
+        NSLog(@"array is null");
+        [self getCategoriesInfo];
+    }
+    NSInteger i = array.count;
+}
+
+//写文件
+-(void)writeFile{
+    NSString *documentsPath =[self dirDoc];
+    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
+    BOOL res = [categoriesArray writeToFile:testPath atomically:YES];
+    if (res) {
+        NSLog(@"文件写入成功");
+    }else
+        NSLog(@"文件写入失败");
 }
 
 -(void)getCategoriesInfo
@@ -123,6 +175,7 @@ NSString * const homePageCell = @"homePageCell";
                 [parentCategoryArray addObject:temDict];
             }
         }
+        [self writeFile];
         [_collectionView reloadData];
     }else
     {
@@ -174,6 +227,16 @@ NSString * const homePageCell = @"homePageCell";
     }else if([strID isEqualToString:@"y:i:sv"])
     {
         cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
+    }
+    
+    
+    if (indexPath.row == 0) {
+        UIView *rightLineView1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, cell.bounds.size.width-80, 1.5)];
+        rightLineView1.backgroundColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
+        [cell addSubview:rightLineView1];
+        UIView *leftLineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 1.5)];
+        leftLineView1.backgroundColor = [UIColor colorWithRed:59.f / 255.f green:67.f / 255.f blue:77.f / 255.f alpha:1.0f];
+        [cell addSubview:leftLineView1];
     }
 
     return cell;
