@@ -21,6 +21,7 @@
     
     UIImage *backgroundImage = [UIImage imageWithColor:[UIColor appColor] size:
                                 CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
+    
     [navigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     
     if([UIDevice systemVersionIsMoreThanOrEqual7]) {

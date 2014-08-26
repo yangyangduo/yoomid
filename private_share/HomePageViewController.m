@@ -13,8 +13,11 @@
 #import "MallViewController.h"
 #import "UIDevice+ScreenSize.h"
 #import "ShoppingCartViewController2.h"
+#import "UIImage+Color.h"
 
 NSString * const homePageCell = @"homePageCell";
+NSString * const fileName = @"categories4.plist";
+
 
 @interface HomePageViewController ()
 
@@ -34,6 +37,8 @@ NSString * const homePageCell = @"homePageCell";
     
     UIButton *notificationsButton;
     UIButton *repoButton;
+    int lastRefreshTime;
+    BOOL blg;
 }
 
 -(NSString *)dirDoc{
@@ -49,7 +54,7 @@ NSString * const homePageCell = @"homePageCell";
     if (self) {
         categoriesArray = [[NSMutableArray alloc]init];
         parentCategoryArray = [[NSMutableArray alloc]init];
-        
+        blg = true;
     }
     return self;
 }
@@ -57,7 +62,7 @@ NSString * const homePageCell = @"homePageCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypePresentation;
     
@@ -102,6 +107,7 @@ NSString * const homePageCell = @"homePageCell";
     
     notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
+    [notificationsButton addTarget:self action:@selector(actionNotifiBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:notificationsButton];
  
@@ -113,44 +119,115 @@ NSString * const homePageCell = @"homePageCell";
     [self isFileExistsAtPath];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //每次进入页面首先检查文件里面有没有数据
+    NSString *documentsPath =[self dirDoc];
+    NSString *testPath = [documentsPath stringByAppendingPathComponent:fileName];
+    
+    NSDictionary *tempD = [[NSDictionary alloc]initWithContentsOfFile:testPath];
+    NSMutableArray *array = [tempD objectForKey:@"categories"];
+    if (blg)
+    {
+        lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
+    }
+    
+    NSLog(@"文件读取成功: %@",array);
+    if (array == NULL)//空 请求新的数据 显示并存到文件
+    {
+        [self getCategoriesInfo];
+    }
+    else//不为空
+    {
+        if (lastRefreshTime > 1800)//大于半小时，请求数据，
+        {
+            lastRefreshTime = 0;
+            
+            [self getCategoriesInfo];
+        }
+        else//显示文件里的数据
+        {
+            categoriesArray = array;
+            [self setParentCategory];
+            [_collectionView reloadData];
+        }
+
+    }
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+}
+
+-(void)timerFired:(id)time
+{
+    if (lastRefreshTime < 1801)
+        NSLog(@"time:%d", lastRefreshTime++);
+}
+
 -(void)isFileExistsAtPath
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath =[self dirDoc];
-    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
-    BOOL isB = [fileManager fileExistsAtPath:testPath];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    //找到Documents文件所在的路径
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //取得第一个Documents文件夹的路径
+    NSString *filePath = [path objectAtIndex:0];
+    //把TestPlist文件加入
     
-    if (!isB)
+    NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
+    
+    //开始创建文件
+    BOOL isEx = [fm fileExistsAtPath:plistPath];
+
+    if (!isEx)
     {
-        BOOL res=[fileManager createFileAtPath:testPath contents:nil attributes:nil];
+        BOOL res=[fm createFileAtPath:plistPath contents:nil attributes:nil];
         if (res)
         {
-            NSLog(@"文件创建成功: %@" ,testPath);
+            NSLog(@"文件创建成功: %@" ,plistPath);
         }else
             NSLog(@"文件创建失败");
     }
-    [self readFile];
 }
-
+/*
 //读文件
 -(void)readFile{
     NSString *documentsPath =[self dirDoc];
-    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
-    NSArray *array = [[NSArray alloc]initWithContentsOfFile:testPath];
+    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories3.plist"];
+    
+    NSDictionary *tempD = [[NSDictionary alloc]initWithContentsOfFile:testPath];
+    NSMutableArray *array = [tempD objectForKey:@"categories"];
+    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
     
     NSLog(@"文件读取成功: %@",array);
-    if (array == NULL) {
+    if (array == NULL)
+    {
         NSLog(@"array is null");
         [self getCategoriesInfo];
     }
-    NSInteger i = array.count;
+    else
+    {
+        categoriesArray = array;
+        [self setParentCategory];
+    }
 }
+ */
 
 //写文件
 -(void)writeFile{
-    NSString *documentsPath =[self dirDoc];
-    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories.plist"];
-    BOOL res = [categoriesArray writeToFile:testPath atomically:YES];
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //取得第一个Documents文件夹的路径
+    NSString *filePath = [path objectAtIndex:0];
+    //把TestPlist文件加入
+    
+    NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
+    
+    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",lastRefreshTime],@"lastRefreshTime",categoriesArray,@"categories", nil];
+    
+    BOOL res = [tempD writeToFile:plistPath atomically:YES];
     if (res) {
         NSLog(@"文件写入成功");
     }else
@@ -163,18 +240,32 @@ NSString * const homePageCell = @"homePageCell";
     [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
+-(void)setParentCategory
+{
+    if (parentCategoryArray.count>0)
+    {
+        [parentCategoryArray removeAllObjects];
+    }
+    for (NSDictionary *temDict in categoriesArray)
+    {
+        if ([[temDict objectForKey:@"parent"] boolValue] == false)
+        {
+            [parentCategoryArray addObject:temDict];
+        }
+    }
+
+}
+
 -(void)getCategoriesSuccess:(HttpResponse *)resp
 {
     if (resp.statusCode == 200)
     {
-        categoriesArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        for (NSDictionary *temDict in categoriesArray)
-        {
-            if ([[temDict objectForKey:@"parent"] boolValue] == false)
-            {
-                [parentCategoryArray addObject:temDict];
-            }
-        }
+        NSString *result = [[NSString alloc]initWithData:resp.body encoding:NSUTF8StringEncoding];
+        //把parentCategory的空对象转为@""
+        result = [result stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
+        NSData *bodyData = [result dataUsingEncoding:NSUTF8StringEncoding];
+        categoriesArray = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
+        [self setParentCategory];
         [self writeFile];
         [_collectionView reloadData];
     }else
@@ -183,18 +274,37 @@ NSString * const homePageCell = @"homePageCell";
     }
 }
 
+-(void)actionNotifiBtn:(id)sender
+{
+}
+
+
+
+
 -(void)actionRepo:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     self.animationController.animationType = PanAnimationControllerTypePresentation;
     shoppingCartVC.modalPresentationStyle = UIModalPresentationCustom;
+    
     if(self.navigationController != nil) {
         [self.navigationController pushViewController:shoppingCartVC animated:YES];
+        blg = false;
     }
 }
 
 -(void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
+}
+
+-(void)viewDidUnload
+{
+    
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc");
 }
 
 #pragma mark - 
@@ -263,6 +373,8 @@ NSString * const homePageCell = @"homePageCell";
 
 //cell被选择时被调用
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    blg = false;
+
     NSDictionary *tempD = [parentCategoryArray objectAtIndex:indexPath.row];
     NSString *strID = [tempD objectForKey:@"id"];
     NSMutableArray *subcategoryAarray = [[NSMutableArray alloc]init];
@@ -337,7 +449,7 @@ NSString * const homePageCell = @"homePageCell";
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if([viewController isKindOfClass:[HomePageViewController class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }

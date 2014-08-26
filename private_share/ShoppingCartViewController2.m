@@ -16,6 +16,7 @@
 #import "ShoppingItemsChangedEvent.h"
 #import "XXEventNameFilter.h"
 #import "PurchaseViewController.h"
+#import "UIImage+Color.h"
 
 NSString * const ShoppingItemCellIdentifier   = @"ShoppingItemCellIdentifier";
 NSString * const ShoppingItemHeaderIdentifier = @"ShoppingItemHeaderIdentifier";
