@@ -13,6 +13,7 @@
 #import "MerchandiseDetailViewController2.h"
 #import "ShoppingCartViewController.h"
 #import "DateTimeUtil.h"
+#import "XiaojiRecommendTableViewCell.h"
 
 @interface MallViewController ()
 
@@ -22,6 +23,7 @@
     NSMutableArray *merchandises;
     NSInteger pageIndex;
     PullTableView *tblMerchandises;
+    PullTableView *xiaoji;
 }
 
 - (void)viewDidLoad
@@ -42,13 +44,24 @@
     segmentedControl.frame = frame;
     self.navigationItem.titleView = segmentedControl;
     
+    xiaoji = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
+    xiaoji.delegate = self;
+    xiaoji.dataSource = self;
+    xiaoji.pullDelegate = self;
+    xiaoji.tag = 0;
+    xiaoji.separatorStyle = NO;
+    [self.view addSubview:xiaoji];
+//    xiaoji.pullTableIsRefreshing = YES;
+    
     tblMerchandises = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     tblMerchandises.delegate = self;
     tblMerchandises.dataSource = self;
     tblMerchandises.pullDelegate = self;
+    tblMerchandises.tag = 1;
     [self.view addSubview:tblMerchandises];
+//    tblMerchandises.pullTableIsRefreshing = YES;
+    [tblMerchandises setHidden:YES];
     
-    tblMerchandises.pullTableIsRefreshing = YES;
     [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
 }
 
@@ -122,6 +135,17 @@
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
     NSLog(@"changed to %ld", (long)sender.selectedSegmentIndex);
+    if (sender.selectedSegmentIndex == 0)
+    {
+        [tblMerchandises setHidden:YES];
+        [xiaoji setHidden:NO];
+    }
+    else if(sender.selectedSegmentIndex == 1)
+    {
+        [tblMerchandises setHidden:NO];
+        [xiaoji setHidden:YES];
+    }
+    else{}
 }
 
 #pragma mark -
@@ -132,21 +156,52 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return merchandises == nil ? 0 : merchandises.count;
+    NSInteger counts = 0;
+    if (tableView.tag == 0) {
+        counts = 3;
+    }
+    else
+    {
+        counts = merchandises == nil ? 0 : merchandises.count;
+    }
+    return counts;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cellIdentifier";
-    MerchandiseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(cell == nil) {
-        cell = [[MerchandiseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    id idcell = nil;
+    if (tableView.tag == 0) {
+        XiaojiRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if(cell == nil)
+        {
+            cell = [[XiaojiRecommendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        idcell = cell;
     }
-    cell.merchandise = [merchandises objectAtIndex:indexPath.row];
-    return cell;
+    else
+    {
+        MerchandiseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if(cell == nil)
+        {
+            cell = [[MerchandiseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        cell.merchandise = [merchandises objectAtIndex:indexPath.row];
+        idcell = cell;
+    }
+    return idcell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return kMerchandiseTableViewCellHeight;
+    CGFloat cellHeight = 0.f;
+    if (tableView.tag == 0) {
+        cellHeight = 370.f;
+    }
+    else
+    {
+        cellHeight = kMerchandiseTableViewCellHeight;
+    }
+
+    return cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -395,6 +395,12 @@
 		D676302719A7741C0015CADF /* level9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301E19A7741B0015CADF /* level9@2x.png */; };
 		D676302819A7741C0015CADF /* level10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301F19A7741B0015CADF /* level10@2x.png */; };
 		D676302A19A774740015CADF /* level1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676302919A774740015CADF /* level1@2x.png */; };
+		D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */; };
+		D67ACA5319ACB5AA005EF9E8 /* xiaojibg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5219ACB5AA005EF9E8 /* xiaojibg@2x.png */; };
+		D67ACA5519ACB799005EF9E8 /* shopbg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5419ACB799005EF9E8 /* shopbg2@2x.png */; };
+		D67ACA5719ACBB40005EF9E8 /* exchange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */; };
+		D67ACA5919ACBB4C005EF9E8 /* good2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */; };
+		D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */; };
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D6941CAA19A6F3F300946E97 /* TaskSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */; };
@@ -995,6 +1001,13 @@
 		D676301E19A7741B0015CADF /* level9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level9@2x.png"; sourceTree = "<group>"; };
 		D676301F19A7741B0015CADF /* level10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level10@2x.png"; sourceTree = "<group>"; };
 		D676302919A774740015CADF /* level1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level1@2x.png"; sourceTree = "<group>"; };
+		D67ACA4F19ACB157005EF9E8 /* XiaojiRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaojiRecommendTableViewCell.h; sourceTree = "<group>"; };
+		D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaojiRecommendTableViewCell.m; sourceTree = "<group>"; };
+		D67ACA5219ACB5AA005EF9E8 /* xiaojibg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiaojibg@2x.png"; sourceTree = "<group>"; };
+		D67ACA5419ACB799005EF9E8 /* shopbg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopbg2@2x.png"; sourceTree = "<group>"; };
+		D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exchange@2x.png"; sourceTree = "<group>"; };
+		D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good2@2x.png"; sourceTree = "<group>"; };
+		D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku3@2x.png"; sourceTree = "<group>"; };
 		D683A049199D987B001E3DA9 /* UpdateContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateContactInfoViewController.h; sourceTree = "<group>"; };
 		D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateContactInfoViewController.m; sourceTree = "<group>"; };
 		D690352119A4C0D30059C08C /* MyPointsRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsRecordViewController.h; sourceTree = "<group>"; };
@@ -1355,6 +1368,8 @@
 				6FE655A31942D679009617C9 /* ActivityMerchandiseTableViewCell.m */,
 				D6C7CC8C199B99F300EC3061 /* SelectContactAddressTableViewCell.h */,
 				D6C7CC8D199B99F300EC3061 /* SelectContactAddressTableViewCell.m */,
+				D67ACA4F19ACB157005EF9E8 /* XiaojiRecommendTableViewCell.h */,
+				D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */,
 			);
 			name = table_view_cell;
 			sourceTree = "<group>";
@@ -2129,6 +2144,11 @@
 				6F363314193F18F700340645 /* icon_shopping_cart@2x.png */,
 				6F72C1911976644700100D12 /* points_blue@2x.png */,
 				6F72C1971976889C00100D12 /* rmb_blue@2x.png */,
+				D67ACA5219ACB5AA005EF9E8 /* xiaojibg@2x.png */,
+				D67ACA5419ACB799005EF9E8 /* shopbg2@2x.png */,
+				D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */,
+				D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */,
+				D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -2488,6 +2508,7 @@
 				D3644C20197A171000B44785 /* dianru_purple_dianru_info.png in Resources */,
 				6F41897F194858B400F9DC2C /* checkbox_selected@2x.png in Resources */,
 				6F4FA07819A489460049C023 /* 5@2x.png in Resources */,
+				D67ACA5919ACBB4C005EF9E8 /* good2@2x.png in Resources */,
 				D3644C2F197A171000B44785 /* dianru_red_dianru_triangle.png in Resources */,
 				6F4FA07919A489460049C023 /* 6@2x.png in Resources */,
 				D3644C2D197A171000B44785 /* dianru_red_dianru_iphone_download.png in Resources */,
@@ -2547,6 +2568,7 @@
 				D3644C13197A171000B44785 /* dianru_orange_dianru_bottom.png in Resources */,
 				6F75A54E1958132B00E4FE52 /* icon_domob@2x.png in Resources */,
 				D676302419A7741C0015CADF /* level6@2x.png in Resources */,
+				D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */,
 				6F726B4E196D0ECB00875B05 /* icon114@2x.png in Resources */,
 				6F2C52C419751D2C0045BFC1 /* guide3-568h@2x.png in Resources */,
 				D3644C23197A171000B44785 /* dianru_purple_dianru_triangle.png in Resources */,
@@ -2583,11 +2605,13 @@
 				D3644C06197A171000B44785 /* dianru_yuanjiao_horizontal.png in Resources */,
 				D3644C2B197A171000B44785 /* dianru_red_dianru_download.png in Resources */,
 				6FBB6B9B1973D55500E6C7D2 /* logo2@2x.png in Resources */,
+				D67ACA5719ACBB40005EF9E8 /* exchange@2x.png in Resources */,
 				D6C7CC90199BA91000EC3061 /* line.png in Resources */,
 				D3644C29197A171000B44785 /* dianru_red_all_cell11.png in Resources */,
 				6F3D22DF1963EC5600F52F18 /* likes@2x.png in Resources */,
 				6F4FA07B19A489460049C023 /* 8@2x.png in Resources */,
 				D3644C2A197A171000B44785 /* dianru_red_dianru_bottom.png in Resources */,
+				D67ACA5519ACB799005EF9E8 /* shopbg2@2x.png in Resources */,
 				6F4FA08119A48A560049C023 /* triangle@2x.png in Resources */,
 				6F97096D193F3EEF00EA5E3A /* btn_blue@2x.png in Resources */,
 				D62FBE0C19A620470041195B /* mm@2x.png in Resources */,
@@ -2615,6 +2639,7 @@
 				D3644C0A197A171000B44785 /* dianru_green_dianru_info.png in Resources */,
 				D3644BF6197A171000B44785 /* dianru_banner.png in Resources */,
 				6FBE92911941BABE00B94195 /* shopping_cart@2x.png in Resources */,
+				D67ACA5319ACB5AA005EF9E8 /* xiaojibg@2x.png in Resources */,
 				D3644C25197A171000B44785 /* dianru_purple_left_view.png in Resources */,
 				D3644C1E197A171000B44785 /* dianru_purple_dianru_bottom.png in Resources */,
 				6F8823D71940531F00757633 /* blueArrow.png in Resources */,
@@ -2863,6 +2888,7 @@
 				6DD5676E4C2E11196167B914 /* UIDevice+SystemVersion.m in Sources */,
 				6F97097F193F4E0000EA5E3A /* NSDictionary+Extension.m in Sources */,
 				6F72C18919762DD200100D12 /* DynamicGroupButtonView.m in Sources */,
+				D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */,
 				6F2BD0B4194C51670092BA23 /* OrderFooterView.m in Sources */,
 				D6941CAA19A6F3F300946E97 /* TaskSubCategoryViewController.m in Sources */,
 				6F8823D11940531F00757633 /* LoadMoreTableFooterView.m in Sources */,

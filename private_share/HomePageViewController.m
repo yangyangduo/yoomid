@@ -39,6 +39,7 @@ NSString * const fileName = @"categories4.plist";
     UIButton *repoButton;
     int lastRefreshTime;
     BOOL blg;
+    NSTimer *times;
 }
 
 -(NSString *)dirDoc{
@@ -159,7 +160,10 @@ NSString * const fileName = @"categories4.plist";
         }
 
     }
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+    if (times == nil)
+    {
+        times = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+    }
 }
 
 -(void)timerFired:(id)time
@@ -304,6 +308,8 @@ NSString * const fileName = @"categories4.plist";
 
 - (void)dealloc
 {
+    [times invalidate];
+    times = nil;
     NSLog(@"dealloc");
 }
 
@@ -338,16 +344,7 @@ NSString * const fileName = @"categories4.plist";
     {
         cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
     }
-    
-    
-    if (indexPath.row == 0) {
-        UIView *rightLineView1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, cell.bounds.size.width-80, 1.5)];
-        rightLineView1.backgroundColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
-        [cell addSubview:rightLineView1];
-        UIView *leftLineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 1.5)];
-        leftLineView1.backgroundColor = [UIColor colorWithRed:59.f / 255.f green:67.f / 255.f blue:77.f / 255.f alpha:1.0f];
-        [cell addSubview:leftLineView1];
-    }
+ 
 
     return cell;
 }

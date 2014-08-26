@@ -27,13 +27,21 @@
         _bg_image = [[UIImageView alloc]initWithFrame:CGRectMake(_bg_lable.bounds.size.width/2-17, _bg_lable.bounds.size.height/2-17, 33, 33)];
         [_bg_lable addSubview:_bg_image];
         
-        UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(80, self.bounds.size.height-1, self.bounds.size.width-80, 1.5)];
+        UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(80, self.bounds.size.height, self.bounds.size.width-80, 1.5)];
         rightLineView.backgroundColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
         [self addSubview:rightLineView];
         
-        UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-1, 80, 1.5)];
+        UIView *leftLineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bounds.size.height, 80, 1.5)];
         leftLineView.backgroundColor = [UIColor colorWithRed:59.f / 255.f green:67.f / 255.f blue:77.f / 255.f alpha:1.0f];
         [self addSubview:leftLineView];
+        
+        UIView *rightLineView1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, self.bounds.size.width-80, 1.5)];
+        rightLineView1.backgroundColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
+        [self addSubview:rightLineView1];
+        
+        UIView *leftLineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 1.5)];
+        leftLineView1.backgroundColor = [UIColor colorWithRed:59.f / 255.f green:67.f / 255.f blue:77.f / 255.f alpha:1.0f];
+        [self addSubview:leftLineView1];
         
         _title_lable = [[UILabel alloc]initWithFrame:CGRectMake(80, 0, (self.bounds.size.width-80)/2, self.bounds.size.height)];
         _title_lable.textAlignment = NSTextAlignmentCenter;

@@ -84,15 +84,18 @@
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    if(segmentedControl.selectedSegmentIndex == 0) {
+    if(segmentedControl.selectedSegmentIndex == 0)
+    {
         orderState = MerchandiseOrderStateSubmitted;
         merchandiseOrders = [NSMutableArray arrayWithArray:submittedOrders];
         _collectionView_.pullLastRefreshDate = submittedOrdersRefreshDate;
-    } else if(segmentedControl.selectedSegmentIndex == 1) {
+    } else if(segmentedControl.selectedSegmentIndex == 1)
+    {
         orderState = MerchandiseOrderStateTransaction;
         merchandiseOrders = [NSMutableArray arrayWithArray:transactionOrders];
         _collectionView_.pullLastRefreshDate = transactionOrdersRefreshDate;
-    } else {
+    } else
+    {
         orderState = MerchandiseOrderStateCancelled;
         merchandiseOrders = [NSMutableArray arrayWithArray:cancelledOrders];
         _collectionView_.pullLastRefreshDate = cancelledOrdersRefreshDate;
