@@ -55,7 +55,6 @@ NSString * const fileName = @"categories4.plist";
     if (self) {
         categoriesArray = [[NSMutableArray alloc]init];
         parentCategoryArray = [[NSMutableArray alloc]init];
-        blg = true;
     }
     return self;
 }
@@ -282,29 +281,23 @@ NSString * const fileName = @"categories4.plist";
 
 -(void)actionRepo:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    navigationController.modalPresentationStyle = UIModalPresentationCustom;
-    navigationController.transitioningDelegate = self;
-    
-    self.animationController.panDirection = PanDirectionLeft;
     self.animationController.animationType = PanAnimationControllerTypePresentation;
-    self.animationController.ignoreOffset = YES;
+    shoppingCartVC.modalPresentationStyle = UIModalPresentationCustom;
     
-<<<<<<< HEAD
     if(self.navigationController != nil) {
         [self.navigationController pushViewController:shoppingCartVC animated:YES];
 
     }
-=======
-    [self presentViewController:navigationController animated:YES completion:^{ }];
->>>>>>> FETCH_HEAD
 }
 
 -(void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
+}
+
+-(void)viewDidUnload
+{
+    
 }
 
 - (void)dealloc
