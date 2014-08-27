@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TransitionViewController.h"
 
-@interface TaskDetailViewController : UIViewController
+@interface TaskDetailViewController : TransitionViewController<UIWebViewDelegate>
+
+- (instancetype)initWithTaskDetailUrl:(NSString *)url;
 
 @end

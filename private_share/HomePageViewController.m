@@ -14,6 +14,7 @@
 #import "UIDevice+ScreenSize.h"
 #import "ShoppingCartViewController2.h"
 #import "UIImage+Color.h"
+#import "TaskDetailViewController.h"
 
 NSString * const homePageCell = @"homePageCell";
 NSString * const fileName = @"categories4.plist";
@@ -418,9 +419,19 @@ NSString * const fileName = @"categories4.plist";
     }
     else    //
     {
-    
+        TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
+        [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+        
+        navigationController.transitioningDelegate = self;
+        navigationController.modalPresentationStyle = UIModalPresentationCustom;
+        self.animationController.panDirection = PanDirectionLeft;
+        self.animationController.animationType = PanAnimationControllerTypePresentation;
+        self.animationController.ignoreOffset = YES;
+        [self.navigationController presentViewController:navigationController animated:YES completion:^{ }];
     }
 }
+
 
 
 #pragma mark -

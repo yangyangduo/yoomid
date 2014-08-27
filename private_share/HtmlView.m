@@ -81,13 +81,13 @@
 #pragma mark Web View Delegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
     if(_loadingView_.superview != nil) {
         [indicatorView stopAnimating];
         [_loadingView_ removeFromSuperview];
     }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
 }
 
 @end

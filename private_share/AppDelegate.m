@@ -26,7 +26,7 @@
 #import "MiidiAdWall.h"
 #import "HomePageViewController.h"
 
-#import "NewTaskViewController.h"
+#import "TaskDetailViewController.h"
 
 @implementation AppDelegate
 

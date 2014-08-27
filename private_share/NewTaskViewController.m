@@ -90,6 +90,8 @@
     
     NSLog(@"先  %@ .%@..  %@",[fromVC description], [toVC description] , (self.animationController.animationType == PanAnimationControllerTypeDismissal ? @"dismiss" : @"present"));
     return self.animationController;
+    
+
 }
 
 
