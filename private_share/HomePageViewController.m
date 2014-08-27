@@ -169,7 +169,8 @@ NSString * const fileName = @"categories4.plist";
 -(void)timerFired:(id)time
 {
     if (lastRefreshTime < 1801)
-        NSLog(@"time:%d", lastRefreshTime++);
+        lastRefreshTime++;
+//        NSLog(@"time:%d", lastRefreshTime++);
 }
 
 -(void)isFileExistsAtPath

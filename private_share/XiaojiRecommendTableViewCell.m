@@ -19,7 +19,7 @@
     if (self) {
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-//        self.backgroundColor = [UIColor grayColor];
+
         UIImageView *bgImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 370)];
         bgImage.image = [UIImage imageNamed:@"shopbg2"];
         [self addSubview:bgImage];
@@ -40,7 +40,9 @@
         exchangeBtn.frame = CGRectMake(imageView.bounds.size.width-94, imageView.bounds.size.height-35, 94, 35);
         [exchangeBtn setTitle:@"我要兑换" forState:UIControlStateNormal];
         [exchangeBtn setTintColor:[UIColor whiteColor]];
-        [exchangeBtn setImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
+        exchangeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
+        [exchangeBtn setBackgroundImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
+        [exchangeBtn setTitleEdgeInsets:UIEdgeInsetsMake(7, 15, 0, 0)];
         [imageView addSubview:exchangeBtn];
     }
     return self;
