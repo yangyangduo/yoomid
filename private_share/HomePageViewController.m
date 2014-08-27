@@ -134,10 +134,7 @@ NSString * const fileName = @"categories4.plist";
     
     NSDictionary *tempD = [[NSDictionary alloc]initWithContentsOfFile:testPath];
     NSMutableArray *array = [tempD objectForKey:@"categories"];
-    if (blg)
-    {
-        lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
-    }
+    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
     
     NSLog(@"文件读取成功: %@",array);
     if (array == NULL)//空 请求新的数据 显示并存到文件
@@ -290,7 +287,7 @@ NSString * const fileName = @"categories4.plist";
     
     if(self.navigationController != nil) {
         [self.navigationController pushViewController:shoppingCartVC animated:YES];
-        blg = false;
+
     }
 }
 
@@ -367,7 +364,6 @@ NSString * const fileName = @"categories4.plist";
 
 //cell被选择时被调用
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    blg = false;
 
     NSDictionary *tempD = [parentCategoryArray objectAtIndex:indexPath.row];
     NSString *strID = [tempD objectForKey:@"id"];
