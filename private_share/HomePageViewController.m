@@ -37,9 +37,7 @@ NSString * const fileName = @"categories4.plist";
     
     UIButton *notificationsButton;
     UIButton *repoButton;
-    int lastRefreshTime;
-    BOOL blg;
-    NSTimer *times;
+//    int lastRefreshTime;
 }
 
 -(NSString *)dirDoc{
@@ -128,12 +126,17 @@ NSString * const fileName = @"categories4.plist";
 {
     [super viewDidAppear:animated];
     //每次进入页面首先检查文件里面有没有数据
+    NSFileManager *fm = [NSFileManager defaultManager];
     NSString *documentsPath =[self dirDoc];
-    NSString *testPath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSDictionary *fileAttributes = [fm attributesOfItemAtPath:filePath error:nil];
+
+    NSMutableArray *array = [[NSMutableArray alloc]initWithContentsOfFile:filePath];
+//    NSMutableArray *array = [tempD objectForKey:@"categories"];
     
-    NSDictionary *tempD = [[NSDictionary alloc]initWithContentsOfFile:testPath];
-    NSMutableArray *array = [tempD objectForKey:@"categories"];
-    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
+    NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
+    
+//    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
     
     NSLog(@"文件读取成功: %@",array);
     if (array == NULL)//空 请求新的数据 显示并存到文件
@@ -142,10 +145,8 @@ NSString * const fileName = @"categories4.plist";
     }
     else//不为空
     {
-        if (lastRefreshTime > 1800)//大于半小时，请求数据，
+        if ([self lastRefreshTimeCompare:fileModDate])//大于半小时，请求数据，
         {
-            lastRefreshTime = 0;
-            
             [self getCategoriesInfo];
         }
         else//显示文件里的数据
@@ -156,17 +157,54 @@ NSString * const fileName = @"categories4.plist";
         }
 
     }
-    if (times == nil)
-    {
-        times = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-    }
 }
 
--(void)timerFired:(id)time
+-(BOOL)lastRefreshTimeCompare:(NSDate*)fileModDate
 {
-    if (lastRefreshTime < 1801)
-        lastRefreshTime++;
-//        NSLog(@"time:%d", lastRefreshTime++);
+    BOOL result;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:fileModDate];
+    
+    int fileModYear = [dateComponent year];
+    int fileModMonth = [dateComponent month];
+    int fileModDay = [dateComponent day];
+    int fileModHour = [dateComponent hour];
+    int fileModMinute = [dateComponent minute];
+//    int fileModSecond = [dateComponent second];
+    
+    dateComponent = [calendar components:unitFlags fromDate:[NSDate date]];
+    int nowYear = [dateComponent year];
+    int nowMonth = [dateComponent month];
+    int nowDay = [dateComponent day];
+    int nowHour = [dateComponent hour];
+    int nowMinute = [dateComponent minute];
+//    int nowSecond = [dateComponent second];
+    
+    if (nowYear > fileModYear) {
+        result = YES;
+    }else if (nowMonth > fileModMonth)
+    {
+        result = YES;
+    }
+    else if (nowDay > fileModDay)
+    {
+        result = YES;
+    }
+    else if (nowHour > fileModHour)
+    {
+        result = YES;
+    }
+    else if ((nowMinute - fileModMinute)>= 30)
+    {
+        result = YES;
+    }
+    else
+    {
+        result = NO;
+    }
+
+    return result;
 }
 
 -(void)isFileExistsAtPath
@@ -179,19 +217,19 @@ NSString * const fileName = @"categories4.plist";
     //把TestPlist文件加入
     
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
-    
-    //开始创建文件
     BOOL isEx = [fm fileExistsAtPath:plistPath];
 
     if (!isEx)
     {
         BOOL res=[fm createFileAtPath:plistPath contents:nil attributes:nil];
+#ifdef DEBUG
         if (res)
         {
             NSLog(@"文件创建成功: %@" ,plistPath);
         }else
             NSLog(@"文件创建失败");
     }
+#endif
 }
 /*
 //读文件
@@ -226,13 +264,15 @@ NSString * const fileName = @"categories4.plist";
     
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
     
-    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",lastRefreshTime],@"lastRefreshTime",categoriesArray,@"categories", nil];
+//    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",lastRefreshTime],@"lastRefreshTime",categoriesArray,@"categories", nil];
     
-    BOOL res = [tempD writeToFile:plistPath atomically:YES];
+    BOOL res = [categoriesArray writeToFile:plistPath atomically:YES];
+#ifdef DEBUG
     if (res) {
         NSLog(@"文件写入成功");
     }else
         NSLog(@"文件写入失败");
+#endif
 }
 
 -(void)getCategoriesInfo
@@ -298,8 +338,7 @@ NSString * const fileName = @"categories4.plist";
 
 - (void)dealloc
 {
-    [times invalidate];
-    times = nil;
+    
 }
 
 #pragma mark - 

@@ -31,6 +31,17 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 70, 29);//
+    [backBtn setTitle:@"首页" forState:UIControlStateNormal];
+//    [backBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+//    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -40)];
+    [backBtn addTarget:self action:@selector(backHomePage) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
     self.title = NSLocalizedString(@"mi_repo2", @"");
     self.view.backgroundColor = [UIColor appSilver];
     
@@ -72,6 +83,11 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     }
     
     [self refreshSettlementView];
+}
+
+-(void)backHomePage
+{
+    [self dismiss];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
