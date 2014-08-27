@@ -184,6 +184,11 @@
 {
     return 50.f;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
+}
+
 
 #pragma mark Text Field Delegate
 

@@ -73,7 +73,7 @@ NSString * const fileName = @"categories4.plist";
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:homePageCell];
     [self.view addSubview:_collectionView];
     
-    pullImagesView = [[PullScrollZoomImagesView alloc]initAndEmbeddedInScrollView:_collectionView viewHeight:[UIDevice is4InchDevice] ? 340 : 280];
+    pullImagesView = [[PullScrollZoomImagesView alloc]initAndEmbeddedInScrollView:_collectionView viewHeight:[UIDevice is4InchDevice] ? 330 : 280];
     pullImagesView.delegate = self;
     
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, pullImagesView.bounds.size.height-20, 80, 30)];
@@ -378,7 +378,7 @@ NSString * const fileName = @"categories4.plist";
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.view.bounds.size.width, 70);
+    return CGSizeMake(self.view.bounds.size.width, 58);
 }//(self.view.bounds.size.height-pullImagesView.bounds.size.height)/4+1
 
 //设置每组的cell的边界
