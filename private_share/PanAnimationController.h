@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, PanAnimationControllerDismissStyle) {
 
 @property (nonatomic, assign) BOOL isInteractive;
 
+@property (nonatomic, assign) BOOL ignoreOffset;
+
 @property (nonatomic, assign) PanAnimationControllerDismissStyle dismissStyle;
 
 @property (nonatomic, weak) id<PanAnimationControllerDelegate> delegate;

@@ -35,7 +35,6 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     self.view.backgroundColor = [UIColor appSilver];
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-    self.animationController.dismissStyle = PanAnimationControllerDismissStyleTransition;
     
     [ShoppingCart myShoppingCart].allSelect = NO;
     

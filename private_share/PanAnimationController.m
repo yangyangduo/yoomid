@@ -32,6 +32,8 @@
 @synthesize rightPanAnimationType;
 @synthesize panDirection;
 
+@synthesize ignoreOffset;
+
 @synthesize isInteractive;
 
 @synthesize dismissStyle;
@@ -109,13 +111,15 @@
         
         //
         presentationEndOffset = 0;
-        if(PanDirectionRight == panDirection) {
-            if(self.delegate != nil && [self.delegate respondsToSelector:@selector(leftPresentViewControllerOffset)]) {
-                presentationEndOffset = -[self.delegate leftPresentViewControllerOffset];
-            }
-        } else if(PanDirectionLeft == panDirection) {
-            if(self.delegate != nil && [self.delegate respondsToSelector:@selector(rightPresentViewControllerOffset)]) {
-                presentationEndOffset = [self.delegate rightPresentViewControllerOffset];
+        if(!self.ignoreOffset) {
+            if(PanDirectionRight == panDirection) {
+                if(self.delegate != nil && [self.delegate respondsToSelector:@selector(leftPresentViewControllerOffset)]) {
+                    presentationEndOffset = -[self.delegate leftPresentViewControllerOffset];
+                }
+            } else if(PanDirectionLeft == panDirection) {
+                if(self.delegate != nil && [self.delegate respondsToSelector:@selector(rightPresentViewControllerOffset)]) {
+                    presentationEndOffset = [self.delegate rightPresentViewControllerOffset];
+                }
             }
         }
         presentationEndOffset = presentationEndOffset / 2;
@@ -130,6 +134,7 @@
                              isAnimating = NO;
                              presentationEndOffset = 0;
                              panDirection = PanDirectionNone;
+                             ignoreOffset = NO;
                          }];
     } else {
         if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
@@ -149,6 +154,7 @@
                              [transitionContext completeTransition:YES];
                              isAnimating = NO;
                              panDirection = PanDirectionNone;
+                             ignoreOffset = NO;
                          }];
     }
 }
@@ -284,6 +290,8 @@
                 context = nil;
                 transitionView = nil;
                 _containerView_ = nil;
+                
+                self.ignoreOffset = NO;
                 
                 isAnimating = NO;
                 dismissalStartOffset = 0;
