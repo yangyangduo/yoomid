@@ -10,8 +10,9 @@
 #import "SettlementView.h"
 #import "ContactService.h"
 #import "SelectContactAddressViewController.h"
+#import "PanBackTransitionViewController.h"
 
-@interface PurchaseViewController : BaseViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SettlementViewDelegate, selectContactInfoDelegate,UIAlertViewDelegate>
+@interface PurchaseViewController : PanBackTransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SettlementViewDelegate, selectContactInfoDelegate,UIAlertViewDelegate>
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss;
 

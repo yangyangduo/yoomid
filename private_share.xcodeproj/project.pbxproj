@@ -255,6 +255,7 @@
 		6FD8A1D71977D7B100514C17 /* ShoppingCartViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8A1D61977D7B100514C17 /* ShoppingCartViewController2.m */; };
 		6FD8A1DA1977D87100514C17 /* ShoppingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */; };
 		6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD9DF7819A713C60066CA88 /* TransitionViewController.m */; };
+		6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */; };
 		6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0093D1953D99B002A675D /* SettingsViewController.m */; };
 		6FE009411953DED3002A675D /* AboutYoomidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE009401953DED3002A675D /* AboutYoomidViewController.m */; };
 		6FE009451953DF1B002A675D /* contact_us.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FE009431953DF1B002A675D /* contact_us.html */; };
@@ -822,6 +823,8 @@
 		6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemCell.m; sourceTree = "<group>"; };
 		6FD9DF7719A713C60066CA88 /* TransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionViewController.h; sourceTree = "<group>"; };
 		6FD9DF7819A713C60066CA88 /* TransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionViewController.m; sourceTree = "<group>"; };
+		6FDC950C19AD9F8A00F51E8D /* PanBackTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanBackTransitionViewController.h; sourceTree = "<group>"; };
+		6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanBackTransitionViewController.m; sourceTree = "<group>"; };
 		6FE0093C1953D99B002A675D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6FE0093D1953D99B002A675D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6FE0093F1953DED3002A675D /* AboutYoomidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutYoomidViewController.h; sourceTree = "<group>"; };
@@ -1112,6 +1115,8 @@
 				6FE009481953DF5C002A675D /* WebViewController.m */,
 				6F7BD3221953F5F50031D2DD /* QRCodeScannerViewController.h */,
 				6F7BD3231953F5F50031D2DD /* QRCodeScannerViewController.m */,
+				6FDC950C19AD9F8A00F51E8D /* PanBackTransitionViewController.h */,
+				6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2831,6 +2836,7 @@
 				6F2C52AC1974D3850045BFC1 /* PopupView.m in Sources */,
 				6F970999193F542500EA5E3A /* BaseService.m in Sources */,
 				6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */,
+				6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */,
 				6F72A3F3193DFF17001DAA3E /* ViewControllerAccessor.m in Sources */,
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F8D84CA194557F300D1D123 /* PaymentCollectionViewCell.m in Sources */,

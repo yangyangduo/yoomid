@@ -12,8 +12,9 @@
 @end
 
 #import "BaseViewController.h"
+#import "PanBackTransitionViewController.h"
 
-@interface SelectContactAddressViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SelectContactAddressViewController : PanBackTransitionViewController<UITableViewDataSource,UITableViewDelegate>
 
 
 @property(nonatomic,strong)UITableView *tableView;

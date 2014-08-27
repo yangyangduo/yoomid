@@ -283,9 +283,6 @@ NSString * const fileName = @"categories4.plist";
 {
 }
 
-
-
-
 -(void)actionRepo:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     self.animationController.animationType = PanAnimationControllerTypePresentation;
@@ -311,7 +308,6 @@ NSString * const fileName = @"categories4.plist";
 {
     [times invalidate];
     times = nil;
-    NSLog(@"dealloc");
 }
 
 #pragma mark - 
@@ -447,7 +443,7 @@ NSString * const fileName = @"categories4.plist";
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if([viewController isKindOfClass:[HomePageViewController class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
