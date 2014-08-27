@@ -256,6 +256,7 @@
 		6FD8A1DA1977D87100514C17 /* ShoppingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */; };
 		6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD9DF7819A713C60066CA88 /* TransitionViewController.m */; };
 		6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */; };
+		6FDC951119ADAA7A00F51E8D /* TaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */; };
 		6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0093D1953D99B002A675D /* SettingsViewController.m */; };
 		6FE009411953DED3002A675D /* AboutYoomidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE009401953DED3002A675D /* AboutYoomidViewController.m */; };
 		6FE009451953DF1B002A675D /* contact_us.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FE009431953DF1B002A675D /* contact_us.html */; };
@@ -825,6 +826,8 @@
 		6FD9DF7819A713C60066CA88 /* TransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionViewController.m; sourceTree = "<group>"; };
 		6FDC950C19AD9F8A00F51E8D /* PanBackTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanBackTransitionViewController.h; sourceTree = "<group>"; };
 		6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanBackTransitionViewController.m; sourceTree = "<group>"; };
+		6FDC950F19ADAA7A00F51E8D /* TaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailViewController.h; sourceTree = "<group>"; };
+		6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailViewController.m; sourceTree = "<group>"; };
 		6FE0093C1953D99B002A675D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6FE0093D1953D99B002A675D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6FE0093F1953DED3002A675D /* AboutYoomidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutYoomidViewController.h; sourceTree = "<group>"; };
@@ -1752,6 +1755,8 @@
 				D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */,
 				D6941CA819A6F3F300946E97 /* TaskSubCategoryViewController.h */,
 				D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */,
+				6FDC950F19ADAA7A00F51E8D /* TaskDetailViewController.h */,
+				6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2846,6 +2851,7 @@
 				6F0177C4196A4DC7003DD9E3 /* ProgressView.m in Sources */,
 				6F2BD0B1194C50FE0092BA23 /* OrderHeaderView.m in Sources */,
 				D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */,
+				6FDC951119ADAA7A00F51E8D /* TaskDetailViewController.m in Sources */,
 				6F36330D193F00E000340645 /* PartViewCreator.m in Sources */,
 				6FD8A1D71977D7B100514C17 /* ShoppingCartViewController2.m in Sources */,
 				6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */,
