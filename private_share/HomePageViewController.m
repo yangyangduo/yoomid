@@ -281,23 +281,19 @@ NSString * const fileName = @"categories4.plist";
 
 -(void)actionRepo:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
-    self.animationController.animationType = PanAnimationControllerTypePresentation;
-    shoppingCartVC.modalPresentationStyle = UIModalPresentationCustom;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    navigationController.modalPresentationStyle = UIModalPresentationCustom;
+    navigationController.transitioningDelegate = self;
     
-    if(self.navigationController != nil) {
-        [self.navigationController pushViewController:shoppingCartVC animated:YES];
-
-    }
+    self.animationController.animationType = PanAnimationControllerTypePresentation;
+    
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{ }];
 }
 
 -(void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
-}
-
--(void)viewDidUnload
-{
-    
 }
 
 - (void)dealloc
