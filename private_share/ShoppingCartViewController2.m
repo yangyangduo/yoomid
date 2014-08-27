@@ -232,4 +232,10 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     [self showPurchaseViewController];
 }
 
+- (void)dismiss {
+    self.animationController.panDirection = PanDirectionRight;
+    self.animationController.animationType = PanAnimationControllerTypeDismissal;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
