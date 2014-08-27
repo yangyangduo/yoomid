@@ -35,7 +35,6 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     self.view.backgroundColor = [UIColor appSilver];
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-    self.animationController.dismissStyle = PanAnimationControllerDismissStyleTransition;
     
     [ShoppingCart myShoppingCart].allSelect = NO;
     
@@ -231,6 +230,12 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 
 - (void)purchaseButtonPressed:(id)sender {
     [self showPurchaseViewController];
+}
+
+- (void)dismiss {
+    self.animationController.panDirection = PanDirectionRight;
+    self.animationController.animationType = PanAnimationControllerTypeDismissal;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
