@@ -128,8 +128,11 @@ NSString * const fileName = @"categories4.plist";
     [super viewDidAppear:animated];
     //每次进入页面首先检查文件里面有没有数据
     NSFileManager *fm = [NSFileManager defaultManager];
+    // categoriesInfoDirectory -->static
     NSString *documentsPath =[self dirDoc];
     NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    
+    //&error
     NSDictionary *fileAttributes = [fm attributesOfItemAtPath:filePath error:nil];
 
     NSMutableArray *array = [[NSMutableArray alloc]initWithContentsOfFile:filePath];
@@ -148,6 +151,7 @@ NSString * const fileName = @"categories4.plist";
     {
         if ([self lastRefreshTimeCompare:fileModDate])//大于半小时，请求数据，
         {
+            // 需要显示
             [self getCategoriesInfo];
         }
         else//显示文件里的数据
@@ -160,6 +164,7 @@ NSString * const fileName = @"categories4.plist";
     }
 }
 
+//- (BOOL)isCategoriesInfoTooOld:(NSDate *)fileLastModificationDate
 -(BOOL)lastRefreshTimeCompare:(NSDate*)fileModDate
 {
     BOOL result;
@@ -208,6 +213,7 @@ NSString * const fileName = @"categories4.plist";
     return result;
 }
 
+//- (void)createCategoriesInfoFileIfNotExists
 -(void)isFileExistsAtPath
 {
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -220,7 +226,7 @@ NSString * const fileName = @"categories4.plist";
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
     BOOL isEx = [fm fileExistsAtPath:plistPath];
 
-    if (!isEx)
+    if (!isEx) // [fm fileExistsAtPath:plistPath];
     {
         BOOL res=[fm createFileAtPath:plistPath contents:nil attributes:nil];
 #ifdef DEBUG
@@ -230,6 +236,7 @@ NSString * const fileName = @"categories4.plist";
         }else
             NSLog(@"文件创建失败");
     }
+    // production compile failure
 #endif
 }
 /*
@@ -290,6 +297,7 @@ NSString * const fileName = @"categories4.plist";
     }
     for (NSDictionary *temDict in categoriesArray)
     {
+        // import extension
         if ([[temDict objectForKey:@"parent"] boolValue] == false)
         {
             [parentCategoryArray addObject:temDict];
@@ -320,6 +328,7 @@ NSString * const fileName = @"categories4.plist";
 {
 }
 
+// showMiRepository
 -(void)actionRepo:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
@@ -399,22 +408,31 @@ NSString * const fileName = @"categories4.plist";
 
 //cell被选择时被调用
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    // category
     NSDictionary *tempD = [parentCategoryArray objectAtIndex:indexPath.row];
+    // category id
     NSString *strID = [tempD objectForKey:@"id"];
+    
+    // subCategories
     NSMutableArray *subcategoryAarray = [[NSMutableArray alloc]init];
+    
     BOOL b = NO;
+    // subCategory
     for (NSDictionary *Dtemp in categoriesArray)
     {
+        // find  parents id
         NSString *str = [Dtemp objectForKey:@"parentCategory"];
+        // any parent category matched strID(sub id)
         if ([strID isEqualToString:str])
         {
             [subcategoryAarray addObject:Dtemp];
             b = YES;
+            // break;
         }
     }
     
-    if (b) {//push subcategory
+    if (b) {
+        //subCategories
         ;
     }
     else    //
