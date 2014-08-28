@@ -10,7 +10,5 @@
 
 @interface SelectContactAddressTableViewCell : UITableViewCell
 
-@property(nonatomic,strong)UILabel *name;
-@property(nonatomic,strong)UILabel *phoneNumber;
-@property(nonatomic,strong)UILabel *address;
+@property (nonatomic,strong)NSDictionary *rowData;
 @end

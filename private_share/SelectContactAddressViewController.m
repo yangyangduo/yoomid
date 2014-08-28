@@ -42,8 +42,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"管理" style:UIBarButtonItemStylePlain target:self action:@selector(manageContactAddress:)];
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStylePlain];
-    _tableView.backgroundColor  = [UIColor clearColor];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -98,18 +97,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
-    //    用TableSampleIdentifier表示需要重用的单元
     SelectContactAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
-    //    如果如果没有多余单元，则需要创建新的单元
     if (cell == nil) {
         cell = [[SelectContactAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
     NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-    
-    cell.name.text = [rowData objectForKey:@"name"];
-    cell.phoneNumber.text = [rowData objectForKey:@"contactPhone"];
-    cell.address.text = [rowData objectForKey:@"deliveryAddress"];
-    
+    cell.rowData = rowData;
     if (indexPath.row == fags) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }else {
@@ -121,7 +114,18 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.f;
+    CGFloat cellHeight;
+    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
+    if(rowData == nil)return 0;
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
+    CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
+    cellHeight = 35 + addressLabelHeight + 15;
+    return cellHeight;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
