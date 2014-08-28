@@ -25,7 +25,7 @@
 #import "MiidiManager.h"
 #import "MiidiAdWall.h"
 #import "HomePageViewController.h"
-
+#import "SettingsViewController.h"
 #import "TaskDetailViewController.h"
 
 @implementation AppDelegate

@@ -97,6 +97,9 @@
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
+    [fromViewController viewWillDisappear:YES];
+    [toViewController viewWillAppear:YES];
+    
     isAnimating = YES;
     
     if(PanAnimationControllerTypePresentation == self.animationType) {
@@ -131,6 +134,10 @@
                          }
                          completion:^(BOOL finished){
                              [transitionContext completeTransition:YES];
+                             
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
+                             
                              isAnimating = NO;
                              presentationEndOffset = 0;
                              panDirection = PanDirectionNone;
@@ -152,6 +159,10 @@
                          }
                          completion:^(BOOL finished){
                              [transitionContext completeTransition:YES];
+                             
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
+                             
                              isAnimating = NO;
                              panDirection = PanDirectionNone;
                              ignoreOffset = NO;
@@ -166,6 +177,9 @@
     UIView *containerView = [transitionContext containerView];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    [fromViewController viewWillDisappear:YES];
+    [toViewController viewWillAppear:YES];
     
     if(PanAnimationControllerTypePresentation == self.animationType) {
         toViewController.view.center = CGPointMake((
@@ -191,6 +205,7 @@
         }
         presentationEndOffset = presentationEndOffset / 2;
     } else {
+        
         if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
             toViewController.view.center = CGPointMake(0, toViewController.view.center.y);
             [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
@@ -230,6 +245,14 @@
 - (void)endInteractiveTransition:(BOOL)cancelled {
     if(transitionView == nil) return;
     
+    UIViewController *fromViewController = [context viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [context viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    if(cancelled) {
+        [fromViewController viewWillAppear:YES];
+        [toViewController viewWillDisappear:YES];
+    }
+    
     CGPoint toPosition = CGPointZero;
     CGFloat toAlpha = 0;
     CGPoint containerPosition = CGPointZero;
@@ -263,25 +286,22 @@
                     maskView.alpha = toAlpha;
                 }
                 if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
-                    UIViewController *toViewController = [context viewControllerForKey:UITransitionContextToViewControllerKey];
-                     toViewController.view.center = CGPointMake(containerPosition.x, toViewController.view.center.y);
+                    toViewController.view.center = CGPointMake(containerPosition.x, toViewController.view.center.y);
                 }
             }
             completion:^(BOOL finished){
                 if(cancelled) {
                     [context cancelInteractiveTransition];
                     [context completeTransition:NO];
-#ifdef DEBUG
-                    NSLog(@"%@ view controller cancelled!",
-                          (PanAnimationControllerTypePresentation == animationType ? @"Presentation" : @"Dismissal"));
-#endif
+                    
+                    [fromViewController viewDidAppear:YES];
+                    [toViewController viewDidDisappear:YES];
                 } else {
                     [context finishInteractiveTransition];
                     [context completeTransition:YES];
-#ifdef DEBUG
-                    NSLog(@"%@ view controller finished!",
-                          (PanAnimationControllerTypePresentation == animationType ? @"Presentation" : @"Dismissal"));
-#endif
+                    
+                    [fromViewController viewDidDisappear:YES];
+                    [toViewController viewDidAppear:YES];
                 }
                 
                 panDirection = PanDirectionNone;
@@ -459,9 +479,6 @@
             percent = abs(translation.x) / ([UIScreen mainScreen].bounds.size.width - dismissalStartOffset);
         }
         
-#ifdef DEBUG
-        NSLog(@"End percent: %.0f%%", percent * 100);
-#endif
         BOOL cancelled = percent <= 0.4f;
         [self endInteractiveTransition:cancelled];
     }

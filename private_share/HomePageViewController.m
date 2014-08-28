@@ -30,7 +30,6 @@ NSString * const fileName = @"categories4.plist";
 {
     PullScrollZoomImagesView *pullImagesView;
     UIScrollView *scrollview;
-    
     UIPageControl *pageControl;
     
     CustomCollectionView *_collectionView;
@@ -42,10 +41,9 @@ NSString * const fileName = @"categories4.plist";
 @synthesize allCategories = _allCategories_;
 @synthesize rootCategories = _rootCategories;
 
--(NSString *)dirDoc{
++ (NSString *)CategoriesInfoDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSLog(@"app_home_doc: %@",documentsDirectory);
     return documentsDirectory;
 }
 
@@ -74,14 +72,8 @@ NSString * const fileName = @"categories4.plist";
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor appBlue];
     [pageControl addTarget:self action:@selector(actionChangePage:) forControlEvents:UIControlEventValueChanged];
-    
     [pullImagesView addSubview:pageControl];
     
-    /*
-    UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
-    topMaskImageView.image = [UIImage imageNamed:@"black_top"];
-    topMaskImageView.userInteractionEnabled = YES;
-    [self.view addSubview:topMaskImageView]; */
     
     NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
     ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
@@ -103,114 +95,73 @@ NSString * const fileName = @"categories4.plist";
  
     repoButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [repoButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
-    [repoButton addTarget:self action:@selector(actionRepo:) forControlEvents:UIControlEventTouchUpInside];
+    [repoButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:repoButton];
     
     [self createCategoriesInfoFileIfNotExists];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+-(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //每次进入页面首先检查文件里面有没有数据
-    NSString *documentsPath =[self dirDoc];
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    
     NSError *error;
+    
+    NSString *filePath = [[[self class] CategoriesInfoDirectory] stringByAppendingPathComponent:fileName];
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
     if(error != nil) return;
     
-    NSMutableArray *array = [[NSMutableArray alloc]initWithContentsOfFile:filePath];
-    NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
-    
-    if (array == NULL)//空 请求新的数据 显示并存到文件
-    {
+    NSMutableArray *categoriesInfo = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
+    if (categoriesInfo == nil) {
         [self getCategoriesInfo];
-    }
-    else//不为空
-    {
-        self.allCategories = array;
+    } else {
+        self.allCategories = categoriesInfo;
         [_collectionView reloadData];
-        if (abs(fileModDate.timeIntervalSinceNow) / 60 > 30)//大于半小时，请求数据，
-        {
-            // 需要显示
+        NSDate *fileModificationDate = [fileAttributes objectForKey:NSFileModificationDate];
+        if (abs(fileModificationDate.timeIntervalSinceNow) / 60 > 30) {
             [self getCategoriesInfo];
         }
     }
 }
 
--(void)createCategoriesInfoFileIfNotExists
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    //找到Documents文件所在的路径
+-(void)createCategoriesInfoFileIfNotExists {
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //取得第一个Documents文件夹的路径
     NSString *filePath = [path objectAtIndex:0];
-    //把TestPlist文件加入
-    
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
-    BOOL isEx = [fm fileExistsAtPath:plistPath];
-
-    if (!isEx) // [fm fileExistsAtPath:plistPath];
-    {
-        BOOL res=[fm createFileAtPath:plistPath contents:nil attributes:nil];
-#ifdef DEBUG
-        if (res)
-        {
-            NSLog(@"文件创建成功: %@" ,plistPath);
-        }else
-            NSLog(@"文件创建失败");
-        }
-#endif
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        [[NSFileManager defaultManager] createFileAtPath:plistPath contents:nil attributes:nil];
+    }
 }
 
-//写文件
--(void)writeFile{
+-(void)saveCategoriesInfoToDisk {
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //取得第一个Documents文件夹的路径
     NSString *filePath = [path objectAtIndex:0];
-    //把TestPlist文件加入
-    
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
-    
-    BOOL res = [self.allCategories writeToFile:plistPath atomically:YES];
-#ifdef DEBUG
-    if (res) {
-        NSLog(@"文件写入成功");
-    }else
-        NSLog(@"文件写入失败");
-    
-#endif
+    [self.allCategories writeToFile:plistPath atomically:YES];
 }
 
--(void)getCategoriesInfo
-{
+-(void)getCategoriesInfo {
     TaskCategoriesService *taskCategories = [[TaskCategoriesService alloc]init];
     [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 -(void)getCategoriesSuccess:(HttpResponse *)resp
 {
-    if (resp.statusCode == 200)
-    {
+    if (resp.statusCode == 200) {
         NSString *result = [[NSString alloc]initWithData:resp.body encoding:NSUTF8StringEncoding];
-        //把parentCategory的空对象转为@""
         result = [result stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
         NSData *bodyData = [result dataUsingEncoding:NSUTF8StringEncoding];
         self.allCategories = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
-        [self writeFile];
+        [self saveCategoriesInfoToDisk];
         [_collectionView reloadData];
-    }else
-    {
+    } else {
         [self handleFailureHttpResponse:resp];
     }
 }
 
--(void)actionNotifiBtn:(id)sender
-{
+-(void)actionNotifiBtn:(id)sender {
 }
 
-// showMiRepository
--(void)actionRepo:(id)sender {
+-(void)showMiRepository:(id)sender {
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
@@ -243,7 +194,6 @@ NSString * const fileName = @"categories4.plist";
     NSDictionary *tempD = [self.rootCategories objectAtIndex:indexPath.row];
     cell.title_lable.text = [tempD objectForKey:@"displayName"];
     cell.context.text = [tempD objectForKey:@"description"];
-    
     NSString *strID = [tempD objectForKey:@"id"];
     if ([strID isEqualToString:@"y:i:gu"]) {
         cell.bg_image.image = [UIImage imageNamed:@"ktct"];
@@ -258,53 +208,42 @@ NSString * const fileName = @"categories4.plist";
     {
         cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
     }
- 
-
     return cell;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(self.view.bounds.size.width, 58);
-}//(self.view.bounds.size.height-pullImagesView.bounds.size.height)/4+1
+}
 
-//设置每组的cell的边界
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-//cell的最小行间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 0;
 }
 
-//cell的最小列间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 0;
 }
 
-//cell被选择时被调用
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
-    NSString *rootCategoryId = [rootCategory objectForKey:@"id"];
+    NSString *rootCategoryId = [rootCategory stringForKey:@"id"];
     NSMutableArray *secondaryCategories = [[NSMutableArray alloc]init];
     
     BOOL rootCategoryExists = NO;
-    for (NSDictionary *Dtemp in self.allCategories)
-    {
-        NSString *str = [Dtemp objectForKey:@"parentCategory"];
-        if ([rootCategoryId isEqualToString:str])
-        {
-            [secondaryCategories addObject:Dtemp];
+    for (NSDictionary *category in self.allCategories) {
+        NSString *str = [category objectForKey:@"parentCategory"];
+        if ([rootCategoryId isEqualToString:str]) {
+            [secondaryCategories addObject:category];
             rootCategoryExists = YES;
         }
     }
     
     if (rootCategoryExists) {
-        //subCategories
-        ;
-    }
-    else    //
-    {
+        
+    } else {
         TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
@@ -314,9 +253,13 @@ NSString * const fileName = @"categories4.plist";
         self.animationController.panDirection = PanDirectionLeft;
         self.animationController.animationType = PanAnimationControllerTypePresentation;
         self.animationController.ignoreOffset = YES;
+        
         [self.navigationController presentViewController:navigationController animated:YES completion:^{ }];
     }
 }
+
+#pragma mark -
+#pragma mark Getter and setters
 
 - (NSMutableArray *)allCategories {
     if(_allCategories_ == nil) {
@@ -336,10 +279,9 @@ NSString * const fileName = @"categories4.plist";
     _allCategories_ = [NSMutableArray arrayWithArray:allCategories];
     [self.rootCategories removeAllObjects];
     if(_allCategories_ == nil) return;
-    for (NSDictionary *temDict in _allCategories_)
-    {
-        if(![temDict booleanForKey:@"parent"]) {
-            [self.rootCategories addObject:temDict];
+    for (NSDictionary *category in _allCategories_) {
+        if(![category booleanForKey:@"parent"]) {
+            [self.rootCategories addObject:category];
         }
     }
 }
