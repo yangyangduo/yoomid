@@ -19,45 +19,142 @@
 @end
 
 @implementation RegisterViewController {
-    UITableView *tblPasswordChange;
+
     NSMutableArray *textFields;
+    
+    UITextField *mobileTextField;
+    UITextField *verifyCodeTextField;
+    UITextField *passwordTextField;
+    UITextField *invitationCodeTextField;
+    
+    UIButton *registerButton;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"account_register", @"");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"done", @"") style:UIBarButtonItemStylePlain target:self action:@selector(submitNewPassword:)];
     
-    CGFloat y = 10;
-    tblPasswordChange = [[UITableView alloc] initWithFrame:CGRectMake(0, y, self.view.bounds.size.width, self.view.bounds.size.height - 216 - y - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)) style:UITableViewStylePlain];
-    tblPasswordChange.dataSource = self;
-    tblPasswordChange.delegate = self;
-    [self.view addSubview:tblPasswordChange];
+//    self.view.backgroundColor = [UIColor grayColor];
+
+    UILabel *mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 50, 80, 36)];
+    mobileLabel.text =@"手机号:";
+    [mobileLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [self.view addSubview:mobileLabel];
+    mobileTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, 52, 155, 32)];
+    mobileTextField.tag = 200;
+    mobileTextField.delegate = self;
+    mobileTextField.font = [UIFont systemFontOfSize:14.f];
+    mobileTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    mobileTextField.placeholder = @"11手机号";
+    mobileTextField.borderStyle = UITextBorderStyleRoundedRect;
+    mobileTextField.keyboardType = UIKeyboardTypeNumberPad;
+    mobileTextField.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:mobileTextField];
     
-    if([UIScreen mainScreen].bounds.size.height > 480) {
-        tblPasswordChange.scrollEnabled = NO;
-    }
+    UILabel *verifyCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, mobileLabel.frame.origin.y+mobileLabel.bounds.size.height+10, 80, 36)];
+    verifyCodeLabel.text = @"短信验证:";
+    [verifyCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [self.view addSubview:verifyCodeLabel];
+    verifyCodeTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, verifyCodeLabel.frame.origin.y+2, 155, 32)];
+    verifyCodeTextField.tag = 300;
+    verifyCodeTextField.delegate = self;
+    verifyCodeTextField.font = [UIFont systemFontOfSize:14.f];
+    verifyCodeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    verifyCodeTextField.placeholder = @"短信验证";
+    verifyCodeTextField.borderStyle = UITextBorderStyleRoundedRect;
+    verifyCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    verifyCodeTextField.backgroundColor = [UIColor whiteColor];
+    verifyCodeTextField.returnKeyType = UIReturnKeyNext;
+    [self.view addSubview:verifyCodeTextField];
+    UIButton *sendVerfyCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendVerfyCodeButton.frame = CGRectMake(verifyCodeTextField.frame.origin.x+verifyCodeTextField.bounds.size.width+2, verifyCodeTextField.frame.origin.y+2.5, 70, 30);
+    [sendVerfyCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+    sendVerfyCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [sendVerfyCodeButton setTitleColor:[UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0] forState:UIControlStateNormal];
+    [sendVerfyCodeButton addTarget:self action:@selector(getVerifyCodeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendVerfyCodeButton];
     
-    tblPasswordChange.contentOffset = CGPointMake(0, 30);
+    UILabel *passwordCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, verifyCodeLabel.frame.origin.y+verifyCodeLabel.bounds.size.height+10, 80, 36)];
+    passwordCodeLabel.text = @"密    码:";
+    [passwordCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [self.view addSubview:passwordCodeLabel];
+    passwordTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, passwordCodeLabel.frame.origin.y+2, 155, 32)];
+    passwordTextField.tag = 400;
+    passwordTextField.delegate = self;
+    passwordTextField.font = [UIFont systemFontOfSize:14.f];
+    passwordTextField.placeholder = @"6-16位字母+数字";
+    passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    passwordTextField.borderStyle = UITextBorderStyleRoundedRect;
+    passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    passwordTextField.backgroundColor = [UIColor whiteColor];
+    passwordTextField.secureTextEntry = YES;
+    passwordTextField.returnKeyType = UIReturnKeyNext;
+    [self.view addSubview:passwordTextField];
+    UIButton *showPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    showPasswordButton.frame = CGRectMake(passwordTextField.frame.origin.x+passwordTextField.bounds.size.width+7, passwordTextField.frame.origin.y+2.5, 60, 30);
+    [showPasswordButton setTitle:@"显示密码" forState:UIControlStateNormal];
+    showPasswordButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [showPasswordButton setTitleColor:[UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0] forState:UIControlStateNormal];
+    [showPasswordButton addTarget: self action:@selector(showPassword:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:showPasswordButton];
+
+    
+    UILabel *invitationCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, passwordCodeLabel.frame.origin.y+passwordCodeLabel.bounds.size.height+10, 80, 36)];
+    invitationCodeLabel.text = @"邀请码:";
+    [invitationCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [self.view addSubview:invitationCodeLabel];
+    invitationCodeTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, invitationCodeLabel.frame.origin.y+2, 155, 32)];
+    invitationCodeTextField.tag = 500;
+    invitationCodeTextField.delegate = self;
+    invitationCodeTextField.font = [UIFont systemFontOfSize:14.f];
+    invitationCodeTextField.placeholder = @"6-16位字母+数字";
+    invitationCodeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    invitationCodeTextField.borderStyle = UITextBorderStyleRoundedRect;
+    invitationCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    invitationCodeTextField.backgroundColor = [UIColor whiteColor];
+    invitationCodeTextField.returnKeyType = UIReturnKeyDone;
+    [self.view addSubview:invitationCodeTextField];
+    
+    registerButton = [[UIButton alloc]initWithFrame:CGRectMake(60, invitationCodeTextField.frame.origin.y+invitationCodeTextField.bounds.size.height+25, 200, 36)];
+    [registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
+    registerButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    registerButton.layer.cornerRadius = 4;
+    registerButton.backgroundColor = [UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0];
+    [registerButton addTarget:self action:@selector(submitNewPassword:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:registerButton];
+
+    CheckBox *checkBox = [CheckBox checkBoxWithPoint:CGPointMake(45, registerButton.frame.origin.y + registerButton.bounds.size.height +15)];
+    checkBox.selected = YES;
+    checkBox.delegate = self;
+    [self.view addSubview:checkBox];
+    
+    UILabel *lblAgree = [[UILabel alloc] initWithFrame:CGRectMake(82, checkBox.frame.origin.y, 120, 44)];
+    lblAgree.textColor = [UIColor darkGrayColor];
+    lblAgree.font = [UIFont systemFontOfSize:15.f];
+    lblAgree.text = NSLocalizedString(@"read_and_agree", @"");
+    [self.view addSubview:lblAgree];
+    
+    UIButton *btnShowDisclaimer = [[UIButton alloc] initWithFrame:CGRectMake(190, checkBox.frame.origin.y, 80, 44)];
+    btnShowDisclaimer.backgroundColor = [UIColor clearColor];
+    [btnShowDisclaimer setTitleColor:[UIColor appColor] forState:UIControlStateNormal];
+    btnShowDisclaimer.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [btnShowDisclaimer setTitle:NSLocalizedString(@"disclaimer", @"") forState:UIControlStateNormal];
+    [btnShowDisclaimer addTarget:self action:@selector(btnShowDisclaimerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnShowDisclaimer];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    tblPasswordChange.contentOffset = CGPointMake(0, 0);
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [mobileTextField resignFirstResponder];
+    [verifyCodeTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
+    [invitationCodeTextField resignFirstResponder];
+
 }
 
 - (void)submitNewPassword:(id)sender {
-    if(!self.navigationItem.rightBarButtonItem.enabled) {
-        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"should_agree_disclaimer", @"") forType:AlertViewTypeFailed];
-        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
-        return;
-    }
-    
-    UITextField *mobileTextField = [textFields objectAtIndex:0];
-    UITextField *verifyCodeTextField = [textFields objectAtIndex:1];
-    UITextField *passwordTextField = [textFields objectAtIndex:2];
-    UITextField *invitationCodeTextField = [textFields objectAtIndex:3];
-    
     if([XXStringUtils isBlank:mobileTextField.text]) {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"mobile_required", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
@@ -87,145 +184,17 @@
 }
 
 #pragma mark -
-#pragma mark Table View Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [[UIView alloc] initWithFrame:CGRectZero];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellIdentifier = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(cell != nil) return cell;
-    
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-    
-    if(indexPath.row == 4) {
-        CheckBox *checkBox = [CheckBox checkBoxWithPoint:CGPointMake(38, 0)];
-        checkBox.selected = YES;
-        checkBox.delegate = self;
-        [cell addSubview:checkBox];
-        
-        UILabel *lblAgree = [[UILabel alloc] initWithFrame:CGRectMake(82, checkBox.frame.origin.y, 120, 44)];
-        lblAgree.textColor = [UIColor darkGrayColor];
-        lblAgree.font = [UIFont systemFontOfSize:15.f];
-        lblAgree.text = NSLocalizedString(@"read_and_agree", @"");
-        [cell addSubview:lblAgree];
-        
-        UIButton *btnShowDisclaimer = [[UIButton alloc] initWithFrame:CGRectMake(190, checkBox.frame.origin.y, 80, 44)];
-        btnShowDisclaimer.backgroundColor = [UIColor clearColor];
-        [btnShowDisclaimer setTitleColor:[UIColor appColor] forState:UIControlStateNormal];
-        btnShowDisclaimer.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        [btnShowDisclaimer setTitle:NSLocalizedString(@"disclaimer", @"") forState:UIControlStateNormal];
-        [btnShowDisclaimer addTarget:self action:@selector(btnShowDisclaimerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:btnShowDisclaimer];
-        
-        return cell;
-    }
-    
-    cell.textLabel.font = [UIFont systemFontOfSize:16.f];
-    cell.textLabel.textColor = [UIColor darkGrayColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    FixedTextField *txtField = [[FixedTextField alloc] initWithFrame:CGRectMake(90, 5, 215, 34)];
-    txtField.delegate = self;
-    txtField.font = [UIFont systemFontOfSize:15.f];
-    txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [cell addSubview:txtField];
-    
-    if(textFields == nil) {
-        textFields = [NSMutableArray array];
-    }
-    [textFields addObject:txtField];
-    
-    if(indexPath.row == 0) {
-        txtField.tag = 200;
-        txtField.keyboardType = UIKeyboardTypeNumberPad;
-        txtField.returnKeyType = UIReturnKeyNext;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"mobile", @"")];
-        txtField.placeholder = NSLocalizedString(@"register_mobile_tips", @"");
-        [txtField becomeFirstResponder];
-    } else if(indexPath.row == 1) {
-        txtField.tag = 300;
-        txtField.keyboardType = UIKeyboardTypeASCIICapable;
-        txtField.returnKeyType = UIReturnKeyNext;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"verify_code", @"")];
-        txtField.placeholder = NSLocalizedString(@"register_vc_tips", @"");
-        
-        UIButton *getVerifyCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(260, 8, 50, 28)];
-        [getVerifyCodeButton setTitle:NSLocalizedString(@"get_verify_code", @"") forState:UIControlStateNormal];
-        [getVerifyCodeButton addTarget:self action:@selector(getVerifyCodeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        getVerifyCodeButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
-        getVerifyCodeButton.layer.borderWidth = 1;
-        getVerifyCodeButton.layer.borderColor = [UIColor appColor].CGColor;
-        getVerifyCodeButton.titleEdgeInsets = UIEdgeInsetsMake(1, 0, 0, 0);
-        getVerifyCodeButton.layer.cornerRadius = 8;
-        [getVerifyCodeButton setTitleColor:[UIColor appColor] forState:UIControlStateNormal];
-        [cell addSubview:getVerifyCodeButton];
-    } else if(indexPath.row == 2) {
-        txtField.tag = 400;
-        CGRect frame = txtField.frame;
-        frame.size.width = 160;
-        txtField.frame = frame;
-        txtField.secureTextEntry = YES;
-        txtField.keyboardType = UIKeyboardTypeASCIICapable;
-        txtField.returnKeyType = UIReturnKeyNext;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"new_password", @"")];
-        txtField.placeholder = NSLocalizedString(@"register_pwd_tips", @"");
-        
-        UISwitch *switchButton = [[UISwitch alloc] initWithFrame:CGRectMake(260, 7, 30, 30)];
-        switchButton.onTintColor = [UIColor appColor];
-        [switchButton addTarget:self action:@selector(switchButtonChanged:) forControlEvents:UIControlEventValueChanged];
-        [cell addSubview:switchButton];
-    } else if(indexPath.row == 3){
-        txtField.tag = 500;
-        txtField.keyboardType = UIKeyboardTypeASCIICapable;
-        txtField.returnKeyType = UIReturnKeyDone;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"invitation_code", @"")];
-        txtField.placeholder = NSLocalizedString(@"register_ic_tips", @"");
-    } else {
-        
-    }
-    return cell;
-}
-
-#pragma mark -
 #pragma mark Text Field Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if(200 == textField.tag) {
-        UITextField *nextTextField = [textFields objectAtIndex:1];
-        [nextTextField becomeFirstResponder];
+        [verifyCodeTextField becomeFirstResponder];
     } else if(300 == textField.tag) {
-        UITextField *nextTextField = [textFields objectAtIndex:2];
-        [nextTextField becomeFirstResponder];
+        [passwordTextField becomeFirstResponder];
     } else if(400 == textField.tag) {
-        UITextField *nextTextField = [textFields objectAtIndex:3];
-        [nextTextField becomeFirstResponder];
+        [invitationCodeTextField becomeFirstResponder];
     } else if(500 == textField.tag) {
         [self submitNewPassword:textField];
-    }
-    return YES;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if(200 == textField.tag || 300 == textField.tag) {
-        [tblPasswordChange scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    } else if(400 == textField.tag || 500 == textField.tag) {
-        [tblPasswordChange scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     return YES;
 }
@@ -242,10 +211,10 @@
     }
 }
 
-- (void)switchButtonChanged:(UISwitch *)switchButton {
-    UITextField *textField = [textFields objectAtIndex:2];
-    textField.secureTextEntry = !switchButton.isOn;
-    textField.text = textField.text;
+- (void) showPassword:(id)sender
+{
+    passwordTextField.secureTextEntry = !passwordTextField.isSecureTextEntry;
+    passwordTextField.text = passwordTextField.text;
 }
 
 - (void)btnShowDisclaimerButtonPressed:(id)sender {
@@ -254,14 +223,15 @@
 
 - (void)checkBoxValueDidChanged:(CheckBox *)checkBox {
     if(checkBox.selected) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        registerButton.enabled = YES;
     } else {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        [registerButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        registerButton.enabled = NO;
     }
 }
 
 - (void)getVerifyCodeButtonPressed:(id)sender {
-    UITextField *mobileTextField = [textFields objectAtIndex:0];
     if(mobileTextField.text.length != 11) {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"mobile_invalid", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
@@ -275,7 +245,7 @@
 
 - (void)registerSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
-        UITextField *mobileTextField = [textFields objectAtIndex:0];
+//        UITextField *mobileTextField = [textFields objectAtIndex:0];
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         
         AppDelegate *app = [UIApplication sharedApplication].delegate;

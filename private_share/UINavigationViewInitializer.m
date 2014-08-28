@@ -28,11 +28,11 @@
        // navigationController.navigationBar.barTintColor = [UIColor appDarkOrange];
         navigationController.navigationBar.tintColor = [UIColor whiteColor];
     } else {
-        //navigationController.navigationBar.tintColor = [UIColor appDarkOrange];
+        //navigationController.navigationBar.tintColor = [UIColor appDarkOrange];0,164,229
     }
     
     NSDictionary *textAttributes = @{
-                                     NSForegroundColorAttributeName : [UIColor whiteColor],
+                                     NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0],
                                      NSFontAttributeName : [UIFont systemFontOfSize:21.f]
                                      //UITextAttributeTextShadowColor : [UIColor clearColor]
                                      };

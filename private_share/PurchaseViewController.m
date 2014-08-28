@@ -48,6 +48,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     
     contactArray = [[NSMutableArray alloc]init];
     self.title = NSLocalizedString(@"confirm_order", @"");
+
     self.view.backgroundColor = [UIColor appSilver];
     
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];

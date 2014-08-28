@@ -30,7 +30,7 @@ NSString * const kMiidiAppId            = @"18373";
 NSString * const kMiidiAppSecretKey     = @"cy4ka2vd1j728be3";
 
 NSString * const kHentreStoreID         = @"0000";
-NSString * const kBaseUrl               = @"http://172.16.8.234:8080/moneymoney";
+NSString * const kBaseUrl               = @"http://192.168.1.102:8080/moneymoney";
 //172.16.8.234  192.168.1.101
 NSTimeInterval const kMerchandisesRefreshTimeInterval = 2 * 60;
 NSTimeInterval const kMerchandiseOrdersRefreshTimeInterval = 2 * 60;

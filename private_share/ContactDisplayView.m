@@ -20,27 +20,25 @@ CGFloat const kContactDisplayViewHeight = 78.f;
     if(self) {
         self.currentContact = contact;
         
-        _name = [[UILabel alloc]initWithFrame:CGRectMake(50, 8, 100, 36)];
-        _name.font = [UIFont systemFontOfSize:16.f];
-        _name.textColor = [UIColor whiteColor];
+        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-10)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:bgView];
         
-        _phoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(_name.frame.size.width+95, 8, 100, 36)];
+        _name = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 110, 36)];
+        _name.font = [UIFont systemFontOfSize:15.f];
+        
+        _phoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(_name.frame.size.width+10, 8, 100, 36)];
         _phoneNumber.font = [UIFont systemFontOfSize:15.f];
-        _phoneNumber.textColor = [UIColor whiteColor];
         
         _address = [[UILabel alloc]init];
-        _address.font = [UIFont systemFontOfSize:12.f];
+        _address.font = [UIFont systemFontOfSize:10.f];
         _address.numberOfLines = 0;//表示label可以多行显示
         _address.lineBreakMode = NSLineBreakByCharWrapping;
-        _address.textColor = [UIColor whiteColor];
+        _address.textColor = [UIColor grayColor];
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 25, 25, 30)];
-        imageView.image = [UIImage imageNamed:@"delivery_point"];
-        
-        [self addSubview:imageView];
-        [self addSubview:_name];
-        [self addSubview:_phoneNumber];
-        [self addSubview:_address];
+        [bgView addSubview:_name];
+        [bgView addSubview:_phoneNumber];
+        [bgView addSubview:_address];
 
     }
     return self;
@@ -49,7 +47,8 @@ CGFloat const kContactDisplayViewHeight = 78.f;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, kContactDisplayViewHeight)];
     if(self) {
-        self.backgroundColor = [UIColor colorWithRed:93.f / 255.f green:105.f / 255.f blue:134.f / 255.f alpha:1.0f];
+        self.backgroundColor = [UIColor clearColor];
+        
     }
     return self;
 }
@@ -58,13 +57,14 @@ CGFloat const kContactDisplayViewHeight = 78.f;
     _currentContact_ = currentContact;
     // should update display here
     
-    _name.text = currentContact.name;
+    _name.text = [NSString stringWithFormat:@"收货人:%@",currentContact.name];
     _phoneNumber.text = currentContact.phoneNumber;
-    _address.text = currentContact.address;
+    NSString *contactAddress = [NSString stringWithFormat:@"收货地址:%@",currentContact.address];
+    _address.text = contactAddress;
     
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
-    CGSize addressLabelSize = [currentContact.address boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-80, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    _address.frame = CGRectMake(50, 38, addressLabelSize.width, addressLabelSize.height);
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:10.f]};
+    CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
 }
 
 @end

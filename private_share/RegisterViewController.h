@@ -9,6 +9,6 @@
 #import "BaseViewController.h"
 #import "CheckBox.h"
 
-@interface RegisterViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CheckBoxDelegate>
+@interface RegisterViewController : BaseViewController<UITextFieldDelegate, CheckBoxDelegate>
 
 @end

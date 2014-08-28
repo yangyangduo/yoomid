@@ -50,12 +50,12 @@
     [scrollView addGestureRecognizer:tapGesture];
     [self.view addSubview:scrollView];
     
-    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 215.f / 2, 181.f / 2)];
+    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 215.f / 2, 181.f / 2)];
     logoImageView.center = CGPointMake(self.view.center.x, logoImageView.center.y);
     logoImageView.image = [UIImage imageNamed:@"logo"];
     [scrollView addSubview:logoImageView];
     
-    userNameTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, logoImageView.frame.origin.y + logoImageView.bounds.size.height + 50, 280, 36)];
+    userNameTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, logoImageView.frame.origin.y + logoImageView.bounds.size.height + 80, 200, 30)];
     userNameTextField.center = CGPointMake(self.view.center.x, userNameTextField.center.y);
     userNameTextField.layer.borderColor = [UIColor colorWithRed:153.f / 255.f green:205.f / 255.f blue:235.f / 255.f alpha:1.0f].CGColor;
     userNameTextField.layer.borderWidth = 1;
@@ -67,7 +67,7 @@
     userNameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [scrollView addSubview:userNameTextField];
     
-    passwordTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, userNameTextField.frame.origin.y + userNameTextField.bounds.size.height + 20, 280, 36)];
+    passwordTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, userNameTextField.frame.origin.y + userNameTextField.bounds.size.height + 20, 200, 30)];
     passwordTextField.center = CGPointMake(self.view.center.x, passwordTextField.center.y);
     passwordTextField.layer.borderColor = [UIColor colorWithRed:153.f / 255.f green:205.f / 255.f blue:235.f / 255.f alpha:1.0f].CGColor;
     passwordTextField.layer.borderWidth = 1;
@@ -81,7 +81,7 @@
     passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"password", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     [scrollView addSubview:passwordTextField];
     
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, 280, 34)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, 200, 34)];
     [loginButton setTitle:NSLocalizedString(@"login", @"") forState:UIControlStateNormal];
     loginButton.center = CGPointMake(self.view.center.x, loginButton.center.y);
     loginButton.backgroundColor = [UIColor colorWithRed:0 green:110.f / 255.f blue:183.f / 255.f alpha:1.0];
@@ -90,7 +90,7 @@
     [loginButton addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:loginButton];
     
-    UILabel *seperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 65, 5, 44)];
+    UILabel *seperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, 5, 44)];
     seperatorLabel.text = @"|";
     seperatorLabel.font = [UIFont systemFontOfSize:17];
     seperatorLabel.backgroundColor = [UIColor clearColor];
@@ -98,7 +98,7 @@
     seperatorLabel.center = CGPointMake(self.view.center.x, seperatorLabel.center.y);
     [scrollView addSubview:seperatorLabel];
     
-    UIButton *forgotPasswordButton = [[UIButton alloc] initWithFrame:CGRectMake(seperatorLabel.frame.origin.x - 80, self.view.frame.size.height - 65, 80, 44)];
+    UIButton *forgotPasswordButton = [[UIButton alloc] initWithFrame:CGRectMake(seperatorLabel.frame.origin.x - 80, self.view.frame.size.height - 75, 80, 44)];
     [forgotPasswordButton setTitle:NSLocalizedString(@"forgot_password", @"") forState:UIControlStateNormal];
     forgotPasswordButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [forgotPasswordButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
