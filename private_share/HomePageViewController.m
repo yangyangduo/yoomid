@@ -15,14 +15,16 @@
 #import "ShoppingCartViewController2.h"
 #import "UIImage+Color.h"
 #import "TaskDetailViewController.h"
+#import "NSMutableDictionary+Extension.h"
+#import "NSDictionary+Extension.h"
 
 NSString * const homePageCell = @"homePageCell";
 NSString * const fileName = @"categories4.plist";
 
-
 @interface HomePageViewController ()
 
 @end
+
 
 @implementation HomePageViewController
 {
@@ -33,29 +35,18 @@ NSString * const fileName = @"categories4.plist";
     
     CustomCollectionView *_collectionView;
     
-    NSMutableArray *categoriesArray;
-    NSMutableArray *parentCategoryArray;
-    
     UIButton *notificationsButton;
     UIButton *repoButton;
-//    int lastRefreshTime;
 }
+
+@synthesize allCategories = _allCategories_;
+@synthesize rootCategories = _rootCategories;
 
 -(NSString *)dirDoc{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
 //    NSLog(@"app_home_doc: %@",documentsDirectory);
     return documentsDirectory;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        categoriesArray = [[NSMutableArray alloc]init];
-        parentCategoryArray = [[NSMutableArray alloc]init];
-    }
-    return self;
 }
 
 - (void)viewDidLoad
@@ -115,106 +106,39 @@ NSString * const fileName = @"categories4.plist";
     [repoButton addTarget:self action:@selector(actionRepo:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:repoButton];
     
-    [self isFileExistsAtPath];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    [self createCategoriesInfoFileIfNotExists];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //每次进入页面首先检查文件里面有没有数据
-    NSFileManager *fm = [NSFileManager defaultManager];
-    // categoriesInfoDirectory -->static
     NSString *documentsPath =[self dirDoc];
     NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSError *error;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+    if(error != nil) return;
     
-    //&error
-    NSDictionary *fileAttributes = [fm attributesOfItemAtPath:filePath error:nil];
-
     NSMutableArray *array = [[NSMutableArray alloc]initWithContentsOfFile:filePath];
-//    NSMutableArray *array = [tempD objectForKey:@"categories"];
-    
     NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
     
-//    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
-    
-    NSLog(@"文件读取成功: %@",array);
     if (array == NULL)//空 请求新的数据 显示并存到文件
     {
         [self getCategoriesInfo];
     }
     else//不为空
     {
-        if ([self lastRefreshTimeCompare:fileModDate])//大于半小时，请求数据，
+        self.allCategories = array;
+        [_collectionView reloadData];
+        if (abs(fileModDate.timeIntervalSinceNow) / 60 > 30)//大于半小时，请求数据，
         {
             // 需要显示
             [self getCategoriesInfo];
         }
-        else//显示文件里的数据
-        {
-            categoriesArray = array;
-            [self setParentCategory];
-            [_collectionView reloadData];
-        }
-
     }
 }
 
-//- (BOOL)isCategoriesInfoTooOld:(NSDate *)fileLastModificationDate
--(BOOL)lastRefreshTimeCompare:(NSDate*)fileModDate
-{
-    BOOL result;
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:fileModDate];
-    
-    int fileModYear = [dateComponent year];
-    int fileModMonth = [dateComponent month];
-    int fileModDay = [dateComponent day];
-    int fileModHour = [dateComponent hour];
-    int fileModMinute = [dateComponent minute];
-//    int fileModSecond = [dateComponent second];
-    
-    dateComponent = [calendar components:unitFlags fromDate:[NSDate date]];
-    int nowYear = [dateComponent year];
-    int nowMonth = [dateComponent month];
-    int nowDay = [dateComponent day];
-    int nowHour = [dateComponent hour];
-    int nowMinute = [dateComponent minute];
-//    int nowSecond = [dateComponent second];
-    
-    if (nowYear > fileModYear) {
-        result = YES;
-    }else if (nowMonth > fileModMonth)
-    {
-        result = YES;
-    }
-    else if (nowDay > fileModDay)
-    {
-        result = YES;
-    }
-    else if (nowHour > fileModHour)
-    {
-        result = YES;
-    }
-    else if ((nowMinute - fileModMinute)>= 30)
-    {
-        result = YES;
-    }
-    else
-    {
-        result = NO;
-    }
-
-    return result;
-}
-
-//- (void)createCategoriesInfoFileIfNotExists
--(void)isFileExistsAtPath
+-(void)createCategoriesInfoFileIfNotExists
 {
     NSFileManager *fm = [NSFileManager defaultManager];
     //找到Documents文件所在的路径
@@ -235,33 +159,9 @@ NSString * const fileName = @"categories4.plist";
             NSLog(@"文件创建成功: %@" ,plistPath);
         }else
             NSLog(@"文件创建失败");
-    }
-    // production compile failure
+        }
 #endif
 }
-/*
-//读文件
--(void)readFile{
-    NSString *documentsPath =[self dirDoc];
-    NSString *testPath = [documentsPath stringByAppendingPathComponent:@"categories3.plist"];
-    
-    NSDictionary *tempD = [[NSDictionary alloc]initWithContentsOfFile:testPath];
-    NSMutableArray *array = [tempD objectForKey:@"categories"];
-    lastRefreshTime = [[tempD objectForKey:@"lastRefreshTime"] intValue];
-    
-    NSLog(@"文件读取成功: %@",array);
-    if (array == NULL)
-    {
-        NSLog(@"array is null");
-        [self getCategoriesInfo];
-    }
-    else
-    {
-        categoriesArray = array;
-        [self setParentCategory];
-    }
-}
- */
 
 //写文件
 -(void)writeFile{
@@ -272,14 +172,13 @@ NSString * const fileName = @"categories4.plist";
     
     NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
     
-//    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",lastRefreshTime],@"lastRefreshTime",categoriesArray,@"categories", nil];
-    
-    BOOL res = [categoriesArray writeToFile:plistPath atomically:YES];
+    BOOL res = [self.allCategories writeToFile:plistPath atomically:YES];
 #ifdef DEBUG
     if (res) {
         NSLog(@"文件写入成功");
     }else
         NSLog(@"文件写入失败");
+    
 #endif
 }
 
@@ -287,23 +186,6 @@ NSString * const fileName = @"categories4.plist";
 {
     TaskCategoriesService *taskCategories = [[TaskCategoriesService alloc]init];
     [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
-}
-
--(void)setParentCategory
-{
-    if (parentCategoryArray.count>0)
-    {
-        [parentCategoryArray removeAllObjects];
-    }
-    for (NSDictionary *temDict in categoriesArray)
-    {
-        // import extension
-        if ([[temDict objectForKey:@"parent"] boolValue] == false)
-        {
-            [parentCategoryArray addObject:temDict];
-        }
-    }
-
 }
 
 -(void)getCategoriesSuccess:(HttpResponse *)resp
@@ -314,8 +196,7 @@ NSString * const fileName = @"categories4.plist";
         //把parentCategory的空对象转为@""
         result = [result stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
         NSData *bodyData = [result dataUsingEncoding:NSUTF8StringEncoding];
-        categoriesArray = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
-        [self setParentCategory];
+        self.allCategories = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
         [self writeFile];
         [_collectionView reloadData];
     }else
@@ -346,11 +227,6 @@ NSString * const fileName = @"categories4.plist";
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
 }
 
-- (void)dealloc
-{
-    
-}
-
 #pragma mark - 
 #pragma mark UICollectionView delegate
 
@@ -359,12 +235,12 @@ NSString * const fileName = @"categories4.plist";
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return parentCategoryArray.count>0 ? parentCategoryArray.count : 0;
+    return self.rootCategories.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:homePageCell forIndexPath:indexPath];
-    NSDictionary *tempD = [parentCategoryArray objectAtIndex:indexPath.row];
+    NSDictionary *tempD = [self.rootCategories objectAtIndex:indexPath.row];
     cell.title_lable.text = [tempD objectForKey:@"displayName"];
     cell.context.text = [tempD objectForKey:@"description"];
     
@@ -408,30 +284,22 @@ NSString * const fileName = @"categories4.plist";
 
 //cell被选择时被调用
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // category
-    NSDictionary *tempD = [parentCategoryArray objectAtIndex:indexPath.row];
-    // category id
-    NSString *strID = [tempD objectForKey:@"id"];
+    NSDictionary *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
+    NSString *rootCategoryId = [rootCategory objectForKey:@"id"];
+    NSMutableArray *secondaryCategories = [[NSMutableArray alloc]init];
     
-    // subCategories
-    NSMutableArray *subcategoryAarray = [[NSMutableArray alloc]init];
-    
-    BOOL b = NO;
-    // subCategory
-    for (NSDictionary *Dtemp in categoriesArray)
+    BOOL rootCategoryExists = NO;
+    for (NSDictionary *Dtemp in self.allCategories)
     {
-        // find  parents id
         NSString *str = [Dtemp objectForKey:@"parentCategory"];
-        // any parent category matched strID(sub id)
-        if ([strID isEqualToString:str])
+        if ([rootCategoryId isEqualToString:str])
         {
-            [subcategoryAarray addObject:Dtemp];
-            b = YES;
-            // break;
+            [secondaryCategories addObject:Dtemp];
+            rootCategoryExists = YES;
         }
     }
     
-    if (b) {
+    if (rootCategoryExists) {
         //subCategories
         ;
     }
@@ -450,7 +318,31 @@ NSString * const fileName = @"categories4.plist";
     }
 }
 
+- (NSMutableArray *)allCategories {
+    if(_allCategories_ == nil) {
+        _allCategories_ = [NSMutableArray array];
+    }
+    return _allCategories_;
+}
 
+- (NSMutableArray *)rootCategories {
+    if(_rootCategories == nil) {
+        _rootCategories = [NSMutableArray array];
+    }
+    return _rootCategories;
+}
+
+- (void)setAllCategories:(NSMutableArray *)allCategories {
+    _allCategories_ = [NSMutableArray arrayWithArray:allCategories];
+    [self.rootCategories removeAllObjects];
+    if(_allCategories_ == nil) return;
+    for (NSDictionary *temDict in _allCategories_)
+    {
+        if(![temDict booleanForKey:@"parent"]) {
+            [self.rootCategories addObject:temDict];
+        }
+    }
+}
 
 #pragma mark -
 #pragma mark Pull scroll images view delegate

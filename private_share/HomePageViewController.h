@@ -14,4 +14,7 @@
 
 @interface HomePageViewController : TransitionViewController<UIScrollViewDelegate,PullScrollZoomImagesViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic, strong) NSMutableArray *allCategories;
+@property (nonatomic, strong) NSMutableArray *rootCategories;
+
 @end
