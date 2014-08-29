@@ -32,10 +32,11 @@
     }
     
     NSDictionary *textAttributes = @{
-                                     NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0],
-                                     NSFontAttributeName : [UIFont systemFontOfSize:21.f]
+                                     NSForegroundColorAttributeName : [UIColor colorWithRed:0 green:156 / 255.f blue:239 / 255.f alpha:1.0],
+                                     NSFontAttributeName : [UIFont boldSystemFontOfSize:23.f]
                                      //UITextAttributeTextShadowColor : [UIColor clearColor]
                                      };
+    
     navigationController.navigationBar.titleTextAttributes = textAttributes;
 }
 
