@@ -12,10 +12,11 @@
 {
     UIImageView *line;
     
-    UILabel *name;
+    UILabel *nameAndPhone;
     UILabel *phoneNumber;
     UILabel *address;
 
+    UIView *topView;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -23,25 +24,31 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         
-        name = [[UILabel alloc]initWithFrame:CGRectMake(20, 10, 100, 25)];
-        [name setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-        phoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(180, 10, 150, 25)];
+        topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 72.5)];
+        topView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:topView];
+        
+        _selectedImageView = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width-56,topView.bounds.size.height/2-25, 50, 50)];
+        [topView addSubview:_selectedImageView];
+        
+        nameAndPhone = [[UILabel alloc]initWithFrame:CGRectMake(23, 10, 200, 25)];
+        [nameAndPhone setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+//        phoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(180, 10, 150, 25)];
         address = [[UILabel alloc]init];
-        address.font = [UIFont systemFontOfSize:12.f];
+        address.font = [UIFont systemFontOfSize:10.f];
         address.textColor = [UIColor grayColor];
         address.numberOfLines = 0;//表示label可以多行显示
         address.lineBreakMode = NSLineBreakByCharWrapping;
 
         line = [[UIImageView alloc]init];
         line.image = [UIImage imageNamed:@"line"];
-        address.font =[UIFont systemFontOfSize:11.f];
         
-        [self addSubview:name];
-        [self addSubview:phoneNumber];
-        [self addSubview:address];
-        [self addSubview:line];
+        [topView addSubview:nameAndPhone];
+//        [self addSubview:phoneNumber];
+        [topView addSubview:address];
+//        [self addSubview:line];
     }
     return self;
 }
@@ -49,15 +56,16 @@
 -(void)setRowData:(NSDictionary *)rowData
 {
     if (rowData == nil)return;
-    name.text = [rowData objectForKey:@"name"];
-    phoneNumber.text = [rowData objectForKey:@"contactPhone"];
-    address.text = [rowData objectForKey:@"deliveryAddress"];
-    
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
-    CGSize addressLabelSize = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    address.frame = CGRectMake(20, 35, addressLabelSize.width, addressLabelSize.height);
-    line.frame = CGRectMake(0, (35+addressLabelSize.height+15)-0.5, self.bounds.size.width, 0.5);
+    NSString *nameAndPhoneStr = [NSString stringWithFormat:@"%@  %@",[rowData objectForKey:@"name"],[rowData objectForKey:@"contactPhone"]];
+    nameAndPhone.text = nameAndPhoneStr;
 
+//    phoneNumber.text = [rowData objectForKey:@"contactPhone"];
+    NSString *addressStr = [NSString stringWithFormat:@"收货地址:%@",[rowData objectForKey:@"deliveryAddress"]];
+    address.text = addressStr;
+    
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:10.f]};
+    CGSize addressLabelSize = [addressStr boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-70, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
 }
 
 - (void)awakeFromNib

@@ -206,7 +206,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat cellHeight = 0.f;
     if (tableView.tag == 0) {
-        cellHeight = 370.f;
+        cellHeight = [UIDevice is4InchDevice] ? 410 : 335;
     }
     else
     {
