@@ -61,6 +61,8 @@
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
+    [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
+    
     if(![GlobalConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
@@ -177,19 +179,14 @@
 #pragma mark Top view controller
 
 - (UIViewController *)topViewController {
-    DrawerViewController *drawerViewController = [ViewControllerAccessor defaultAccessor].drawerViewController;
-    if(drawerViewController != nil) {
-        UIViewController *centerViewController = drawerViewController.centerViewController;
-        return [self topViewController:centerViewController];
-    }
-    return nil;
+    return [self topViewController:[ViewControllerAccessor defaultAccessor].homeViewController];
 }
 
 - (UIViewController *)topViewController:(UIViewController *)rootViewController {
     if(rootViewController == nil) return nil;
     
     UIViewController *controller =
-    rootViewController.presentedViewController == nil ? rootViewController : rootViewController.presentedViewController;
+        rootViewController.presentedViewController == nil ? rootViewController : rootViewController.presentedViewController;
     
     if([controller isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationViewController = (UINavigationController *)controller;

@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "DrawerViewController.h"
+#import "HomePageViewController.h"
 
 @interface ViewControllerAccessor : NSObject
 
+@property (nonatomic, weak) HomePageViewController *homeViewController;
 @property (nonatomic, strong) DrawerViewController *drawerViewController;
 
 + (instancetype)defaultAccessor;

@@ -11,6 +11,7 @@
 @implementation ViewControllerAccessor
 
 @synthesize drawerViewController;
+@synthesize homeViewController;
 
 + (instancetype)defaultAccessor {
     static ViewControllerAccessor *accessor;
