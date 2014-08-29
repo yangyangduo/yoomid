@@ -35,7 +35,7 @@
     
     self.title = NSLocalizedString(@"account_register", @"");
     
-//    self.view.backgroundColor = [UIColor grayColor];
+//    self.view.backgroundColor = [UIColor clearColor];
 
     UILabel *mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 50, 80, 36)];
     mobileLabel.text =@"手机号:";

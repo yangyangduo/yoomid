@@ -389,6 +389,9 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D670D6C019B0749000FB241D /* into@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6BF19B0749000FB241D /* into@2x.png */; };
+		D670D6C219B074A200FB241D /* miku2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C119B074A200FB241D /* miku2@2x.png */; };
+		D670D6C419B0770800FB241D /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C319B0770800FB241D /* button@2x.png */; };
 		D676302019A7741B0015CADF /* level2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301719A7741B0015CADF /* level2@2x.png */; };
 		D676302119A7741C0015CADF /* level3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301819A7741B0015CADF /* level3@2x.png */; };
 		D676302219A7741C0015CADF /* level4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301919A7741B0015CADF /* level4@2x.png */; };
@@ -1001,6 +1004,9 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D670D6BF19B0749000FB241D /* into@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "into@2x.png"; sourceTree = "<group>"; };
+		D670D6C119B074A200FB241D /* miku2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku2@2x.png"; sourceTree = "<group>"; };
+		D670D6C319B0770800FB241D /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
 		D676301719A7741B0015CADF /* level2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level2@2x.png"; sourceTree = "<group>"; };
 		D676301819A7741B0015CADF /* level3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level3@2x.png"; sourceTree = "<group>"; };
 		D676301919A7741B0015CADF /* level4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level4@2x.png"; sourceTree = "<group>"; };
@@ -2173,6 +2179,9 @@
 				D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */,
 				D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */,
 				D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */,
+				D670D6C119B074A200FB241D /* miku2@2x.png */,
+				D670D6BF19B0749000FB241D /* into@2x.png */,
+				D670D6C319B0770800FB241D /* button@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -2529,6 +2538,7 @@
 				6F970979193F4B5300EA5E3A /* icon_cancel@2x.png in Resources */,
 				D3644C0E197A171000B44785 /* dianru_green_left_cell.png in Resources */,
 				D676302719A7741C0015CADF /* level9@2x.png in Resources */,
+				D670D6C219B074A200FB241D /* miku2@2x.png in Resources */,
 				D3644C15197A171000B44785 /* dianru_orange_dianru_info.png in Resources */,
 				D3644C20197A171000B44785 /* dianru_purple_dianru_info.png in Resources */,
 				6F41897F194858B400F9DC2C /* checkbox_selected@2x.png in Resources */,
@@ -2584,6 +2594,7 @@
 				6F75A541195800EA00E4FE52 /* DomobOfferWallBundle.bundle in Resources */,
 				6FBB6B981973D3A200E6C7D2 /* task@2x.png in Resources */,
 				D3644C0B197A171000B44785 /* dianru_green_dianru_iphone_download.png in Resources */,
+				D670D6C419B0770800FB241D /* button@2x.png in Resources */,
 				D6A152C919A5F73B0094B565 /* ktct@2x.png in Resources */,
 				D676302519A7741C0015CADF /* level7@2x.png in Resources */,
 				6F7957051957112800FEC026 /* btn_red_highlighted@2x.png in Resources */,
@@ -2605,6 +2616,7 @@
 				D3644C54197A18BF00B44785 /* wall_template.zip in Resources */,
 				D3644C04197A171000B44785 /* dianru_titlebg.jpg in Resources */,
 				D3644C03197A171000B44785 /* dianru_title_1.jpg in Resources */,
+				D670D6C019B0749000FB241D /* into@2x.png in Resources */,
 				D3644C1A197A171000B44785 /* dianru_orange_left_view.png in Resources */,
 				D62FBE0A19A61EA00041195B /* miku@2x.png in Resources */,
 				D3644C0C197A171000B44785 /* dianru_green_dianru_titlebg.jpg in Resources */,

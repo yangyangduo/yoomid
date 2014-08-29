@@ -37,19 +37,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"收获地址";
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
-    
-    UIImage *bgimage = [UIImage imageNamed:@"shopbg2"];
-    bgimage = [bgimage stretchableImageWithLeftCapWidth:20 topCapHeight:20];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:bgimage]];
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"管理" style:UIBarButtonItemStylePlain target:self action:@selector(manageContactAddress:)];
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:_tableView];
     
@@ -63,7 +60,8 @@
     manageContact.layer.masksToBounds = YES;
     manageContact.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [manageContact setTintColor:[UIColor whiteColor]];
-    [manageContact setBackgroundImage:[UIImage imageWithColor:[UIColor appBlue] size:CGSizeMake(self.view.bounds.size.width-40, 40)] forState:UIControlStateNormal];
+    [manageContact setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [manageContact setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     [manageContact addTarget:self action:@selector(manageContactAddress:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:manageContact];
 }

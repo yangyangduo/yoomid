@@ -10,8 +10,6 @@
 
 @implementation SelectContactAddressTableViewCell
 {
-    UIImageView *line;
-    
     UILabel *nameAndPhone;
     UILabel *phoneNumber;
     UILabel *address;
@@ -41,9 +39,6 @@
         address.textColor = [UIColor grayColor];
         address.numberOfLines = 0;//表示label可以多行显示
         address.lineBreakMode = NSLineBreakByCharWrapping;
-
-        line = [[UIImageView alloc]init];
-        line.image = [UIImage imageNamed:@"line"];
         
         [topView addSubview:nameAndPhone];
 //        [self addSubview:phoneNumber];

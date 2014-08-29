@@ -48,9 +48,9 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     [self.view addSubview:settlementView];
     
     backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ([UIDevice is4InchDevice] ? 144 : 100), 340.f / 2, 355.f / 2)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 1008/2)];
     imageView.center = CGPointMake(self.view.center.x, imageView.center.y);
-    imageView.image = [UIImage imageNamed:@"empty_mi_repo"];
+    imageView.image = [UIImage imageNamed:@"miku2"];
     backgroundView.backgroundColor = [UIColor whiteColor];
     backgroundView.hidden = YES;
     [backgroundView addSubview:imageView];

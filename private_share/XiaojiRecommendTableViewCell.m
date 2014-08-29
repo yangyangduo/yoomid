@@ -20,9 +20,7 @@
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        UIImageView *bgImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, [UIDevice is4InchDevice] ? 410 : 335)];
-        bgImage.image = [UIImage imageNamed:@"shopbg2"];
-        [self addSubview:bgImage];
+        self.backgroundColor = [UIColor clearColor];
 
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.bounds.size.width-20, [UIDevice is4InchDevice] ? 400 : 325)];
         imageView.image = [UIImage imageNamed:@"xiaojibg"];

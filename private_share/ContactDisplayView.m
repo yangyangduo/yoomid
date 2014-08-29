@@ -19,7 +19,8 @@ CGFloat const kContactDisplayViewHeight = 78.f;
     self = [self initWithFrame:frame];
     if(self) {
         self.currentContact = contact;
-        
+        self.backgroundColor = [UIColor clearColor];
+
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-10)];
         bgView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bgView];
@@ -35,6 +36,10 @@ CGFloat const kContactDisplayViewHeight = 78.f;
         _address.numberOfLines = 0;//表示label可以多行显示
         _address.lineBreakMode = NSLineBreakByCharWrapping;
         _address.textColor = [UIColor grayColor];
+        
+        UIImageView *intoIamgeview = [[UIImageView alloc]initWithFrame:CGRectMake(bgView.bounds.size.width-40-20, bgView.bounds.size.height/2-30, 121.0/2, 121.0/2)];
+        intoIamgeview.image = [UIImage imageNamed:@"into"];
+        [bgView addSubview:intoIamgeview];
         
         [bgView addSubview:_name];
         [bgView addSubview:_phoneNumber];

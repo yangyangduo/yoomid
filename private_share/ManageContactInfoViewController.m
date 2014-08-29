@@ -37,15 +37,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"管理收货地址";
-    
-    UIImage *bgimage = [UIImage imageNamed:@"shopbg2"];
-    bgimage = [bgimage stretchableImageWithLeftCapWidth:20 topCapHeight:20];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:bgimage]];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
-    
+    tableview.backgroundColor = [UIColor clearColor];
     tableview.delegate = self;
     tableview.dataSource = self;
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -61,7 +56,8 @@
     addContact.layer.masksToBounds = YES;
     addContact.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [addContact setTintColor:[UIColor whiteColor]];
-    [addContact setBackgroundImage:[UIImage imageWithColor:[UIColor appBlue] size:CGSizeMake(self.view.bounds.size.width-40, 40)] forState:UIControlStateNormal];
+    [addContact setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [addContact setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     [addContact addTarget:self action:@selector(pushAddContact) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:addContact];
 }
@@ -130,7 +126,9 @@
     if (cell == nil) {
         cell = [[SelectContactAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    cell.selectedImageView.image = [UIImage imageNamed:@"into"];
+    cell.selectedImageView.frame = CGRectMake(cell.bounds.size.width-40-20, cell.bounds.size.height/2-20, 121.0/2, 121.0/2);
     NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
     cell.rowData = rowData;
     
