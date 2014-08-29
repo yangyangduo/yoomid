@@ -26,6 +26,57 @@
     }
 }
 
+- (void)rightPresentViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // set up view controller
+    viewController.modalPresentationStyle = UIModalPresentationCustom;
+    viewController.transitioningDelegate = self;
+    
+    // config default
+    self.animationController.animationType = PanAnimationControllerTypePresentation;
+    self.animationController.panDirection = PanDirectionLeft;
+    self.animationController.ignoreOffset = YES;
+    
+    [self presentViewControllerInternal:viewController animated:animated];
+}
+
+- (void)leftPresentViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // set up view controller
+    viewController.modalPresentationStyle = UIModalPresentationCustom;
+    viewController.transitioningDelegate = self;
+    
+    // config default
+    self.animationController.animationType = PanAnimationControllerTypePresentation;
+    self.animationController.panDirection = PanDirectionLeft;
+    self.animationController.ignoreOffset = YES;
+    
+    [self presentViewControllerInternal:viewController animated:animated];
+}
+
+- (void)presentViewControllerInternal:(UIViewController *)viewController animated:(BOOL)animated {
+    if(self.navigationController != nil) {
+        [self.navigationController presentViewController:viewController animated:animated completion:^{ }];
+    } else {
+        [self presentViewController:viewController animated:animated completion:^{ }];
+    }
+}
+
+- (void)rightDismissViewControllerAnimated:(BOOL)animated {
+    self.animationController.panDirection = PanDirectionRight;
+    self.animationController.animationType = PanAnimationControllerTypeDismissal;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)leftDismissViewControllerAnimated:(BOOL)animated {
+    self.animationController.panDirection = PanDirectionLeft;
+    self.animationController.animationType = PanAnimationControllerTypeDismissal;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)rightPopViewControllerAnimated:(BOOL)animated {
+    self.animationController.panDirection = PanDirectionRight;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark Transition delegate
 

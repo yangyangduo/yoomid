@@ -31,22 +31,16 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 70, 29);//
-    [backBtn setTitle:@"首页" forState:UIControlStateNormal];
-//    [backBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
-    [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-//    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -40)];
-    [backBtn addTarget:self action:@selector(backHomePage) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    self.title = NSLocalizedString(@"mi_repo2", @"");
-    self.view.backgroundColor = [UIColor appSilver];
-    
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
+    self.title = NSLocalizedString(@"mi_repo2", @"");
+    
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    //
     [ShoppingCart myShoppingCart].allSelect = NO;
     
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
@@ -73,7 +67,6 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     _collectionView_.alwaysBounceVertical = YES;
     _collectionView_.delegate = self;
     _collectionView_.dataSource = self;
-//    _collectionView_.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.view addSubview:_collectionView_];
     
     if(![ShoppingCart myShoppingCart].hasMerchandises) {
@@ -83,11 +76,6 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     }
     
     [self refreshSettlementView];
-}
-
--(void)backHomePage
-{
-    [self dismiss];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -241,17 +229,12 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     }
 }
 
-#pragma mark -
-#pragma mark SettlementView Delegate
-
 - (void)purchaseButtonPressed:(id)sender {
     [self showPurchaseViewController];
 }
 
-- (void)dismiss {
-    self.animationController.panDirection = PanDirectionRight;
-    self.animationController.animationType = PanAnimationControllerTypeDismissal;
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)dismissViewController {
+    [self rightDismissViewControllerAnimated:YES];
 }
 
 @end

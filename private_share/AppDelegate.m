@@ -20,13 +20,10 @@
 #import <AdSupport/ASIdentifierManager.h>
 #import "PunchBoxAd.h"
 #import "Account.h"
-#import "ActivitiesViewController.h"
 #import "GuideViewController.h"
 #import "MiidiManager.h"
 #import "MiidiAdWall.h"
 #import "HomePageViewController.h"
-#import "SettingsViewController.h"
-#import "TaskDetailViewController.h"
 
 @implementation AppDelegate
 

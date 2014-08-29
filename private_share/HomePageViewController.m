@@ -165,12 +165,7 @@ NSString * const fileName = @"categories4.plist";
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    navigationController.modalPresentationStyle = UIModalPresentationCustom;
-    navigationController.transitioningDelegate = self;
-    
-    self.animationController.animationType = PanAnimationControllerTypePresentation;
-    
-    [self.navigationController presentViewController:navigationController animated:YES completion:^{ }];
+    [self rightPresentViewController:navigationController animated:YES];
 }
 
 -(void)actionChangePage:(id)sender {
@@ -247,14 +242,7 @@ NSString * const fileName = @"categories4.plist";
         TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-        
-        navigationController.transitioningDelegate = self;
-        navigationController.modalPresentationStyle = UIModalPresentationCustom;
-        self.animationController.panDirection = PanDirectionLeft;
-        self.animationController.animationType = PanAnimationControllerTypePresentation;
-        self.animationController.ignoreOffset = YES;
-        
-        [self.navigationController presentViewController:navigationController animated:YES completion:^{ }];
+        [self rightPresentViewController:navigationController animated:YES];
     }
 }
 
@@ -314,7 +302,7 @@ NSString * const fileName = @"categories4.plist";
 }
 
 #pragma mark -
-#pragma mark Animation controller
+#pragma mark Animation controller delegate
 
 - (UIViewController *)leftPresentationViewController {
     MallViewController *mallViewController = [[MallViewController alloc] init];

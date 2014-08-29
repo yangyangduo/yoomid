@@ -8,6 +8,7 @@
 
 #import "TaskDetailViewController.h"
 #import "JsonUtil.h"
+#import "MyPointsRecordViewController.h"
 
 @implementation TaskDetailViewController {
     UIWebView *_webView_;
@@ -31,6 +32,7 @@
     [super viewDidLoad];
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     
     retryTapGestrue = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryLoading)];
     
@@ -53,6 +55,9 @@
     lblLoading.textColor = [UIColor grayColor];
     lblLoading.font = [UIFont systemFontOfSize:17.f];
     [_loadingView_ addSubview:lblLoading];
+    
+    _url_ = @"http://localhost:8080/moneymoney/platform/yoomid/task?categoryId=jfjds&taskId=ff";
+    [self requestTaskDetailWithUrl:_url_];
 }
 
 - (void)findTaskResultAndSubmit {
@@ -66,13 +71,6 @@
         NSLog(@"[Task Detail] Error on submit answers that post data is empty");
 #endif
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    _url_ = @"http://localhost:8080/moneymoney/platform/yoomid/task?categoryId=jfjds&taskId=ff";
-    [self requestTaskDetailWithUrl:_url_];
 }
 
 - (void)requestTaskDetailWithUrl:(NSString *)url {
@@ -160,6 +158,17 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark -
+#pragma mark Animation controller delegate
+
+- (UIViewController *)rightPresentationViewController {
+    return [[MyPointsRecordViewController alloc] init];
+}
+
+- (CGFloat)rightPresentViewControllerOffset {
+    return 88.f;
 }
 
 @end

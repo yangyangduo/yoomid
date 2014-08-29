@@ -50,6 +50,7 @@
     xiaoji.pullDelegate = self;
     xiaoji.tag = 0;
     xiaoji.separatorStyle = NO;
+    xiaoji.backgroundColor = [UIColor clearColor];
     [self.view addSubview:xiaoji];
 //    xiaoji.pullTableIsRefreshing = YES;
     
@@ -57,6 +58,7 @@
     tblMerchandises.delegate = self;
     tblMerchandises.dataSource = self;
     tblMerchandises.pullDelegate = self;
+    tblMerchandises.backgroundColor = [UIColor clearColor];
     tblMerchandises.tag = 1;
     [self.view addSubview:tblMerchandises];
 //    tblMerchandises.pullTableIsRefreshing = YES;
