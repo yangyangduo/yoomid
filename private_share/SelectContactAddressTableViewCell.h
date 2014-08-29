@@ -11,4 +11,5 @@
 @interface SelectContactAddressTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)NSDictionary *rowData;
+@property (nonatomic,strong)UIImageView *selectedImageView;
 @end

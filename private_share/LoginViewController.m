@@ -14,6 +14,7 @@
 #import "AccountService.h"
 #import "AppDelegate.h"
 #import "ViewControllerAccessor.h"
+#import "UIDevice+ScreenSize.h"
 
 @interface LoginViewController ()
 
@@ -50,12 +51,12 @@
     [scrollView addGestureRecognizer:tapGesture];
     [self.view addSubview:scrollView];
     
-    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 215.f / 2, 181.f / 2)];
+    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, [UIDevice is4InchDevice] ? 90 : 60 , 215.f / 2, 181.f / 2)];
     logoImageView.center = CGPointMake(self.view.center.x, logoImageView.center.y);
     logoImageView.image = [UIImage imageNamed:@"logo"];
     [scrollView addSubview:logoImageView];
     
-    userNameTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, logoImageView.frame.origin.y + logoImageView.bounds.size.height + 80, 200, 30)];
+    userNameTextField = [[DefaultStyleTextField alloc] initWithFrame:CGRectMake(10, logoImageView.frame.origin.y + logoImageView.bounds.size.height + 50, 200, 30)];
     userNameTextField.center = CGPointMake(self.view.center.x, userNameTextField.center.y);
     userNameTextField.layer.borderColor = [UIColor colorWithRed:153.f / 255.f green:205.f / 255.f blue:235.f / 255.f alpha:1.0f].CGColor;
     userNameTextField.layer.borderWidth = 1;

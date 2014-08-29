@@ -38,6 +38,10 @@
     // Do any additional setup after loading the view.
     self.title = @"管理收货地址";
     
+    UIImage *bgimage = [UIImage imageNamed:@"shopbg2"];
+    bgimage = [bgimage stretchableImageWithLeftCapWidth:20 topCapHeight:20];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:bgimage]];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
@@ -47,16 +51,17 @@
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:tableview];
     
-    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 50, self.view.bounds.size.width, 50)];
-    bottomView.backgroundColor = [UIColor whiteColor];
+    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 65, self.view.bounds.size.width, 65)];
+    bottomView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:bottomView];
     
-    UIButton *addContact = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width/2-60, 12, 120, 26)];
-    [addContact setTitle:@"添加新地址" forState:UIControlStateNormal];
+    UIButton *addContact = [[UIButton alloc]initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width-40, 40)];
+    [addContact setTitle:@"新增收货地址" forState:UIControlStateNormal];
     addContact.layer.cornerRadius = 4;
     addContact.layer.masksToBounds = YES;
     addContact.titleLabel.font = [UIFont systemFontOfSize:15.f];
-    [addContact setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
+    [addContact setTintColor:[UIColor whiteColor]];
+    [addContact setBackgroundImage:[UIImage imageWithColor:[UIColor appBlue] size:CGSizeMake(self.view.bounds.size.width-40, 40)] forState:UIControlStateNormal];
     [addContact addTarget:self action:@selector(pushAddContact) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:addContact];
 }
@@ -125,6 +130,7 @@
     if (cell == nil) {
         cell = [[SelectContactAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
     cell.rowData = rowData;
     
@@ -139,7 +145,8 @@
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
     CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
     cellHeight = 35 + addressLabelHeight + 15;
-    return cellHeight;
+    
+    return 82.5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
