@@ -85,11 +85,6 @@
     [self.view addSubview:miRepositoryButton];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"home view will appear");
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -103,18 +98,6 @@
     if(isExpired || categories == nil) {
         [self getCategoriesInfo];
     }
-    
-    NSLog(@"home view did appear");
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    NSLog(@"home view will disapper");
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    NSLog(@"home view did disapper");
 }
 
 -(void)getCategoriesInfo {

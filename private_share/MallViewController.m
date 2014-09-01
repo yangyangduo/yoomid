@@ -141,6 +141,7 @@
             tblMerchandises.pullLastRefreshDate = [NSDate date];
             [tblMerchandises reloadData];
             
+            // if page index is 0, need save to disk cache
             [[DiskCacheManager manager] setMerchandises:merchandises];
         }
         

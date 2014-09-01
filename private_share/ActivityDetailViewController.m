@@ -71,7 +71,7 @@
     goodImageView.image = [UIImage imageNamed:@"likes"];
     [descriptionView addSubview:goodImageView];
     UILabel *thinksGoodLabel = [[UILabel alloc] initWithFrame:CGRectMake(206, 10, 100, 30)];
-    thinksGoodLabel.text = [NSString stringWithFormat:@"%ld%@", _merchandise_.follows, NSLocalizedString(@"thinks_good", @"")];
+    thinksGoodLabel.text = [NSString stringWithFormat:@"%d%@", _merchandise_.follows, NSLocalizedString(@"thinks_good", @"")];
     thinksGoodLabel.font = [UIFont systemFontOfSize:15.f];
     thinksGoodLabel.textAlignment = NSTextAlignmentCenter;
     thinksGoodLabel.backgroundColor = [UIColor clearColor];

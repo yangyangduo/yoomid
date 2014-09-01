@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/MallViewController.m"
-            timestampString = "431248241.481879"
+            timestampString = "431249482.545396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "-getMerchandisesSuccess:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1546,11 +1546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/MallViewController.m"
-            timestampString = "431248241.481879"
+            timestampString = "431249482.545396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-getMerchandisesSuccess:"
             landmarkType = "5">
          </BreakpointContent>

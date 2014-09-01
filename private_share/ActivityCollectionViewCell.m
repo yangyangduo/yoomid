@@ -91,7 +91,7 @@
     _merchandise_ = merchandise;
     [imageView setImageWithURL:[NSURL URLWithString:merchandise.firstImageUrl] placeholderImage:nil];
     titleLabel.text = merchandise.name;
-    thinksGoodLabel.text = [NSString stringWithFormat:@"%ld", merchandise.follows];
+    thinksGoodLabel.text = [NSString stringWithFormat:@"%d", merchandise.follows];
     
     NSDate *now = [NSDate date];
     NSTimeInterval nowTimeInterval = now.timeIntervalSince1970 * 1000;
