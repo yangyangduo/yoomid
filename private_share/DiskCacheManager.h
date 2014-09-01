@@ -10,7 +10,6 @@
 #import "JsonEntity.h"
 #import "TaskCategory.h"
 #import "Contact.h"
-#import "Profile.h"
 #import "PointsOrder.h"
 #import "Merchandise.h"
 
@@ -48,10 +47,10 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
  * for current user
  */
 
-- (Profile *)profile:(BOOL *)isExpired;
+- (NSArray *)contacts:(BOOL *)isExpired;
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired;
 
-- (void)setProfile:(Profile *)profile;
+- (void)setContacts:(NSArray *)contacts;
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType;
 
 @end

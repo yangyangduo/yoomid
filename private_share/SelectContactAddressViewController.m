@@ -41,8 +41,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"管理" style:UIBarButtonItemStylePlain target:self action:@selector(manageContactAddress:)];
-    
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -95,13 +93,8 @@
     [self.navigationController pushViewController:add animated:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark UITableView delegate mothed
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -121,10 +114,8 @@
     NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
     cell.rowData = rowData;
     if (indexPath.row == fags) {
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_select"];
     }else {
-        //        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_unselect"];
     }
     
@@ -151,28 +142,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    if (cell.accessoryType == UITableViewCellAccessoryNone) {
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }else {
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//    }
-    
     [self.delegate contactInfo:[contactArray objectAtIndex:indexPath.row] fag:indexPath.row];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)dealloc
 {

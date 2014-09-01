@@ -252,7 +252,6 @@
 		6FC052F3198386F100FA97D2 /* CubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC052F2198386F100FA97D2 /* CubeViewController.m */; };
 		6FC2E87419B048FC00AA78A9 /* background_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC2E87319B048FC00AA78A9 /* background_image@2x.png */; };
 		6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC2E87519B04F0300AA78A9 /* new_back@2x.png */; };
-		6FC2E87A19B1834C00AA78A9 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC2E87919B1834C00AA78A9 /* Profile.m */; };
 		6FD163CF19795ED90076479D /* DeliveryPointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD163CE19795ED90076479D /* DeliveryPointViewController.m */; };
 		6FD163D2197960B40076479D /* notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD163D0197960B40076479D /* notifications@2x.png */; };
 		6FD163D3197960B40076479D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD163D1197960B40076479D /* settings@2x.png */; };
@@ -829,8 +828,6 @@
 		6FC052F2198386F100FA97D2 /* CubeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeViewController.m; sourceTree = "<group>"; };
 		6FC2E87319B048FC00AA78A9 /* background_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_image@2x.png"; sourceTree = "<group>"; };
 		6FC2E87519B04F0300AA78A9 /* new_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_back@2x.png"; sourceTree = "<group>"; };
-		6FC2E87819B1834C00AA78A9 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
-		6FC2E87919B1834C00AA78A9 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		6FD163CD19795ED90076479D /* DeliveryPointViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryPointViewController.h; sourceTree = "<group>"; };
 		6FD163CE19795ED90076479D /* DeliveryPointViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryPointViewController.m; sourceTree = "<group>"; };
 		6FD163D0197960B40076479D /* notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notifications@2x.png"; sourceTree = "<group>"; };
@@ -1375,8 +1372,6 @@
 				6F7261EE195A6DA800BD17D8 /* Address.m */,
 				6F2C52B01974F6560045BFC1 /* MerchandiseProperty.h */,
 				6F2C52B11974F6560045BFC1 /* MerchandiseProperty.m */,
-				6FC2E87819B1834C00AA78A9 /* Profile.h */,
-				6FC2E87919B1834C00AA78A9 /* Profile.m */,
 				6F5B5E1819B41B3200495F0C /* TaskCategory.h */,
 				6F5B5E1919B41B3200495F0C /* TaskCategory.m */,
 			);
@@ -2876,7 +2871,6 @@
 				6F2BFDF9198241F300426757 /* ShoppingItemConfirmCell.m in Sources */,
 				6F72C1901976312800100D12 /* DynamicButton.m in Sources */,
 				6F97098A193F529A00EA5E3A /* AccountService.m in Sources */,
-				6FC2E87A19B1834C00AA78A9 /* Profile.m in Sources */,
 				6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */,
 				6FA3271419568EE800570BCC /* AccountViewController.m in Sources */,
 				6F2C52AC1974D3850045BFC1 /* PopupView.m in Sources */,

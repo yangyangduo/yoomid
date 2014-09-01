@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, assign) BOOL isDefault;
 
 - (BOOL)isEmpty;
 
