@@ -79,6 +79,8 @@ NSString * const kFileNamePointsOrder = @"points-order";
 - (NSArray *)taskCategories:(BOOL *)isExpired {
     NSMutableArray *taskCategories = [NSMutableArray array];
     
+    BOOL readDisk = NO;
+    
     // read from disk first
     if(_task_categories_data_ == nil) {
         NSData *data = [self loadDataWithFileName:kFileNameTaskCategories inUserDirectory:NO];
@@ -86,6 +88,10 @@ NSString * const kFileNamePointsOrder = @"points-order";
         id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
         if(json != nil) {
             _task_categories_data_ = [[CacheData alloc] initWithJson:json];
+#ifdef DEBUG
+            NSLog(@"[Disk Cache Manager] Load task categories from disk cache");
+#endif
+            readDisk = YES;
         }
     }
     
@@ -96,6 +102,11 @@ NSString * const kFileNamePointsOrder = @"points-order";
             for(int i=0; i<jsonArray.count; i++) {
                 [taskCategories addObject:[[TaskCategory alloc] initWithJson:[jsonArray objectAtIndex:i]]];
             }
+#ifdef DEBUG
+            if(!readDisk) {
+                NSLog(@"[Disk Cache Manager] Load task categories from memory cache");
+            }
+#endif
         }
     }
     

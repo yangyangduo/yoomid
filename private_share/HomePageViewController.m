@@ -159,11 +159,14 @@
         cell.bg_image.image = [UIImage imageNamed:@"ktct"];
     } else if([@"y:i:sc" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"fxhy"];
-    } else if([@"y:i:ap" isEqualToString:taskCategory.identifier]) {
+    } else if([@"y:e:ap" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"tyzx"];
     } else if([@"y:i:sv" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
+    } else {
+        
     }
+    
     return cell;
 }
 
