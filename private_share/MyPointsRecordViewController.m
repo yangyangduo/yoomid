@@ -10,22 +10,31 @@ static CGRect oldframe;
 #import "MyPointsRecordViewController.h"
 #import "PointsOrder.h"
 #import "Account.h"
+#import "PointsOrderService.h"
 
 @interface MyPointsRecordViewController ()
 
 @end
 
 @implementation MyPointsRecordViewController {
-    PullTableView *pullTableView;
+    NSMutableArray *pointsOrders;
+    PullTableView *pointsOrderTableView;
+    NSDateFormatter *dateFormatter;
+
     UIView *topView;
     UIView *numberView;
     
     UIButton *addBtn;
     UIButton *reduceBtn;
-    
     UIImageView *levelImage;
     
     PointsOrderType pointsOrderType;
+    NSInteger pageIndex;
+    
+    NSMutableArray *reducePointsOrders;
+    NSMutableArray *additionPointsOrders;
+    NSDate *reducePointsOrdersRefreshDate;
+    NSDate *additionPointsOrdersRefreshDate;
 }
 
 -(void)showImage:(UIImageView *)avatarImageView{
@@ -33,7 +42,7 @@ static CGRect oldframe;
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     oldframe=[avatarImageView convertRect:avatarImageView.bounds toView:window];
-    backgroundView.backgroundColor=[UIColor blackColor];
+    backgroundView.backgroundColor=[UIColor clearColor];
     backgroundView.alpha=0;
     UIImageView *imageView=[[UIImageView alloc]initWithFrame:oldframe];
     imageView.image=image;
@@ -88,7 +97,7 @@ static CGRect oldframe;
     addBtn.frame = CGRectMake(0, topView.frame.size.height-50, topView.bounds.size.width/2, 50);
     addBtn.backgroundColor = [UIColor colorWithRed:44.0f / 255.0f green:55.0f / 255.0f blue:66.0f / 255.0f alpha:1.0f];
     [addBtn addTarget:self action:@selector(addPoints:) forControlEvents:UIControlEventTouchUpInside];
-    [addBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"add2"] forState:UIControlStateNormal];
     [addBtn setTitle:@" 收入" forState:UIControlStateNormal];
     
     reduceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -121,17 +130,17 @@ static CGRect oldframe;
     
     levelImage.userInteractionEnabled = YES;
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLevelImage:)];
     [levelImage addGestureRecognizer:tapGesture];
     
+    pointsOrderType = PointsOrderTypeIncome;
     
-    pullTableView = [[PullTableView alloc]initWithFrame:CGRectMake(0, topView.bounds.size.height, self.view.frame.size.width-44, self.view.bounds.size.height-topView.bounds.size.height) style:UITableViewStyleGrouped];
-    pullTableView.delegate = self;
-    pullTableView.dataSource = self;
-    pullTableView.pullDelegate = self;
+    pointsOrderTableView = [[PullTableView alloc]initWithFrame:CGRectMake(0, topView.bounds.size.height, self.view.frame.size.width-44, self.view.bounds.size.height-topView.bounds.size.height) style:UITableViewStyleGrouped];
+    pointsOrderTableView.delegate = self;
+    pointsOrderTableView.dataSource = self;
+    pointsOrderTableView.pullDelegate = self;
 
-    [self.view addSubview:pullTableView];
-    
+    [self.view addSubview:pointsOrderTableView];
 }
 
 -(void)setPoints:(NSString*)numberStr
@@ -150,21 +159,76 @@ static CGRect oldframe;
     numberView.frame = CGRectMake((self.view.bounds.size.width/2 - (numberStr.length*30)/2) - 44, (topView.bounds.size.height-addBtn.bounds.size.height)/2-25, numberStr.length * 30, 50);
 }
 
-- (void)pushContactInfo:(id)sender
+- (void)showLevelImage:(id)sender
 {
     [self showImage:levelImage];//调用方法
 }
 
+- (void)refresh:(BOOL)animated {
+    if(animated) {
+        pointsOrderTableView.pullTableIsRefreshing = YES;
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
+        return;
+    }
+    [self refresh];
+}
+
+- (void)refresh {
+    pageIndex = 0;
+    PointsOrderService *service = [[PointsOrderService alloc] init];
+    [service getPointsOrdersByPageIndex:pageIndex orderType:pointsOrderType target:self success:@selector(getPointsOrdersSuccess:) failure:@selector(getPointsOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex], @"orderType" : [NSNumber numberWithInt:pointsOrderType]}];
+}
+
+
 
 -(void)addPoints:(id)sender
 {
+    if (pointsOrderType == PointsOrderTypeIncome) return;
+    
+    pointsOrderType = PointsOrderTypeIncome;
+    [addBtn setImage:[UIImage imageNamed:@"add2"] forState:UIControlStateNormal];
+    [reduceBtn setImage:[UIImage imageNamed:@"reduce"] forState:UIControlStateNormal];
+    
+    pointsOrderTableView.pullLastRefreshDate = additionPointsOrdersRefreshDate;
+    pointsOrders = [NSMutableArray arrayWithArray:additionPointsOrders];
+
+    [pointsOrderTableView reloadData];
+    if(pointsOrderTableView.pullLastRefreshDate == nil) {
+        [self refresh:YES];
+    }
+
     [self setPoints:@"000"];
 }
 
 -(void)reducePoints:(id)sender
 {
+    if (pointsOrderType == PointsOrderTypePay) return;
+    
+    pointsOrderType = PointsOrderTypePay;
+    [addBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    [reduceBtn setImage:[UIImage imageNamed:@"reduce2"] forState:UIControlStateNormal];
+    
+    pointsOrderType = PointsOrderTypePay;
+    pointsOrderTableView.pullLastRefreshDate = reducePointsOrdersRefreshDate;
+    pointsOrders = [NSMutableArray arrayWithArray:reducePointsOrders];
+
+    [pointsOrderTableView reloadData];
+    if(pointsOrderTableView.pullLastRefreshDate == nil) {
+        [self refresh:YES];
+    }
+
     [self setPoints:@"111"];
 }
+
+- (void)getPointsOrdersFailure:(HttpResponse *)resp {
+    if(resp.statusCode == 403) {
+        [pointsOrders removeAllObjects];
+        [pointsOrderTableView reloadData];
+    }
+    [self cancelRefresh];
+    [self cancelLoadMore];
+}
+
 
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -210,5 +274,13 @@ static CGRect oldframe;
 {
     
 }
+- (void)cancelRefresh {
+    pointsOrderTableView.pullTableIsRefreshing = NO;
+}
+
+- (void)cancelLoadMore {
+    pointsOrderTableView.pullTableIsLoadingMore = NO;
+}
+
 
 @end

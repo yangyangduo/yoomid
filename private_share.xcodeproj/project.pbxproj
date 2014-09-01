@@ -389,6 +389,8 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
+		D66B497819B416D1002615CC /* reduce2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497719B416D1002615CC /* reduce2@2x.png */; };
 		D670D6C019B0749000FB241D /* into@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6BF19B0749000FB241D /* into@2x.png */; };
 		D670D6C219B074A200FB241D /* miku2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C119B074A200FB241D /* miku2@2x.png */; };
 		D670D6C419B0770800FB241D /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C319B0770800FB241D /* button@2x.png */; };
@@ -1008,6 +1010,8 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D66B497519B416C9002615CC /* add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add2@2x.png"; sourceTree = "<group>"; };
+		D66B497719B416D1002615CC /* reduce2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce2@2x.png"; sourceTree = "<group>"; };
 		D670D6BF19B0749000FB241D /* into@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "into@2x.png"; sourceTree = "<group>"; };
 		D670D6C119B074A200FB241D /* miku2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku2@2x.png"; sourceTree = "<group>"; };
 		D670D6C319B0770800FB241D /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
@@ -1456,6 +1460,8 @@
 				6F4FA07D19A48A560049C023 /* add@2x.png */,
 				6F4FA07E19A48A560049C023 /* triangle@2x.png */,
 				6F4FA07F19A48A560049C023 /* reduce@2x.png */,
+				D66B497519B416C9002615CC /* add2@2x.png */,
+				D66B497719B416D1002615CC /* reduce2@2x.png */,
 				6F4FA06919A489460049C023 /* 0@2x.png */,
 				6F4FA06A19A489460049C023 /* 1@2x.png */,
 				6F4FA06B19A489460049C023 /* 2@2x.png */,
@@ -2525,6 +2531,7 @@
 				6FE79C5A197CE5CE005B11E1 /* cb_select@2x.png in Resources */,
 				D3644C2E197A171000B44785 /* dianru_red_dianru_titlebg.jpg in Resources */,
 				6F4FA07519A489460049C023 /* 2@2x.png in Resources */,
+				D66B497819B416D1002615CC /* reduce2@2x.png in Resources */,
 				6FFB8D9619790567008F0BBB /* top10@2x.png in Resources */,
 				D3644C02197A171000B44785 /* dianru_title.jpg in Resources */,
 				D3644BFF197A171000B44785 /* dianru_msg.png in Resources */,
@@ -2697,6 +2704,7 @@
 				6F8823D81940531F00757633 /* blueArrow@2x.png in Resources */,
 				6FBB6B991973D3A200E6C7D2 /* mall@2x.png in Resources */,
 				6F4FA07C19A489460049C023 /* 9@2x.png in Resources */,
+				D66B497619B416C9002615CC /* add2@2x.png in Resources */,
 				D3644BF9197A171000B44785 /* dianru_cell_head.png in Resources */,
 				6F2C52C919751D2C0045BFC1 /* guide5@2x.png in Resources */,
 				D3644C27197A171000B44785 /* dianru_purple_right_view.png in Resources */,
