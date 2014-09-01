@@ -171,7 +171,8 @@
 
 - (void)loginButtonPressed:(id)sender {
     if([XXStringUtils isBlank:userNameTextField.text]
-       || [XXStringUtils isBlank:passwordTextField.text]) {
+       || [XXStringUtils isBlank:passwordTextField.text])
+    {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"username_password_required", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;

@@ -33,9 +33,11 @@
             
             [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"access_token_invalid", @"") forType:AlertViewTypeFailed];
             if(AlertViewStateDidAppear == [XXAlertView currentAlertView].alertViewState
-               || AlertViewStateWillAppear == [XXAlertView currentAlertView].alertViewState) {
+               || AlertViewStateWillAppear == [XXAlertView currentAlertView].alertViewState)
+            {
                 [[XXAlertView currentAlertView] delayDismissAlertView];
-            } else {
+            } else
+            {
                 [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
             }
             

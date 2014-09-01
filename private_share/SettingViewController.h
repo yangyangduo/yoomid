@@ -8,6 +8,6 @@
 
 #import "TransitionViewController.h"
 
-@interface SettingViewController : TransitionViewController
+@interface SettingViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate>
 
 @end
