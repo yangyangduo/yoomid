@@ -20,7 +20,6 @@
 #import "DiskCacheManager.h"
 
 NSString * const homePageCell = @"homePageCell";
-NSString * const fileName = @"categories4.plist";
 
 @interface HomePageViewController ()
 
@@ -98,46 +97,20 @@ NSString * const fileName = @"categories4.plist";
     [repoButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
     [repoButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:repoButton];
-    
-    [self createCategoriesInfoFileIfNotExists];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSError *error;
-    
-    NSString *filePath = [[[self class] CategoriesInfoDirectory] stringByAppendingPathComponent:fileName];
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-    if(error != nil) return;
-    
-    NSMutableArray *categoriesInfo = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
-    if (categoriesInfo == nil) {
-        [self getCategoriesInfo];
-    } else {
-        self.allCategories = categoriesInfo;
+    BOOL isExpired;
+    NSArray *categories = [[DiskCacheManager manager] taskCategories:&isExpired];
+    if(categories != nil) {
+        self.allCategories = [NSMutableArray arrayWithArray:categories];
         [_collectionView reloadData];
-        NSDate *fileModificationDate = [fileAttributes objectForKey:NSFileModificationDate];
-        if (abs(fileModificationDate.timeIntervalSinceNow) / 60 > 30) {
-            [self getCategoriesInfo];
-        }
     }
-}
-
--(void)createCategoriesInfoFileIfNotExists {
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [path objectAtIndex:0];
-    NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        [[NSFileManager defaultManager] createFileAtPath:plistPath contents:nil attributes:nil];
+    if(isExpired) {
+        [self getCategoriesInfo];
     }
-}
-
--(void)saveCategoriesInfoToDisk {
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [path objectAtIndex:0];
-    NSString *plistPath = [filePath stringByAppendingPathComponent:fileName];
-    [self.allCategories writeToFile:plistPath atomically:YES];
 }
 
 -(void)getCategoriesInfo {
@@ -147,12 +120,17 @@ NSString * const fileName = @"categories4.plist";
 
 -(void)getCategoriesSuccess:(HttpResponse *)resp
 {
-    if (resp.statusCode == 200) {
-        NSString *result = [[NSString alloc]initWithData:resp.body encoding:NSUTF8StringEncoding];
-        result = [result stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
-        NSData *bodyData = [result dataUsingEncoding:NSUTF8StringEncoding];
-        self.allCategories = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
-        [self saveCategoriesInfoToDisk];        
+    if (resp.statusCode == 200 && resp.body != nil) {
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSMutableArray *categories = [NSMutableArray array];
+        if(jsonArray != nil) {
+            for(int i=0; i<jsonArray.count; i++) {
+                [categories addObject:
+                 [[TaskCategory alloc] initWithJson:[jsonArray objectAtIndex:i]]];
+            }
+        }
+        self.allCategories = categories;
+        [[DiskCacheManager manager] setTaskCategories:self.allCategories];
         [_collectionView reloadData];
     } else {
         [self handleFailureHttpResponse:resp];
@@ -160,7 +138,6 @@ NSString * const fileName = @"categories4.plist";
 }
 
 -(void)actionNotifiBtn:(id)sender {
-    
 }
 
 -(void)showMiRepository:(id)sender {
@@ -188,10 +165,10 @@ NSString * const fileName = @"categories4.plist";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:homePageCell forIndexPath:indexPath];
-    NSDictionary *tempD = [self.rootCategories objectAtIndex:indexPath.row];
-    cell.title_lable.text = [tempD objectForKey:@"displayName"];
-    cell.context.text = [tempD objectForKey:@"description"];
-    NSString *strID = [tempD objectForKey:@"id"];
+    TaskCategory *tempD = [self.rootCategories objectAtIndex:indexPath.row];
+    cell.title_lable.text = tempD.displayName;
+    cell.context.text = tempD.description;
+    NSString *strID = tempD.identifier;
     if ([strID isEqualToString:@"y:i:gu"]) {
         cell.bg_image.image = [UIImage imageNamed:@"ktct"];
     }else if([strID isEqualToString:@"y:i:sc"])
@@ -225,14 +202,13 @@ NSString * const fileName = @"categories4.plist";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
-    NSString *rootCategoryId = [rootCategory stringForKey:@"id"];
+    TaskCategory *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
+    NSString *rootCategoryId = rootCategory.identifier;
     NSMutableArray *secondaryCategories = [[NSMutableArray alloc]init];
     
     BOOL rootCategoryExists = NO;
-    for (NSDictionary *category in self.allCategories) {
-        NSString *str = [category objectForKey:@"parentCategory"];
-        if ([rootCategoryId isEqualToString:str]) {
+    for (TaskCategory *category in self.allCategories) {
+        if ([rootCategoryId isEqualToString:category.parentCategory]) {
             [secondaryCategories addObject:category];
             rootCategoryExists = YES;
         }
@@ -269,8 +245,8 @@ NSString * const fileName = @"categories4.plist";
     _allCategories_ = [NSMutableArray arrayWithArray:allCategories];
     [self.rootCategories removeAllObjects];
     if(_allCategories_ == nil) return;
-    for (NSDictionary *category in _allCategories_) {
-        if(![category booleanForKey:@"parent"]) {
+    for (TaskCategory *category in _allCategories_) {
+        if(!category.hasParent) {
             [self.rootCategories addObject:category];
         }
     }
