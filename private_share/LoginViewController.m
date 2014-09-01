@@ -82,10 +82,11 @@
     passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"password", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     [scrollView addSubview:passwordTextField];
     
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, 200, 34)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, 200, 86/2)];
     [loginButton setTitle:NSLocalizedString(@"login", @"") forState:UIControlStateNormal];
     loginButton.center = CGPointMake(self.view.center.x, loginButton.center.y);
-    loginButton.backgroundColor = [UIColor colorWithRed:0 green:110.f / 255.f blue:183.f / 255.f alpha:1.0];
+    [loginButton setBackgroundImage:[UIImage imageNamed:@"newlogin"] forState:UIControlStateNormal];
+    [loginButton setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     loginButton.layer.cornerRadius = 8;
     [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [loginButton addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

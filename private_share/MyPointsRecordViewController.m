@@ -8,6 +8,8 @@
 static CGRect oldframe;
 
 #import "MyPointsRecordViewController.h"
+#import "PointsOrder.h"
+#import "Account.h"
 
 @interface MyPointsRecordViewController ()
 
@@ -22,6 +24,8 @@ static CGRect oldframe;
     UIButton *reduceBtn;
     
     UIImageView *levelImage;
+    
+    PointsOrderType pointsOrderType;
 }
 
 -(void)showImage:(UIImageView *)avatarImageView{
@@ -75,7 +79,7 @@ static CGRect oldframe;
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
-    topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-44, self.view.bounds.size.height/2)];
+    topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-44, self.view.bounds.size.height/2+25)];
     topView.backgroundColor = [UIColor colorWithRed:28.0f / 255.0f green:33.0f / 255.0f blue:38.0f / 255.0f alpha:1.0f];
     
     [self.view addSubview:topView];
@@ -99,7 +103,7 @@ static CGRect oldframe;
     
     numberView = [[UIView alloc]init];
     numberView.backgroundColor = [UIColor clearColor];
-    [self setPoints:@"2700"];
+    [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
     [topView addSubview:numberView];
     
     UIImageView *triangleImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 55, 19, 16)];
@@ -121,12 +125,13 @@ static CGRect oldframe;
     [levelImage addGestureRecognizer:tapGesture];
     
     
-    pullTableView = [[PullTableView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-topView.bounds.size.height, self.view.frame.size.width-44, self.view.bounds.size.height) style:UITableViewStylePlain];
+    pullTableView = [[PullTableView alloc]initWithFrame:CGRectMake(0, topView.bounds.size.height, self.view.frame.size.width-44, self.view.bounds.size.height-topView.bounds.size.height) style:UITableViewStyleGrouped];
     pullTableView.delegate = self;
     pullTableView.dataSource = self;
     pullTableView.pullDelegate = self;
-    
+
     [self.view addSubview:pullTableView];
+    
 }
 
 -(void)setPoints:(NSString*)numberStr
@@ -187,6 +192,11 @@ static CGRect oldframe;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40.f;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1f;
 }
 
 #pragma mark PullTableView delegate

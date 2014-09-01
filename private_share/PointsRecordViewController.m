@@ -222,7 +222,7 @@
     } else {
         cell.textLabel.text = orderTypeName;
     }
-    
+
     return cell;
 }
 

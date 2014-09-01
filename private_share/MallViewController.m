@@ -60,6 +60,7 @@
     tblMerchandises.pullDelegate = self;
     tblMerchandises.backgroundColor = [UIColor clearColor];
     tblMerchandises.tag = 1;
+    [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:tblMerchandises];
 //    tblMerchandises.pullTableIsRefreshing = YES;
     [tblMerchandises setHidden:YES];

@@ -392,6 +392,9 @@
 		D670D6C019B0749000FB241D /* into@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6BF19B0749000FB241D /* into@2x.png */; };
 		D670D6C219B074A200FB241D /* miku2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C119B074A200FB241D /* miku2@2x.png */; };
 		D670D6C419B0770800FB241D /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C319B0770800FB241D /* button@2x.png */; };
+		D670D6C619B07E4600FB241D /* bao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C519B07E4600FB241D /* bao@2x.png */; };
+		D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C719B07E6000FB241D /* newlogin@2x.png */; };
+		D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C919B07E7500FB241D /* shopping@2x.png */; };
 		D676302019A7741B0015CADF /* level2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301719A7741B0015CADF /* level2@2x.png */; };
 		D676302119A7741C0015CADF /* level3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301819A7741B0015CADF /* level3@2x.png */; };
 		D676302219A7741C0015CADF /* level4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301919A7741B0015CADF /* level4@2x.png */; };
@@ -1007,6 +1010,9 @@
 		D670D6BF19B0749000FB241D /* into@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "into@2x.png"; sourceTree = "<group>"; };
 		D670D6C119B074A200FB241D /* miku2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku2@2x.png"; sourceTree = "<group>"; };
 		D670D6C319B0770800FB241D /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
+		D670D6C519B07E4600FB241D /* bao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bao@2x.png"; sourceTree = "<group>"; };
+		D670D6C719B07E6000FB241D /* newlogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newlogin@2x.png"; sourceTree = "<group>"; };
+		D670D6C919B07E7500FB241D /* shopping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping@2x.png"; sourceTree = "<group>"; };
 		D676301719A7741B0015CADF /* level2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level2@2x.png"; sourceTree = "<group>"; };
 		D676301819A7741B0015CADF /* level3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level3@2x.png"; sourceTree = "<group>"; };
 		D676301919A7741B0015CADF /* level4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level4@2x.png"; sourceTree = "<group>"; };
@@ -2182,6 +2188,9 @@
 				D670D6C119B074A200FB241D /* miku2@2x.png */,
 				D670D6BF19B0749000FB241D /* into@2x.png */,
 				D670D6C319B0770800FB241D /* button@2x.png */,
+				D670D6C919B07E7500FB241D /* shopping@2x.png */,
+				D670D6C719B07E6000FB241D /* newlogin@2x.png */,
+				D670D6C519B07E4600FB241D /* bao@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -2534,6 +2543,7 @@
 				6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */,
 				6F7BD32E1953F8E60031D2DD /* btn_flash_light@2x.png in Resources */,
 				6F2C52C019751D2C0045BFC1 /* guide1-568h@2x.png in Resources */,
+				D670D6C619B07E4600FB241D /* bao@2x.png in Resources */,
 				6F76F7861964F56D00C2FD52 /* exellent@2x.png in Resources */,
 				6F970979193F4B5300EA5E3A /* icon_cancel@2x.png in Resources */,
 				D3644C0E197A171000B44785 /* dianru_green_left_cell.png in Resources */,
@@ -2604,6 +2614,7 @@
 				D3644C13197A171000B44785 /* dianru_orange_dianru_bottom.png in Resources */,
 				6F75A54E1958132B00E4FE52 /* icon_domob@2x.png in Resources */,
 				D676302419A7741C0015CADF /* level6@2x.png in Resources */,
+				D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */,
 				D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */,
 				6F726B4E196D0ECB00875B05 /* icon114@2x.png in Resources */,
 				6F2C52C419751D2C0045BFC1 /* guide3-568h@2x.png in Resources */,
@@ -2631,6 +2642,7 @@
 				6F7657ED19345C7C003BF61C /* InfoPlist.strings in Resources */,
 				D3644BEF197A171000B44785 /* dianru_blue_left_cell.png in Resources */,
 				6F12F38F195151CD00B47132 /* PunchBoxAdRes.bundle in Resources */,
+				D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */,
 				D3644C1C197A171000B44785 /* dianru_orange_right_view.png in Resources */,
 				D62FBE0719A61CC70041195B /* information@2x.png in Resources */,
 				6F8823DC1940531F00757633 /* whiteArrow@2x.png in Resources */,
