@@ -10,10 +10,6 @@
 
 @implementation UIColor (App)
 
-+ (UIColor *)appDarkOrange {
-    return [UIColor colorWithRed:247.f / 255.f green:85.f / 255.f blue:15.f / 255.f alpha:1.0f];
-}
-
 + (UIColor *)appDarkGray {
     return [UIColor colorWithRed:43.f / 255.f green:43.f / 255.f blue:43.f / 255.f alpha:1.0f];
 }

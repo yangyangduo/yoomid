@@ -12,7 +12,7 @@
 #import "UINavigationViewInitializer.h"
 #import "LeftDrawerViewController.h"
 #import "LoginViewController.h"
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 #import "ShoppingCart.h"
 #import "Account.h"
 #import "AppDelegate.h"

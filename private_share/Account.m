@@ -16,7 +16,6 @@
 
 @synthesize accountId = _accountId_;
 @synthesize points = _points_;
-@synthesize availablePoints = _availablePoints_;
 
 + (instancetype)currentAccount {
     static Account *account;
@@ -39,7 +38,6 @@
         if(_account_points_ != nil) {
             _accountId_ = [_account_points_ noNilStringForKey:@"accountId"];
             _points_ = [_account_points_ numberForKey:@"points"].integerValue;
-            _availablePoints_ = _points_ - [ShoppingCart myShoppingCart].totalPayment.points;
         }
         AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
         [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
@@ -50,7 +48,6 @@
 
 - (void)setPoints:(NSInteger)points {
     _points_ = points;
-    _availablePoints_ = _points_ - [ShoppingCart myShoppingCart].totalPayment.points;
     AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
     [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
 }
@@ -64,7 +61,6 @@
 - (void)clear {
     self.accountId = @"";
     self.points = 0;
-    self.availablePoints = 0;
     AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
     [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
 }

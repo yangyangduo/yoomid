@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JsonUtil.h"
 #import "XXStringUtils.h"
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 #import "HttpClient.h"
 #import "Constants.h"
 

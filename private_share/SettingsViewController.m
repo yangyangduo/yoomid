@@ -10,7 +10,7 @@
 #import "PointsRecordViewController.h"
 #import "MerchandiseOrdersViewController.h"
 #import "AboutYoomidViewController.h"
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 #import "AppDelegate.h"
 #import "AccountViewController.h"
 

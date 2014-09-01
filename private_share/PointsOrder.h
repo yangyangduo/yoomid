@@ -10,9 +10,8 @@
 #import "BaseModel.h"
 
 typedef NS_ENUM(NSUInteger, PointsOrderType) {
-    PointsOrderTypeAdTask           = 1,
-    PointsOrderTypeShopping         = 2,
-    PointsOrderTypeReturnPoints     = 3
+    PointsOrderTypeIncome           = 1,
+    PointsOrderTypePay              = 2,
 };
 
 @interface PointsOrder : BaseModel

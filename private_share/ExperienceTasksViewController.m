@@ -11,7 +11,7 @@
 #import <Escore/YJFIntegralWall.h>
 #import "PBOfferWall.h"
 #import "DMOfferWallManager.h"
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 #import "DianRuAdWall.h"
 #import "AdwoOfferWall.h"
 #import "Constants.h"
@@ -129,7 +129,7 @@ static NSString* const errCodeList[] = {
         }];
     } else if(indexPath.row == 1) {
         if(domobOfferWall == nil) {
-            domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[GlobalConfig defaultConfig].userName];
+            domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
             domobOfferWall.disableStoreKit = YES;
         }
         [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
@@ -141,13 +141,13 @@ static NSString* const errCodeList[] = {
     } else if(indexPath.row == 4) {
         if(limeiAdWall == nil){
             limeiAdWall=[[immobView alloc] initWithAdUnitId:kLimeiAppKey adUnitType:offerWall rootViewController:self userInfo:nil];
-            [limeiAdWall.UserAttribute setObject:[GlobalConfig defaultConfig].userName forKey:accountname];
+            [limeiAdWall.UserAttribute setObject:[SecurityConfig defaultConfig].userName forKey:accountname];
         }
         [limeiAdWall immobViewRequest];
         [self.parentViewController.view addSubview:limeiAdWall];
     } else if(indexPath.row == 5){
         //set keywords to be the username
-        NSArray *arr = [NSArray arrayWithObjects:[GlobalConfig defaultConfig].userName, nil];
+        NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
         AdwoOWSetKeywords(arr);
         
         // 初始化并登录积分墙
@@ -181,23 +181,19 @@ static NSString* const errCodeList[] = {
 }
 
 //dianru application key
--(NSString *)applicationKey
-{
+-(NSString *)applicationKey {
     return kDianruAppKey;
 }
 
 //dianru required user id
--(NSString *)dianruAdWallAppUserId
-{
-    return [GlobalConfig defaultConfig].userName;
+-(NSString *)dianruAdWallAppUserId {
+    return [SecurityConfig defaultConfig].userName;
 }
 
 - (void)didReceiveGetScoreResult:(int)point {
-    
 }
 
 - (void)didReceiveSpendScoreResult:(BOOL)isSuccess {
-    
 }
 
 @end

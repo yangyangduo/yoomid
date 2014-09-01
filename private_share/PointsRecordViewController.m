@@ -46,7 +46,7 @@
     [_segmentedControl_ addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentedControl_];
     
-    pointsOrderType = PointsOrderTypeAdTask;
+    pointsOrderType = PointsOrderTypeIncome;
     pointsOrderTableView = [[PullTableView alloc] initWithFrame:CGRectMake(0, _segmentedControl_.bounds.size.height + 10 + 15, self.view.bounds.size.width, self.view.bounds.size.height - _segmentedControl_.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 10 - 15) style:UITableViewStylePlain];
     pointsOrderTableView.backgroundColor = [UIColor appSilver];
     pointsOrderTableView.delegate = self;
@@ -59,11 +59,11 @@
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     if(segmentedControl.selectedSegmentIndex == 0) {
-        pointsOrderType = PointsOrderTypeAdTask;
+        pointsOrderType = PointsOrderTypeIncome;
         pointsOrderTableView.pullLastRefreshDate = additionPointsOrdersRefreshDate;
         pointsOrders = [NSMutableArray arrayWithArray:additionPointsOrders];
     } else {
-        pointsOrderType = PointsOrderTypeShopping;
+        pointsOrderType = PointsOrderTypePay;
         pointsOrderTableView.pullLastRefreshDate = reducePointsOrdersRefreshDate;
         pointsOrders = [NSMutableArray arrayWithArray:reducePointsOrders];
     }
@@ -141,7 +141,7 @@
         [self cancelLoadMore];
         
         if(page == 0) {
-            if(PointsOrderTypeShopping == pointsOrderType) {
+            if(PointsOrderTypePay == pointsOrderType) {
                 reducePointsOrders = [NSMutableArray arrayWithArray:pointsOrders];
                 reducePointsOrdersRefreshDate = pointsOrderTableView.pullLastRefreshDate;
             } else {

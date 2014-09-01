@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "XXAlertView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 
 @interface MerchandiseDetailViewController ()
 

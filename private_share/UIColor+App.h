@@ -10,7 +10,6 @@
 
 @interface UIColor (App)
 
-//+ (UIColor *)appDarkOrange;
 + (UIColor *)appDarkGray;
 + (UIColor *)appCellDarkGray;
 + (UIColor *)appCellDarkGrayHighLighted;

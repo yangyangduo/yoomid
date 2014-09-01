@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSString *accountId;
 @property (nonatomic, assign) NSInteger points;
-@property (nonatomic, assign) NSInteger availablePoints;
 
 + (instancetype)currentAccount;
 - (void)clear;

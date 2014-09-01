@@ -25,7 +25,7 @@
 }
 
 - (NSString *)authenticationString {
-    return [NSString stringWithFormat:@"loginAccount=%@&account=%@&securityKey=%@",[GlobalConfig defaultConfig].userName, [GlobalConfig defaultConfig].userName, [GlobalConfig defaultConfig].securityKey];
+    return [NSString stringWithFormat:@"loginAccount=%@&account=%@&securityKey=%@",[SecurityConfig defaultConfig].userName, [SecurityConfig defaultConfig].userName, [SecurityConfig defaultConfig].securityKey];
 };
 
 - (NSString *)dataToString:(NSData *)data {

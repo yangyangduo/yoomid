@@ -10,7 +10,7 @@
 #import "UINavigationViewInitializer.h"
 #import "ViewControllerAccessor.h"
 #import "LoginViewController.h"
-#import "GlobalConfig.h"
+#import "SecurityConfig.h"
 #import "YouMiConfig.h"
 #import "YouMiWall.h"
 #import "Constants.h"
@@ -18,6 +18,7 @@
 #import <Escore/YJFUserMessage.h>
 #import <Escore/YJFInitServer.h>
 #import <AdSupport/ASIdentifierManager.h>
+#import "DiskCacheManager.h"
 #import "PunchBoxAd.h"
 #import "Account.h"
 #import "GuideViewController.h"
@@ -63,7 +64,7 @@
     
     [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
     
-    if(![GlobalConfig defaultConfig].isLogin) {
+    if(![SecurityConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
         [homeViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
@@ -106,19 +107,22 @@
 #pragma mark Login and logout
 
 - (void)doAfterLogin {
-    if([GlobalConfig defaultConfig].isLogin) {
+    if([SecurityConfig defaultConfig].isLogin) {
         // init ad platforms
         [self initAdPlatforms];
+        
         //
-        [Account currentAccount].accountId = [GlobalConfig defaultConfig].userName;
+        [Account currentAccount].accountId = [SecurityConfig defaultConfig].userName;
         [[Account currentAccount] refreshPoints];
+        
+        [[DiskCacheManager manager] serveForAccount:[SecurityConfig defaultConfig].userName];
     }
 }
 
 - (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey {
-    [GlobalConfig defaultConfig].userName = userName;
-    [GlobalConfig defaultConfig].securityKey = securityKey;
-    [[GlobalConfig defaultConfig] saveConfig];
+    [SecurityConfig defaultConfig].userName = userName;
+    [SecurityConfig defaultConfig].securityKey = securityKey;
+    [[SecurityConfig defaultConfig] saveConfig];
     [self doAfterLogin];
 }
 
@@ -133,15 +137,15 @@
 
 - (void)clearUserInfoButShoppingCart {
     [[ShoppingCart myShoppingCart] clearContactInfo];
-    [[GlobalConfig defaultConfig] clearAuthenticationInfo];
+    [[SecurityConfig defaultConfig] clearAuthenticationInfo];
     [[Account currentAccount] clear];
 }
 
 - (BOOL)checkLogin {
-    if(![GlobalConfig defaultConfig].isLogin) {
+    if(![SecurityConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        [[ViewControllerAccessor defaultAccessor].drawerViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+        [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
         return NO;
     }
     return YES;
@@ -151,28 +155,18 @@
 #pragma mark Ad platforms initialization
 
 - (void)initAdPlatforms {
-    
     // init youmi platform
-    [YouMiConfig setUserID:[GlobalConfig defaultConfig].userName];
+    [YouMiConfig setUserID:[SecurityConfig defaultConfig].userName];
     [YouMiConfig launchWithAppID:kYoumiAppID appSecret:kYoumiSecretKey];
     [YouMiWall enable];
     
-//    init yijifen platform disabled
-//    [YJFUserMessage shareInstance].yjfCoop_info = [GlobalConfig defaultConfig].userName;
-//    [YJFUserMessage shareInstance].yjfUserAppId = kYijifenAppID;
-//    [YJFUserMessage shareInstance].yjfUserDevId = kYijifenDeveloperID;
-//    [YJFUserMessage shareInstance].yjfAppKey = kYijifenSecretKey;
-//    [YJFUserMessage shareInstance].yjfChannel = kYijifenChannel;
-//    YJFInitServer *InitData = [[YJFInitServer alloc] init];
-//    [InitData getInitEscoreData];
-    
     // init cocounion platform
     [PunchBoxAd startSession:kCocounionSecretKey];
-    [PunchBoxAd setUserInfo:[GlobalConfig defaultConfig].userName];
+    [PunchBoxAd setUserInfo:[SecurityConfig defaultConfig].userName];
     
     // init miidi adwall
     [MiidiManager setAppPublisher:kMiidiAppId withAppSecret:kMiidiAppSecretKey];
-    [MiidiAdWall setUserParam:[GlobalConfig defaultConfig].userName];
+    [MiidiAdWall setUserParam:[SecurityConfig defaultConfig].userName];
 }
 
 #pragma mark -

@@ -1,5 +1,5 @@
 //
-//  GlobalConfig.h
+//  SecurityConfig.h
 //  private_share
 //
 //  Created by Zhao yang on 6/4/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GlobalConfig : NSObject
+@interface SecurityConfig : NSObject
 
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *securityKey;

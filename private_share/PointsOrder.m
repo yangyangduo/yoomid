@@ -30,12 +30,10 @@
 }
 
 + (NSString *)pointsOrderTypeAsString:(PointsOrderType)pointsOrderType {
-    if(PointsOrderTypeAdTask == pointsOrderType) {
-        return NSLocalizedString(@"order_type_ad_task", @"");
-    } else if(PointsOrderTypeShopping == pointsOrderType) {
-        return NSLocalizedString(@"order_type_shopping", @"");
-    } else if(PointsOrderTypeReturnPoints == pointsOrderType) {
-        return NSLocalizedString(@"order_type_return_points", @"");
+    if(PointsOrderTypeIncome == pointsOrderType) {
+        return @"收入";
+    } else if(PointsOrderTypePay == pointsOrderType) {
+        return @"支出";
     }
     return @"";
 }

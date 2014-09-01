@@ -64,7 +64,7 @@
     [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"processing", @"") forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     AccountService *service = [[AccountService alloc] init];
-    [service updatePasswordWithUserName:[GlobalConfig defaultConfig].userName oldPassword:oldTextField.text newPassword:newTextField.text target:self success:@selector(updatePasswordSuccess:) failure:@selector(handleFailureHttpResponse:)];
+    [service updatePasswordWithUserName:[SecurityConfig defaultConfig].userName oldPassword:oldTextField.text newPassword:newTextField.text target:self success:@selector(updatePasswordSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 - (void)updatePasswordSuccess:(HttpResponse *)resp {
