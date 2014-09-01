@@ -74,25 +74,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self mayRefresh];
-    NSLog(@"mall view will appear");
-}
-
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    
-    NSLog(@"mall view did appear");
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    NSLog(@"mall view will disapper");
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    NSLog(@"mall view did disapper");
 }
 
 - (void)mayRefresh {
