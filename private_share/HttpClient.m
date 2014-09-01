@@ -107,8 +107,8 @@ static NSTimeInterval const kDefaultTimoutTimeInterval = 10;
                                    httpResponse.contentType = [rp.allHeaderFields valueForKey:@"Content-Type"];
                                    httpResponse.body = data;
 #ifdef DEBUG
-                                   NSString *bodyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                   NSLog(@"\r\nResponse: %ld \r\nBody: %@\r\n\r\n", (long)rp.statusCode, bodyString);
+//                                   NSString *bodyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//                                   NSLog(@"\r\nResponse: %ld \r\nBody: %@\r\n\r\n", (long)rp.statusCode, bodyString);
 #endif
                                    
                                    HttpFilterContext *context = [[HttpFilterContext alloc] initWithHttpResponse:httpResponse];

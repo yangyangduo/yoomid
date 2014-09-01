@@ -73,7 +73,41 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (NSArray *)merchandises:(BOOL *)isExpired {
-    return nil;
+    NSMutableArray *merchandises = [NSMutableArray array];
+    
+    BOOL readDisk = NO;
+    
+    // read from disk first
+    if(_merchandises_data_ == nil) {
+        NSData *data = [self loadDataWithFileName:kFileNameMerchandises inUserDirectory:NO];
+        
+        id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
+        if(json != nil) {
+            _merchandises_data_ = [[CacheData alloc] initWithJson:json];
+#ifdef DEBUG
+            NSLog(@"[Disk Cache Manager] Load merchandises from disk cache");
+#endif
+            readDisk = YES;
+        }
+    }
+    
+    // json data convert to entity type
+    if(_merchandises_data_ != nil) {
+        NSArray *jsonArray = _merchandises_data_.data;
+        if(jsonArray != nil) {
+            for(int i=0; i<jsonArray.count; i++) {
+                [merchandises addObject:[[Merchandise alloc] initWithJson:[jsonArray objectAtIndex:i]]];
+            }
+#ifdef DEBUG
+            if(!readDisk) {
+                NSLog(@"[Disk Cache Manager] Load merchandises from memory cache");
+            }
+#endif
+        }
+    }
+    
+    *isExpired = _merchandises_data_ == nil ? YES : _merchandises_data_.isExpired;
+    return merchandises.count == 0 ? nil : merchandises;
 }
 
 - (NSArray *)taskCategories:(BOOL *)isExpired {
@@ -120,6 +154,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired {
+    
     return nil;
 }
 
@@ -130,6 +165,21 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (void)setMerchandises:(NSArray *)merchandises {
+    if(_merchandises_data_ == nil) {
+        _merchandises_data_ = [[CacheData alloc] init];
+    }
+    
+    NSMutableArray *data = [NSMutableArray array];
+    if(merchandises != nil) {
+        for(int i=0; i<merchandises.count; i++) {
+            id<JsonEntity> merchandise = [merchandises objectAtIndex:i];
+            [data addObject:[merchandise toJson]];
+        }
+    }
+    _merchandises_data_.data = data.count == 0 ? nil : data;
+    _merchandises_data_.lastRefreshTime = [NSDate date];
+    
+    [self saveData:_merchandises_data_ withFileName:kFileNameMerchandises inUserDirectory:NO];
 }
 
 - (void)setTaskCategories:(NSArray *)taskCategories {
@@ -151,10 +201,12 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (void)setProfile:(Profile *)profile {
-    
 }
 
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType {
+    
+    
+    
     
 }
 

@@ -29,6 +29,12 @@
     return self;
 }
 
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *json = [super toJson];
+    
+    return json;
+}
+
 + (NSString *)pointsOrderTypeAsString:(PointsOrderType)pointsOrderType {
     if(PointsOrderTypeIncome == pointsOrderType) {
         return @"收入";
