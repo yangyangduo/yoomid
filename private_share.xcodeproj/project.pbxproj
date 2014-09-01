@@ -275,7 +275,6 @@
 		6FE79C59197CE5CE005B11E1 /* cb_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE79C57197CE5CE005B11E1 /* cb_unselect@2x.png */; };
 		6FE79C5A197CE5CE005B11E1 /* cb_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE79C58197CE5CE005B11E1 /* cb_select@2x.png */; };
 		6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE79C5C197CEF5B005B11E1 /* SettlementView.m */; };
-		6FF1BDFA197E16A2008D991B /* CubeRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF1BDF9197E16A2008D991B /* CubeRootViewController.m */; };
 		6FF1BE04197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */; };
 		6FF533271938512E001D607C /* DrawerViewControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF533261938512E001D607C /* DrawerViewControllerConfig.m */; };
 		6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5332B19386185001D607C /* ActivityDetailViewController.m */; };
@@ -861,8 +860,6 @@
 		6FE79C58197CE5CE005B11E1 /* cb_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cb_select@2x.png"; sourceTree = "<group>"; };
 		6FE79C5B197CEF5B005B11E1 /* SettlementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettlementView.h; sourceTree = "<group>"; };
 		6FE79C5C197CEF5B005B11E1 /* SettlementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettlementView.m; sourceTree = "<group>"; };
-		6FF1BDF8197E16A2008D991B /* CubeRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeRootViewController.h; sourceTree = "<group>"; };
-		6FF1BDF9197E16A2008D991B /* CubeRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeRootViewController.m; sourceTree = "<group>"; };
 		6FF1BE02197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemSelectPropertyChangedEvent.h; sourceTree = "<group>"; };
 		6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemSelectPropertyChangedEvent.m; sourceTree = "<group>"; };
 		6FF533251938512E001D607C /* DrawerViewControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewControllerConfig.h; sourceTree = "<group>"; };
@@ -1703,7 +1700,6 @@
 		6F7658111934632A003BF61C /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				6FF1BDF7197E1687008D991B /* cube */,
 				6DD565D0EB8CC937D438E546 /* common */,
 				6F288011193819DD00197C83 /* LeftDrawerViewController.h */,
 				6F288012193819DD00197C83 /* LeftDrawerViewController.m */,
@@ -2036,15 +2032,6 @@
 				6FE6559B1942BFA3009617C9 /* 4.jpg */,
 			);
 			name = test;
-			sourceTree = "<group>";
-		};
-		6FF1BDF7197E1687008D991B /* cube */ = {
-			isa = PBXGroup;
-			children = (
-				6FF1BDF8197E16A2008D991B /* CubeRootViewController.h */,
-				6FF1BDF9197E16A2008D991B /* CubeRootViewController.m */,
-			);
-			name = cube;
 			sourceTree = "<group>";
 		};
 		6FF53328193860E4001D607C /* component */ = {
@@ -2814,7 +2801,6 @@
 				6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */,
 				6F8823D21940531F00757633 /* MessageInterceptor.m in Sources */,
 				6FF5333D19387206001D607C /* ButtonUtil.m in Sources */,
-				6FF1BDFA197E16A2008D991B /* CubeRootViewController.m in Sources */,
 				6F8823BA193FFDBD00757633 /* HttpResponse.m in Sources */,
 				6F53EFE5194B3E6D0080B4DD /* AdPlatform.m in Sources */,
 				6F76F7971966880A00C2FD52 /* MerchandiseView.m in Sources */,
