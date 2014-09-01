@@ -391,6 +391,13 @@
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
 		D66B497819B416D1002615CC /* reduce2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497719B416D1002615CC /* reduce2@2x.png */; };
+		D66B497A19B44ECF002615CC /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497919B44ECF002615CC /* setting@2x.png */; };
+		D66B497D19B450CD002615CC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66B497C19B450CD002615CC /* SettingViewController.m */; };
+		D66B498019B4539D002615CC /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497F19B4539D002615CC /* edit@2x.png */; };
+		D66B498319B453AC002615CC /* perfectinformation1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498119B453AC002615CC /* perfectinformation1@2x.png */; };
+		D66B498419B453AC002615CC /* perfectinformation2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498219B453AC002615CC /* perfectinformation2@2x.png */; };
+		D66B498619B458A1002615CC /* setup2.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498519B458A1002615CC /* setup2.png */; };
+		D66B498819B45C53002615CC /* setupbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498719B45C53002615CC /* setupbg@2x.png */; };
 		D670D6C019B0749000FB241D /* into@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6BF19B0749000FB241D /* into@2x.png */; };
 		D670D6C219B074A200FB241D /* miku2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C119B074A200FB241D /* miku2@2x.png */; };
 		D670D6C419B0770800FB241D /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C319B0770800FB241D /* button@2x.png */; };
@@ -1012,6 +1019,14 @@
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
 		D66B497519B416C9002615CC /* add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add2@2x.png"; sourceTree = "<group>"; };
 		D66B497719B416D1002615CC /* reduce2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce2@2x.png"; sourceTree = "<group>"; };
+		D66B497919B44ECF002615CC /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
+		D66B497B19B450CD002615CC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		D66B497C19B450CD002615CC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		D66B497F19B4539D002615CC /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		D66B498119B453AC002615CC /* perfectinformation1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "perfectinformation1@2x.png"; sourceTree = "<group>"; };
+		D66B498219B453AC002615CC /* perfectinformation2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "perfectinformation2@2x.png"; sourceTree = "<group>"; };
+		D66B498519B458A1002615CC /* setup2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setup2.png; sourceTree = "<group>"; };
+		D66B498719B45C53002615CC /* setupbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setupbg@2x.png"; sourceTree = "<group>"; };
 		D670D6BF19B0749000FB241D /* into@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "into@2x.png"; sourceTree = "<group>"; };
 		D670D6C119B074A200FB241D /* miku2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku2@2x.png"; sourceTree = "<group>"; };
 		D670D6C319B0770800FB241D /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
@@ -1783,6 +1798,8 @@
 				D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */,
 				6FDC950F19ADAA7A00F51E8D /* TaskDetailViewController.h */,
 				6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */,
+				D66B497B19B450CD002615CC /* SettingViewController.h */,
+				D66B497C19B450CD002615CC /* SettingViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2136,6 +2153,7 @@
 		6FF5333E1938770F001D607C /* image */ = {
 			isa = PBXGroup;
 			children = (
+				D66B497E19B45392002615CC /* setting */,
 				6FC2E87219B048C200AA78A9 /* common */,
 				D6A152C719A5F7120094B565 /* homepage */,
 				6F4FA06819A4892C0049C023 /* points */,
@@ -2418,6 +2436,18 @@
 			path = MiidiLib;
 			sourceTree = "<group>";
 		};
+		D66B497E19B45392002615CC /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				D66B498719B45C53002615CC /* setupbg@2x.png */,
+				D66B498519B458A1002615CC /* setup2.png */,
+				D66B498119B453AC002615CC /* perfectinformation1@2x.png */,
+				D66B498219B453AC002615CC /* perfectinformation2@2x.png */,
+				D66B497F19B4539D002615CC /* edit@2x.png */,
+			);
+			name = setting;
+			sourceTree = "<group>";
+		};
 		D6A152C719A5F7120094B565 /* homepage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2429,6 +2459,7 @@
 				D62FBE0119A61B150041195B /* wjdc@2x.png */,
 				D62FBDFF19A61B0A0041195B /* fxhy@2x.png */,
 				D6A152C819A5F73B0094B565 /* ktct@2x.png */,
+				D66B497919B44ECF002615CC /* setting@2x.png */,
 			);
 			name = homepage;
 			sourceTree = "<group>";
@@ -2518,6 +2549,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66B498419B453AC002615CC /* perfectinformation2@2x.png in Resources */,
 				6FE0094B1953E177002A675D /* icon_disclosure@2x.png in Resources */,
 				6FE009461953DF1B002A675D /* disclaimer.html in Resources */,
 				6F4FA07A19A489460049C023 /* 7@2x.png in Resources */,
@@ -2541,6 +2573,7 @@
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
 				6F970978193F4B5300EA5E3A /* alert_success@2x.png in Resources */,
 				6FB714D7196E5F4800598457 /* my_activity@2x.png in Resources */,
+				D66B497A19B44ECF002615CC /* setting@2x.png in Resources */,
 				6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */,
 				6F7BD32E1953F8E60031D2DD /* btn_flash_light@2x.png in Resources */,
 				6F2C52C019751D2C0045BFC1 /* guide1-568h@2x.png in Resources */,
@@ -2571,6 +2604,7 @@
 				6F72C1921976644700100D12 /* points_blue@2x.png in Resources */,
 				6FB714D6196E5F4800598457 /* invitation@2x.png in Resources */,
 				6F726B4C196CDEC900875B05 /* logo@2x.png in Resources */,
+				D66B498319B453AC002615CC /* perfectinformation1@2x.png in Resources */,
 				6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */,
 				6FBB6B961973D3A200E6C7D2 /* portal@2x.png in Resources */,
 				D676302219A7741C0015CADF /* level4@2x.png in Resources */,
@@ -2625,6 +2659,7 @@
 				D3644C28197A171000B44785 /* dianru_red_all_cell.png in Resources */,
 				6FBB6B8C1973B85600E6C7D2 /* mi_repo@2x.png in Resources */,
 				6FE655A11942D42C009617C9 /* 1.jpg in Resources */,
+				D66B498019B4539D002615CC /* edit@2x.png in Resources */,
 				D3644C54197A18BF00B44785 /* wall_template.zip in Resources */,
 				D3644C04197A171000B44785 /* dianru_titlebg.jpg in Resources */,
 				D3644C03197A171000B44785 /* dianru_title_1.jpg in Resources */,
@@ -2641,6 +2676,7 @@
 				6F72C1981976889C00100D12 /* rmb_blue@2x.png in Resources */,
 				6F50BF2E196B9F25006C9F1F /* bg2@2x.png in Resources */,
 				6F7657ED19345C7C003BF61C /* InfoPlist.strings in Resources */,
+				D66B498819B45C53002615CC /* setupbg@2x.png in Resources */,
 				D3644BEF197A171000B44785 /* dianru_blue_left_cell.png in Resources */,
 				6F12F38F195151CD00B47132 /* PunchBoxAdRes.bundle in Resources */,
 				D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */,
@@ -2715,6 +2751,7 @@
 				6FBB6B8A1973AD2500E6C7D2 /* icon58@2x.png in Resources */,
 				D676302119A7741C0015CADF /* level3@2x.png in Resources */,
 				6F2C52C119751D2C0045BFC1 /* guide1@2x.png in Resources */,
+				D66B498619B458A1002615CC /* setup2.png in Resources */,
 				D3644C33197A171000B44785 /* dianru_red_right_view.png in Resources */,
 				6F12F37619501E8100B47132 /* Escore.bundle in Resources */,
 				D3644BF1197A171000B44785 /* dianru_blue_right_cell.png in Resources */,
@@ -2898,6 +2935,7 @@
 				6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */,
 				6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */,
 				6F3632FB193EC87800340645 /* RegisterCompleteViewController.m in Sources */,
+				D66B497D19B450CD002615CC /* SettingViewController.m in Sources */,
 				6FC052F3198386F100FA97D2 /* CubeViewController.m in Sources */,
 				6F970993193F52C300EA5E3A /* PointsOrder.m in Sources */,
 				6F2816AF19497F78009B29DB /* PullScrollZoomImageView.m in Sources */,

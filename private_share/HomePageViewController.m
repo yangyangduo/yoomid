@@ -18,6 +18,7 @@
 #import "NSMutableDictionary+Extension.h"
 #import "NSDictionary+Extension.h"
 #import "DiskCacheManager.h"
+#import "SettingViewController.h"
 
 NSString * const homePageCell = @"homePageCell";
 
@@ -36,6 +37,7 @@ NSString * const homePageCell = @"homePageCell";
     
     UIButton *notificationsButton;
     UIButton *repoButton;
+    UIButton *settingButton;
 }
 
 @synthesize allCategories = _allCategories_;
@@ -87,10 +89,15 @@ NSString * const homePageCell = @"homePageCell";
     NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
     pullImagesView.imageItems = imagearray;
     
-    notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [settingButton addTarget:self action:@selector(actionSettingBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:settingButton];
+
+    
+    notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
     [notificationsButton addTarget:self action:@selector(actionNotifiBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:notificationsButton];
  
     repoButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
@@ -135,6 +142,15 @@ NSString * const homePageCell = @"homePageCell";
     } else {
         [self handleFailureHttpResponse:resp];
     }
+}
+
+-(void)actionSettingBtn:(id)sender
+{
+    SettingViewController *settingVC = [[SettingViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    [self rightPresentViewController:navigationController animated:YES];
+
 }
 
 -(void)actionNotifiBtn:(id)sender {

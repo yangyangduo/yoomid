@@ -65,7 +65,7 @@
         titleLabel.textColor = [UIColor blackColor];
         [bootomView addSubview:titleLabel];
         
-        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, 36, 125, 36)];
+        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, titleLabel.frame.origin.y + titleLabel.bounds.size.height-10, 125, 36)];
         pointsLabel.font = [UIFont systemFontOfSize:20.f];
         pointsLabel.textColor = [UIColor appColor];
         pointsLabel.backgroundColor = [UIColor clearColor];
