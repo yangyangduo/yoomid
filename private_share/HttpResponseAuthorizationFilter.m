@@ -47,7 +47,7 @@
             // present login view controller
             UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
             [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-            [[ViewControllerAccessor defaultAccessor].drawerViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+            [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
 
         });
         return YES;
@@ -56,7 +56,7 @@
 }
 
 - (NSString *)identifier {
-    return @"unauthorizedResponseFilter";
+    return @"unAuthorizedResponseFilter";
 }
 
 @end

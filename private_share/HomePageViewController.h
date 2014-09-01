@@ -17,6 +17,4 @@
 @property (nonatomic, strong) NSMutableArray *allCategories;
 @property (nonatomic, strong) NSMutableArray *rootCategories;
 
-+ (NSString *)CategoriesInfoDirectory;
-
 @end

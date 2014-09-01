@@ -15,39 +15,31 @@
 #import "ShoppingCartViewController2.h"
 #import "UIImage+Color.h"
 #import "TaskDetailViewController.h"
-#import "NSMutableDictionary+Extension.h"
-#import "NSDictionary+Extension.h"
 #import "DiskCacheManager.h"
 #import "SettingViewController.h"
-
-NSString * const homePageCell = @"homePageCell";
 
 @interface HomePageViewController ()
 
 @end
 
-
-@implementation HomePageViewController
-{
+@implementation HomePageViewController {
     PullScrollZoomImagesView *pullImagesView;
     UIScrollView *scrollview;
     UIPageControl *pageControl;
     
+    NSString *cellIdentifier;
     CustomCollectionView *_collectionView;
+<<<<<<< HEAD
     
     UIButton *notificationsButton;
     UIButton *repoButton;
     UIButton *settingButton;
+=======
+>>>>>>> FETCH_HEAD
 }
 
 @synthesize allCategories = _allCategories_;
 @synthesize rootCategories = _rootCategories;
-
-+ (NSString *)CategoriesInfoDirectory {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return documentsDirectory;
-}
 
 - (void)viewDidLoad
 {
@@ -56,13 +48,15 @@ NSString * const homePageCell = @"homePageCell";
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypePresentation;
     
+    cellIdentifier = @"cellIdentifier";
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
     _collectionView = [[CustomCollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];
-    [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:homePageCell];
+    [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
     
     pullImagesView = [[PullScrollZoomImagesView alloc]initAndEmbeddedInScrollView:_collectionView viewHeight:[UIDevice is4InchDevice] ? 330 : 280];
@@ -76,7 +70,6 @@ NSString * const homePageCell = @"homePageCell";
     [pageControl addTarget:self action:@selector(actionChangePage:) forControlEvents:UIControlEventValueChanged];
     [pullImagesView addSubview:pageControl];
     
-    
     NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
     ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
 
@@ -89,6 +82,7 @@ NSString * const homePageCell = @"homePageCell";
     NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
     pullImagesView.imageItems = imagearray;
     
+<<<<<<< HEAD
     settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(actionSettingBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -98,12 +92,17 @@ NSString * const homePageCell = @"homePageCell";
     notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
     [notificationsButton addTarget:self action:@selector(actionNotifiBtn:) forControlEvents:UIControlEventTouchUpInside];
+=======
+    UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
+    [notificationsButton addTarget:self action:@selector(showNotifications:) forControlEvents:UIControlEventTouchUpInside];
+>>>>>>> FETCH_HEAD
     [self.view addSubview:notificationsButton];
  
-    repoButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [repoButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
-    [repoButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:repoButton];
+    UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    [miRepositoryButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
+    [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:miRepositoryButton];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -115,7 +114,8 @@ NSString * const homePageCell = @"homePageCell";
         self.allCategories = [NSMutableArray arrayWithArray:categories];
         [_collectionView reloadData];
     }
-    if(isExpired) {
+    
+    if(isExpired || categories == nil) {
         [self getCategoriesInfo];
     }
 }
@@ -125,15 +125,13 @@ NSString * const homePageCell = @"homePageCell";
     [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
--(void)getCategoriesSuccess:(HttpResponse *)resp
-{
+-(void)getCategoriesSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         NSMutableArray *categories = [NSMutableArray array];
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
-                [categories addObject:
-                 [[TaskCategory alloc] initWithJson:[jsonArray objectAtIndex:i]]];
+                [categories addObject:[[TaskCategory alloc] initWithJson:[jsonArray objectAtIndex:i]]];
             }
         }
         self.allCategories = categories;
@@ -144,6 +142,7 @@ NSString * const homePageCell = @"homePageCell";
     }
 }
 
+<<<<<<< HEAD
 -(void)actionSettingBtn:(id)sender
 {
     SettingViewController *settingVC = [[SettingViewController alloc] init];
@@ -154,6 +153,9 @@ NSString * const homePageCell = @"homePageCell";
 }
 
 -(void)actionNotifiBtn:(id)sender {
+=======
+-(void)showNotifications:(id)sender {
+>>>>>>> FETCH_HEAD
 }
 
 -(void)showMiRepository:(id)sender {
@@ -171,37 +173,37 @@ NSString * const homePageCell = @"homePageCell";
 #pragma mark - 
 #pragma mark UICollectionView delegate
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.rootCategories.count;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    HomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:homePageCell forIndexPath:indexPath];
-    TaskCategory *tempD = [self.rootCategories objectAtIndex:indexPath.row];
-    cell.title_lable.text = tempD.displayName;
-    cell.context.text = tempD.description;
-    NSString *strID = tempD.identifier;
-    if ([strID isEqualToString:@"y:i:gu"]) {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    HomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    TaskCategory *taskCategory = [self.rootCategories objectAtIndex:indexPath.row];
+    cell.title_lable.text = taskCategory.displayName;
+    cell.context.text = taskCategory.description;
+    
+    if ([@"y:i:gu" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"ktct"];
-    }else if([strID isEqualToString:@"y:i:sc"])
-    {
+    } else if([@"y:i:sc" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"fxhy"];
-    }
-    else if([strID isEqualToString:@"y:e:ap"])
-    {
+    } else if([@"y:e:ap" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"tyzx"];
-    }else if([strID isEqualToString:@"y:i:sv"])
-    {
+    } else if([@"y:i:sv" isEqualToString:taskCategory.identifier]) {
         cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
+    } else {
+        
     }
+    
     return cell;
 }
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(self.view.bounds.size.width, 58);
 }
 
@@ -230,9 +232,7 @@ NSString * const homePageCell = @"homePageCell";
         }
     }
     
-    if (rootCategoryExists) {
-        
-    } else {
+    if(!rootCategoryExists) {
         TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];

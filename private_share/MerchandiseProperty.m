@@ -13,7 +13,7 @@
 @synthesize name;
 @synthesize values;
 
-- (id)initWithJson:(NSDictionary *)json {
+- (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self && json) {
         self.name = [json noNilStringForKey:@"name"];
@@ -23,6 +23,13 @@
         }
     }
     return self;
+}
+
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *json = [super toJson];
+    [json setMayBlankString:self.name forKey:@"name"];
+    [json setNoNilObject:self.values forKey:@"values"];
+    return json;
 }
 
 @end

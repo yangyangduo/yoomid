@@ -14,6 +14,7 @@
 #import "ShoppingCartViewController.h"
 #import "DateTimeUtil.h"
 #import "XiaojiRecommendTableViewCell.h"
+#import "DiskCacheManager.h"
 
 @interface MallViewController ()
 
@@ -64,12 +65,30 @@
     [self.view addSubview:tblMerchandises];
 //    tblMerchandises.pullTableIsRefreshing = YES;
     [tblMerchandises setHidden:YES];
-    
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
     [self.navigationController pushViewController:[[ShoppingCartViewController alloc] init] animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self mayRefresh];
+}
+
+- (void)mayRefresh {
+    pageIndex = 0;
+    
+    BOOL isExpired;
+    NSArray *_merchandises_ = [[DiskCacheManager manager] merchandises:&isExpired];
+    if(_merchandises_ != nil) {
+        merchandises = [NSMutableArray arrayWithArray:_merchandises_];
+        [tblMerchandises reloadData];
+    }
+    
+    if(isExpired || _merchandises_ == nil) {
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
+    }
 }
 
 - (void)refresh {
@@ -83,18 +102,13 @@
     [service getHentreStoreMerchandisesByPageIndex:pageIndex + 1 target:self success:@selector(getMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:) userInfo:[NSNumber numberWithInteger:pageIndex + 1]];
 }
 
-- (void)getMerchandisesSuccess:(HttpResponse *)resp
-{
-    if(resp.statusCode == 200)
-    {
+- (void)getMerchandisesSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
         NSInteger page = ((NSNumber *)resp.userInfo).integerValue;
-        if(merchandises == nil)
-        {
+        if(merchandises == nil) {
             merchandises = [NSMutableArray array];
-        } else
-        {
-            if(page == 0)
-            {
+        } else {
+            if(page == 0) {
                 [merchandises removeAllObjects];
             }
         }
@@ -103,36 +117,32 @@
         NSUInteger lastIndex = merchandises.count;
         
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        if(jsonArray != nil)
-        {
-            for(int i=0; i<jsonArray.count; i++)
-            {
+        if(jsonArray != nil) {
+            for(int i=0; i<jsonArray.count; i++) {
                 NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
                 [merchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
-                if(page > 0)
-                {
+                if(page > 0) {
                     [indexPaths addObject:[NSIndexPath indexPathForRow:lastIndex + i inSection:0]];
                 }
             }
         }
         
-        if(page > 0)
-        {
-            if(jsonArray != nil && jsonArray.count > 0)
-            {
+        if(page > 0) {
+            if(jsonArray != nil && jsonArray.count > 0) {
                 pageIndex++;
                 [tblMerchandises beginUpdates];
                 [tblMerchandises insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
                 [tblMerchandises endUpdates];
-            } else
-            {
+            } else {
                 [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"no_more", @"") forType:AlertViewTypeFailed];
                 [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
             }
-        } else
-        {
+        } else {
             tblMerchandises.pullLastRefreshDate = [NSDate date];
             [tblMerchandises reloadData];
+            
+            // if page index is 0, need save to disk cache
+            [[DiskCacheManager manager] setMerchandises:merchandises];
         }
         
         [self cancelRefresh];
@@ -140,6 +150,7 @@
         
         return;
     }
+    
     [self getMerchandisesfailure:resp];
 }
 

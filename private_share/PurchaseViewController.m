@@ -15,6 +15,7 @@
 #import "ContactDisplayView.h"
 #import "AddContactInfoViewController.h"
 #import "HomePageViewController.h"
+#import "DiskCacheManager.h"
 
 NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
 NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHeaderIdentifier";
@@ -27,7 +28,9 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     ContactDisplayView *contactDisplayView;
     
     NSArray *_shopShoppingItemss_;
-    NSMutableArray *contactArray;
+    
+    NSString *_default_contact_id_;
+    NSMutableArray *contacts;
     NSInteger fag;
 }
 
@@ -46,10 +49,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
-    contactArray = [[NSMutableArray alloc]init];
     self.title = NSLocalizedString(@"confirm_order", @"");
 
-//    self.view.backgroundColor = [UIColor appSilver];
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
     [settlementView setSelectButtonHidden];
@@ -71,7 +72,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     
     contactDisplayView = [[ContactDisplayView alloc] initWithFrame:
                           CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0) contact:[ShoppingCart myShoppingCart].orderContact];
-    [self getContactInfo];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
     [contactDisplayView addGestureRecognizer:tapGesture];
@@ -79,112 +79,138 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     _collectionView_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
     [_collectionView_ addSubview:contactDisplayView];
     
+    [self mayGetContactInfo];
 }
 
--(void)deleteContactArray:(NSNotification*)notif
-{
-    contactArray = notif.object;
-    if (fag==contactArray.count) {
+- (void)deleteContactArray:(NSNotification*)notif {
+    contacts = notif.object;
+    if(fag==contacts.count) {
         fag = 0;
     }
 
-    if (contactArray.count == 0) {
+    if(contacts.count == 0) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
         return;
     }
     
-    NSDictionary *tempD = [contactArray objectAtIndex:0];
+    NSDictionary *tempD = [contacts objectAtIndex:0];
     [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
     [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
     [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
     [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-
 }
 
-
--(void)updateContactArray:(NSNotification*)notif
-{
-    contactArray = notif.object;
+- (void)updateContactArray:(NSNotification*)notif {
+    contacts = notif.object;
     
-    NSDictionary *tempD = [contactArray objectAtIndex:fag];
+    NSDictionary *tempD = [contacts objectAtIndex:fag];
     [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
     [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
     [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
     [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-
 }
 
--(void)getContactInfo
-{
+- (void)mayGetContactInfo {
+    BOOL isExpired;
+    NSArray *_contacts_ = [[DiskCacheManager manager] contacts:&isExpired];
+    
+    if(_contacts_ != nil) {
+        contacts = [NSMutableArray arrayWithArray:_contacts_];
+        [contactDisplayView setCurrentContact:[self defaultContact]];
+    }
+    
+    if(isExpired || _contacts_ == nil) {
+        [self getContactInfo];
+    }
+}
+
+- (void)getContactInfo {
     ContactService *contactService = [[ContactService alloc]init];
     [contactService getContactInfo:self success:@selector(getContactSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-}
+- (void)getContactSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200 && resp.body != nil) {
+        
+        if(contacts == nil) {
+            contacts = [NSMutableArray array];
+        } else {
+            [contacts removeAllObjects];
+        }
+        
+        Contact *defaultContact = nil;
+        NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_contacts_ != nil) {
+            for(int i=0; i<_contacts_.count; i++) {
+                NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
+                Contact *contact = [[Contact alloc] initWithJson:contactJson];
+                [contacts addObject:contact];
+                if(_default_contact_id_ != nil && [contact.identifier isEqualToString:_default_contact_id_]) {
+                    contact.isDefault = YES;
+                    defaultContact = contact;
+                } else {
+                    contact.isDefault = NO;
+                }
+            }
+        }
+        
+        if(defaultContact == nil && contacts.count > 0) {
+            Contact *contact = [contacts objectAtIndex:0];
+            contact.isDefault = YES;
+            defaultContact = contact;
+        }
 
--(void)getContactSuccess:(HttpResponse *)resp
-{
-    if(resp.statusCode == 200)
-    {
-        NSMutableDictionary *contactDictionary =  [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        //
+        [[DiskCacheManager manager] setContacts:contacts];
         
-        for (NSDictionary *tmpDic in contactDictionary)
-        {
-            [contactArray addObject:tmpDic];
-        }
-        
-        if (contactArray.count == 0) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alert show];
-            return;
-        }
-        
-        NSDictionary *tempD = [contactArray objectAtIndex:0];
-        [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
-        [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
-        [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
-        [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
-        [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-    }else
-    {
+        [ShoppingCart myShoppingCart].orderContact = defaultContact == nil ? nil : [defaultContact copy];
+        [contactDisplayView setCurrentContact:defaultContact];
+    } else {
         [self handleFailureHttpResponse:resp];
     }
 }
 
--(void)pushContactInfo:(id)sender
-{
-    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contactArray fag:fag];
+- (Contact *)defaultContact {
+    _default_contact_id_ = nil;
+    if(contacts == nil || contacts.count == 0) return nil;
+    
+    for(int i=0; i<contacts.count; i++) {
+        Contact *contact = [contacts objectAtIndex:i];
+        if(contact.isDefault) {
+            _default_contact_id_ = contact.identifier;
+            return contact;
+        }
+    }
+    return nil;
+}
+
+- (void)pushContactInfo:(id)sender {
+    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts fag:fag];
     selectContactAddress.delegate = self;
     UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"";
+    backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:selectContactAddress animated:YES];
 }
 
+#pragma mark -
 #pragma mark UIAlertView delegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
 //        [self.navigationController popViewControllerAnimated:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    else
-    {
+    } else {
         AddContactInfoViewController *add = [[AddContactInfoViewController alloc]initWithContactArray:0];
         [self.navigationController pushViewController:add animated:YES];
     }
 }
 
 #pragma mark selectContactInfo delegate
--(void)contactInfo:(NSDictionary *)dictionary_contact fag:(NSInteger)fags
-{
+-(void)contactInfo:(NSDictionary *)dictionary_contact fag:(NSInteger)fags {
     [ShoppingCart myShoppingCart].orderContact.identifier = [dictionary_contact objectForKey:@"id"];
     [ShoppingCart myShoppingCart].orderContact.name = [dictionary_contact objectForKey:@"name"];
     [ShoppingCart myShoppingCart].orderContact.phoneNumber = [dictionary_contact objectForKey:@"contactPhone"];
@@ -285,12 +311,9 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
-
 }
-
 
 @end
