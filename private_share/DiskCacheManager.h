@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JsonEntity.h"
 #import "Contact.h"
 #import "Profile.h"
 #import "PointsOrder.h"
 
 extern NSString * const YOOMID_DIRECTORY_NAME;
+extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 
 @interface DiskCacheManager : NSObject
 
@@ -30,9 +32,9 @@ extern NSString * const YOOMID_DIRECTORY_NAME;
  * for all users
  */
 
-+ (NSArray *)activities:(BOOL)isExpired;
-+ (NSArray *)merchandises:(BOOL)isExpired;
-+ (NSArray *)taskCategories:(BOOL)isExpired;
+- (NSArray *)activities:(BOOL *)isExpired;
+- (NSArray *)merchandises:(BOOL *)isExpired;
+- (NSArray *)taskCategories:(BOOL *)isExpired;
 
 
 /**
@@ -40,7 +42,22 @@ extern NSString * const YOOMID_DIRECTORY_NAME;
  * for current user
  */
 
-- (Profile *)profile:(BOOL)isExpired;
+- (Profile *)profile:(BOOL *)isExpired;
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired;
 
 @end
+
+
+@interface CacheData : NSObject
+
+@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSDate *lastRefreshTime;
+
+- (BOOL)isExpired;
+
+- (void)setDataAsJsonArrayFormat:(NSArray *)array;
+- (void)setDataAsJsonDictionaryFormat:(NSDictionary *)dictionary;
+
+@end
+
+

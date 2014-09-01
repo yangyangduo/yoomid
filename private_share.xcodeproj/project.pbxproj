@@ -613,6 +613,7 @@
 		6F53EFE4194B3E6D0080B4DD /* AdPlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdPlatform.m; sourceTree = "<group>"; };
 		6F53EFE9194B55050080B4DD /* ShopShoppingItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopShoppingItems.h; sourceTree = "<group>"; };
 		6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopShoppingItems.m; sourceTree = "<group>"; };
+		6F5B5E1719B40EC200495F0C /* JsonEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonEntity.h; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1911,6 +1912,7 @@
 				6F97097B193F4DAC00EA5E3A /* SecurityConfig.m */,
 				6FFE4E8B1952BCF500954E71 /* DiskCacheManager.h */,
 				6FFE4E8C1952BCF500954E71 /* DiskCacheManager.m */,
+				6F5B5E1719B40EC200495F0C /* JsonEntity.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

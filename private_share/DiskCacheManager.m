@@ -7,6 +7,9 @@
 //
 
 #import "DiskCacheManager.h"
+#import "JsonUtil.h"
+
+NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL = 5;
 
 NSString * const YOOMID_DIRECTORY_NAME = @"yoomid-data";
 
@@ -18,13 +21,16 @@ NSString * const kFileNameProfile = @"profile";
 NSString * const kFileNamePointsOrder = @"points-order";
 
 @implementation DiskCacheManager {
-    NSMutableArray *_activities_;
-    NSMutableArray *_merchandises_;
-    NSMutableArray *_task_categories_;
-    
     NSString *_serve_account_;
+    
+    //
+    CacheData *_activities_data_;
+    CacheData *_merchandises_data_;
+    CacheData *_task_categories_data_;
+    
+    //
     Profile *_profile_;
-    NSMutableArray *_points_orders_;
+    CacheData *_points_orders_data_;
 }
 
 + (DiskCacheManager *)manager {
@@ -39,12 +45,6 @@ NSString * const kFileNamePointsOrder = @"points-order";
 - (instancetype)init {
     self = [super init];
     if(self) {
-        _activities_ = [NSMutableArray array];
-        _merchandises_ = [NSMutableArray array];
-        _task_categories_ = [NSMutableArray array];
-        
-        _points_orders_ = [NSMutableArray array];
-        
         [self initializeDirectoryWithPath:[DiskCacheManager YoomidDirectoryPath]];
     }
     return self;
@@ -54,7 +54,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     _serve_account_ = account;
     
     _profile_ = nil;
-    [_points_orders_ removeAllObjects];
+    _points_orders_data_ = nil;
     
     if(_serve_account_ != nil) {
         NSString *userDirectory = [[self class] YoomidUserDirectoryPathWithAccountId:_serve_account_];
@@ -67,19 +67,26 @@ NSString * const kFileNamePointsOrder = @"points-order";
 #pragma mark -
 #pragma mark get and read
 
-+ (NSArray *)activities:(BOOL)isExpired {
+- (NSArray *)activities:(BOOL *)isExpired {
+    if(_activities_data_ == nil) {
+        *isExpired = YES;
+        return nil;
+    }
+    
+    
+    
     return nil;
 }
 
-+ (NSArray *)merchandises:(BOOL)isExpired {
+- (NSArray *)merchandises:(BOOL *)isExpired {
     return nil;
 }
 
-+ (NSArray *)taskCategories:(BOOL)isExpired {
+- (NSArray *)taskCategories:(BOOL *)isExpired {
     return nil;
 }
 
-- (Profile *)profile:(BOOL)isExpired {
+- (Profile *)profile:(BOOL *)isExpired {
     
     return nil;
 }
@@ -168,6 +175,36 @@ NSString * const kFileNamePointsOrder = @"points-order";
 + (NSString *)YoomidUserDirectoryPathWithAccountId:(NSString *)accountId {
     if(accountId == nil || [@"" isEqualToString:accountId]) return nil;
     return [[[self class] YoomidDirectoryPath] stringByAppendingPathComponent:accountId];
+}
+
+@end
+
+
+@implementation CacheData
+
+@synthesize data;
+@synthesize lastRefreshTime;
+
+- (BOOL)isExpired {
+    if(self.lastRefreshTime == nil) return YES;
+    NSTimeInterval difference = abs(self.lastRefreshTime.timeIntervalSinceNow) / 60;
+    return difference > CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
+}
+
+- (void)setDataAsJsonArrayFormat:(NSArray *)array {
+    if(array == nil) {
+        self.data = nil;
+        return;
+    }
+    self.data = [JsonUtil createJsonDataFromArray:array];
+}
+
+- (void)setDataAsJsonDictionaryFormat:(NSDictionary *)dictionary {
+    if(dictionary == nil) {
+        self.data = nil;
+        return;
+    }
+    self.data = [JsonUtil createJsonDataFromDictionary:dictionary];
 }
 
 @end
