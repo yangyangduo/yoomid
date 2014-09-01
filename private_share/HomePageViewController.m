@@ -29,13 +29,12 @@
     
     NSString *cellIdentifier;
     CustomCollectionView *_collectionView;
-<<<<<<< HEAD
+
     
     UIButton *notificationsButton;
     UIButton *repoButton;
     UIButton *settingButton;
-=======
->>>>>>> FETCH_HEAD
+
 }
 
 @synthesize allCategories = _allCategories_;
@@ -82,7 +81,6 @@
     NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
     pullImagesView.imageItems = imagearray;
     
-<<<<<<< HEAD
     settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(actionSettingBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,11 +90,6 @@
     notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
     [notificationsButton addTarget:self action:@selector(actionNotifiBtn:) forControlEvents:UIControlEventTouchUpInside];
-=======
-    UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
-    [notificationsButton addTarget:self action:@selector(showNotifications:) forControlEvents:UIControlEventTouchUpInside];
->>>>>>> FETCH_HEAD
     [self.view addSubview:notificationsButton];
  
     UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
@@ -142,7 +135,7 @@
     }
 }
 
-<<<<<<< HEAD
+
 -(void)actionSettingBtn:(id)sender
 {
     SettingViewController *settingVC = [[SettingViewController alloc] init];
@@ -153,9 +146,7 @@
 }
 
 -(void)actionNotifiBtn:(id)sender {
-=======
--(void)showNotifications:(id)sender {
->>>>>>> FETCH_HEAD
+
 }
 
 -(void)showMiRepository:(id)sender {
