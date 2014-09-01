@@ -20,23 +20,23 @@
 @synthesize orderState;
 @synthesize merchandiseLists;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary) {
-        self.orderId = [dictionary noNilStringForKey:@"orderId"];
-        self.shopId = [dictionary noNilStringForKey:@"shopId"];
-        self.totalPoints = [dictionary numberForKey:@"totalPoints"].integerValue;
-        self.totalCash = [dictionary numberForKey:@"totalCash"].floatValue;
-        self.returnPoints = [dictionary numberForKey:@"returnPoints"].integerValue;
-        self.shopName = [dictionary noNilStringForKey:@"shopName"];
-        self.orderState = [dictionary numberForKey:@"orderState"].unsignedIntegerValue;
-        self.createTime = [dictionary dateWithMillisecondsForKey:@"createTime"];
-        NSArray *mls = [dictionary arrayForKey:@"merchandiseLists"];
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json) {
+        self.orderId = [json noNilStringForKey:@"orderId"];
+        self.shopId = [json noNilStringForKey:@"shopId"];
+        self.totalPoints = [json numberForKey:@"totalPoints"].integerValue;
+        self.totalCash = [json numberForKey:@"totalCash"].floatValue;
+        self.returnPoints = [json numberForKey:@"returnPoints"].integerValue;
+        self.shopName = [json noNilStringForKey:@"shopName"];
+        self.orderState = [json numberForKey:@"orderState"].unsignedIntegerValue;
+        self.createTime = [json dateWithMillisecondsForKey:@"createTime"];
+        NSArray *mls = [json arrayForKey:@"merchandiseLists"];
         NSMutableArray *orders = [NSMutableArray array];
         if(mls != nil) {
             for(int i=0; i<mls.count; i++) {
                 NSDictionary *ml = [mls objectAtIndex:i];
-                [orders addObject:[[MerchandiseOrderItem alloc] initWithDictionary:ml]];
+                [orders addObject:[[MerchandiseOrderItem alloc] initWithJson:ml]];
             }
         }
         self.merchandiseLists = orders;

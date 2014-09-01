@@ -10,7 +10,7 @@
 
 @protocol JsonEntity <NSObject>
 
-- (void)initWithJson:(NSDictionary *)json;
+- (instancetype)initWithJson:(NSDictionary *)json;
 - (NSMutableDictionary *)toJson;
 
 @end

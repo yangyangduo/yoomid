@@ -15,19 +15,19 @@
 @synthesize address;
 @synthesize identifier;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithJson:(NSDictionary *)json {
     self = [super init];
-    if(self && dictionary) {
-        self.identifier = [dictionary noNilStringForKey:@"id"];
-        self.name  = [dictionary noNilStringForKey:@"name"];
-        self.phoneNumber = [dictionary noNilStringForKey:@"contactPhone"];
-        self.address = [dictionary noNilStringForKey:@"deliveryAddress"];
+    if(self && json) {
+        self.identifier = [json noNilStringForKey:@"id"];
+        self.name  = [json noNilStringForKey:@"name"];
+        self.phoneNumber = [json noNilStringForKey:@"contactPhone"];
+        self.address = [json noNilStringForKey:@"deliveryAddress"];
     }
     return self;
 }
 
-- (NSMutableDictionary *)toDictionary {
-    NSMutableDictionary *dic = [super toDictionary];
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *dic = [super toJson];
     /*
     [dic setMayBlankString:self.name forKey:@"name"];
     [dic setMayBlankString:self.phoneNumber forKey:@"contactPhone"];

@@ -10,14 +10,14 @@
 
 @implementation BaseModel
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithJson:(NSDictionary *)json {
     self = [super init];
-    if(self && dictionary) {
+    if(self && json) {
     }
     return self;
 }
 
-- (NSMutableDictionary *)toDictionary {
+- (NSMutableDictionary *)toJson {
     return [NSMutableDictionary dictionary];
 }
 

@@ -51,7 +51,7 @@
         if(resp.contentType != nil && resp.body != nil && [resp.contentType rangeOfString:@"application/json" options:NSCaseInsensitiveSearch].location != NSNotFound) {
             NSDictionary *_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
             if(_json_ != nil) {
-                ReturnMessage *message = [[ReturnMessage alloc] initWithDictionary:_json_];
+                ReturnMessage *message = [[ReturnMessage alloc] initWithJson:_json_];
                 [[XXAlertView currentAlertView] setMessage:message.message forType:AlertViewTypeFailed];
                 [self safetyAlertAndDelayDismiss];
                 return;

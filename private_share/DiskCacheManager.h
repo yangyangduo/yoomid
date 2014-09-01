@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JsonEntity.h"
+#import "TaskCategory.h"
 #import "Contact.h"
 #import "Profile.h"
 #import "PointsOrder.h"
@@ -36,6 +37,10 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 - (NSArray *)merchandises:(BOOL *)isExpired;
 - (NSArray *)taskCategories:(BOOL *)isExpired;
 
+- (void)setActivities:(NSArray *)activities;
+- (void)setMerchandises:(NSArray *)merchandises;
+- (void)setTaskCategories:(NSArray *)taskCategories;
+
 
 /**
  * user data source
@@ -45,18 +50,18 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 - (Profile *)profile:(BOOL *)isExpired;
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired;
 
+- (void)setProfile:(Profile *)profile;
+- (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType;
+
 @end
 
 
-@interface CacheData : NSObject
+@interface CacheData : BaseModel
 
-@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) id data; 
 @property (nonatomic, strong) NSDate *lastRefreshTime;
 
 - (BOOL)isExpired;
-
-- (void)setDataAsJsonArrayFormat:(NSArray *)array;
-- (void)setDataAsJsonDictionaryFormat:(NSDictionary *)dictionary;
 
 @end
 

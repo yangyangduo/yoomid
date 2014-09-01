@@ -76,7 +76,7 @@
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
                 NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
-                [activities addObject:[[Merchandise alloc] initWithDictionary:jsonObject]];
+                [activities addObject:[[Merchandise alloc] initWithJson:jsonObject]];
                 if(page > 0) {
                     [indexSet addIndex:lastIndex + i];
                 }

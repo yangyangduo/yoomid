@@ -16,19 +16,19 @@
 @synthesize points;
 @synthesize cash;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
     if(self) {
-        self.identifier = [dictionary noNilStringForKey:@"id"];
-        self.number = [dictionary numberForKey:@"number"].integerValue;
-        self.paymentType = [dictionary numberForKey:@"paymentType"].integerValue;
-        self.name = [dictionary noNilStringForKey:@"name"];
+        self.identifier = [json noNilStringForKey:@"id"];
+        self.number = [json numberForKey:@"number"].integerValue;
+        self.paymentType = [json numberForKey:@"paymentType"].integerValue;
+        self.name = [json noNilStringForKey:@"name"];
         if(self.number == 0) {
             self.points = 0.f;
         } else {
-            self.points = [dictionary numberForKey:@"totalPoints"].integerValue / self.number;
+            self.points = [json numberForKey:@"totalPoints"].integerValue / self.number;
         }
-        self.cash = [dictionary numberForKey:@"totalCash"].floatValue / self.number;
+        self.cash = [json numberForKey:@"totalCash"].floatValue / self.number;
     }
     return self;
 }

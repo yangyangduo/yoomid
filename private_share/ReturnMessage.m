@@ -13,11 +13,11 @@
 @synthesize messageKey;
 @synthesize message;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary) {
-        self.messageKey = [dictionary noNilStringForKey:@"messageKey"];
-        self.message  = [dictionary noNilStringForKey:@"message"];
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json) {
+        self.messageKey = [json noNilStringForKey:@"messageKey"];
+        self.message  = [json noNilStringForKey:@"message"];
     }
     return self;
 }

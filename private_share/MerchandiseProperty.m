@@ -13,11 +13,11 @@
 @synthesize name;
 @synthesize values;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary) {
-        self.name = [dictionary noNilStringForKey:@"name"];
-        self.values = [dictionary arrayForKey:@"values"];
+- (id)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json) {
+        self.name = [json noNilStringForKey:@"name"];
+        self.values = [json arrayForKey:@"values"];
         if(self.values == nil) {
             self.values = [NSArray array];
         }

@@ -16,15 +16,15 @@
 @synthesize taskName;
 @synthesize providerName;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary) {
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json) {
 //        self.orderId = [dictionary noNilStringForKey:@"orderId"];
-        self.points = [dictionary numberForKey:@"points"].integerValue;
-        self.taskName = [dictionary noNilStringForKey:@"taskName"];
-        self.providerName = [dictionary noNilStringForKey:@"providerName"];
-        self.orderType = [dictionary numberForKey:@"orderType"].integerValue;
-        self.createTime = [dictionary dateWithMillisecondsForKey:@"timestamp"];
+        self.points = [json numberForKey:@"points"].integerValue;
+        self.taskName = [json noNilStringForKey:@"taskName"];
+        self.providerName = [json noNilStringForKey:@"providerName"];
+        self.orderType = [json numberForKey:@"orderType"].integerValue;
+        self.createTime = [json dateWithMillisecondsForKey:@"timestamp"];
     }
     return self;
 }

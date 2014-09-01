@@ -17,6 +17,7 @@
 #import "TaskDetailViewController.h"
 #import "NSMutableDictionary+Extension.h"
 #import "NSDictionary+Extension.h"
+#import "DiskCacheManager.h"
 
 NSString * const homePageCell = @"homePageCell";
 NSString * const fileName = @"categories4.plist";
@@ -151,7 +152,7 @@ NSString * const fileName = @"categories4.plist";
         result = [result stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
         NSData *bodyData = [result dataUsingEncoding:NSUTF8StringEncoding];
         self.allCategories = [JsonUtil createDictionaryOrArrayFromJsonData:bodyData];
-        [self saveCategoriesInfoToDisk];
+        [self saveCategoriesInfoToDisk];        
         [_collectionView reloadData];
     } else {
         [self handleFailureHttpResponse:resp];

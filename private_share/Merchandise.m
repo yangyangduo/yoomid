@@ -31,36 +31,36 @@
 @synthesize maximumPeoples;
 @synthesize address;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary != nil) {
-        self.identifier = [dictionary noNilStringForKey:@"id"];
-        self.name = [dictionary noNilStringForKey:@"name"];
-        self.shortDescription = [dictionary noNilStringForKey:@"shortDescrition"];
-        self.category = [dictionary noNilStringForKey:@"category"];
-        self.points = [dictionary numberForKey:@"points"].integerValue;
-        self.exchangeCount = [dictionary numberForKey:@"exchangeCount"].integerValue;
-        self.createTime = [dictionary numberForKey:@"createTime"].doubleValue;
-        self.returnPoints = [dictionary numberForKey:@"returnPoints"].integerValue;
-        self.imageUrls = [dictionary arrayForKey:@"imageUrls"];
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json != nil) {
+        self.identifier = [json noNilStringForKey:@"id"];
+        self.name = [json noNilStringForKey:@"name"];
+        self.shortDescription = [json noNilStringForKey:@"shortDescrition"];
+        self.category = [json noNilStringForKey:@"category"];
+        self.points = [json numberForKey:@"points"].integerValue;
+        self.exchangeCount = [json numberForKey:@"exchangeCount"].integerValue;
+        self.createTime = [json numberForKey:@"createTime"].doubleValue;
+        self.returnPoints = [json numberForKey:@"returnPoints"].integerValue;
+        self.imageUrls = [json arrayForKey:@"imageUrls"];
         
-        self.maximumPeoples = [dictionary numberForKey:@"maximumPeoples"].integerValue;
-        self.follows = [dictionary numberForKey:@"follows"].longValue;
-        self.startTime = [dictionary dateWithMillisecondsForKey:@"startTime"];
-        self.endTime = [dictionary dateWithMillisecondsForKey:@"endTime"];
-        self.buyStartTime = [dictionary dateWithMillisecondsForKey:@"buyStartTime"];
-        self.buyEndTime = [dictionary dateWithMillisecondsForKey:@"buyEndTime"];
-        NSDictionary *_address_ = [dictionary dictionaryForKey:@"address"];
+        self.maximumPeoples = [json numberForKey:@"maximumPeoples"].integerValue;
+        self.follows = [json numberForKey:@"follows"].longValue;
+        self.startTime = [json dateWithMillisecondsForKey:@"startTime"];
+        self.endTime = [json dateWithMillisecondsForKey:@"endTime"];
+        self.buyStartTime = [json dateWithMillisecondsForKey:@"buyStartTime"];
+        self.buyEndTime = [json dateWithMillisecondsForKey:@"buyEndTime"];
+        NSDictionary *_address_ = [json dictionaryForKey:@"address"];
         if(_address_ != nil) {
-            self.address = [[Address alloc] initWithDictionary:_address_];
+            self.address = [[Address alloc] initWithJson:_address_];
         }
         
         NSMutableArray *propers = [NSMutableArray array];
-        NSArray *_properties_ = [dictionary arrayForKey:@"properties"];
+        NSArray *_properties_ = [json arrayForKey:@"properties"];
         if(_properties_ != nil) {
             for(int i=0; i<_properties_.count; i++) {
                 NSDictionary *property = [_properties_ objectAtIndex:i];
-                MerchandiseProperty *mProperty = [[MerchandiseProperty alloc] initWithDictionary:property];
+                MerchandiseProperty *mProperty = [[MerchandiseProperty alloc] initWithJson:property];
                 [propers addObject:mProperty];
             }
         }
@@ -74,8 +74,8 @@
     return [self.imageUrls objectAtIndex:0];
 }
 
-- (NSMutableDictionary *)toDictionary {
-    NSMutableDictionary *dictionary = [super toDictionary];
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *dictionary = [super toJson];
     [dictionary setMayBlankString:self.identifier forKey:@"id"];
     [dictionary setMayBlankString:self.name forKey:@"name"];
     [dictionary setMayBlankString:self.shortDescription forKey:@"shortDescrition"];

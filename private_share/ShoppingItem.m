@@ -18,8 +18,8 @@
 @synthesize selected = _selected_;
 @synthesize shopId;
 
-- (NSMutableDictionary *)toDictionary {
-    NSMutableDictionary *dic = [super toDictionary];
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *dic = [super toJson];
     if(self.merchandise == nil) return dic;
     [dic setMayBlankString:self.merchandise.identifier forKey:@"id"];
     [dic setInteger:number forKey:@"number"];

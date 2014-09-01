@@ -192,11 +192,11 @@
     NSMutableArray *merchandiseLists = [NSMutableArray array];
     for(int i=0; i<ssi.shoppingItems.count; i++) {
         ShoppingItem *item = [ssi.shoppingItems objectAtIndex:i];
-        [merchandiseLists addObject:[item toDictionary]];
+        [merchandiseLists addObject:[item toJson]];
     }
     [dic setNoNilObject:merchandiseLists forKey:@"merchandiseLists"];
     [dic setMayBlankString:kHentreStoreID forKey:@"shopId"];
-    [dic setNoNilObject:[self.orderContact toDictionary]  forKey:@"contactInfo"];
+    [dic setNoNilObject:[self.orderContact toJson]  forKey:@"contactInfo"];
     return dic;
 }
 

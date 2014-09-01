@@ -13,8 +13,8 @@
 @synthesize codeType;
 @synthesize codeContent;
 
-- (NSMutableDictionary *)toDictionary {
-    NSMutableDictionary *dictionary = [super toDictionary];
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *dictionary = [super toJson];
     return dictionary;
 }
 

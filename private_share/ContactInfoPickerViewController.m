@@ -54,7 +54,7 @@
         if(contacts != nil && contacts.count > 0)
         {
             NSDictionary *_json_ = [contacts objectAtIndex:0];
-            [ShoppingCart myShoppingCart].orderContact = [[Contact alloc] initWithDictionary:_json_];
+            [ShoppingCart myShoppingCart].orderContact = [[Contact alloc] initWithJson:_json_];
             [contactInfoTableView reloadData];
         }
         [[XXAlertView currentAlertView] dismissAlertView];

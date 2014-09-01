@@ -114,7 +114,7 @@
         NSUInteger lastIndex = pointsOrders.count;
         if(results != nil) {
             for(int i=0; i<results.count; i++) {
-                PointsOrder *order = [[PointsOrder alloc] initWithDictionary:[results objectAtIndex:i]];
+                PointsOrder *order = [[PointsOrder alloc] initWithJson:[results objectAtIndex:i]];
                 [pointsOrders addObject:order];
                 if(page > 0) {
                     [indexPaths addObject:[NSIndexPath indexPathForItem:lastIndex + i inSection:0]];

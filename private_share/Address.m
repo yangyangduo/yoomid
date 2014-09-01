@@ -14,12 +14,12 @@
 @synthesize longitude;
 @synthesize address;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
-    if(self && dictionary) {
-        self.longitude = [dictionary numberForKey:@"longitude"].doubleValue;
-        self.latitude = [dictionary numberForKey:@"latitude"].doubleValue;
-        self.address = [dictionary stringForKey:@"address"];   
+- (instancetype)initWithJson:(NSDictionary *)json {
+    self = [super initWithJson:json];
+    if(self && json) {
+        self.longitude = [json numberForKey:@"longitude"].doubleValue;
+        self.latitude = [json numberForKey:@"latitude"].doubleValue;
+        self.address = [json stringForKey:@"address"];
     }
     return self;
 }

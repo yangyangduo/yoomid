@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JsonEntity.h"
 #import "NSDictionary+Extension.h"
 #import "NSMutableDictionary+Extension.h"
 
-@interface BaseModel : NSObject
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSMutableDictionary *)toDictionary;
+@interface BaseModel : NSObject<JsonEntity>
 
 @end

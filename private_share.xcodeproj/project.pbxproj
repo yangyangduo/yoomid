@@ -113,6 +113,7 @@
 		6F53EFE2194B3E4F0080B4DD /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFE1194B3E4F0080B4DD /* Constants.m */; };
 		6F53EFE5194B3E6D0080B4DD /* AdPlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFE4194B3E6D0080B4DD /* AdPlatform.m */; };
 		6F53EFEB194B55050080B4DD /* ShopShoppingItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */; };
+		6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E1919B41B3200495F0C /* TaskCategory.m */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -614,6 +615,8 @@
 		6F53EFE9194B55050080B4DD /* ShopShoppingItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopShoppingItems.h; sourceTree = "<group>"; };
 		6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopShoppingItems.m; sourceTree = "<group>"; };
 		6F5B5E1719B40EC200495F0C /* JsonEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonEntity.h; sourceTree = "<group>"; };
+		6F5B5E1819B41B3200495F0C /* TaskCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCategory.h; sourceTree = "<group>"; };
+		6F5B5E1919B41B3200495F0C /* TaskCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCategory.m; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1370,6 +1373,8 @@
 				6F2C52B11974F6560045BFC1 /* MerchandiseProperty.m */,
 				6FC2E87819B1834C00AA78A9 /* Profile.h */,
 				6FC2E87919B1834C00AA78A9 /* Profile.m */,
+				6F5B5E1819B41B3200495F0C /* TaskCategory.h */,
+				6F5B5E1919B41B3200495F0C /* TaskCategory.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -2928,6 +2933,7 @@
 				6DD5676E4C2E11196167B914 /* UIDevice+SystemVersion.m in Sources */,
 				6F97097F193F4E0000EA5E3A /* NSDictionary+Extension.m in Sources */,
 				6F72C18919762DD200100D12 /* DynamicGroupButtonView.m in Sources */,
+				6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */,
 				D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */,
 				6F2BD0B4194C51670092BA23 /* OrderFooterView.m in Sources */,
 				D6941CAA19A6F3F300946E97 /* TaskSubCategoryViewController.m in Sources */,

@@ -108,7 +108,7 @@
             for(int i=0; i<jsonArray.count; i++)
             {
                 NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
-                [merchandises addObject:[[Merchandise alloc] initWithDictionary:jsonObject]];
+                [merchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
                 if(page > 0)
                 {
                     [indexPaths addObject:[NSIndexPath indexPathForRow:lastIndex + i inSection:0]];
