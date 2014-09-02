@@ -16,6 +16,7 @@ NSString * const YOOMID_DIRECTORY_NAME = @"yoomid-data";
 NSString * const kFileNameActivities = @"activities";
 NSString * const kFileNameMerchandises = @"merchandises";
 NSString * const kFileNameTaskCategories = @"task-categories";
+NSString * const kFileNameRecommendedMerchandises = @"recommended-merchandises";
 
 NSString * const kFileNameContacts = @"contacts";
 NSString * const kFileNamePointsOrder = @"points-order";
@@ -27,6 +28,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     CacheData *_activities_data_;
     CacheData *_merchandises_data_;
     CacheData *_task_categories_data_;
+    CacheData *_recommended_merchandises_data_;
     
     //
     CacheData *_contacts_data_;
@@ -68,6 +70,21 @@ NSString * const kFileNamePointsOrder = @"points-order";
 
 #pragma mark -
 #pragma mark Cache data get and read
+
+- (NSArray *)recommendedMerchandises:(BOOL *)isExpired {
+    NSArray *merchandises = nil;
+    
+    if(_recommended_merchandises_data_ == nil) {
+        _recommended_merchandises_data_ = [self cacheDataFromDisk:kFileNameRecommendedMerchandises inUserDirectory:NO];
+    }
+    
+    if(_recommended_merchandises_data_ != nil) {
+        merchandises = [self arrayFromCacheData:_recommended_merchandises_data_ withEntityClass:[Merchandise class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_recommended_merchandises_data_];
+    return merchandises;
+}
 
 - (NSArray *)merchandises:(BOOL *)isExpired {
     NSArray *merchandises = nil;
@@ -181,6 +198,13 @@ NSString * const kFileNamePointsOrder = @"points-order";
 
 #pragma mark -
 #pragma mark Cache data set and save
+
+- (void)setRecommendedMerchandises:(NSArray *)merchandises {
+    if(_recommended_merchandises_data_ == nil) {
+        _recommended_merchandises_data_ = [[CacheData alloc] init];
+    }
+    [self setCacheData:_recommended_merchandises_data_ jsonEntities:merchandises fileName:kFileNameRecommendedMerchandises inUserDirectory:NO];
+}
 
 - (void)setMerchandises:(NSArray *)merchandises {
     if(_merchandises_data_ == nil) {
