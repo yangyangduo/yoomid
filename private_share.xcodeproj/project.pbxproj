@@ -425,6 +425,7 @@
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D6941CAA19A6F3F300946E97 /* TaskSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */; };
+		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
 		D6A152C619A5D3300094B565 /* TaskCategoriesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskCategoriesService.m */; };
 		D6A152C919A5F73B0094B565 /* ktct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6A152C819A5F73B0094B565 /* ktct@2x.png */; };
 		D6A7AD6919A1F271005E3312 /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A7AD6819A1F271005E3312 /* HomePageViewController.m */; };
@@ -1064,6 +1065,8 @@
 		D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsRecordViewController.m; sourceTree = "<group>"; };
 		D6941CA819A6F3F300946E97 /* TaskSubCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSubCategoryViewController.h; sourceTree = "<group>"; };
 		D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSubCategoryViewController.m; sourceTree = "<group>"; };
+		D698655119B58EDE00781F54 /* AgePickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgePickerPopupView.h; sourceTree = "<group>"; };
+		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
 		D6A152C419A5D3300094B565 /* TaskCategoriesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCategoriesService.h; sourceTree = "<group>"; };
 		D6A152C519A5D3300094B565 /* TaskCategoriesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCategoriesService.m; sourceTree = "<group>"; };
 		D6A152C819A5F73B0094B565 /* ktct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ktct@2x.png"; sourceTree = "<group>"; };
@@ -2116,6 +2119,7 @@
 				6F3632FF193EF02A00340645 /* part_scroll_view */,
 				6F3632F5193EBF7C00340645 /* text_field */,
 				6FF533291938614D001D607C /* drawer_view_controller */,
+				D698655019B58E3300781F54 /* agepicker_popupview */,
 				6F72A3DB193DB54A001DAA3E /* DrawerItemView.h */,
 				6F72A3DC193DB54A001DAA3E /* DrawerItemView.m */,
 				6F3632FC193EC8F600340645 /* DefaultStyleButton.h */,
@@ -2477,6 +2481,15 @@
 				D66B497F19B4539D002615CC /* edit@2x.png */,
 			);
 			name = setting;
+			sourceTree = "<group>";
+		};
+		D698655019B58E3300781F54 /* agepicker_popupview */ = {
+			isa = PBXGroup;
+			children = (
+				D698655119B58EDE00781F54 /* AgePickerPopupView.h */,
+				D698655219B58EDE00781F54 /* AgePickerPopupView.m */,
+			);
+			name = agepicker_popupview;
 			sourceTree = "<group>";
 		};
 		D6A152C719A5F7120094B565 /* homepage */ = {
@@ -2996,6 +3009,7 @@
 				6F41896D1948005900F9DC2C /* HttpFilterContext.m in Sources */,
 				6F8D84D41945703900D1D123 /* ShoppingCartLastFooterView.m in Sources */,
 				6F76F78919653ABD00C2FD52 /* PortalViewController.m in Sources */,
+				D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */,
 				6F97098D193F52A900EA5E3A /* MerchandiseService.m in Sources */,
 				6F8F2E8619569D0C00E8B274 /* PasswordChangeViewController.m in Sources */,
 				6F72A3F9193E1EC2001DAA3E /* RegisterViewController.m in Sources */,

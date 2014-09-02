@@ -22,6 +22,8 @@
 {
     UIImageView *perfectinformation2;
     UITableView *tableview;
+    
+    NSMutableArray *userInfoArray;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,6 +40,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    
+    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"45",@"男",@"白领",@"哈佛大学", nil];
 
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
@@ -45,7 +49,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
-//    tableview.scrollEnabled = NO;
     tableview.backgroundColor = [UIColor clearColor];
     tableview.delegate = self;
     tableview.dataSource = self;
@@ -61,20 +64,10 @@
     perfectinformation1.image = [UIImage imageNamed:@"perfectinformation1"];
     [topView addSubview:perfectinformation1];
     
-     perfectinformation2 = [[UIImageView alloc]initWithFrame:CGRectMake(30+perfectinformation1.bounds.size.width, 0, 200/2, 162/2)];
+     perfectinformation2 = [[UIImageView alloc]initWithFrame:CGRectMake(30+perfectinformation1.bounds.size.width, 1, 200/2, 162/2)];
     perfectinformation2.image = [UIImage imageNamed:@"perfectinformation2"];
     [topView addSubview:perfectinformation2];
 
-//    UIImage *bgImage = [UIImage imageNamed:@"setupbg"];
-//    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-//    bgImage = [bgImage resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
-//    
-//    UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 81-12, self.view.bounds.size.width-30, [UIDevice is4InchDevice] ? 330 :250)];
-//    bgImageView.image = bgImage;
-//    [self.view addSubview:bgImageView];
-//    
-//
-//
     UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableview.bounds.size.width, 100)];
     bottomView.backgroundColor = [UIColor clearColor];
     tableview.tableFooterView = bottomView;
@@ -121,6 +114,13 @@
 }];
 }
 
+#pragma mark- agePickerPopupView delegate
+-(void)setAge:(NSString *)age
+{
+    [userInfoArray replaceObjectAtIndex:2 withObject:age];
+    [tableview reloadData];
+}
+
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -128,7 +128,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 8;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,58 +136,136 @@
     static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
-    cell.backgroundColor = [UIColor grayColor];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, cell.bounds.size.width-10, [UIDevice is4InchDevice] ? 46.5 : 35.1)];
-    textLabel.font = [UIFont systemFontOfSize:14];
+    
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-30, 47)];
+    [cell addSubview:bgView];
 
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, [UIDevice is4InchDevice] ? 45.5 : 34.1, cell.bounds.size.width, 1)];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, bgView.bounds.size.width-30, 47)];
+    textLabel.font = [UIFont systemFontOfSize:15];
+    
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(12,46, bgView.bounds.size.width-24, 1)];
     line.backgroundColor = [UIColor colorWithRed:228.f/255.f green:230.f/255.f blue:230/255.f alpha:1];//228 230  230
-    [cell addSubview:line];
+    UIImageView *intoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(243, 0, 47, 47)];
+    intoImageView.image = [UIImage imageNamed:@"into"];
+    
+    UIImage *bgImage = [UIImage imageNamed:@"setupbg"];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 20, 0, 20);
+    CGRect rect;
+    UIImage *image;
+
     
     if (indexPath.row == 0) {
-        textLabel.text = @"昵称: 忧伤的鑫";
+        textLabel.text = [NSString stringWithFormat:@"昵称:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 0, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+
+        imageview.image = image;
+        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 1)
     {
-        textLabel.text = @"姓名: 张三";
+        textLabel.text = [NSString stringWithFormat:@"姓名:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 2)
     {
-        textLabel.text = [NSString stringWithFormat:@"年龄: %@             性别: %@",@"24",@"男"];
+        textLabel.text = [NSString stringWithFormat:@"年龄:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
+
     }
     else if (indexPath.row == 3)
     {
-        textLabel.text = @"职业: 总裁";
+        textLabel.text = [NSString stringWithFormat:@"性别:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 4)
     {
-        textLabel.text = @"单位/学校名称: 哈佛大学";
+        textLabel.text = [NSString stringWithFormat:@"职位:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 5)
     {
-        textLabel.text = @"收货地址管理:";
-        textLabel.frame = CGRectMake(5, 0, 150, [UIDevice is4InchDevice] ? 47 : 35.7);
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        textLabel.text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 6)
     {
-        textLabel.text = @"修改密码:";
-        textLabel.frame = CGRectMake(5, 0, 150, [UIDevice is4InchDevice] ? 47 : 35.7);
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        textLabel.text = @"收货地址管理";
+        textLabel.frame = CGRectMake(15, 0, 150, 47);
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
+    }
+    else if (indexPath.row == 7)
+    {
+        textLabel.text = @"修改密码";
+        textLabel.frame = CGRectMake(15, 0, 150, 47);
         [line setHidden:YES];
-    }else{}
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        
+        rect = CGRectMake(0, 50, 97, 47);//创建矩形框
+        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+        
+        imageview.image = image;
+        [bgView addSubview:imageview];
 
-    [cell addSubview:textLabel];
+    }else{}
+    [bgView addSubview:textLabel];
+    [bgView addSubview:intoImageView];
+    [bgView addSubview:line];
+
+    cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [UIDevice is4InchDevice] ? 46.5 : 35.7;
+    return 47;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -198,6 +276,89 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    switch (indexPath.row) {
+        case 0:
+            ;
+            break;
+        case 1:
+       
+            break;
+        case 2:
+        {
+            AgePickerPopupView *agePickerPopupView = [[AgePickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) age:[[userInfoArray objectAtIndex:indexPath.row] intValue]];
+            agePickerPopupView.delegate = self;
+            [agePickerPopupView showInView:self.view];
+            break;
+        }
+        case 3:
+        {
+            UIActionSheet *sexActionSheet = [[UIActionSheet alloc]initWithTitle:@"请选择性别:" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"男" otherButtonTitles:@"女", nil];
+            sexActionSheet.tag = 300;
+            [sexActionSheet showInView:self.view];
+            break;
+        }
+        case 4:
+        {
+            UIActionSheet *professionActionSheet = [[UIActionSheet alloc]initWithTitle:@"请选择职业:" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"白领" otherButtonTitles:@"红领", @"蓝领", nil];
+            professionActionSheet.tag = 400;
+            [professionActionSheet showInView:self.view];
+
+            break;
+        }
+        case 5:
+            
+            break;
+        case 6:
+            ;
+            break;
+        case 7:
+            
+            break;
+    
+        default:
+            break;
+    }
+}
+
+#pragma mark-
+#pragma uiactionsheet delegeta
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == 300) {
+        if (buttonIndex == 0) {
+            [userInfoArray replaceObjectAtIndex:3 withObject:@"男"];
+        }
+        else if (buttonIndex == 1)
+        {
+            [userInfoArray replaceObjectAtIndex:3 withObject:@"女"];
+        }
+    }
+    else if (actionSheet.tag == 400)
+    {
+        if (buttonIndex == 0) {
+            [userInfoArray replaceObjectAtIndex:4 withObject:@"白领"];
+        }
+        else if (buttonIndex == 1)
+        {
+            [userInfoArray replaceObjectAtIndex:4 withObject:@"红领"];
+        }
+        else if (buttonIndex == 2)
+        {
+            [userInfoArray replaceObjectAtIndex:4 withObject:@"蓝领"];
+        }
+    }
+    
+    [tableview reloadData];
+}
+
+-(void)willPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    for (UIView *subViwe in actionSheet.subviews) {
+        if ([subViwe isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton*)subViwe;
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
