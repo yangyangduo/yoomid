@@ -114,6 +114,25 @@
 }];
 }
 
+#pragma mark -
+#pragma mark Text view controller delegate
+-(void)textViewController2:(TextViewController2 *)textViewController didConfirmNewText:(NSString *)newText
+{
+    if ([@"kNickName" isEqualToString:textViewController.identifier]) {
+        [userInfoArray replaceObjectAtIndex:0 withObject:newText];
+    }
+    else if ([@"kUserName" isEqualToString:textViewController.identifier])
+    {
+        [userInfoArray replaceObjectAtIndex:1 withObject:newText];
+    }
+    else if ([@"kCompanyOrSchoolName" isEqualToString:textViewController.identifier])
+    {
+        [userInfoArray replaceObjectAtIndex:5 withObject:newText];
+    }
+    [tableview reloadData];
+    [textViewController.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark- agePickerPopupView delegate
 -(void)setAge:(NSString *)age
 {
@@ -275,19 +294,32 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    TextViewController2 *textView = [[TextViewController2 alloc]init];
+    textView.title = @"用户信息修改";
+    textView.delegate = self;
     
     switch (indexPath.row) {
         case 0:
-            ;
+        {
+            textView.identifier = @"kNickName";
+            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.descriptionText = @"请输入昵称:";
+            [self.navigationController pushViewController:textView animated:YES];
             break;
+        }
         case 1:
-       
+        {
+            textView.identifier = @"kUserName";
+            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.descriptionText = @"请输入姓名:";
+            [self.navigationController pushViewController:textView animated:YES];
             break;
+        }
         case 2:
         {
             AgePickerPopupView *agePickerPopupView = [[AgePickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) age:[[userInfoArray objectAtIndex:indexPath.row] intValue]];
             agePickerPopupView.delegate = self;
-            [agePickerPopupView showInView:self.view];
+            [agePickerPopupView showInView:self.navigationController.view];
             break;
         }
         case 3:
@@ -306,17 +338,26 @@
             break;
         }
         case 5:
-            
+        {
+            textView.identifier = @"kCompanyOrSchoolName";
+            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.descriptionText = @"请输入单位/学校名称:";
+            [self.navigationController pushViewController:textView animated:YES];
             break;
+        }
         case 6:
-            ;
+        {
             break;
+        }
         case 7:
-            
+        {
             break;
+        }
     
         default:
             break;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     }
 }
 

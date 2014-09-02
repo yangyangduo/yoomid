@@ -429,6 +429,7 @@
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D6941CAA19A6F3F300946E97 /* TaskSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
+		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
 		D6A152C619A5D3300094B565 /* TaskCategoriesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskCategoriesService.m */; };
 		D6A152C919A5F73B0094B565 /* ktct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6A152C819A5F73B0094B565 /* ktct@2x.png */; };
 		D6A7AD6919A1F271005E3312 /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A7AD6819A1F271005E3312 /* HomePageViewController.m */; };
@@ -1075,6 +1076,8 @@
 		D6941CA919A6F3F300946E97 /* TaskSubCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSubCategoryViewController.m; sourceTree = "<group>"; };
 		D698655119B58EDE00781F54 /* AgePickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgePickerPopupView.h; sourceTree = "<group>"; };
 		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
+		D698655A19B5B86700781F54 /* TextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController2.h; sourceTree = "<group>"; };
+		D698655B19B5B86700781F54 /* TextViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController2.m; sourceTree = "<group>"; };
 		D6A152C419A5D3300094B565 /* TaskCategoriesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCategoriesService.h; sourceTree = "<group>"; };
 		D6A152C519A5D3300094B565 /* TaskCategoriesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCategoriesService.m; sourceTree = "<group>"; };
 		D6A152C819A5F73B0094B565 /* ktct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ktct@2x.png"; sourceTree = "<group>"; };
@@ -1170,6 +1173,8 @@
 				6F72A3EF193DF7D2001DAA3E /* DrawerMenuViewController.m */,
 				6F5061D2194883E5007163C2 /* TextViewController.h */,
 				6F5061D3194883E5007163C2 /* TextViewController.m */,
+				D698655A19B5B86700781F54 /* TextViewController2.h */,
+				D698655B19B5B86700781F54 /* TextViewController2.m */,
 				6FE009471953DF5C002A675D /* WebViewController.h */,
 				6FE009481953DF5C002A675D /* WebViewController.m */,
 				6F7BD3221953F5F50031D2DD /* QRCodeScannerViewController.h */,
@@ -3019,6 +3024,7 @@
 				6F363302193EF06000340645 /* PartsScrollView.m in Sources */,
 				6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */,
 				6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */,
+				D698655C19B5B86700781F54 /* TextViewController2.m in Sources */,
 				6DD563E113FFAD3D252A3F80 /* DrawerViewController.m in Sources */,
 				6F2816B2194980CB009B29DB /* ImageItem.m in Sources */,
 				6F2B51CF19553B740069798A /* ShoppingItemsChangedEvent.m in Sources */,

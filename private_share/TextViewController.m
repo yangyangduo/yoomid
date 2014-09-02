@@ -26,12 +26,12 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
-        descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 250, 30)];
+        descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 250, 20)];
         descriptionLabel.font = [UIFont systemFontOfSize:15.f];
         descriptionLabel.backgroundColor = [UIColor clearColor];
         [self.view addSubview:descriptionLabel];
         
-        textField = [[UITextField alloc] initWithFrame:CGRectMake(0, descriptionLabel.frame.origin.y + descriptionLabel.bounds.size.height + 15, [UIScreen mainScreen].bounds.size.width, 35)];
+        textField = [[UITextField alloc] initWithFrame:CGRectMake(0, descriptionLabel.frame.origin.y + descriptionLabel.bounds.size.height + 5, [UIScreen mainScreen].bounds.size.width, 35)];
         textField.backgroundColor = [UIColor appSilver];
         textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 0)];
         textField.leftViewMode = UITextFieldViewModeAlways;

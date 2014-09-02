@@ -221,7 +221,8 @@
 
 - (void)textViewController:(TextViewController *)textViewController didConfirmNewText:(NSString *)newText {
     Contact *contact = [ShoppingCart myShoppingCart].orderContact;
-    if([@"kName" isEqualToString:textViewController.identifier]) {
+    if([@"kName" isEqualToString:textViewController.identifier])
+    {
         contact.name = newText;
     } else if([@"kPhone" isEqualToString:textViewController.identifier]) {
         contact.phoneNumber = newText;
