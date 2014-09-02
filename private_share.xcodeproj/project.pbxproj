@@ -18,8 +18,6 @@
 		6F12F363194FE9F700B47132 /* icon_experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F362194FE9F700B47132 /* icon_experience@2x.png */; };
 		6F12F365194FEBF000B47132 /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F364194FEBF000B47132 /* icon_video@2x.png */; };
 		6F12F368194FF33800B47132 /* ExperienceTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F12F367194FF33800B47132 /* ExperienceTasksViewController.m */; };
-		6F12F37619501E8100B47132 /* Escore.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F37419501E8100B47132 /* Escore.bundle */; };
-		6F12F37719501E8100B47132 /* Escore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37519501E8100B47132 /* Escore.framework */; };
 		6F12F3791950209200B47132 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F3781950209200B47132 /* CoreTelephony.framework */; };
 		6F12F37B195020A100B47132 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37A195020A100B47132 /* AdSupport.framework */; };
 		6F12F37D195020B600B47132 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37C195020B500B47132 /* ImageIO.framework */; };
@@ -114,6 +112,7 @@
 		6F53EFE5194B3E6D0080B4DD /* AdPlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFE4194B3E6D0080B4DD /* AdPlatform.m */; };
 		6F53EFEB194B55050080B4DD /* ShopShoppingItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */; };
 		6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E1919B41B3200495F0C /* TaskCategory.m */; };
+		6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -462,8 +461,6 @@
 		6F12F366194FF33800B47132 /* ExperienceTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTasksViewController.h; sourceTree = "<group>"; };
 		6F12F367194FF33800B47132 /* ExperienceTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceTasksViewController.m; sourceTree = "<group>"; };
 		6F12F36D1950190700B47132 /* Escore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Escore.framework; path = ../ios2.0/Escore.framework; sourceTree = "<group>"; };
-		6F12F37419501E8100B47132 /* Escore.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Escore.bundle; sourceTree = "<group>"; };
-		6F12F37519501E8100B47132 /* Escore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Escore.framework; sourceTree = "<group>"; };
 		6F12F3781950209200B47132 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		6F12F37A195020A100B47132 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6F12F37C195020B500B47132 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -625,6 +622,9 @@
 		6F5B5E1719B40EC200495F0C /* JsonEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonEntity.h; sourceTree = "<group>"; };
 		6F5B5E1819B41B3200495F0C /* TaskCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCategory.h; sourceTree = "<group>"; };
 		6F5B5E1919B41B3200495F0C /* TaskCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCategory.m; sourceTree = "<group>"; };
+		6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		6F5B5E1D19B5689000495F0C /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		6F5B5E1E19B5689000495F0C /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1101,13 +1101,13 @@
 				6F66B5B5194AEACF008A948C /* libOpenIDFA.a in Frameworks */,
 				D3644C53197A18BF00B44785 /* minizip64.a in Frameworks */,
 				6F7657E519345C7C003BF61C /* CoreGraphics.framework in Frameworks */,
+				6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */,
 				6F75A542195800EA00E4FE52 /* libDMOfferWallSDK.a in Frameworks */,
 				D3644C34197A171000B44785 /* libDianRuAdWall.a in Frameworks */,
 				6F66B5B6194AEACF008A948C /* libYouMi.a in Frameworks */,
 				6F7657E719345C7C003BF61C /* UIKit.framework in Frameworks */,
 				6F7657E319345C7C003BF61C /* Foundation.framework in Frameworks */,
 				D3644C52197A18BF00B44785 /* libAdwoOfferWallLib2.1.a in Frameworks */,
-				6F12F37719501E8100B47132 /* Escore.framework in Frameworks */,
 				054BDF85BC4648D8AAA47AA2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1203,15 +1203,6 @@
 				6F12F364194FEBF000B47132 /* icon_video@2x.png */,
 			);
 			name = task;
-			sourceTree = "<group>";
-		};
-		6F12F37319501DC800B47132 /* yijifen */ = {
-			isa = PBXGroup;
-			children = (
-				6F12F37419501E8100B47132 /* Escore.bundle */,
-				6F12F37519501E8100B47132 /* Escore.framework */,
-			);
-			name = yijifen;
 			sourceTree = "<group>";
 		};
 		6F12F3801951245700B47132 /* platform */ = {
@@ -1495,6 +1486,16 @@
 			name = images_scroll_view;
 			sourceTree = "<group>";
 		};
+		6F5B5E1B19B5689000495F0C /* UMAnalytics_Sdk_3.1.2 */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */,
+				6F5B5E1D19B5689000495F0C /* MobClick.h */,
+				6F5B5E1E19B5689000495F0C /* MobClickSocialAnalytics.h */,
+			);
+			path = UMAnalytics_Sdk_3.1.2;
+			sourceTree = "<group>";
+		};
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1515,7 +1516,6 @@
 				D3644B6E197A16B400B44785 /* dianru */,
 				6F75A53B1957FF7600E4FE52 /* domob */,
 				6F12F383195151B400B47132 /* cocounion */,
-				6F12F37319501DC800B47132 /* yijifen */,
 				6F66B5A8194AEABF008A948C /* youmi */,
 			);
 			name = platform;
@@ -1973,6 +1973,7 @@
 		6F97096F193F4A6B00EA5E3A /* third */ = {
 			isa = PBXGroup;
 			children = (
+				6F5B5E1B19B5689000495F0C /* UMAnalytics_Sdk_3.1.2 */,
 				6F66B5A7194AEAB6008A948C /* platform */,
 				6F8823BE1940531F00757633 /* EGOTableViewPullRefresh */,
 			);
@@ -2748,7 +2749,6 @@
 				6F2C52C119751D2C0045BFC1 /* guide1@2x.png in Resources */,
 				D66B498619B458A1002615CC /* setup2.png in Resources */,
 				D3644C33197A171000B44785 /* dianru_red_right_view.png in Resources */,
-				6F12F37619501E8100B47132 /* Escore.bundle in Resources */,
 				D3644BF1197A171000B44785 /* dianru_blue_right_cell.png in Resources */,
 				D3644BFC197A171000B44785 /* dianru_DRDefaultIcon.png in Resources */,
 				D3644C22197A171000B44785 /* dianru_purple_dianru_titlebg.jpg in Resources */,
@@ -3132,6 +3132,7 @@
 					"$(PROJECT_DIR)/private_share/AdwoLib",
 					"$(PROJECT_DIR)/private_share/AdwoLib/res",
 					"$(PROJECT_DIR)/private_share/MiidiLib",
+					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3176,6 +3177,7 @@
 					"$(PROJECT_DIR)/private_share/AdwoLib",
 					"$(PROJECT_DIR)/private_share/AdwoLib/res",
 					"$(PROJECT_DIR)/private_share/MiidiLib",
+					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

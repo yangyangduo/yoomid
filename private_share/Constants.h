@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kUMengAppKey;
+
 // ad-platforms
 extern NSString * const kYoumiAppID;
 extern NSString * const kYoumiSecretKey;
@@ -33,11 +35,6 @@ extern NSString * const kMiidiAppSecretKey;
 // service
 extern NSString * const kHentreStoreID;
 extern NSString * const kBaseUrl;
-
-
-// refresh time interval
-extern NSTimeInterval const kMerchandisesRefreshTimeInterval;
-extern NSTimeInterval const kMerchandiseOrdersRefreshTimeInterval;
 
 @interface Constants : NSObject
 

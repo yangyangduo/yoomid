@@ -8,7 +8,6 @@
 
 #import "ExperienceTasksViewController.h"
 #import "YouMiWall.h"
-#import <Escore/YJFIntegralWall.h>
 #import "PBOfferWall.h"
 #import "DMOfferWallManager.h"
 #import "SecurityConfig.h"

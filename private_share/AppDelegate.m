@@ -7,24 +7,26 @@
 //
 
 #import "AppDelegate.h"
-#import "UINavigationViewInitializer.h"
-#import "ViewControllerAccessor.h"
+
+#import "HomePageViewController.h"
 #import "LoginViewController.h"
+#import "GuideViewController.h"
+#import "ViewControllerAccessor.h"
+#import "UINavigationViewInitializer.h"
+
+#import "Account.h"
 #import "SecurityConfig.h"
-#import "YouMiConfig.h"
-#import "YouMiWall.h"
 #import "Constants.h"
 #import "ShoppingCart.h"
-#import <Escore/YJFUserMessage.h>
-#import <Escore/YJFInitServer.h>
-#import <AdSupport/ASIdentifierManager.h>
 #import "DiskCacheManager.h"
-#import "PunchBoxAd.h"
-#import "Account.h"
-#import "GuideViewController.h"
+
+#import "YouMiConfig.h"
+#import "YouMiWall.h"
 #import "MiidiManager.h"
 #import "MiidiAdWall.h"
-#import "HomePageViewController.h"
+#import "PunchBoxAd.h"
+
+#import "MobClick.h"
 
 @implementation AppDelegate
 
@@ -54,6 +56,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self initUMAnalytics];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -109,10 +113,8 @@
 
 - (void)doAfterLogin {
     if([SecurityConfig defaultConfig].isLogin) {
-        // init ad platforms
         [self initAdPlatforms];
         
-        //
         [Account currentAccount].accountId = [SecurityConfig defaultConfig].userName;
         [[Account currentAccount] refreshPoints];
         
@@ -168,6 +170,16 @@
     // init miidi adwall
     [MiidiManager setAppPublisher:kMiidiAppId withAppSecret:kMiidiAppSecretKey];
     [MiidiAdWall setUserParam:[SecurityConfig defaultConfig].userName];
+}
+
+#pragma mark -
+#pragma mark uMeng initalization
+
+- (void)initUMAnalytics {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    [MobClick startWithAppkey:kUMengAppKey reportPolicy:BATCH channelId:@"Web"];
+    [MobClick setAppVersion:version];
 }
 
 #pragma mark -
