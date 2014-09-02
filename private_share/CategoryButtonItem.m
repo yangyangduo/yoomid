@@ -23,9 +23,18 @@
         iconView.image = [[UIImage imageNamed:@"categoryLeft"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
         [self addSubview:iconView];
         
+        if(imageName != nil) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 10, 23, 23)];
+            imageView.image = [UIImage imageNamed:imageName];
+            [iconView addSubview:imageView];
+        }
+        
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(iconView.bounds.size.width, 0, 170, 43)];
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [button setBackgroundImage:[[UIImage imageNamed:@"categoryRight"] stretchableImageWithLeftCapWidth:10 topCapHeight:5] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:20.f];
+        [button setTitle:title forState:UIControlStateNormal];
         [self addSubview:button];
     }
     return self;

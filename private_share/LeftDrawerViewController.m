@@ -12,7 +12,6 @@
 #import "UINavigationViewInitializer.h"
 #import "ActivitiesViewController.h"
 #import "ViewControllerAccessor.h"
-#import "TaskViewController.h"
 #import "PortalViewController.h"
 #import "UIDevice+ScreenSize.h"
 #import "ShoppingCartViewController2.h"
@@ -103,7 +102,6 @@
     } else if([@"activity" isEqualToString:selectedItem]) {
         rootViewController = [[ActivitiesViewController alloc] init];
     } else if([@"task" isEqualToString:selectedItem]) {
-        rootViewController = [[TaskViewController alloc] init];
     } else if([@"mall" isEqualToString:selectedItem]) {
         rootViewController = [[MallViewController alloc] init];
     } else if([@"mi_repo2" isEqualToString:selectedItem]) {

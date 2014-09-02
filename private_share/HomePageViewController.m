@@ -18,7 +18,7 @@
 #import "DiskCacheManager.h"
 #import "SettingViewController.h"
 
-
+#import "AdwoOfferWall.h"
 #import "YouMiWall.h"
 #import "DMOfferWallManager.h"
 
@@ -177,7 +177,20 @@
         } didDismissBlock:^{
         }];
     } else if([@"anwo" isEqualToString:identifier]) {
+        NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
+        AdwoOWSetKeywords(arr);
         
+        // 初始化并登录积分墙
+        BOOL result = AdwoOWPresentOfferWall(kAdwoAppKey, self);
+        if(!result)
+        {
+            enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
+
+        }
+        else{
+            NSLog(@"Initialization successfully!");
+        }
+
     }
     [currentModalView closeViewAnimated:NO completion:nil];
 }
