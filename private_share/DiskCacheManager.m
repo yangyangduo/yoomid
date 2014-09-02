@@ -194,6 +194,9 @@ NSString * const kFileNamePointsOrder = @"points-order";
 #pragma mark -
 #pragma mark set and save
 
+
+
+
 - (void)setActivities:(NSArray *)activities {
 }
 
@@ -261,6 +264,36 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType {
+    if(_points_orders_data_ == nil) {
+        _points_orders_data_ = [[CacheData alloc] init];
+    }
+    
+    NSMutableArray *data = [NSMutableArray array];
+    if(pointsOrders != nil) {
+        for(int i=0; i<pointsOrders.count; i++) {
+            id<JsonEntity> pointsOrder = [pointsOrders objectAtIndex:i];
+            [data addObject:[pointsOrder toJson]];
+        }
+    }
+    
+    if(_points_orders_data_.data == nil) {
+        _points_orders_data_.data = [NSMutableDictionary dictionary];
+    }
+    NSMutableDictionary *oldData = _points_orders_data_.data;
+    
+    NSString *key = (PointsOrderTypeIncome == pointsOrderType) ? @"income" : @"pay";
+    [oldData removeObjectForKey:key];
+    if(data.count > 0) {
+        [oldData setObject:data forKey:key];
+    }
+    
+    _points_orders_data_.data = oldData.count == 0 ? nil : data;
+    _points_orders_data_.lastRefreshTime = [NSDate date];
+    
+    [self saveData:_points_orders_data_ withFileName:kFileNamePointsOrder inUserDirectory:YES];
+#ifdef DEBUG
+    NSLog(@"[Disk Cache Manager] Store points order to disk cache");
+#endif
 }
 
 #pragma mark -
