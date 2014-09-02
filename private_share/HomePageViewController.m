@@ -35,10 +35,6 @@
     CustomCollectionView *_collectionView;
 
     ModalView *currentModalView;
-    
-    UIButton *notificationsButton;
-    UIButton *repoButton;
-    UIButton *settingButton;
 }
 
 @synthesize allCategories = _allCategories_;
@@ -85,15 +81,14 @@
     NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
     pullImagesView.imageItems = imagearray;
     
-    settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
-    [settingButton addTarget:self action:@selector(actionSettingBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
 
-    
-    notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
+    UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
-    [notificationsButton addTarget:self action:@selector(actionNotifiBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [notificationsButton addTarget:self action:@selector(showNotifications:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:notificationsButton];
  
     UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
@@ -139,16 +134,23 @@
     }
 }
 
+- (void)actionChangePage:(id)sender {
+    pullImagesView.pageIndex = pageControl.currentPage;
+    [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
+}
 
--(void)actionSettingBtn:(id)sender
-{
+
+#pragma mark -
+#pragma mark Show view controllers
+
+-(void)showSettings:(id)sender {
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
 }
 
--(void)actionNotifiBtn:(id)sender {
+-(void)showNotifications:(id)sender {
 
 }
 
@@ -157,11 +159,6 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
-}
-
--(void)actionChangePage:(id)sender {
-    pullImagesView.pageIndex = pageControl.currentPage;
-    [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
 }
 
 #pragma mark -
