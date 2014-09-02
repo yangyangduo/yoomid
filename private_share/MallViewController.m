@@ -9,7 +9,6 @@
 #import "MallViewController.h"
 #import "MerchandiseTableViewCell.h"
 #import "MerchandiseService.h"
-#import "ModalAnimation.h"
 #import "MerchandiseDetailViewController2.h"
 #import "ShoppingCartViewController.h"
 #import "DateTimeUtil.h"

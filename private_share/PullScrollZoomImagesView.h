@@ -65,3 +65,19 @@ extern CGFloat const kPullImageBottomViewHeight;
  }
  
 */
+
+/*
+ 
+ **** 一般使用
+ 此控件是嵌入到scroll view 的顶部, 用于显示图片的, 下拉scroll view图片会慢慢变大
+ 只需要调用  initAndEmbeddedInScrollView 这个方法 并传入 scroll view
+ 然后在 scroll view 的 delegate 的 scrollViewDidScroll 方法中 调用 此控件的 pullScrollViewDidScroll:方法即可
+ 
+ 
+ **** 对于scroll view 顶部不单单只有此控件一个UIView的情况下
+ 类似于(top image view + custom view + htmlview(所说得pull scroll view))
+ 要先创建并加入 custom view, 并指定好 contentInset
+ 然后最后再按前面的方法使用即可
+ 
+ */
+

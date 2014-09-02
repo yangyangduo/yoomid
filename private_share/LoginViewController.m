@@ -209,7 +209,6 @@
 - (void)forgotPasswordButtonPressed:(id)sender {
 }
 
-
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if([viewController isKindOfClass:[LoginViewController class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
