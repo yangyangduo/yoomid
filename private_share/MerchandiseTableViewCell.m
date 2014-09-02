@@ -43,7 +43,7 @@
         
         progressView = [[ProgressView alloc] initWithFrame:CGRectMake(13, 95, 70, 7)];
         progressView.backgroundView.backgroundColor = [UIColor colorWithRed:208.f / 255.f green:209.f / 255.f blue:211.f / 255.f alpha:1.f];// 162,226
-        progressView.trackView.backgroundColor = [UIColor colorWithRed:0 / 255.f green:162.f / 255.f blue:226.f / 255.f alpha:1.f];
+        progressView.trackView.backgroundColor = [UIColor appLightBlue];
         progressView.layer.cornerRadius = 5;
         [bootomView addSubview:progressView];
         
@@ -118,7 +118,7 @@
         titleLabel.frame = CGRectMake(126, 13, titleLabelSize.width, titleLabelSize.height);
         
         NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
-        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor colorWithRed:0 / 255.f green:162.f / 255.f blue:226.f / 255.f alpha:1.f], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
+        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
         
         [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"米米" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
         pointsLabel.attributedText = pointsString;

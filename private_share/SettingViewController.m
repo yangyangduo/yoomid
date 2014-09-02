@@ -202,7 +202,7 @@
     }
     else if (indexPath.row == 2)
     {
-        textLabel.text = [NSString stringWithFormat:@"年龄:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        textLabel.text = [NSString stringWithFormat:@"生日:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片

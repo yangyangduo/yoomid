@@ -71,7 +71,7 @@
     sendVerfyCodeButton.frame = CGRectMake(verifyCodeTextField.frame.origin.x+verifyCodeTextField.bounds.size.width+2, verifyCodeTextField.frame.origin.y+2.5, 70, 30);
     [sendVerfyCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
     sendVerfyCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [sendVerfyCodeButton setTitleColor:[UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0] forState:UIControlStateNormal];
+    [sendVerfyCodeButton setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
     [sendVerfyCodeButton addTarget:self action:@selector(getVerifyCodeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sendVerfyCodeButton];
     
@@ -95,7 +95,7 @@
     showPasswordButton.frame = CGRectMake(passwordTextField.frame.origin.x+passwordTextField.bounds.size.width+7, passwordTextField.frame.origin.y+2.5, 60, 30);
     [showPasswordButton setTitle:@"显示密码" forState:UIControlStateNormal];
     showPasswordButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [showPasswordButton setTitleColor:[UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0] forState:UIControlStateNormal];
+    [showPasswordButton setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
     [showPasswordButton addTarget: self action:@selector(showPassword:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:showPasswordButton];
 
