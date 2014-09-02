@@ -14,7 +14,7 @@
 #import "CategoryButtonItem.h"
 #import "AdPlatformPickerView.h"
 
-@interface HomePageViewController : TransitionViewController<UIScrollViewDelegate, PullScrollZoomImagesViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, CategoryButtonItemDelegate, ModalViewDelegate>
+@interface HomeViewController : TransitionViewController<UIScrollViewDelegate, PullScrollZoomImagesViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, CategoryButtonItemDelegate, ModalViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *allCategories;
 @property (nonatomic, strong) NSMutableArray *rootCategories;

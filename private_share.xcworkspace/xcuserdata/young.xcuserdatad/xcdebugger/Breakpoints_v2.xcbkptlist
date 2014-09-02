@@ -735,7 +735,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
             endingLineNumber = "224"
-            landmarkName = "-textFieldShouldBeginEditing:"
+            landmarkName = "-checkBoxValueDidChanged:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -751,8 +751,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "223"
             endingLineNumber = "223"
-            landmarkName = "-textFieldShouldBeginEditing:"
-            landmarkType = "5">
+            landmarkName = "@implementation RegisterViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1401,13 +1401,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "private_share/HomePageViewController.m"
+            filePath = "private_share/HomeViewController.m"
             timestampString = "431343048.475971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
             endingLineNumber = "38"
-            landmarkName = "@implementation HomePageViewController"
+            landmarkName = "@implementation HomeViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1417,7 +1417,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "private_share/HomePageViewController.m"
+            filePath = "private_share/HomeViewController.m"
             timestampString = "431343048.475971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -1433,7 +1433,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "private_share/HomePageViewController.m"
+            filePath = "private_share/HomeViewController.m"
             timestampString = "431343048.475971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -1497,7 +1497,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "private_share/HomePageViewController.m"
+            filePath = "private_share/HomeViewController.m"
             timestampString = "431343048.475971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

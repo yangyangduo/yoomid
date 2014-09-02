@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "HomePageViewController.h"
+#import "HomeViewController.h"
 #import "CustomCollectionView.h"
 #import "MyPointsRecordViewController.h"
 #import "UINavigationViewInitializer.h"
@@ -22,11 +22,11 @@
 #import "YouMiWall.h"
 #import "DMOfferWallManager.h"
 
-@interface HomePageViewController ()
+@interface HomeViewController ()
 
 @end
 
-@implementation HomePageViewController {
+@implementation HomeViewController {
     PullScrollZoomImagesView *pullImagesView;
     UIScrollView *scrollview;
     UIPageControl *pageControl;
@@ -356,7 +356,7 @@
 #pragma mark Navigation controller delegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if([viewController isKindOfClass:[HomePageViewController class]]) {
+    if([viewController isKindOfClass:[HomeViewController class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];

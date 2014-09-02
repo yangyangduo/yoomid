@@ -14,7 +14,7 @@
 #import "UIDevice+ScreenSize.h"
 #import "ContactDisplayView.h"
 #import "AddContactInfoViewController.h"
-#import "HomePageViewController.h"
+#import "HomeViewController.h"
 #import "DiskCacheManager.h"
 
 NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";

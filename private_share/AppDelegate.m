@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "HomePageViewController.h"
+#import "HomeViewController.h"
 #import "LoginViewController.h"
 #import "GuideViewController.h"
 #import "ViewControllerAccessor.h"
@@ -61,7 +61,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    HomePageViewController *homeViewController = [[HomePageViewController alloc] init];
+    HomeViewController *homeViewController = [[HomeViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     self.window.rootViewController = navigationController;
