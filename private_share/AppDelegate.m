@@ -26,6 +26,8 @@
 #import "MiidiAdWall.h"
 #import "HomePageViewController.h"
 
+@implementation AppDelegate
+
 
 //                            _ooOoo_
 //                           o8888888o
@@ -50,35 +52,10 @@
 //                  佛祖保佑             永无BUG
 
 
-@implementation AppDelegate
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    /*
-    // Configure drawer view controller's defaut appearance
-    [DrawerViewController defaultConfig].leftDrawerViewVisibleWidth = 235;
-    [DrawerViewController defaultConfig].triggerHideLeftDrawerViewX = 175;
-    [DrawerViewController defaultConfig].rightDrawerViewVisibleWidth = self.window.bounds.size.width - 44;
-    
-    // Center view controller
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[HomePageViewController alloc] init]];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    
-    // Left view controller
-    LeftDrawerViewController *leftDrawerViewController = [[LeftDrawerViewController alloc] init];
-    
-    // Drawer View Controller with left and center view controller
-    DrawerViewController *drawerViewController = [[DrawerViewController alloc] initWithLeftViewController:leftDrawerViewController rightViewController:[[MyPointsRecordViewController alloc] init] centerViewController:navigationController];
-    
-    //
-    [ViewControllerAccessor defaultAccessor].drawerViewController = drawerViewController;
-    
-    self.window.rootViewController = drawerViewController;
-    [self.window makeKeyAndVisible];
-    */
     
     HomePageViewController *homeViewController = [[HomePageViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
@@ -225,3 +202,28 @@
 }
 
 @end
+
+/*
+ 
+ // Configure drawer view controller's defaut appearance
+ [DrawerViewController defaultConfig].leftDrawerViewVisibleWidth = 235;
+ [DrawerViewController defaultConfig].triggerHideLeftDrawerViewX = 175;
+ [DrawerViewController defaultConfig].rightDrawerViewVisibleWidth = self.window.bounds.size.width - 44;
+ 
+ // Center view controller
+ UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[HomePageViewController alloc] init]];
+ [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+ 
+ // Left view controller
+ LeftDrawerViewController *leftDrawerViewController = [[LeftDrawerViewController alloc] init];
+ 
+ // Drawer View Controller with left and center view controller
+ DrawerViewController *drawerViewController = [[DrawerViewController alloc] initWithLeftViewController:leftDrawerViewController rightViewController:[[MyPointsRecordViewController alloc] init] centerViewController:navigationController];
+ 
+ //
+ [ViewControllerAccessor defaultAccessor].drawerViewController = drawerViewController;
+ 
+ self.window.rootViewController = drawerViewController;
+ [self.window makeKeyAndVisible];
+ 
+ */

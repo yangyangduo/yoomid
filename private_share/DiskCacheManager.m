@@ -30,7 +30,8 @@ NSString * const kFileNamePointsOrder = @"points-order";
     
     //
     CacheData *_contacts_data_;
-    CacheData *_points_orders_data_;
+    CacheData *_income_points_orders_data_;
+    CacheData *_pay_points_orders_data_;
 }
 
 + (DiskCacheManager *)manager {
@@ -54,7 +55,8 @@ NSString * const kFileNamePointsOrder = @"points-order";
     _serve_account_ = account;
     
     _contacts_data_ = nil;
-    _points_orders_data_ = nil;
+    _income_points_orders_data_ = nil;
+    _pay_points_orders_data_ = nil;
     
     if(_serve_account_ != nil) {
         NSString *userDirectory = [[self class] YoomidUserDirectoryPathWithAccountId:_serve_account_];
@@ -65,235 +67,190 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 #pragma mark -
-#pragma mark get and read
+#pragma mark Cache data get and read
+
+- (NSArray *)merchandises:(BOOL *)isExpired {
+    NSArray *merchandises = nil;
+    
+    if(_merchandises_data_ == nil) {
+        _merchandises_data_ = [self cacheDataFromDisk:kFileNameMerchandises inUserDirectory:NO];
+    }
+    
+    if(_merchandises_data_ != nil) {
+        merchandises = [self arrayFromCacheData:_merchandises_data_ withEntityClass:[Merchandise class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_merchandises_data_];
+    return merchandises;
+}
+
+- (NSArray *)taskCategories:(BOOL *)isExpired {
+    NSArray *taskCategories = nil;
+    
+    if(_task_categories_data_ == nil) {
+        _task_categories_data_ = [self cacheDataFromDisk:kFileNameTaskCategories inUserDirectory:NO];
+    }
+    
+    if(_task_categories_data_ != nil) {
+        taskCategories = [self arrayFromCacheData:_task_categories_data_ withEntityClass:[TaskCategory class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_task_categories_data_];
+    return taskCategories;
+}
+
+- (NSArray *)contacts:(BOOL *)isExpired {
+    NSArray *contacts = nil;
+    
+    if(_contacts_data_ == nil) {
+        _contacts_data_ = [self cacheDataFromDisk:kFileNameContacts inUserDirectory:YES];
+    }
+    
+    if(_contacts_data_ != nil) {
+        contacts = [self arrayFromCacheData:_contacts_data_ withEntityClass:[Contact class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_contacts_data_];
+    return contacts;
+}
+
+- (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired {
+    NSArray *data = nil;
+    CacheData *cacheData = nil;
+    NSString *fileName = [NSString stringWithFormat:@"%@-%@",
+            kFileNamePointsOrder, ((PointsOrderTypeIncome == pointsOrderType) ? @"income" : @"pay")];
+    
+
+    if(PointsOrderTypeIncome == pointsOrderType) {
+        if(_income_points_orders_data_ == nil) {
+            _income_points_orders_data_ = [self cacheDataFromDisk:fileName inUserDirectory:YES];
+        }
+        cacheData = _income_points_orders_data_;
+    } else {
+        if(_pay_points_orders_data_ == nil) {
+            _pay_points_orders_data_ = [self cacheDataFromDisk:fileName inUserDirectory:YES];
+        }
+        cacheData = _pay_points_orders_data_;
+    }
+    
+    if(cacheData != nil) {
+        data = [self arrayFromCacheData:cacheData withEntityClass:[PointsOrder class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:cacheData];
+    return data;
+}
+
+- (id)cacheDataFromDisk:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
+    CacheData *cacheData = nil;
+    
+    NSData *data = [self loadDataWithFileName:fileName inUserDirectory:inUserDirectory];
+    if(data != nil) {
+        id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
+        if(json != nil) {
+            cacheData = [[CacheData alloc] initWithJson:json];
+#ifdef DEBUG
+            NSLog(@"[Disk Cache Manager] Load [%@] from disk cache", fileName);
+#endif
+        }
+    }
+    
+    return cacheData;
+}
+
+- (NSArray *)arrayFromCacheData:(CacheData *)cacheData withEntityClass:(Class)entityClass {
+    if(cacheData == nil) return nil;
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    
+    NSArray *jsonArray = cacheData.data;
+    if(jsonArray != nil) {
+        for(int i=0; i<jsonArray.count; i++) {
+            [dataArray addObject:[[entityClass alloc] initWithJson:[jsonArray objectAtIndex:i]]];
+        }
+        NSLog(@"[Disk Cache Manager] Load [%@] from memory cache", [entityClass description]);
+    }
+    
+    return dataArray.count == 0 ? nil : dataArray;
+}
 
 - (NSArray *)activities:(BOOL *)isExpired {
     
     return nil;
 }
 
-- (NSArray *)merchandises:(BOOL *)isExpired {
-    NSMutableArray *merchandises = [NSMutableArray array];
-    
-    BOOL readDisk = NO;
-    
-    // read from disk first
-    if(_merchandises_data_ == nil) {
-        NSData *data = [self loadDataWithFileName:kFileNameMerchandises inUserDirectory:NO];
-        
-        id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
-        if(json != nil) {
-            _merchandises_data_ = [[CacheData alloc] initWithJson:json];
-#ifdef DEBUG
-            NSLog(@"[Disk Cache Manager] Load merchandises from disk cache");
-#endif
-            readDisk = YES;
-        }
-    }
-    
-    // json data convert to entity type
-    if(_merchandises_data_ != nil) {
-        NSArray *jsonArray = _merchandises_data_.data;
-        if(jsonArray != nil) {
-            for(int i=0; i<jsonArray.count; i++) {
-                [merchandises addObject:[[Merchandise alloc] initWithJson:[jsonArray objectAtIndex:i]]];
-            }
-#ifdef DEBUG
-            if(!readDisk) {
-                NSLog(@"[Disk Cache Manager] Load merchandises from memory cache");
-            }
-#endif
-        }
-    }
-    
-    *isExpired = _merchandises_data_ == nil ? YES : _merchandises_data_.isExpired;
-    return merchandises.count == 0 ? nil : merchandises;
-}
-
-- (NSArray *)taskCategories:(BOOL *)isExpired {
-    NSMutableArray *taskCategories = [NSMutableArray array];
-    
-    BOOL readDisk = NO;
-    
-    // read from disk first
-    if(_task_categories_data_ == nil) {
-        NSData *data = [self loadDataWithFileName:kFileNameTaskCategories inUserDirectory:NO];
-    
-        id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
-        if(json != nil) {
-            _task_categories_data_ = [[CacheData alloc] initWithJson:json];
-#ifdef DEBUG
-            NSLog(@"[Disk Cache Manager] Load task categories from disk cache");
-#endif
-            readDisk = YES;
-        }
-    }
-    
-    // json data convert to entity type
-    if(_task_categories_data_ != nil) {
-        NSArray *jsonArray = _task_categories_data_.data;
-        if(jsonArray != nil) {
-            for(int i=0; i<jsonArray.count; i++) {
-                [taskCategories addObject:[[TaskCategory alloc] initWithJson:[jsonArray objectAtIndex:i]]];
-            }
-#ifdef DEBUG
-            if(!readDisk) {
-                NSLog(@"[Disk Cache Manager] Load task categories from memory cache");
-            }
-#endif
-        }
-    }
-    
-    *isExpired = _task_categories_data_ == nil ? YES : _task_categories_data_.isExpired;
-    return taskCategories.count == 0 ? nil : taskCategories;
-}
-
-- (NSArray *)contacts:(BOOL *)isExpired {
-    NSMutableArray *contacts = [NSMutableArray array];
-    
-    BOOL readDisk = NO;
-    
-    // read from disk first
-    if(_contacts_data_ == nil) {
-        NSData *data = [self loadDataWithFileName:kFileNameContacts inUserDirectory:YES];
-        
-        id json = [JsonUtil createDictionaryOrArrayFromJsonData:data];
-        if(json != nil) {
-            _contacts_data_ = [[CacheData alloc] initWithJson:json];
-#ifdef DEBUG
-            NSLog(@"[Disk Cache Manager] Load contacts from disk cache");
-#endif
-            readDisk = YES;
-        }
-    }
-    
-    // json data convert to entity type
-    if(_contacts_data_ != nil) {
-        NSArray *jsonArray = _contacts_data_.data;
-        if(jsonArray != nil) {
-            for(int i=0; i<jsonArray.count; i++) {
-                [contacts addObject:[[Contact alloc] initWithJson:[jsonArray objectAtIndex:i]]];
-            }
-#ifdef DEBUG
-            if(!readDisk) {
-                NSLog(@"[Disk Cache Manager] Load contacts from memory cache");
-            }
-#endif
-        }
-    }
-    
-    *isExpired = _contacts_data_.data == nil ? YES : _contacts_data_.isExpired;
-    return contacts.count == 0 ? nil : contacts;
-}
-
-- (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired {
-    
-    return nil;
-}
-
 #pragma mark -
-#pragma mark set and save
-
-
-
-
-- (void)setActivities:(NSArray *)activities {
-}
+#pragma mark Cache data set and save
 
 - (void)setMerchandises:(NSArray *)merchandises {
     if(_merchandises_data_ == nil) {
         _merchandises_data_ = [[CacheData alloc] init];
     }
-    
-    NSMutableArray *data = [NSMutableArray array];
-    if(merchandises != nil) {
-        for(int i=0; i<merchandises.count; i++) {
-            id<JsonEntity> merchandise = [merchandises objectAtIndex:i];
-            [data addObject:[merchandise toJson]];
-        }
-    }
-    _merchandises_data_.data = data.count == 0 ? nil : data;
-    _merchandises_data_.lastRefreshTime = [NSDate date];
-    
-    [self saveData:_merchandises_data_ withFileName:kFileNameMerchandises inUserDirectory:NO];
-#ifdef DEBUG
-    NSLog(@"[Disk Cache Manager] Store merchandises to disk cache");
-#endif
+    [self setCacheData:_merchandises_data_ jsonEntities:merchandises fileName:kFileNameMerchandises inUserDirectory:NO];
 }
 
 - (void)setTaskCategories:(NSArray *)taskCategories {
     if(_task_categories_data_ == nil) {
         _task_categories_data_ = [[CacheData alloc] init];
     }
-    
-    NSMutableArray *data = [NSMutableArray array];
-    if(taskCategories != nil) {
-        for(int i=0; i<taskCategories.count; i++) {
-            id<JsonEntity> taskCategory = [taskCategories objectAtIndex:i];
-            [data addObject:[taskCategory toJson]];
-        }
-    }
-    _task_categories_data_.data = data.count == 0 ? nil : data;
-    _task_categories_data_.lastRefreshTime = [NSDate date];
-    
-    [self saveData:_task_categories_data_ withFileName:kFileNameTaskCategories inUserDirectory:NO];
-#ifdef DEBUG
-    NSLog(@"[Disk Cache Manager] Store task categories to disk cache");
-#endif
+    [self setCacheData:_task_categories_data_ jsonEntities:taskCategories fileName:kFileNameTaskCategories inUserDirectory:NO];
 }
 
 - (void)setContacts:(NSArray *)contacts {
     if(_contacts_data_ == nil) {
         _contacts_data_ = [[CacheData alloc] init];
     }
-    
-    NSMutableArray *data = [NSMutableArray array];
-    if(contacts != nil) {
-        for(int i=0; i<contacts.count; i++) {
-            id<JsonEntity> contact = [contacts objectAtIndex:i];
-            [data addObject:[contact toJson]];
-        }
-    }
-    _contacts_data_.data = data.count == 0 ? nil : data;
-    _contacts_data_.lastRefreshTime = [NSDate date];
-    
-    [self saveData:_contacts_data_ withFileName:kFileNameContacts inUserDirectory:YES];
-#ifdef DEBUG
-    NSLog(@"[Disk Cache Manager] Store contacts to disk cache");
-#endif
+    [self setCacheData:_contacts_data_ jsonEntities:contacts fileName:kFileNameContacts inUserDirectory:YES];
 }
 
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType {
-    if(_points_orders_data_ == nil) {
-        _points_orders_data_ = [[CacheData alloc] init];
+    CacheData *cacheData = nil;
+    NSString *fileName = [NSString stringWithFormat:@"%@-%@",
+            kFileNamePointsOrder, ((PointsOrderTypeIncome == pointsOrderType) ? @"income" : @"pay")];
+    
+    if(PointsOrderTypeIncome == pointsOrderType) {
+        if(_income_points_orders_data_ == nil) {
+            _income_points_orders_data_ = [[CacheData alloc] init];
+        }
+        cacheData = _income_points_orders_data_;
+    } else {
+        if(_pay_points_orders_data_ == nil) {
+            _pay_points_orders_data_ = [[CacheData alloc] init];
+        }
+        cacheData = _pay_points_orders_data_;
+    }
+    [self setCacheData:cacheData jsonEntities:pointsOrders fileName:fileName inUserDirectory:YES];
+}
+
+- (void)setActivities:(NSArray *)activities {
+}
+
+- (void)setCacheData:(CacheData *)cacheData jsonEntities:(NSArray *)jsonEntities
+            fileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
+    if(cacheData == nil || fileName == nil) {
+        NSLog(@"[Disk Cache Manager] Parameter invalid");
+        return;
     }
     
     NSMutableArray *data = [NSMutableArray array];
-    if(pointsOrders != nil) {
-        for(int i=0; i<pointsOrders.count; i++) {
-            id<JsonEntity> pointsOrder = [pointsOrders objectAtIndex:i];
-            [data addObject:[pointsOrder toJson]];
+    if(jsonEntities != nil) {
+        for(int i=0; i<jsonEntities.count; i++) {
+            id<JsonEntity> jsonEntity = [jsonEntities objectAtIndex:i];
+            [data addObject:[jsonEntity toJson]];
         }
     }
+    cacheData.data = data.count == 0 ? nil : data;
+    cacheData.lastRefreshTime = [NSDate date];
     
-    if(_points_orders_data_.data == nil) {
-        _points_orders_data_.data = [NSMutableDictionary dictionary];
-    }
-    NSMutableDictionary *oldData = _points_orders_data_.data;
-    
-    NSString *key = (PointsOrderTypeIncome == pointsOrderType) ? @"income" : @"pay";
-    [oldData removeObjectForKey:key];
-    if(data.count > 0) {
-        [oldData setObject:data forKey:key];
-    }
-    
-    _points_orders_data_.data = oldData.count == 0 ? nil : data;
-    _points_orders_data_.lastRefreshTime = [NSDate date];
-    
-    [self saveData:_points_orders_data_ withFileName:kFileNamePointsOrder inUserDirectory:YES];
+    [self saveData:cacheData withFileName:fileName inUserDirectory:inUserDirectory];
 #ifdef DEBUG
-    NSLog(@"[Disk Cache Manager] Store points order to disk cache");
+    NSLog(@"[Disk Cache Manager] Store [%@] to disk cache", fileName);
 #endif
+}
+
+- (BOOL)cacheDataIsExpired:(CacheData *)cacheData {
+    if(cacheData == nil) return YES;
+    return cacheData.isExpired;
 }
 
 #pragma mark -
@@ -361,7 +318,12 @@ NSString * const kFileNamePointsOrder = @"points-order";
 - (NSString *)cacheDataFilePathWithFileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
     NSString *filePath = nil;
     if(inUserDirectory) {
-        if(_serve_account_ == nil) return nil;
+        if(_serve_account_ == nil) {
+#ifdef DEBUG
+            NSLog(@"[Disk Cache Manager] Account is empty, should be login first");
+#endif
+            return nil;
+        }
         
         // get user directory
         NSString *directory = [[self class] YoomidUserDirectoryPathWithAccountId:_serve_account_];
