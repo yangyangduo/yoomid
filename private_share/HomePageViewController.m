@@ -179,18 +179,13 @@
     } else if([@"anwo" isEqualToString:identifier]) {
         NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
         AdwoOWSetKeywords(arr);
-        
-        // 初始化并登录积分墙
         BOOL result = AdwoOWPresentOfferWall(kAdwoAppKey, self);
-        if(!result)
-        {
-            enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
-
+        if(!result) {
+            //enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
+#ifdef DEBUG
+            NSLog(@"[Home] Inital Adwo failure.");
+#endif
         }
-        else{
-            NSLog(@"Initialization successfully!");
-        }
-
     }
     [currentModalView closeViewAnimated:NO completion:nil];
 }
