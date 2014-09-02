@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CategoryButtonItemDelegate;
+
 @interface CategoryButtonItem : UIView
+
+@property (nonatomic, weak) id<CategoryButtonItemDelegate> delegate;
+
+- (instancetype)initWithIdentifier:(NSString *)identifier title:(NSString *)title imageName:(NSString *)imageName;
+
+@end
+
+@protocol CategoryButtonItemDelegate <NSObject>
+
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier;
 
 @end

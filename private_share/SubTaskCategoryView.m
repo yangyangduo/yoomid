@@ -27,10 +27,10 @@
         [titleView addSubview:titleLabel];
         [self.contentView addSubview:titleView];
 
-        _scrollView_ = [[UIScrollView alloc] initWithFrame:CGRectMake(0, titleView.bounds.size.height, titleView.bounds.size.width, self.contentView.bounds.size.height - titleView.bounds.size.height)];
+        _scrollView_ = [[UIScrollView alloc] initWithFrame:CGRectMake(0, titleView.bounds.size.height + 15, titleView.bounds.size.width, self.contentView.bounds.size.height - titleView.bounds.size.height - 30)];
         _scrollView_.alwaysBounceVertical = YES;
         
-        _scrollView_.contentSize = _scrollView_.bounds.size;
+        _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, 0);
         _scrollView_.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_scrollView_];
     }
@@ -38,7 +38,15 @@
 }
 
 - (void)addSubviewInScrollView:(UIView *)view {
+    CGFloat y = _scrollView_.contentSize.height + 15;
+    if(y == 15) y = 0;
+    CGRect frame = view.frame;
+    frame.origin.y = y;
+    view.frame = frame;
+    view.center = CGPointMake(_scrollView_.center.x, view.center.y);
+    
     [_scrollView_ addSubview:view];
+    _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, y + view.bounds.size.height);
 }
 
 @end

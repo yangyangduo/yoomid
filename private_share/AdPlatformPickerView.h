@@ -8,7 +8,8 @@
 
 #import "ModalView.h"
 #import "SubTaskCategoryView.h"
+#import "CategoryButtonItem.h"
 
-@interface AdPlatformPickerView : SubTaskCategoryView
+@interface AdPlatformPickerView : SubTaskCategoryView<CategoryButtonItemDelegate>
 
 @end

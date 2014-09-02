@@ -216,7 +216,7 @@
     NSString *rootCategoryId = rootCategory.identifier;
     
     if([@"y:e:ap" isEqualToString:rootCategoryId]) {
-        AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 400)];
+        AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 415)];
         [modalView showInView:self.view completion:^{  }];
         return;
     }

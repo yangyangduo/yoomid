@@ -10,7 +10,6 @@
 #import "UIColor+App.h"
 
 @implementation AdPlatformPickerView {
-
 }
 
 - (instancetype)initWithSize:(CGSize)size {
@@ -20,13 +19,32 @@
         [contentMessage addAttribute:NSForegroundColorAttributeName value:[UIColor appLightBlue] range:NSMakeRange(66, 13)];
         CGSize contentMessageSize = [contentMessage boundingRectWithSize:CGSizeMake(self.contentView.bounds.size.width - 30, 300) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
         
-        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, self.contentView.bounds.size.width - 30, contentMessageSize.height)];
+        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width - 30, contentMessageSize.height)];
         contentLabel.attributedText = contentMessage;
         contentLabel.numberOfLines = 0;
         contentLabel.font = [UIFont systemFontOfSize:16.f];
         [self addSubviewInScrollView:contentLabel];
+        
+        NSMutableArray *categories = [NSMutableArray array];
+        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"domob" title:@"多盟专区" imageName:@""]];
+        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"youmi" title:@"有米专区" imageName:@""]];
+        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"anwo" title:@"安沃专区" imageName:@""]];
+        for(CategoryButtonItem *buttonItem in categories) {
+            buttonItem.delegate = self;
+            [self addSubviewInScrollView:buttonItem];
+        }
     }
     return self;
+}
+
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if([@"domob" isEqualToString:identifier]) {
+        
+    } else if([@"youmi" isEqualToString:identifier]) {
+        
+    } else if([@"anwo" isEqualToString:identifier]) {
+        
+    }
 }
 
 - (void)f {
