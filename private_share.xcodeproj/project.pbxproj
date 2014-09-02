@@ -113,6 +113,7 @@
 		6F53EFEB194B55050080B4DD /* ShopShoppingItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */; };
 		6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E1919B41B3200495F0C /* TaskCategory.m */; };
 		6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */; };
+		6F5B5E2319B56BE200495F0C /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -625,6 +626,8 @@
 		6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		6F5B5E1D19B5689000495F0C /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		6F5B5E1E19B5689000495F0C /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
+		6F5B5E2219B56BE200495F0C /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1107,6 +1110,7 @@
 				6F66B5B6194AEACF008A948C /* libYouMi.a in Frameworks */,
 				6F7657E719345C7C003BF61C /* UIKit.framework in Frameworks */,
 				6F7657E319345C7C003BF61C /* Foundation.framework in Frameworks */,
+				6F5B5E2319B56BE200495F0C /* libUMessage_Sdk_1.1.0.a in Frameworks */,
 				D3644C52197A18BF00B44785 /* libAdwoOfferWallLib2.1.a in Frameworks */,
 				054BDF85BC4648D8AAA47AA2 /* libPods.a in Frameworks */,
 			);
@@ -1494,6 +1498,15 @@
 				6F5B5E1E19B5689000495F0C /* MobClickSocialAnalytics.h */,
 			);
 			path = UMAnalytics_Sdk_3.1.2;
+			sourceTree = "<group>";
+		};
+		6F5B5E2019B56BE200495F0C /* UMessage_Sdk_1.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */,
+				6F5B5E2219B56BE200495F0C /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.1.0;
 			sourceTree = "<group>";
 		};
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
@@ -1973,6 +1986,7 @@
 		6F97096F193F4A6B00EA5E3A /* third */ = {
 			isa = PBXGroup;
 			children = (
+				6F5B5E2019B56BE200495F0C /* UMessage_Sdk_1.1.0 */,
 				6F5B5E1B19B5689000495F0C /* UMAnalytics_Sdk_3.1.2 */,
 				6F66B5A7194AEAB6008A948C /* platform */,
 				6F8823BE1940531F00757633 /* EGOTableViewPullRefresh */,
@@ -3133,6 +3147,7 @@
 					"$(PROJECT_DIR)/private_share/AdwoLib/res",
 					"$(PROJECT_DIR)/private_share/MiidiLib",
 					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
+					"$(PROJECT_DIR)/private_share/UMessage_Sdk_1.1.0",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3178,6 +3193,7 @@
 					"$(PROJECT_DIR)/private_share/AdwoLib/res",
 					"$(PROJECT_DIR)/private_share/MiidiLib",
 					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
+					"$(PROJECT_DIR)/private_share/UMessage_Sdk_1.1.0",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
