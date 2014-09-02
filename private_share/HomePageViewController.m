@@ -17,7 +17,7 @@
 #import "TaskDetailViewController.h"
 #import "DiskCacheManager.h"
 #import "SettingViewController.h"
-#import "ModalView.h"
+#import "AdPlatformPickerView.h"
 
 @interface HomePageViewController ()
 
@@ -214,8 +214,14 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TaskCategory *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
     NSString *rootCategoryId = rootCategory.identifier;
-    NSMutableArray *secondaryCategories = [[NSMutableArray alloc]init];
     
+    if([@"y:e:ap" isEqualToString:rootCategoryId]) {
+        AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 400)];
+        [modalView showInView:self.view completion:^{  }];
+        return;
+    }
+    
+    NSMutableArray *secondaryCategories = [[NSMutableArray alloc]init];
     BOOL rootCategoryExists = NO;
     for (TaskCategory *category in self.allCategories) {
         if ([rootCategoryId isEqualToString:category.parentCategory]) {
@@ -223,15 +229,16 @@
             rootCategoryExists = YES;
         }
     }
-    
+
     if(!rootCategoryExists) {
         TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
         [self rightPresentViewController:navigationController animated:YES];
     } else {
-        ModalView *modalView = [[ModalView alloc] initWithSize:CGSizeMake(300, 300)];
-        [modalView showInView:self.view];
+#ifdef DEBUG
+        NSLog(@"[Home] Can't supported child categories now");
+#endif
     }
 }
 

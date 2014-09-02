@@ -115,6 +115,9 @@
 		6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */; };
 		6F5B5E2319B56BE200495F0C /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */; };
 		6F5B5E2719B5807100495F0C /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2619B5807100495F0C /* ModalView.m */; };
+		6F5B5E2B19B58DBE00495F0C /* AdPlatformPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2A19B58DBE00495F0C /* AdPlatformPickerView.m */; };
+		6F5B5E2D19B58F5100495F0C /* modal_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */; };
+		6F5B5E3019B598EB00495F0C /* YoomidBaseModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -630,6 +633,11 @@
 		6F5B5E2219B56BE200495F0C /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		6F5B5E2519B5807100495F0C /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
 		6F5B5E2619B5807100495F0C /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
+		6F5B5E2919B58DBE00495F0C /* AdPlatformPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdPlatformPickerView.h; sourceTree = "<group>"; };
+		6F5B5E2A19B58DBE00495F0C /* AdPlatformPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdPlatformPickerView.m; sourceTree = "<group>"; };
+		6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modal_close@2x.png"; sourceTree = "<group>"; };
+		6F5B5E2E19B598EB00495F0C /* YoomidBaseModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidBaseModalView.h; sourceTree = "<group>"; };
+		6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidBaseModalView.m; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1518,6 +1526,17 @@
 			name = modal_view;
 			sourceTree = "<group>";
 		};
+		6F5B5E2819B58D9100495F0C /* yoomid_modal_view */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5E2919B58DBE00495F0C /* AdPlatformPickerView.h */,
+				6F5B5E2A19B58DBE00495F0C /* AdPlatformPickerView.m */,
+				6F5B5E2E19B598EB00495F0C /* YoomidBaseModalView.h */,
+				6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */,
+			);
+			name = yoomid_modal_view;
+			sourceTree = "<group>";
+		};
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1690,6 +1709,7 @@
 		6F7657E819345C7C003BF61C /* private_share */ = {
 			isa = PBXGroup;
 			children = (
+				6F5B5E2819B58D9100495F0C /* yoomid_modal_view */,
 				6F8823B4193F5F8F00757633 /* communication */,
 				6FE009421953DF0B002A675D /* document */,
 				6F418972194824ED00F9DC2C /* view_model */,
@@ -2183,6 +2203,7 @@
 				D6C7CC8F199BA91000EC3061 /* line.png */,
 				6FBB6B8B1973B85600E6C7D2 /* mi_repo@2x.png */,
 				6FFB8D931979034B008F0BBB /* empty_mi_repo@2x.png */,
+				6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */,
 				6FE0094A1953E177002A675D /* icon_disclosure@2x.png */,
 				6F41897D194858B400F9DC2C /* checkbox_selected@2x.png */,
 				6F7957031957112800FEC026 /* btn_red_highlighted@2x.png */,
@@ -2626,6 +2647,7 @@
 				D3644BEA197A171000B44785 /* dianru_blue_dianru_download.png in Resources */,
 				D676302A19A774740015CADF /* level1@2x.png in Resources */,
 				6F3F65ED1942020F007A41E0 /* radio@2x.png in Resources */,
+				6F5B5E2D19B58F5100495F0C /* modal_close@2x.png in Resources */,
 				6FE6559E1942BFA3009617C9 /* 3.jpg in Resources */,
 				D3644C0F197A171000B44785 /* dianru_green_left_view.png in Resources */,
 				D676302619A7741C0015CADF /* level8@2x.png in Resources */,
@@ -2859,6 +2881,7 @@
 				6F72A3FC193E1ED2001DAA3E /* PasswordForgotViewController.m in Sources */,
 				D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */,
 				6F3632F8193EBF9D00340645 /* DefaultStyleTextField.m in Sources */,
+				6F5B5E2B19B58DBE00495F0C /* AdPlatformPickerView.m in Sources */,
 				6FE655A41942D679009617C9 /* ActivityMerchandiseTableViewCell.m in Sources */,
 				6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */,
 				6F8823D21940531F00757633 /* MessageInterceptor.m in Sources */,
@@ -2945,6 +2968,7 @@
 				6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */,
 				6F3632FB193EC87800340645 /* RegisterCompleteViewController.m in Sources */,
 				D66B497D19B450CD002615CC /* SettingViewController.m in Sources */,
+				6F5B5E3019B598EB00495F0C /* YoomidBaseModalView.m in Sources */,
 				6F970993193F52C300EA5E3A /* PointsOrder.m in Sources */,
 				6F2816AF19497F78009B29DB /* PullScrollZoomImageView.m in Sources */,
 				6FFB8D9E19792701008F0BBB /* ShoppingItemFooterView.m in Sources */,

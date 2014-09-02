@@ -16,6 +16,7 @@
 + (UIColor *)appTextFieldGray;
 + (UIColor *)appSilver;
 + (UIColor *)appBlue;
++ (UIColor *)appLightBlue;
 + (UIColor *)appColor;
 
 @end

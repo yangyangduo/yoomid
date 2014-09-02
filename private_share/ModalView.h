@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger , ModalViewState) {
 
 - (instancetype)initWithSize:(CGSize)size;
 
-- (void)showInView:(UIView *)view; // completion:(void (^)(void))completion;
-- (void)closeView;
+- (void)showInView:(UIView *)view completion:(void (^)(void))completion;
+- (void)closeViewAnimated:(BOOL)animated completion:(void (^)(void))completion;
 
 @end

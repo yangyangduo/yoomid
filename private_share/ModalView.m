@@ -35,7 +35,7 @@
     return self;
 }
 
-- (void)showInView:(UIView *)view {
+- (void)showInView:(UIView *)view completion:(void (^)(void))completion {
     if(ModalViewStateClosed != self.modalViewState) return;
     modalViewState = ModalViewStateOpening;
     
@@ -66,16 +66,25 @@
                      }
                      completion:^(BOOL finished){
                          modalViewState = ModalViewStateOpened;
+                         if(completion) completion();
                      }
      ];
 }
 
-- (void)closeView {
+- (void)closeViewAnimated:(BOOL)animated completion:(void (^)(void))completion {
     if(ModalViewStateOpened != self.modalViewState) return;
     modalViewState = ModalViewStateClosing;
     
     if(self.superview == nil) {
         [maskView removeFromSuperview];
+        return;
+    }
+    
+    if(!animated) {
+        [maskView removeFromSuperview];
+        [self removeFromSuperview];
+        modalViewState = ModalViewStateClosed;
+        if(completion) completion();
         return;
     }
     
@@ -91,11 +100,12 @@
                          [maskView removeFromSuperview];
                          [self removeFromSuperview];
                          modalViewState = ModalViewStateClosed;
+                         if(completion) completion();
                      }];
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    [self closeView];
+    [self closeViewAnimated:YES completion:nil];
 }
 
 @end
