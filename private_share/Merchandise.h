@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSDate *buyStartTime;
 @property (nonatomic, strong) NSDate *buyEndTime;
 
-@property (nonatomic, assign) NSDate *createTime;
+@property (nonatomic, strong) NSDate *createTime;
 
 - (NSString *)firstImageUrl;
 
