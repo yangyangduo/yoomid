@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
-    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"45",@"男",@"白领",@"哈佛大学", nil];
+    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"1990-02-23",@"男",@"白领",@"哈佛大学", nil];
 
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
@@ -134,9 +134,9 @@
 }
 
 #pragma mark- agePickerPopupView delegate
--(void)setAge:(NSString *)age
+-(void)setDate:(NSString *)date
 {
-    [userInfoArray replaceObjectAtIndex:2 withObject:age];
+    [userInfoArray replaceObjectAtIndex:2 withObject:date];
     [tableview reloadData];
 }
 
@@ -317,7 +317,7 @@
         }
         case 2:
         {
-            AgePickerPopupView *agePickerPopupView = [[AgePickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) age:[[userInfoArray objectAtIndex:indexPath.row] intValue]];
+            AgePickerPopupView *agePickerPopupView = [[AgePickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoArray objectAtIndex:indexPath.row]];
             agePickerPopupView.delegate = self;
             [agePickerPopupView showInView:self.navigationController.view];
             break;

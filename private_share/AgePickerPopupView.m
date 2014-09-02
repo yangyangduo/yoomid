@@ -12,50 +12,60 @@
 {
     UIPickerView *agePickerView;
     NSMutableArray *ageArray;
+    UIDatePicker *birthdayDatePicker;
 }
 
-- (id)initWithFrame:(CGRect)frame age:(NSInteger)age
+- (id)initWithFrame:(CGRect)frame date:(NSString *)date
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        ageArray = [[NSMutableArray alloc]init];
-        for (int i = 1; i<=100; i++) {
-            NSString *ageStr = [NSString stringWithFormat:@"%d",i];
-            [ageArray addObject:ageStr];
-        }
-        agePickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-        agePickerView.dataSource = self;
-        agePickerView.delegate = self;
-        [agePickerView selectRow:age-1 inComponent:0 animated:NO];
         
-        [self addSubview:agePickerView];
+        UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        doneBtn.frame = CGRectMake(self.bounds.size.width - 80, 0, 80, 55);
+        [doneBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [doneBtn addTarget:self action:@selector(actionDoneClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:doneBtn];
+        
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0,55, self.bounds.size.width, 1)];
+        line.backgroundColor = [UIColor colorWithRed:228.f/255.f green:230.f/255.f blue:230/255.f alpha:1];//228 230  230
+        [self addSubview:line];
+        
+        birthdayDatePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, 40, self.bounds.size.width, self.bounds.size.height-40)];
+        birthdayDatePicker.date = [NSDate date];
+        birthdayDatePicker.timeZone = [NSTimeZone timeZoneWithName:@"GTM+8"];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        birthdayDatePicker.minimumDate = [dateFormatter dateFromString:@"1900-01-01"]; // 设置最小时间
+        birthdayDatePicker.maximumDate = [NSDate date]; // 设置最大时间
+        birthdayDatePicker.datePickerMode = UIDatePickerModeDate;
+        [birthdayDatePicker addTarget:self action:@selector(oneDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [birthdayDatePicker setDate:[dateFormatter dateFromString:date]];
+        [self addSubview:birthdayDatePicker];
     }
     return self;
 }
 
-#pragma mark- uipickerview delegeta 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+-(void)actionDoneClick
 {
-    return 1;
-}
-
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return ageArray.count;
-}
-
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [ageArray objectAtIndex:row];
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(setAge:)]) {
-        [self.delegate setAge:[ageArray objectAtIndex:row]];
+    NSDate *selectDate = [birthdayDatePicker date];
+    NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+    selectDateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSString *dateStr = [selectDateFormatter stringFromDate:selectDate];
+    
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(setDate:)]) {
+        [self.delegate setDate:dateStr];
     }
+    [self closeView];
 }
+
+#pragma mark - 实现oneDatePicker的监听方法
+- (void)oneDatePickerValueChanged:(UIDatePicker *) sender {
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

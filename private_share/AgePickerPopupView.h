@@ -9,14 +9,14 @@
 #import "PopupView.h"
 @protocol AgePickerPopupViewDelegate <NSObject>
 
--(void)setAge:(NSString *)age;
+-(void)setDate:(NSString *)date;
 
 @end
 
 
-@interface AgePickerPopupView : PopupView<UIPickerViewDataSource,UIPickerViewDelegate>
+@interface AgePickerPopupView : PopupView
 
-- (id)initWithFrame:(CGRect)frame age:(NSInteger)age;
+- (id)initWithFrame:(CGRect)frame date:(NSString*)date;
 @property (nonatomic,assign)id<AgePickerPopupViewDelegate>delegate;
 
 @end
