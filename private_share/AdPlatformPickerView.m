@@ -30,7 +30,7 @@
         NSMutableArray *categories = [NSMutableArray array];
         [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"domob" title:@"多盟专区" imageName:@"domob_icon"]];
         [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"youmi" title:@"有米专区" imageName:@"youmi_icon"]];
-        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"anwo" title:@"安沃专区" imageName:@""]];
+        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"anwo" title:@"安沃专区" imageName:nil]];
         for(CategoryButtonItem *buttonItem in categories) {
             buttonItem.delegate = self;
             [self addSubviewInScrollView:buttonItem];
