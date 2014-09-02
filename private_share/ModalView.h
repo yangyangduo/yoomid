@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger , ModalViewState) {
+    ModalViewStateClosed,
+    ModalViewStateClosing,
+    ModalViewStateOpening,
+    ModalViewStateOpened,
+};
+
 @interface ModalView : UIView
+
+@property (nonatomic, assign, readonly) ModalViewState modalViewState;
+
+- (instancetype)initWithSize:(CGSize)size;
+
+- (void)showInView:(UIView *)view; // completion:(void (^)(void))completion;
+- (void)closeView;
 
 @end

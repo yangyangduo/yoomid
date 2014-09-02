@@ -17,6 +17,7 @@
 #import "TaskDetailViewController.h"
 #import "DiskCacheManager.h"
 #import "SettingViewController.h"
+#import "ModalView.h"
 
 @interface HomePageViewController ()
 
@@ -228,6 +229,9 @@
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
         [self rightPresentViewController:navigationController animated:YES];
+    } else {
+        ModalView *modalView = [[ModalView alloc] initWithSize:CGSizeMake(300, 300)];
+        [modalView showInView:self.view];
     }
 }
 
