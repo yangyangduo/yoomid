@@ -114,6 +114,7 @@
 		6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E1919B41B3200495F0C /* TaskCategory.m */; };
 		6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E1C19B5689000495F0C /* libMobClickLibrary.a */; };
 		6F5B5E2319B56BE200495F0C /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */; };
+		6F5B5E2719B5807100495F0C /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2619B5807100495F0C /* ModalView.m */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -249,7 +250,6 @@
 		6FBE928D194167DD00B94195 /* merchandise_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE928C194167DD00B94195 /* merchandise_placeholder@2x.png */; };
 		6FBE928F1941B1D200B94195 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE928E1941B1D200B94195 /* back@2x.png */; };
 		6FBE92911941BABE00B94195 /* shopping_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE92901941BABE00B94195 /* shopping_cart@2x.png */; };
-		6FC052F3198386F100FA97D2 /* CubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC052F2198386F100FA97D2 /* CubeViewController.m */; };
 		6FC2E87419B048FC00AA78A9 /* background_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC2E87319B048FC00AA78A9 /* background_image@2x.png */; };
 		6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC2E87519B04F0300AA78A9 /* new_back@2x.png */; };
 		6FD163CF19795ED90076479D /* DeliveryPointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD163CE19795ED90076479D /* DeliveryPointViewController.m */; };
@@ -628,6 +628,8 @@
 		6F5B5E1E19B5689000495F0C /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		6F5B5E2119B56BE200495F0C /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		6F5B5E2219B56BE200495F0C /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		6F5B5E2519B5807100495F0C /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
+		6F5B5E2619B5807100495F0C /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -834,8 +836,6 @@
 		6FBE928C194167DD00B94195 /* merchandise_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchandise_placeholder@2x.png"; sourceTree = "<group>"; };
 		6FBE928E1941B1D200B94195 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		6FBE92901941BABE00B94195 /* shopping_cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_cart@2x.png"; sourceTree = "<group>"; };
-		6FC052F1198386F100FA97D2 /* CubeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeViewController.h; sourceTree = "<group>"; };
-		6FC052F2198386F100FA97D2 /* CubeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeViewController.m; sourceTree = "<group>"; };
 		6FC2E87319B048FC00AA78A9 /* background_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_image@2x.png"; sourceTree = "<group>"; };
 		6FC2E87519B04F0300AA78A9 /* new_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_back@2x.png"; sourceTree = "<group>"; };
 		6FD163CD19795ED90076479D /* DeliveryPointViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryPointViewController.h; sourceTree = "<group>"; };
@@ -1509,6 +1509,15 @@
 			path = UMessage_Sdk_1.1.0;
 			sourceTree = "<group>";
 		};
+		6F5B5E2419B5806000495F0C /* modal_view */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5E2519B5807100495F0C /* ModalView.h */,
+				6F5B5E2619B5807100495F0C /* ModalView.m */,
+			);
+			name = modal_view;
+			sourceTree = "<group>";
+		};
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -2037,15 +2046,6 @@
 			name = drawer;
 			sourceTree = "<group>";
 		};
-		6FC052F0198386D300FA97D2 /* cube_view_controller */ = {
-			isa = PBXGroup;
-			children = (
-				6FC052F1198386F100FA97D2 /* CubeViewController.h */,
-				6FC052F2198386F100FA97D2 /* CubeViewController.m */,
-			);
-			name = cube_view_controller;
-			sourceTree = "<group>";
-		};
 		6FC2E87219B048C200AA78A9 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -2077,7 +2077,7 @@
 		6FF53328193860E4001D607C /* component */ = {
 			isa = PBXGroup;
 			children = (
-				6FC052F0198386D300FA97D2 /* cube_view_controller */,
+				6F5B5E2419B5806000495F0C /* modal_view */,
 				6F72C1931976830A00100D12 /* image_button */,
 				6F72C18619762DA100100D12 /* group_button */,
 				6F50BF2F196BCF2A006C9F1F /* images_scroll_view */,
@@ -2844,6 +2844,7 @@
 				6F36330A193EFA4600340645 /* Part.m in Sources */,
 				6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */,
 				6F418971194803EA00F9DC2C /* HttpResponseAuthorizationFilter.m in Sources */,
+				6F5B5E2719B5807100495F0C /* ModalView.m in Sources */,
 				6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */,
 				6F2BD0C3194EC8370092BA23 /* MerchandiseOrderItem.m in Sources */,
 				6F72A3F0193DF7D2001DAA3E /* DrawerMenuViewController.m in Sources */,
@@ -2944,7 +2945,6 @@
 				6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */,
 				6F3632FB193EC87800340645 /* RegisterCompleteViewController.m in Sources */,
 				D66B497D19B450CD002615CC /* SettingViewController.m in Sources */,
-				6FC052F3198386F100FA97D2 /* CubeViewController.m in Sources */,
 				6F970993193F52C300EA5E3A /* PointsOrder.m in Sources */,
 				6F2816AF19497F78009B29DB /* PullScrollZoomImageView.m in Sources */,
 				6FFB8D9E19792701008F0BBB /* ShoppingItemFooterView.m in Sources */,

@@ -47,10 +47,16 @@
              */
             
             // present login view controller
-            UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-            [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-            [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
-
+            UIViewController *topViewController = app.topViewController;
+            if(topViewController != nil) {
+                UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+                [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
+                if(topViewController.navigationController != nil) {
+                    [topViewController.navigationController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+                } else {
+                    [topViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+                }
+            }
         });
         return YES;
     }
