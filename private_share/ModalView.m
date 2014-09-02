@@ -14,6 +14,7 @@
 }
 
 @synthesize modalViewState;
+@synthesize modalViewDelegate;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
@@ -85,6 +86,10 @@
         [self removeFromSuperview];
         modalViewState = ModalViewStateClosed;
         if(completion) completion();
+        if(self.modalViewDelegate != nil
+           && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed)]) {
+            [self.modalViewDelegate modalViewDidClosed];
+        }
         return;
     }
     
@@ -101,6 +106,10 @@
                          [self removeFromSuperview];
                          modalViewState = ModalViewStateClosed;
                          if(completion) completion();
+                         if(self.modalViewDelegate != nil
+                                && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed)]) {
+                             [self.modalViewDelegate modalViewDidClosed];
+                         }
                      }];
 }
 

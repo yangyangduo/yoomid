@@ -47,6 +47,9 @@ typedef NS_ENUM(NSUInteger, PanAnimationControllerDismissStyle) {
 
 - (instancetype)initWithContainerController:(UIViewController<UIViewControllerTransitioningDelegate> *)containerController;
 
+- (void)enableGesture;
+- (void)disableGesture;
+
 @end
 
 @protocol PanAnimationControllerDelegate <NSObject>

@@ -12,6 +12,8 @@
 @implementation AdPlatformPickerView {
 }
 
+@synthesize delegate;
+
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if(self) {
@@ -38,33 +40,9 @@
 }
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    if([@"domob" isEqualToString:identifier]) {
-        
-    } else if([@"youmi" isEqualToString:identifier]) {
-        
-    } else if([@"anwo" isEqualToString:identifier]) {
-        
+    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(categoryButtonItemDidSelectedWithIdentifier:)]) {
+        [self.delegate categoryButtonItemDidSelectedWithIdentifier:identifier];
     }
 }
-
-- (void)f {
-    /*
-    
-    if(indexPath.row == 0) {
-        [YouMiWall showOffers:YES didShowBlock:^{
-        } didDismissBlock:^{
-        }];
-    } else if(indexPath.row == 1) {
-        if(domobOfferWall == nil) {
-            domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
-            domobOfferWall.disableStoreKit = YES;
-        }
-        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
-    }
-     
-     an wo
-     */
-}
-
 
 @end

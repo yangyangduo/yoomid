@@ -12,4 +12,6 @@
 
 @interface AdPlatformPickerView : SubTaskCategoryView<CategoryButtonItemDelegate>
 
+@property (nonatomic, weak) id<CategoryButtonItemDelegate> delegate;
+
 @end

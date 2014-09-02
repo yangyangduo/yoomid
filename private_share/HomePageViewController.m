@@ -17,7 +17,10 @@
 #import "TaskDetailViewController.h"
 #import "DiskCacheManager.h"
 #import "SettingViewController.h"
-#import "AdPlatformPickerView.h"
+
+
+#import "YouMiWall.h"
+#import "DMOfferWallManager.h"
 
 @interface HomePageViewController ()
 
@@ -31,11 +34,11 @@
     NSString *cellIdentifier;
     CustomCollectionView *_collectionView;
 
+    ModalView *currentModalView;
     
     UIButton *notificationsButton;
     UIButton *repoButton;
     UIButton *settingButton;
-
 }
 
 @synthesize allCategories = _allCategories_;
@@ -143,7 +146,6 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
-
 }
 
 -(void)actionNotifiBtn:(id)sender {
@@ -160,6 +162,32 @@
 -(void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
+}
+
+#pragma mark -
+#pragma mark Category button item delegate
+
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if([@"domob" isEqualToString:identifier]) {
+        DMOfferWallManager *domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
+        domobOfferWall.disableStoreKit = YES;
+        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
+    } else if([@"youmi" isEqualToString:identifier]) {
+        [YouMiWall showOffers:YES didShowBlock:^{
+        } didDismissBlock:^{
+        }];
+    } else if([@"anwo" isEqualToString:identifier]) {
+        
+    }
+    [currentModalView closeViewAnimated:NO completion:nil];
+}
+
+#pragma mark -
+#pragma mark Modal view delegate
+
+- (void)modalViewDidClosed {
+    [self.animationController enableGesture];
+    currentModalView = nil;
 }
 
 #pragma mark - 
@@ -217,6 +245,10 @@
     
     if([@"y:e:ap" isEqualToString:rootCategoryId]) {
         AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 415)];
+        modalView.delegate = self;
+        modalView.modalViewDelegate = self;
+        currentModalView = modalView;
+        [self.animationController disableGesture];
         [modalView showInView:self.view completion:^{  }];
         return;
     }

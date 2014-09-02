@@ -15,9 +15,18 @@ typedef NS_ENUM(NSInteger , ModalViewState) {
     ModalViewStateOpened,
 };
 
+
+@protocol ModalViewDelegate <NSObject>
+
+- (void)modalViewDidClosed;
+
+@end
+
+
 @interface ModalView : UIView
 
 @property (nonatomic, assign, readonly) ModalViewState modalViewState;
+@property (nonatomic, weak) id<ModalViewDelegate> modalViewDelegate;
 
 - (instancetype)initWithSize:(CGSize)size;
 

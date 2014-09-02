@@ -86,6 +86,17 @@
 }
 
 #pragma mark -
+#pragma mark Gesture config
+
+- (void)enableGesture {
+    panGesture.enabled = YES;
+}
+
+- (void)disableGesture {
+    panGesture.enabled = NO;
+}
+
+#pragma mark -
 #pragma mark
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
