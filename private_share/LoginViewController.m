@@ -34,7 +34,7 @@
     // Do any additional setup after loading the view.
     
     self.title = NSLocalizedString(@"app_name", @"");
-    self.view.backgroundColor = [UIColor appColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_background_image"]];
     
     self.navigationController.delegate = self;
     

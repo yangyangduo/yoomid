@@ -7,8 +7,8 @@
 //
 
 #import "ModalView.h"
-#import "YoomidBaseModalView.h"
+#import "SubTaskCategoryView.h"
 
-@interface AdPlatformPickerView : YoomidBaseModalView
+@interface AdPlatformPickerView : SubTaskCategoryView
 
 @end

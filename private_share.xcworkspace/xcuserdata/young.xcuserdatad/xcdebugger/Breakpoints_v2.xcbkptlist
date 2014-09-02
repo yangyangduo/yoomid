@@ -719,8 +719,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-keyboardWillShow:"
-            landmarkType = "5">
+            landmarkName = "@implementation LoginViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -815,8 +815,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
             endingLineNumber = "211"
-            landmarkName = "-navigationController:willShowViewController:animated:"
-            landmarkType = "5">
+            landmarkName = "@implementation LoginViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

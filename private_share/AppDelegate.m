@@ -68,7 +68,7 @@
     [self.window makeKeyAndVisible];
     
     [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
-    
+
     if(![SecurityConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];

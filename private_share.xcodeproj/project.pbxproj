@@ -15,8 +15,6 @@
 		6F01D123199DB53F00A99975 /* PanAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F01D122199DB53F00A99975 /* PanAnimationController.m */; };
 		6F06D5DE19591ACF007195A2 /* PullScrollZoomImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F06D5DD19591ACF007195A2 /* PullScrollZoomImagesView.m */; };
 		6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F12F35C194FE08200B47132 /* UIImage+Color.m */; };
-		6F12F363194FE9F700B47132 /* icon_experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F362194FE9F700B47132 /* icon_experience@2x.png */; };
-		6F12F365194FEBF000B47132 /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F364194FEBF000B47132 /* icon_video@2x.png */; };
 		6F12F368194FF33800B47132 /* ExperienceTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F12F367194FF33800B47132 /* ExperienceTasksViewController.m */; };
 		6F12F3791950209200B47132 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F3781950209200B47132 /* CoreTelephony.framework */; };
 		6F12F37B195020A100B47132 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37A195020A100B47132 /* AdSupport.framework */; };
@@ -118,6 +116,11 @@
 		6F5B5E2B19B58DBE00495F0C /* AdPlatformPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2A19B58DBE00495F0C /* AdPlatformPickerView.m */; };
 		6F5B5E2D19B58F5100495F0C /* modal_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */; };
 		6F5B5E3019B598EB00495F0C /* YoomidBaseModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */; };
+		6F5B5E3319B5A53000495F0C /* SubTaskCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E3219B5A53000495F0C /* SubTaskCategoryView.m */; };
+		6F5B5E3619B5AF9600495F0C /* CategoryButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5B5E3519B5AF9600495F0C /* CategoryButtonItem.m */; };
+		6F5B5E3A19B5AFA800495F0C /* categoryLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B5E3819B5AFA800495F0C /* categoryLeft@2x.png */; };
+		6F5B5E3B19B5AFA800495F0C /* categoryRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B5E3919B5AFA800495F0C /* categoryRight@2x.png */; };
+		6F5B5E3D19B5B00E00495F0C /* login_background_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B5E3C19B5B00E00495F0C /* login_background_image@2x.png */; };
 		6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */; };
 		6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F66B5A3194AD0D4008A948C /* PointsOrderService.m */; };
 		6F66B5A6194AE17A008A948C /* icon_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F66B5A5194AE17A008A948C /* icon_contact@2x.png */; };
@@ -461,8 +464,6 @@
 		6F06D5DD19591ACF007195A2 /* PullScrollZoomImagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullScrollZoomImagesView.m; sourceTree = "<group>"; };
 		6F12F35B194FE08200B47132 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		6F12F35C194FE08200B47132 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
-		6F12F362194FE9F700B47132 /* icon_experience@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_experience@2x.png"; sourceTree = "<group>"; };
-		6F12F364194FEBF000B47132 /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
 		6F12F366194FF33800B47132 /* ExperienceTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTasksViewController.h; sourceTree = "<group>"; };
 		6F12F367194FF33800B47132 /* ExperienceTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceTasksViewController.m; sourceTree = "<group>"; };
 		6F12F36D1950190700B47132 /* Escore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Escore.framework; path = ../ios2.0/Escore.framework; sourceTree = "<group>"; };
@@ -639,6 +640,13 @@
 		6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modal_close@2x.png"; sourceTree = "<group>"; };
 		6F5B5E2E19B598EB00495F0C /* YoomidBaseModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidBaseModalView.h; sourceTree = "<group>"; };
 		6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidBaseModalView.m; sourceTree = "<group>"; };
+		6F5B5E3119B5A53000495F0C /* SubTaskCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTaskCategoryView.h; sourceTree = "<group>"; };
+		6F5B5E3219B5A53000495F0C /* SubTaskCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTaskCategoryView.m; sourceTree = "<group>"; };
+		6F5B5E3419B5AF9600495F0C /* CategoryButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryButtonItem.h; sourceTree = "<group>"; };
+		6F5B5E3519B5AF9600495F0C /* CategoryButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryButtonItem.m; sourceTree = "<group>"; };
+		6F5B5E3819B5AFA800495F0C /* categoryLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categoryLeft@2x.png"; sourceTree = "<group>"; };
+		6F5B5E3919B5AFA800495F0C /* categoryRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categoryRight@2x.png"; sourceTree = "<group>"; };
+		6F5B5E3C19B5B00E00495F0C /* login_background_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_background_image@2x.png"; sourceTree = "<group>"; };
 		6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterAlertView.h; sourceTree = "<group>"; };
 		6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIParameterAlertView.m; sourceTree = "<group>"; };
 		6F66B5A2194AD0D4008A948C /* PointsOrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsOrderService.h; sourceTree = "<group>"; };
@@ -1211,15 +1219,6 @@
 			name = level;
 			sourceTree = "<group>";
 		};
-		6F12F361194FE9DA00B47132 /* task */ = {
-			isa = PBXGroup;
-			children = (
-				6F12F362194FE9F700B47132 /* icon_experience@2x.png */,
-				6F12F364194FEBF000B47132 /* icon_video@2x.png */,
-			);
-			name = task;
-			sourceTree = "<group>";
-		};
 		6F12F3801951245700B47132 /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,8 +1535,21 @@
 				6F5B5E2A19B58DBE00495F0C /* AdPlatformPickerView.m */,
 				6F5B5E2E19B598EB00495F0C /* YoomidBaseModalView.h */,
 				6F5B5E2F19B598EB00495F0C /* YoomidBaseModalView.m */,
+				6F5B5E3119B5A53000495F0C /* SubTaskCategoryView.h */,
+				6F5B5E3219B5A53000495F0C /* SubTaskCategoryView.m */,
+				6F5B5E3419B5AF9600495F0C /* CategoryButtonItem.h */,
+				6F5B5E3519B5AF9600495F0C /* CategoryButtonItem.m */,
 			);
 			name = yoomid_modal_view;
+			sourceTree = "<group>";
+		};
+		6F5B5E3719B5AF9E00495F0C /* category */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5E3819B5AFA800495F0C /* categoryLeft@2x.png */,
+				6F5B5E3919B5AFA800495F0C /* categoryRight@2x.png */,
+			);
+			name = category;
 			sourceTree = "<group>";
 		};
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
@@ -2073,6 +2085,7 @@
 			isa = PBXGroup;
 			children = (
 				6FC2E87319B048FC00AA78A9 /* background_image@2x.png */,
+				6F5B5E3C19B5B00E00495F0C /* login_background_image@2x.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2187,6 +2200,8 @@
 		6FF5333E1938770F001D607C /* image */ = {
 			isa = PBXGroup;
 			children = (
+				6F0177C5196A8B59003DD9E3 /* icon */,
+				6F5B5E3719B5AF9E00495F0C /* category */,
 				D66B497E19B45392002615CC /* setting */,
 				6FC2E87219B048C200AA78A9 /* common */,
 				D6A152C719A5F7120094B565 /* homepage */,
@@ -2194,13 +2209,11 @@
 				6FFB8D97197905CC008F0BBB /* checkbox */,
 				6F2C52B51975188A0045BFC1 /* dash_borad */,
 				6FBB6B8D1973D36900E6C7D2 /* drawer */,
-				6F0177C5196A8B59003DD9E3 /* icon */,
 				6F76F78A19666DD600C2FD52 /* portal */,
 				6F3D22DD1963EC4A00F52F18 /* activity */,
 				6F7261F4195A928800BD17D8 /* image_mask */,
 				6F7BD3251953F88E0031D2DD /* qr_code_scanner */,
 				6F12F3801951245700B47132 /* platform */,
-				6F12F361194FE9DA00B47132 /* task */,
 				6F12F35E194FE48400B47132 /* level */,
 				6FE655971942BF73009617C9 /* test */,
 				6F3F65EA1942020F007A41E0 /* radio_selected@2x.png */,
@@ -2616,6 +2629,7 @@
 				6F7261FA195AAFCA00BD17D8 /* black_bottom@2x.png in Resources */,
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
 				6F970978193F4B5300EA5E3A /* alert_success@2x.png in Resources */,
+				6F5B5E3A19B5AFA800495F0C /* categoryLeft@2x.png in Resources */,
 				6FB714D7196E5F4800598457 /* my_activity@2x.png in Resources */,
 				D66B497A19B44ECF002615CC /* setting@2x.png in Resources */,
 				6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */,
@@ -2625,6 +2639,7 @@
 				6F76F7861964F56D00C2FD52 /* exellent@2x.png in Resources */,
 				6F970979193F4B5300EA5E3A /* icon_cancel@2x.png in Resources */,
 				D3644C0E197A171000B44785 /* dianru_green_left_cell.png in Resources */,
+				6F5B5E3D19B5B00E00495F0C /* login_background_image@2x.png in Resources */,
 				D676302719A7741C0015CADF /* level9@2x.png in Resources */,
 				D670D6C219B074A200FB241D /* miku2@2x.png in Resources */,
 				D3644C15197A171000B44785 /* dianru_orange_dianru_info.png in Resources */,
@@ -2711,11 +2726,11 @@
 				D670D6C019B0749000FB241D /* into@2x.png in Resources */,
 				D3644C1A197A171000B44785 /* dianru_orange_left_view.png in Resources */,
 				D62FBE0A19A61EA00041195B /* miku@2x.png in Resources */,
+				6F5B5E3B19B5AFA800495F0C /* categoryRight@2x.png in Resources */,
 				D3644C0C197A171000B44785 /* dianru_green_dianru_titlebg.jpg in Resources */,
 				D3644C01197A171000B44785 /* dianru_set_btn.png in Resources */,
 				D3644BE9197A171000B44785 /* dianru_blue_dianru_bottom.png in Resources */,
 				D3644BF4197A171000B44785 /* dianru_back_btn.png in Resources */,
-				6F12F363194FE9F700B47132 /* icon_experience@2x.png in Resources */,
 				D3644C09197A171000B44785 /* dianru_green_dianru_download.png in Resources */,
 				6FD163D3197960B40076479D /* settings@2x.png in Resources */,
 				6F72C1981976889C00100D12 /* rmb_blue@2x.png in Resources */,
@@ -2802,7 +2817,6 @@
 				D3644BFC197A171000B44785 /* dianru_DRDefaultIcon.png in Resources */,
 				D3644C22197A171000B44785 /* dianru_purple_dianru_titlebg.jpg in Resources */,
 				D3644C14197A171000B44785 /* dianru_orange_dianru_download.png in Resources */,
-				6F12F365194FEBF000B47132 /* icon_video@2x.png in Resources */,
 				6F76F79419667F4D00C2FD52 /* bg@2x.png in Resources */,
 				6FBE928F1941B1D200B94195 /* back@2x.png in Resources */,
 				D3644BEB197A171000B44785 /* dianru_blue_dianru_info.png in Resources */,
@@ -2933,9 +2947,11 @@
 				6FD163CF19795ED90076479D /* DeliveryPointViewController.m in Sources */,
 				D6C7CC8E199B99F300EC3061 /* SelectContactAddressTableViewCell.m in Sources */,
 				6F5061D4194883E5007163C2 /* TextViewController.m in Sources */,
+				6F5B5E3619B5AF9600495F0C /* CategoryButtonItem.m in Sources */,
 				6F2B51C7195538570069798A /* XXEventFilterChain.m in Sources */,
 				6F363318193F1CA300340645 /* MerchandiseOrdersViewController.m in Sources */,
 				6FF5332F19386196001D607C /* BaseViewController.m in Sources */,
+				6F5B5E3319B5A53000495F0C /* SubTaskCategoryView.m in Sources */,
 				6F8823E71940A40500757633 /* NumberPicker.m in Sources */,
 				D6C7CC8B199B910D00EC3061 /* SelectContactAddressViewController.m in Sources */,
 				6F8823BD19404DE200757633 /* BaseModel.m in Sources */,
