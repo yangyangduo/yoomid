@@ -10,7 +10,7 @@
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
 #import "MerchandiseParametersPicker.h"
-#import "ShoppingCartViewController.h"
+#import "ShoppingCartViewController2.h"
 
 @implementation MerchandiseDetailViewController2 {
     UIWebView *htmlView;
@@ -151,7 +151,7 @@
 }
 
 - (void)showMiRepo:(id)sender {
-    [self.navigationController pushViewController:[[ShoppingCartViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[ShoppingCartViewController2 alloc] init] animated:YES];
 }
 
 - (NSString *)errorHtml {

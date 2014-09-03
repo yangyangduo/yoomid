@@ -10,10 +10,10 @@
 #import "MerchandiseTableViewCell.h"
 #import "MerchandiseService.h"
 #import "MerchandiseDetailViewController2.h"
-#import "ShoppingCartViewController.h"
 #import "DateTimeUtil.h"
 #import "XiaojiRecommendTableViewCell.h"
 #import "DiskCacheManager.h"
+#import "ShoppingCartViewController2.h"
 
 @interface MallViewController ()
 
@@ -67,7 +67,7 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    [self.navigationController pushViewController:[[ShoppingCartViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[ShoppingCartViewController2 alloc] init] animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -278,6 +278,5 @@
        [navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
-
 
 @end
