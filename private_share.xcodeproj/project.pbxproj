@@ -364,6 +364,7 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
 		D66B497819B416D1002615CC /* reduce2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497719B416D1002615CC /* reduce2@2x.png */; };
 		D66B497A19B44ECF002615CC /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497919B44ECF002615CC /* setting@2x.png */; };
@@ -965,6 +966,7 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
 		D66B497519B416C9002615CC /* add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add2@2x.png"; sourceTree = "<group>"; };
 		D66B497719B416D1002615CC /* reduce2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce2@2x.png"; sourceTree = "<group>"; };
 		D66B497919B44ECF002615CC /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
@@ -1374,6 +1376,7 @@
 		6F4FA06819A4892C0049C023 /* points_order */ = {
 			isa = PBXGroup;
 			children = (
+				D6684FF819B70C930064F9B1 /* levelbg@2x.png */,
 				6F4FA07D19A48A560049C023 /* add@2x.png */,
 				6F4FA07E19A48A560049C023 /* triangle@2x.png */,
 				6F4FA07F19A48A560049C023 /* reduce@2x.png */,
@@ -2582,6 +2585,7 @@
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
 				D3644C13197A171000B44785 /* dianru_orange_dianru_bottom.png in Resources */,
 				D676302419A7741C0015CADF /* level6@2x.png in Resources */,
+				D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */,
 				D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */,
 				D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */,
 				6F726B4E196D0ECB00875B05 /* icon114@2x.png in Resources */,

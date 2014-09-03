@@ -26,7 +26,7 @@ static CGRect oldframe;
     
     UIButton *addBtn;
     UIButton *reduceBtn;
-    UIImageView *levelImage;
+    UIImageView *levelbgImage;
     
     PointsOrderType pointsOrderType;
     NSInteger pageIndex;
@@ -44,20 +44,27 @@ static CGRect oldframe;
     oldframe=[avatarImageView convertRect:avatarImageView.bounds toView:window];
     backgroundView.backgroundColor=[UIColor clearColor];
     backgroundView.alpha=0;
+    
     UIImageView *imageView=[[UIImageView alloc]initWithFrame:oldframe];
-    imageView.image=image;
+    imageView.image=[UIImage imageNamed:@"levelbg"];
     imageView.tag=1;
     [backgroundView addSubview:imageView];
     [window addSubview:backgroundView];
+    
+    UIImageView *levelImageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 501/2-30, 501/2-30)];
+    levelImageView.image = image;
+    [imageView addSubview:levelImageView];
+
+    
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
     [backgroundView addGestureRecognizer: tap];
     
     [UIView animateWithDuration:0.3 animations:^{
-        imageView.frame=CGRectMake(0,([UIScreen mainScreen].bounds.size.height-image.size.height*[UIScreen mainScreen].bounds.size.width/image.size.width)/2, [UIScreen mainScreen].bounds.size.width, image.size.height*[UIScreen mainScreen].bounds.size.width/image.size.width);
+        imageView.frame=CGRectMake(35,[UIScreen mainScreen].bounds.size.height == 568.f ? 159 : 115, 501/2 , 501/2);
         backgroundView.alpha=1;
     } completion:^(BOOL finished) {
-        
+        ;
     }];
 }
 
@@ -123,8 +130,12 @@ static CGRect oldframe;
     mm.image = [UIImage imageNamed:@"mm"];
     [topView addSubview:mm];
     
-    levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 28, 50, 50)];
-    levelImage.image = [UIImage imageNamed:@"level1"];
+    UIImageView *levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 28, 50, 50)];
+    levelImage.image = [UIImage imageNamed:@"levelbg"];
+    
+    levelbgImage = [[UIImageView alloc]initWithFrame:CGRectMake(4, 4, 42, 42)];
+    levelbgImage.image = [UIImage imageNamed:@"level1"];
+    [levelImage addSubview:levelbgImage];
     
     [topView addSubview:levelImage];
     
@@ -161,7 +172,7 @@ static CGRect oldframe;
 
 - (void)showLevelImage:(id)sender
 {
-    [self showImage:levelImage];//调用方法
+    [self showImage:levelbgImage];//调用方法
 }
 
 - (void)refresh:(BOOL)animated {
