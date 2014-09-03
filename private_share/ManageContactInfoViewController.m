@@ -129,21 +129,20 @@
 
     cell.selectedImageView.image = [UIImage imageNamed:@"into"];
     cell.selectedImageView.frame = CGRectMake(cell.bounds.size.width-40-20, cell.bounds.size.height/2-20, 121.0/2, 121.0/2);
-    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-    cell.rowData = rowData;
+    cell.contact = [contactArray objectAtIndex:indexPath.row];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellHeight;
-    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-    if(rowData == nil)return 0;
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
-    CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
-    cellHeight = 35 + addressLabelHeight + 15;
-    
+//    CGFloat cellHeight;
+//    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
+//    if(rowData == nil)return 0;
+//    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
+//    CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
+//    cellHeight = 35 + addressLabelHeight + 15;
+//    
     return 82.5;
 }
 

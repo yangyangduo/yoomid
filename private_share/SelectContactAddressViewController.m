@@ -7,7 +7,6 @@
 //
 
 #import "SelectContactAddressViewController.h"
-#import "SelectContactAddressTableViewCell.h"
 #import "ManageContactInfoViewController.h"
 #import "UIImage+Color.h"
 
@@ -18,16 +17,16 @@
 @implementation SelectContactAddressViewController
 {
     NSMutableArray *contactArray;
-    NSInteger fags;
+    NSInteger _select;
 }
 
--(instancetype)initWithContactInfo:(NSMutableArray *)contactArrays fag:(NSInteger)fag
+-(instancetype)initWithContactInfo:(NSMutableArray *)contactArrays selected:(NSInteger)select
 {
     self = [super init];
     if (self) {
         contactArray = [[NSMutableArray alloc]init];
         contactArray = contactArrays;
-        fags = fag;
+        _select = select;
     }
     return self;
 }
@@ -67,8 +66,8 @@
 -(void)deleteContactArray:(NSNotification*)notif
 {
     contactArray = notif.object;
-    if (fags==contactArray.count) {
-        fags = 0;
+    if (_select==contactArray.count) {
+        _select = 0;
     }
     [_tableView reloadData];
 }
@@ -87,9 +86,9 @@
 -(void)manageContactAddress:(id)sender
 {
     ManageContactInfoViewController *add = [[ManageContactInfoViewController alloc]initWithContactInfo:contactArray];
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"";
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+//    backItem.title=@"";
+//    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:add animated:YES];
 }
 
@@ -111,9 +110,10 @@
     if (cell == nil) {
         cell = [[SelectContactAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
-    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-    cell.rowData = rowData;
-    if (indexPath.row == fags) {
+    
+    cell.contact = [contactArray objectAtIndex:indexPath.row];
+
+    if (indexPath.row == _select) {
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_select"];
     }else {
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_unselect"];
@@ -124,13 +124,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellHeight;
-    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-    if(rowData == nil)return 0;
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
-    CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
-    cellHeight = 35 + addressLabelHeight + 15;
-    
+//    CGFloat cellHeight;
+//    NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
+//    if(rowData == nil)return 0;
+//    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:12.f]};
+//    CGFloat addressLabelHeight = [[rowData objectForKey:@"deliveryAddress"] boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-42, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
+//    cellHeight = 35 + addressLabelHeight + 15;
+//    
     return 82.5;
 }
 
@@ -142,7 +142,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.delegate contactInfo:[contactArray objectAtIndex:indexPath.row] fag:indexPath.row];
+    [self.delegate contactInfo:[contactArray objectAtIndex:indexPath.row] selectd:indexPath.row];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

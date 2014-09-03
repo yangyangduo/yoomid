@@ -31,14 +31,14 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     
     NSString *_default_contact_id_;
     NSMutableArray *contacts;
-    NSInteger fag;
+    NSInteger _select;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss {
     self = [super init];
     if(self) {
         _shopShoppingItemss_ = shopShoppingItemss;
-        fag = 0;
+        _select = 0;
     }
     return self;
 }
@@ -84,8 +84,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 
 - (void)deleteContactArray:(NSNotification*)notif {
     contacts = notif.object;
-    if(fag==contacts.count) {
-        fag = 0;
+    if(_select==contacts.count) {
+        _select = 0;
     }
 
     if(contacts.count == 0) {
@@ -105,7 +105,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (void)updateContactArray:(NSNotification*)notif {
     contacts = notif.object;
     
-    NSDictionary *tempD = [contacts objectAtIndex:fag];
+    NSDictionary *tempD = [contacts objectAtIndex:_select];
     [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
     [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
     [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
@@ -188,11 +188,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (void)pushContactInfo:(id)sender {
-    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts fag:fag];
+    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
     selectContactAddress.delegate = self;
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title = @"";
-    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:selectContactAddress animated:YES];
 }
 
@@ -210,15 +207,12 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 #pragma mark selectContactInfo delegate
--(void)contactInfo:(NSDictionary *)dictionary_contact fag:(NSInteger)fags {
-    [ShoppingCart myShoppingCart].orderContact.identifier = [dictionary_contact objectForKey:@"id"];
-    [ShoppingCart myShoppingCart].orderContact.name = [dictionary_contact objectForKey:@"name"];
-    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [dictionary_contact objectForKey:@"contactPhone"];
-    [ShoppingCart myShoppingCart].orderContact.address = [dictionary_contact objectForKey:@"deliveryAddress"];
-    
+-(void)contactInfo:(Contact *)contact selectd:(NSInteger)select
+{
+    [ShoppingCart myShoppingCart].orderContact = contact;
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
 
-    fag = fags;
+    _select = select;
 }
 
 #pragma mark -
