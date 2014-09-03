@@ -48,14 +48,14 @@
     return self;
 }
 
--(void)setRowData:(NSDictionary *)rowData
+-(void)setContact:(Contact *)contact
 {
-    if (rowData == nil)return;
-    NSString *nameAndPhoneStr = [NSString stringWithFormat:@"%@  %@",[rowData objectForKey:@"name"],[rowData objectForKey:@"contactPhone"]];
+    if (contact == nil)return;
+    NSString *nameAndPhoneStr = [NSString stringWithFormat:@"%@  %@",contact.name,contact.phoneNumber];
     nameAndPhone.text = nameAndPhoneStr;
 
 //    phoneNumber.text = [rowData objectForKey:@"contactPhone"];
-    NSString *addressStr = [NSString stringWithFormat:@"收货地址:%@",[rowData objectForKey:@"deliveryAddress"]];
+    NSString *addressStr = [NSString stringWithFormat:@"收货地址:%@",contact.address];
     address.text = addressStr;
     
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:10.f]};
