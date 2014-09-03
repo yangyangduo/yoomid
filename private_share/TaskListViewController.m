@@ -8,6 +8,7 @@
 
 #import "TaskListViewController.h"
 #import "TaskItemCell.h"
+#import "TaskService.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;

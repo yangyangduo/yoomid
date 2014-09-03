@@ -396,7 +396,7 @@
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
 		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
-		D6A152C619A5D3300094B565 /* TaskCategoriesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskCategoriesService.m */; };
+		D6A152C619A5D3300094B565 /* TaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskService.m */; };
 		D6A152C919A5F73B0094B565 /* guess_picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6A152C819A5F73B0094B565 /* guess_picture@2x.png */; };
 		D6A7AD6919A1F271005E3312 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A7AD6819A1F271005E3312 /* HomeViewController.m */; };
 		D6B13F6919A43199007658CB /* HomePageItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B13F6819A43199007658CB /* HomePageItemCell.m */; };
@@ -1000,8 +1000,8 @@
 		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
 		D698655A19B5B86700781F54 /* TextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController2.h; sourceTree = "<group>"; };
 		D698655B19B5B86700781F54 /* TextViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController2.m; sourceTree = "<group>"; };
-		D6A152C419A5D3300094B565 /* TaskCategoriesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCategoriesService.h; sourceTree = "<group>"; };
-		D6A152C519A5D3300094B565 /* TaskCategoriesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCategoriesService.m; sourceTree = "<group>"; };
+		D6A152C419A5D3300094B565 /* TaskService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskService.h; sourceTree = "<group>"; };
+		D6A152C519A5D3300094B565 /* TaskService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskService.m; sourceTree = "<group>"; };
 		D6A152C819A5F73B0094B565 /* guess_picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guess_picture@2x.png"; sourceTree = "<group>"; };
 		D6A7AD6719A1F271005E3312 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		D6A7AD6819A1F271005E3312 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -1928,8 +1928,8 @@
 				6F66B5A3194AD0D4008A948C /* PointsOrderService.m */,
 				D641D905199C662F00CBB929 /* ContactService.h */,
 				D641D906199C662F00CBB929 /* ContactService.m */,
-				D6A152C419A5D3300094B565 /* TaskCategoriesService.h */,
-				D6A152C519A5D3300094B565 /* TaskCategoriesService.m */,
+				D6A152C419A5D3300094B565 /* TaskService.h */,
+				D6A152C519A5D3300094B565 /* TaskService.m */,
 			);
 			name = service;
 			sourceTree = "<group>";
@@ -2772,7 +2772,7 @@
 				6F970985193F4E4F00EA5E3A /* XXStringUtils.m in Sources */,
 				6F7261EF195A6DA800BD17D8 /* Address.m in Sources */,
 				6F2B51C4195538570069798A /* XXAllAllowedEventFilter.m in Sources */,
-				D6A152C619A5D3300094B565 /* TaskCategoriesService.m in Sources */,
+				D6A152C619A5D3300094B565 /* TaskService.m in Sources */,
 				6F2B51C6195538570069798A /* XXEventFilter.m in Sources */,
 				6F2B51CB195538570069798A /* XXEventSubscriptionPublisher.m in Sources */,
 				6F50BF32196BCF3E006C9F1F /* ImagesScrollView.m in Sources */,

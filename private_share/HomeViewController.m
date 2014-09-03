@@ -114,8 +114,8 @@
 }
 
 -(void)getCategoriesInfo {
-    TaskCategoriesService *taskCategories = [[TaskCategoriesService alloc] init];
-    [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
+    TaskService *service = [[TaskService alloc] init];
+    [service getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 -(void)getCategoriesSuccess:(HttpResponse *)resp {

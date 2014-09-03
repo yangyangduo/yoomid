@@ -1,5 +1,5 @@
 //
-//  TaskCategoriesService.h
+//  TaskCategoryService.h
 //  private_share
 //
 //  Created by 曹大为 on 14-8-21.
@@ -8,8 +8,10 @@
 
 #import "BaseService.h"
 
-@interface TaskCategoriesService : BaseService
+@interface TaskService : BaseService
 
 -(void)getCategories:(id)target success:(SEL)success failure:(SEL)failure;
+
+- (void)getTasksWithCategoryId:(NSString *)categoryId target:(id)target success:(SEL)success failure:(SEL)failure;
 
 @end
