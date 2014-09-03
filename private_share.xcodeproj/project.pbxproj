@@ -1978,10 +1978,10 @@
 		6FC2E87219B048C200AA78A9 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				6FB0E19919B6A325002F9A18 /* button */,
 				6FB0E19819B6A298002F9A18 /* alert */,
-				6F7BD3251953F88E0031D2DD /* qr_code_scanner */,
 				6FB0E19619B6A158002F9A18 /* modal */,
+				6FB0E19919B6A325002F9A18 /* button */,
+				6F7BD3251953F88E0031D2DD /* qr_code_scanner */,
 				6FFB8D97197905CC008F0BBB /* checkbox */,
 				6FC2E87319B048FC00AA78A9 /* background_image@2x.png */,
 				6FC2E87519B04F0300AA78A9 /* new_back@2x.png */,
