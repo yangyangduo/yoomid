@@ -100,8 +100,8 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"f" forIndexPath:indexPath];
-    
+    TaskItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"f" forIndexPath:indexPath];
+    cell.task = [_tasks_ objectAtIndex:indexPath.row];
     return cell;
 }
 

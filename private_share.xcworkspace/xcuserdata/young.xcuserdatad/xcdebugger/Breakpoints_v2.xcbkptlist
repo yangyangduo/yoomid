@@ -1210,11 +1210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431426504.888474"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "-startInteractiveTransition:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1226,11 +1226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431426504.888474"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "-updateInteractiveTransitionWithPercent:translationX:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1242,11 +1242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431427907.374404"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-endInteractiveTransition:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1258,11 +1258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431427907.374404"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-handlePanGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1274,11 +1274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431427907.374404"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
             landmarkName = "-handlePanGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1290,11 +1290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431427907.374404"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "-handlePanGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1306,11 +1306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431427907.374404"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
             landmarkName = "-handlePanGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1322,11 +1322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431422761.38149"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "-startInteractiveTransition:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1578,11 +1578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431426504.888474"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "-endInteractiveTransition:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1594,11 +1594,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/PanAnimationController.m"
-            timestampString = "431422399.040095"
+            timestampString = "431429480.922739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-animateTransition:"
             landmarkType = "5">
          </BreakpointContent>

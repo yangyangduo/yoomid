@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Task.h"
 
 @interface TaskItemCell : UICollectionViewCell
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) Task *task;
 
 @end
