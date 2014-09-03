@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "PanBackTransitionViewController.h"
+#import "Task.h"
 
 @interface TaskDetailViewController : PanBackTransitionViewController<UIWebViewDelegate>
 
-- (instancetype)initWithTaskDetailUrl:(NSString *)url;
+- (instancetype)initWithTask:(Task *)task;
+
+@property (nonatomic, strong) Task *task;
 
 @end

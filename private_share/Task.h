@@ -18,6 +18,8 @@
 @property (nonatomic, assign) NSInteger timeLimitInSeconds;
 @property (nonatomic, strong) NSString *taskDescriptionUrl;
 
+@property (nonatomic, strong) NSString *categoryId;
+
 //@property (nonatomic, strong) NSDate *deadLine;
 
 @end

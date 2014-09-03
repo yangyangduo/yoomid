@@ -542,6 +542,11 @@
     UIViewController *presentedViewController = self.containerController.presentedViewController;
     CGPoint center = presentedViewController.view.center;
     
+    if([presentedViewController isKindOfClass:[TransitionViewController class]]) {
+        __weak TransitionViewController *_delegate_ = (TransitionViewController *)presentedViewController;
+        presentedViewController.transitioningDelegate = _delegate_;
+    }
+    
     self.panDirection = center.x > 160 ? PanDirectionRight : PanDirectionLeft;
     [presentedViewController dismissViewControllerAnimated:YES completion:^{ }];
 }

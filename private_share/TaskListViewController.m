@@ -71,6 +71,7 @@
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
                 Task *task = [[Task alloc] initWithJson:[jsonArray objectAtIndex:i]];
+                task.categoryId = self.taskCategory.identifier;
                 [_tasks_ addObject:task];
             }
         }
@@ -118,12 +119,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Task *task = [_tasks_ objectAtIndex:indexPath.row];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, self.taskCategory.identifier, task.identifier, [BaseService authString]];
-#ifdef DEBUG
-    NSLog(@"Task url is [%@]", url);
-#endif
-    TaskDetailViewController *taskDetailViewController = [[TaskDetailViewController alloc] initWithTaskDetailUrl:url];
+    TaskDetailViewController *taskDetailViewController = [[TaskDetailViewController alloc] initWithTask:task];
     [self.navigationController pushViewController:taskDetailViewController animated:YES];
 }
 

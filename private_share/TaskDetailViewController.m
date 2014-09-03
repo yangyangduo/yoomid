@@ -9,6 +9,7 @@
 #import "TaskDetailViewController.h"
 #import "JsonUtil.h"
 #import "MyPointsRecordViewController.h"
+#import "BaseService.h"
 
 @implementation TaskDetailViewController {
     UIWebView *_webView_;
@@ -22,10 +23,12 @@
     UIView *tabBar;
 }
 
-- (instancetype)initWithTaskDetailUrl:(NSString *)url {
+@synthesize task = _task_;
+
+- (instancetype)initWithTask:(Task *)task {
     self = [super init];
     if(self) {
-        _url_ = url;
+        self.task = task;
     }
     return self;
 }
@@ -176,6 +179,16 @@
 
 - (CGFloat)rightPresentViewControllerOffset {
     return 88.f;
+}
+
+- (void)setTask:(Task *)task {
+    _task_ = task;
+    if(_task_ != nil) {
+        _url_ = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, _task_.categoryId, _task_.identifier, [BaseService authString]];
+#ifdef DEBUG
+        NSLog(@"Task url is [%@]", _url_);
+#endif
+    }
 }
 
 @end
