@@ -7,6 +7,7 @@
 //
 
 #import "PanAnimationController.h"
+#import "TransitionViewController.h"
 
 #define MASK_VIEW_TAG 8888
 #define MASK_VIEW_FINAL_ALPHA 0.75f
@@ -169,6 +170,7 @@
             toViewController.view.center = CGPointMake(0, toViewController.view.center.y);
             [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
         }
+        
         [UIView animateWithDuration:[self transitionDuration:transitionContext]
                          animations:^{
                              fromViewController.view.center = CGPointMake((PanDirectionLeft == panDirection ? -SCREEN_CENTER_X : SCREEN_CENTER_X * 3), fromViewController.view.center.y);
@@ -316,7 +318,8 @@
                 } else {
                     maskView.alpha = toAlpha;
                 }
-                if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
+                if(PanAnimationControllerDismissStyleTransition == self.dismissStyle
+                        && PanAnimationControllerTypeDismissal == self.animationType) {
                     toViewController.view.center = CGPointMake(containerPosition.x, toViewController.view.center.y);
                 }
             }

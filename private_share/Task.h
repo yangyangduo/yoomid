@@ -13,10 +13,11 @@
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *provider;
-@property (nonatomic, assign) NSInteger *requiredUserLebel;
+@property (nonatomic, assign) NSInteger requiredUserLevel;
 @property (nonatomic, assign) NSInteger points;
 @property (nonatomic, assign) NSInteger timeLimitInSeconds;
-@property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSString *taskDescriptionUrl;
+
 //@property (nonatomic, strong) NSDate *deadLine;
 
 @end

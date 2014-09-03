@@ -9,9 +9,14 @@
 #import "TaskListViewController.h"
 #import "TaskItemCell.h"
 #import "TaskService.h"
+#import "Task.h"
+#import "TaskDetailViewController.h"
+#import "MyPointsRecordViewController.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
+    
+    NSMutableArray *_tasks_;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -20,12 +25,15 @@
     self = [super init];
     if(self) {
         _taskCategory_ = taskCategory;
+        _tasks_ = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     
     if(self.taskCategory != nil && self.taskCategory.displayName != nil) {
         self.title = self.taskCategory.displayName;
@@ -46,6 +54,33 @@
     _collection_view_.delegate = self;
     _collection_view_.dataSource = self;
     [self.view addSubview:_collection_view_];
+    
+    [self refresh];
+}
+
+- (void)refresh {
+    TaskService *service = [[TaskService alloc] init];
+    [service getTasksWithCategoryId:self.taskCategory.identifier target:self success:@selector(getTasksSuccess:) failure:@selector(getTasksFailure:)];
+}
+
+- (void)getTasksSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200 && resp.body) {
+        [_tasks_ removeAllObjects];
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(jsonArray != nil) {
+            for(int i=0; i<jsonArray.count; i++) {
+                Task *task = [[Task alloc] initWithJson:[jsonArray objectAtIndex:i]];
+                [_tasks_ addObject:task];
+            }
+        }
+        
+        [_collection_view_ reloadData];
+    }
+}
+
+- (void)getTasksFailure:(HttpResponse *)resp {
+    [self handleFailureHttpResponse:resp];
 }
 
 #pragma mark -
@@ -56,7 +91,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 15;
+    return _tasks_.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,8 +116,30 @@
     return UIEdgeInsetsMake(20, 20, 20, 20);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Task *task = [_tasks_ objectAtIndex:indexPath.row];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, self.taskCategory.identifier, task.identifier, [BaseService authString]];
+#ifdef DEBUG
+    NSLog(@"Task url is [%@]", url);
+#endif
+    TaskDetailViewController *taskDetailViewController = [[TaskDetailViewController alloc] initWithTaskDetailUrl:url];
+    [self.navigationController pushViewController:taskDetailViewController animated:YES];
+}
+
 - (void)dismissViewController {
     [self rightDismissViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark Pan animation controller delegate
+
+- (UIViewController *)rightPresentationViewController {
+    return [[MyPointsRecordViewController alloc] init];
+}
+
+- (CGFloat)rightPresentViewControllerOffset {
+    return 88.f;
 }
 
 @end

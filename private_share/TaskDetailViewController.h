@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TransitionViewController.h"
+#import "PanBackTransitionViewController.h"
 
-@interface TaskDetailViewController : TransitionViewController<UIWebViewDelegate>
+@interface TaskDetailViewController : PanBackTransitionViewController<UIWebViewDelegate>
 
 - (instancetype)initWithTaskDetailUrl:(NSString *)url;
 

@@ -8,6 +8,7 @@
 
 #import "TransitionViewController.h"
 #import "TaskCategory.h"
+#import "PullCollectionView.h"
 
 @interface TaskListViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 

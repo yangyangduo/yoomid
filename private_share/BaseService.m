@@ -25,8 +25,12 @@
 }
 
 - (NSString *)authenticationString {
+    return [[self class] authString];
+}
+
++ (NSString *)authString {
     return [NSString stringWithFormat:@"loginAccount=%@&account=%@&securityKey=%@",[SecurityConfig defaultConfig].userName, [SecurityConfig defaultConfig].userName, [SecurityConfig defaultConfig].securityKey];
-};
+}
 
 - (NSString *)dataToString:(NSData *)data {
     if(data == nil) return nil;

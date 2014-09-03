@@ -20,5 +20,6 @@
 - (HttpClient *)httpClient;
 - (NSString *)dataToString:(NSData *)data;
 - (NSString *)authenticationString;
++ (NSString *)authString;
 
 @end

@@ -33,7 +33,7 @@
     
     NSDictionary *textAttributes = @{
                                      NSForegroundColorAttributeName : [UIColor appLightBlue],
-                                     NSFontAttributeName : [UIFont boldSystemFontOfSize:23.f]
+                                     NSFontAttributeName : [UIFont systemFontOfSize:20.f]
                                      //UITextAttributeTextShadowColor : [UIColor clearColor]
                                      };
     

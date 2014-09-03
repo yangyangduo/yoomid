@@ -33,12 +33,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     
     retryTapGestrue = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryLoading)];
     
-    _webView_ = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    _webView_ = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 - 49)];
     _webView_.delegate = self;
     _webView_.backgroundColor = [UIColor clearColor];
     _webView_.opaque = NO;
@@ -61,11 +60,10 @@
     tabBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 64 - 49, self.view.bounds.size.width, 49)];
     tabBar.backgroundColor = [UIColor appColor];
     UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(tabBar.bounds.size.width - 90, 0, 90, 35)];
-    [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
+    [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button2"] forState:UIControlStateNormal];
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
     
-    _url_ = @"http://localhost:8080/moneymoney/platform/yoomid/task?categoryId=jfjds&taskId=ff";
     [self requestTaskDetailWithUrl:_url_];
 }
 
