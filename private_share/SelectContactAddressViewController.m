@@ -66,9 +66,9 @@
 -(void)deleteContactArray:(NSNotification*)notif
 {
     contactArray = notif.object;
-    if (_select==contactArray.count) {
+//    if (_select==contactArray.count) {
         _select = 0;
-    }
+//    }
     [_tableView reloadData];
 }
 
@@ -86,9 +86,6 @@
 -(void)manageContactAddress:(id)sender
 {
     ManageContactInfoViewController *add = [[ManageContactInfoViewController alloc]initWithContactInfo:contactArray];
-//    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-//    backItem.title=@"";
-//    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:add animated:YES];
 }
 
@@ -116,7 +113,7 @@
     if (indexPath.row == _select) {
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_select"];
     }else {
-        cell.selectedImageView.image = [UIImage imageNamed:@"cb_unselect"];
+        cell.selectedImageView.image = nil;
     }
     
     return cell;

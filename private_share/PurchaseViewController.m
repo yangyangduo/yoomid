@@ -84,9 +84,9 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 
 - (void)deleteContactArray:(NSNotification*)notif {
     contacts = notif.object;
-    if(_select==contacts.count) {
+//    if(_select==contacts.count) {
         _select = 0;
-    }
+//    }
 
     if(contacts.count == 0) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -94,22 +94,24 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         return;
     }
     
-    NSDictionary *tempD = [contacts objectAtIndex:0];
-    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
-    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
-    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
-    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+//    NSDictionary *tempD = [contacts objectAtIndex:0];
+//    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
+//    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
+//    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
+//    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+    [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:0];
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
 }
 
 - (void)updateContactArray:(NSNotification*)notif {
     contacts = notif.object;
     
-    NSDictionary *tempD = [contacts objectAtIndex:_select];
-    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
-    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
-    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
-    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+//    NSDictionary *tempD = [contacts objectAtIndex:_select];
+//    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
+//    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
+//    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
+//    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
+    [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:_select];
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
 }
 

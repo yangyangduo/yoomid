@@ -32,7 +32,7 @@ CGFloat const kContactDisplayViewHeight = 78.f;
         _phoneNumber.font = [UIFont systemFontOfSize:15.f];
         
         _address = [[UILabel alloc]init];
-        _address.font = [UIFont systemFontOfSize:10.f];
+        _address.font = [UIFont systemFontOfSize:11.f];
         _address.numberOfLines = 0;//表示label可以多行显示
         _address.lineBreakMode = NSLineBreakByCharWrapping;
         _address.textColor = [UIColor grayColor];
@@ -67,7 +67,7 @@ CGFloat const kContactDisplayViewHeight = 78.f;
     NSString *contactAddress = [NSString stringWithFormat:@"收货地址:%@",currentContact.address];
     _address.text = contactAddress;
     
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:10.f]};
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:11.f]};
     CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
 }

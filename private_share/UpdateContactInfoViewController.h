@@ -6,13 +6,11 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "XXStringUtils.h"
 #import "ContactService.h"
+#import "PanBackTransitionViewController.h"
 
-@interface UpdateContactInfoViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
-
-- (instancetype)initWithContactItemss:(NSDictionary *)contactItemss;
+@interface UpdateContactInfoViewController : PanBackTransitionViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 - (instancetype)initWithContactInfo:(NSMutableArray *)array itmes:(NSInteger)item;
 

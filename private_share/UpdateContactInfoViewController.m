@@ -7,6 +7,8 @@
 //
 
 #import "UpdateContactInfoViewController.h"
+#import "Contact.h"
+#import "DiskCacheManager.h"
 
 @interface UpdateContactInfoViewController ()
 
@@ -16,18 +18,10 @@
 {
     UITableView *tableview;
     NSMutableArray *textFields;
-    NSDictionary *_contactItemss;
+    Contact *contact;
     
     NSMutableArray *contactArray;
     NSInteger items;
-}
--(instancetype)initWithContactItemss:(NSDictionary *)contactItemss
-{
-    self = [super init];
-    if (self) {
-        _contactItemss = contactItemss;
-    }
-    return self;
 }
 
 -(instancetype)initWithContactInfo:(NSMutableArray *)array itmes:(NSInteger)item
@@ -37,7 +31,7 @@
         contactArray = [[NSMutableArray alloc]init];
         contactArray = array;
         items = item;
-        _contactItemss = [contactArray objectAtIndex:item];
+        contact = [contactArray objectAtIndex:item];
     }
     return self;
 }
@@ -51,37 +45,30 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"修改" style:UIBarButtonItemStylePlain target:self action:@selector(updateContactAddress:)];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
-    //    tableview.backgroundColor = [UIColor clearColor];
     
     tableview.delegate = self;
     tableview.dataSource = self;
     [self.view addSubview:tableview];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars = NO;
-        self.modalPresentationCapturesStatusBarAppearance = NO;
-    }
 }
 
 -(void)updateContactAddress:(id)sender
 {
-    UITextField *name = [textFields objectAtIndex:0];
-    UITextField *phoneNumber = [textFields objectAtIndex:1];
-    UITextField *address = [textFields objectAtIndex:2];
+    UITextField *nameTextField = [textFields objectAtIndex:0];
+    UITextField *phoneNumberTextField = [textFields objectAtIndex:1];
+    UITextField *addressTextField = [textFields objectAtIndex:2];
     
-    if ([XXStringUtils isBlank:name.text]) {
+    if ([XXStringUtils isBlank:nameTextField.text]) {
         [[XXAlertView currentAlertView] setMessage:@"请输入收货人姓名" forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
     }
-    else if ([XXStringUtils isBlank:phoneNumber.text])
+    else if ([XXStringUtils isBlank:phoneNumberTextField.text])
     {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"mobile_required", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
     }
-    else if ([XXStringUtils isBlank:address.text])
+    else if ([XXStringUtils isBlank:addressTextField.text])
     {
         [[XXAlertView currentAlertView] setMessage:@"请输入详细地址" forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
@@ -91,11 +78,17 @@
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     
     ContactService *contactSerice = [[ContactService alloc]init];
-    [contactSerice updateContactInfo:[_contactItemss objectForKey:@"id"] name:name.text phoneNumber:phoneNumber.text address:address.text target:self success:@selector(updateContactSucess:) failure:@selector(handleFailureHttpResponse:)];
+    [contactSerice updateContactInfo:contact.identifier name:nameTextField.text phoneNumber:phoneNumberTextField.text address:addressTextField.text target:self success:@selector(updateContactSucess:) failure:@selector(handleFailureHttpResponse:)];
     
-    NSDictionary *temp = [NSDictionary dictionaryWithObjectsAndKeys:[_contactItemss objectForKey:@"accountId"],@"accountId",phoneNumber.text,@"contactPhone",address.text,@"deliveryAddress",[_contactItemss objectForKey:@"id"],@"id",name.text,@"name",nil];
+//    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:phoneNumberTextField.text,@"contactPhone",addressTextField.text,@"deliveryAddress",contact.identifier,@"id",nameTextField.text,@"name",contact.isDefault,@"default", nil];
     
-    [contactArray replaceObjectAtIndex:items withObject:temp];
+    Contact *updateContact = [[Contact alloc]init];
+    updateContact.identifier = contact.identifier;
+    updateContact.name = nameTextField.text;
+    updateContact.phoneNumber = phoneNumberTextField.text;
+    updateContact.address = addressTextField.text;
+    updateContact.isDefault = contact.isDefault;
+    [contactArray replaceObjectAtIndex:items withObject:updateContact];
 }
 
 -(void)updateContactSucess:(HttpResponse *)resp
@@ -107,6 +100,8 @@
         [[XXAlertView currentAlertView] delayDismissAlertView];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateContactArray" object:contactArray];
+        [[DiskCacheManager manager] setContacts:contactArray];
+
         [self.navigationController popViewControllerAnimated:YES];
     }else
     {
@@ -155,7 +150,7 @@
         textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.returnKeyType = UIReturnKeyNext;
         textField.placeholder = @"收货人姓名";
-        textField.text = [_contactItemss objectForKey:@"name"];
+        textField.text = contact.name;
         [textField becomeFirstResponder];
     }
     else if (indexPath.row == 1)
@@ -164,7 +159,7 @@
         textField.keyboardType = UIKeyboardTypeNumberPad;
         textField.returnKeyType = UIReturnKeyNext;
         textField.placeholder = @"手机号码";
-        textField.text = [_contactItemss objectForKey:@"contactPhone"];
+        textField.text = contact.phoneNumber;
 
     }
     else if (indexPath.row == 2)
@@ -173,7 +168,7 @@
         textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.returnKeyType = UIReturnKeyDone;
         textField.placeholder = @"详细地址";
-        textField.text = [_contactItemss objectForKey:@"deliveryAddress"];
+        textField.text = contact.address;
 
     }else{}
     
@@ -198,11 +193,6 @@
         UITextField *nextTextField = [textFields objectAtIndex:1];
         [nextTextField becomeFirstResponder];
     }
-    //    else if(200 == textField.tag)
-    //    {
-    //        UITextField *nextTextField = [textFields objectAtIndex:2];
-    //        [nextTextField becomeFirstResponder];
-    //    }
     else if(300 == textField.tag)
     {
         [self updateContactAddress:nil];

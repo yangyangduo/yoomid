@@ -8,6 +8,8 @@
 
 #import "AddContactInfoViewController.h"
 #import "XXStringUtils.h"
+#import "Contact.h"
+#import "DiskCacheManager.h"
 
 @interface AddContactInfoViewController ()
 
@@ -68,14 +70,10 @@
         self.navigationController.navigationBar.translucent = NO;
     }
     
-    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backbtn setFrame:CGRectMake(0, 0, 38.5, 30)];
-    [backbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    backbtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [backbtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backbtn addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *btnMoreitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    self.navigationItem.leftBarButtonItem = btnMoreitem;
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
 
 -(void)actionBack
@@ -142,14 +140,39 @@
 
 -(void)getContactSuccess:(HttpResponse *)resp
 {
-    if(resp.statusCode == 200)
+    if(resp.statusCode == 200 && resp.body != nil)
     {
-        NSMutableDictionary *contactDictionary =  [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        
-        for (NSDictionary *tmpDic in contactDictionary)
-        {
-            [contactArray addObject:tmpDic];
+        if(contactArray == nil) {
+            contactArray = [NSMutableArray array];
+        } else {
+            [contactArray removeAllObjects];
         }
+//        NSMutableDictionary *contactDictionary =  [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+
+        if (_contacts_ != nil) {
+            for (int i = 0; i<_contacts_.count; i++) {
+                NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
+                Contact *contact = [[Contact alloc] initWithJson:contactJson];
+                [contactArray addObject:contact];
+                
+                if (i == 0) {
+                    contact.isDefault = YES;
+                }
+                else
+                {
+                    contact.isDefault = NO;
+                }
+            }
+        }
+        
+        [[DiskCacheManager manager] setContacts:contactArray];
+
+        
+//        for (NSDictionary *tmpDic in contactDictionary)
+//        {
+//            [contactArray addObject:tmpDic];
+//        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateContactArray" object:contactArray];
         
         [self.navigationController popViewControllerAnimated:YES];

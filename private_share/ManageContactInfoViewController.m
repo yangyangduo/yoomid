@@ -11,6 +11,7 @@
 #import "SelectContactAddressTableViewCell.h"
 #import "AddContactInfoViewController.h"
 #import "UpdateContactInfoViewController.h"
+#import "DiskCacheManager.h"
 
 @interface ManageContactInfoViewController ()
 
@@ -89,6 +90,8 @@
         [tableview reloadData];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteContactArray" object:contactArray];
+        [[DiskCacheManager manager] setContacts:contactArray];
+
     }else
     {
         [self handleFailureHttpResponse:resp];
@@ -155,9 +158,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     UpdateContactInfoViewController *updateContact = [[UpdateContactInfoViewController alloc]initWithContactInfo:contactArray itmes:indexPath.row];
-    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
-    backItem.title=@"";
-    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:updateContact animated:YES];
 }
 
@@ -171,12 +171,15 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //删除数据....
-        NSDictionary *rowData = [contactArray objectAtIndex:indexPath.row];
-        
-        ContactService *contactService = [[ContactService alloc]init];
-        [contactService deleteContactInfo:[rowData objectForKey:@"id"] target:self success:@selector(deleteSuccess:) failure:@selector(handleFailureHttpResponse:)];
+        Contact *contact = [contactArray objectAtIndex:indexPath.row];
         
         [contactArray removeObjectAtIndex:indexPath.row];
+        if (contact.isDefault) {
+            
+        }
+        ContactService *contactService = [[ContactService alloc]init];
+        [contactService deleteContactInfo:contact.identifier target:self success:@selector(deleteSuccess:) failure:@selector(handleFailureHttpResponse:)];
+        
         //删除cell
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
