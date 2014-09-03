@@ -64,6 +64,9 @@
     tabBar.backgroundColor = [UIColor appColor];
     UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(tabBar.bounds.size.width - 90, 0, 90, 35)];
     [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button2"] forState:UIControlStateNormal];
+    [confirmButton addTarget:self action:@selector(findTaskResultAndSubmit) forControlEvents:UIControlEventTouchUpInside];
+    [confirmButton setTitle:@"确 定" forState:UIControlStateNormal];
+    confirmButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
     
@@ -71,7 +74,7 @@
 }
 
 - (void)findTaskResultAndSubmit {
-    NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"getPostJsonStringAfterValidation()"];
+    NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"validateAnswers()"];
     if(result != nil && ![@"" isEqualToString:result]) {
         NSData *postData = [result dataUsingEncoding:NSUTF8StringEncoding];
         

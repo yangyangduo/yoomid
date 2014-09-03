@@ -207,9 +207,6 @@
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    //[fromViewController viewWillDisappear:YES];
-    //[toViewController viewWillAppear:YES];
-    
     if(PanAnimationControllerTypePresentation == self.animationType) {
         [fromViewController viewWillDisappear:YES];
         
@@ -236,7 +233,9 @@
         }
         presentationEndOffset = presentationEndOffset / 2;
     } else {
-        [toViewController viewWillAppear:YES];
+        if(PanAnimationControllerDismissStyleDefault == self.dismissStyle) {
+            [toViewController viewWillAppear:YES];
+        }
         
         if(PanAnimationControllerDismissStyleTransition == self.dismissStyle) {
             toViewController.view.center = CGPointMake(0, toViewController.view.center.y);
@@ -295,7 +294,7 @@
         }
         toAlpha = cancelled ? 0 : MASK_VIEW_FINAL_ALPHA;
     } else {
-        if(cancelled) {
+        if(cancelled && PanAnimationControllerDismissStyleDefault == self.dismissStyle) {
             [toViewController viewWillDisappear:YES];
         }
         if(PanDirectionRight == panDirection) {
@@ -331,11 +330,11 @@
                     if(PanAnimationControllerTypePresentation == animationType) {
                         [fromViewController viewDidAppear:YES];
                     } else {
-                        [toViewController viewDidDisappear:YES];
+                        if(PanAnimationControllerDismissStyleDefault == self.dismissStyle) {
+                            [toViewController viewDidDisappear:YES];
+                        }
                     }
-                    
-                    //[fromViewController viewDidAppear:YES];
-                    //[toViewController viewDidDisappear:YES];
+
                 } else {
                     [context finishInteractiveTransition];
                     [context completeTransition:YES];
@@ -343,11 +342,10 @@
                     if(PanAnimationControllerTypePresentation == animationType) {
                         [fromViewController viewDidDisappear:YES];
                     } else {
-                        [toViewController viewDidAppear:YES];
+                        if(PanAnimationControllerDismissStyleDefault == self.dismissStyle) {
+                            [toViewController viewDidAppear:YES];
+                        }
                     }
-                    
-                    //[fromViewController viewDidDisappear:YES];
-                    //[toViewController viewDidAppear:YES];
                 }
                 
                 panDirection = PanDirectionNone;

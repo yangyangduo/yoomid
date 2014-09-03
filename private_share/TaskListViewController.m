@@ -58,6 +58,10 @@
     [self refresh];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)refresh {
     TaskService *service = [[TaskService alloc] init];
     [service getTasksWithCategoryId:self.taskCategory.identifier target:self success:@selector(getTasksSuccess:) failure:@selector(getTasksFailure:)];
@@ -120,6 +124,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Task *task = [_tasks_ objectAtIndex:indexPath.row];
     TaskDetailViewController *taskDetailViewController = [[TaskDetailViewController alloc] initWithTask:task];
+    taskDetailViewController.title = self.title;
     [self.navigationController pushViewController:taskDetailViewController animated:YES];
 }
 
