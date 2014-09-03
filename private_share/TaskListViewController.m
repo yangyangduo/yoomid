@@ -13,8 +13,22 @@
     UICollectionView *_collection_view_;
 }
 
+@synthesize taskCategory = _taskCategory_;
+
+- (instancetype)initWithTaskCategory:(TaskCategory *)taskCategory {
+    self = [super init];
+    if(self) {
+        _taskCategory_ = taskCategory;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if(self.taskCategory != nil && self.taskCategory.displayName != nil) {
+        self.title = self.taskCategory.displayName;
+    }
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     

@@ -1514,11 +1514,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431408924.269773"
+            timestampString = "431412674.292011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "-allCategories"
             landmarkType = "5">
          </BreakpointContent>
@@ -1530,11 +1530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431409038.057785"
+            timestampString = "431412674.292011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "-rootCategories"
             landmarkType = "5">
          </BreakpointContent>

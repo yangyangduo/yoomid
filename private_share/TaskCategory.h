@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
 
+typedef NS_ENUM(NSUInteger, TaskCategoryType) {
+    TaskCategoryTypeUnknow,
+    TaskCategoryTypeProductExperience,
+    TaskCategoryTypeGuessPicture,
+    TaskCategoryTypeSurvey,
+    TaskCategoryTypeGame,
+    TaskCategoryTypeSocialSharing
+};
+
 @interface TaskCategory : BaseModel
 
 @property (nonatomic, strong) NSString *identifier;
@@ -19,5 +28,9 @@
 @property (nonatomic, assign) BOOL isActive;
 @property (nonatomic, assign) BOOL hasParent;
 @property (nonatomic, assign) BOOL isLocked;
+
+@property (nonatomic, assign) TaskCategoryType taskCategoryType;
+
+- (NSString *)iconName;
 
 @end

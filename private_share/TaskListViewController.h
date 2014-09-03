@@ -7,7 +7,12 @@
 //
 
 #import "TransitionViewController.h"
+#import "TaskCategory.h"
 
 @interface TaskListViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) TaskCategory *taskCategory;
+
+- (instancetype)initWithTaskCategory:(TaskCategory *)taskCategory;
 
 @end

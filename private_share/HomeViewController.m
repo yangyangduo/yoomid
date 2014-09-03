@@ -214,16 +214,11 @@
     cell.title_lable.text = taskCategory.displayName;
     cell.context.text = taskCategory.description;
     
-    if ([@"y:i:gu" isEqualToString:taskCategory.identifier]) {
-        cell.bg_image.image = [UIImage imageNamed:@"ktct"];
-    } else if([@"y:i:sc" isEqualToString:taskCategory.identifier]) {
-        cell.bg_image.image = [UIImage imageNamed:@"fxhy"];
-    } else if([@"y:e:ap" isEqualToString:taskCategory.identifier]) {
-        cell.bg_image.image = [UIImage imageNamed:@"tyzx"];
-    } else if([@"y:i:sv" isEqualToString:taskCategory.identifier]) {
-        cell.bg_image.image = [UIImage imageNamed:@"wjdc"];
+    NSString *iconName = taskCategory.iconName;
+    if(iconName != nil && ![@"" isEqualToString:iconName]) {
+        cell.bg_image.image = [UIImage imageNamed:iconName];
     } else {
-        
+        cell.bg_image.image = nil;
     }
     
     return cell;
@@ -249,7 +244,7 @@
     TaskCategory *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
     NSString *rootCategoryId = rootCategory.identifier;
     
-    if([@"y:e:ap" isEqualToString:rootCategoryId]) {
+    if(TaskCategoryTypeProductExperience == rootCategory.taskCategoryType) {
         AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 415)];
         modalView.delegate = self;
         modalView.modalViewDelegate = self;
@@ -269,7 +264,8 @@
     }
 
     if(!rootCategoryExists) {
-        TaskListViewController *taskListViewController = [[TaskListViewController alloc] init];
+        TaskListViewController *taskListViewController = [[TaskListViewController alloc] initWithTaskCategory:rootCategory];
+        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskListViewController];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
         [self rightPresentViewController:navigationController animated:YES];
