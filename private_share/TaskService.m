@@ -11,11 +11,11 @@
 @implementation TaskService
 
 - (void)getCategories:(id)target success:(SEL)success failure:(SEL)failure {
-    [self.httpClient get:[NSString stringWithFormat:@"/platform/yoomid/categories?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/yoomid/categories?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
 - (void)getTasksWithCategoryId:(NSString *)categoryId target:(id)target success:(SEL)success failure:(SEL)failure {
-    [self.httpClient get:[NSString stringWithFormat:@"/platform/yoomid/tasks?category=%@&%@", categoryId, self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/yoomid/tasks?category=%@&%@", categoryId, self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
 @end
