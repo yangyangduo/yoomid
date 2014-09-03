@@ -18,6 +18,8 @@
     UIGestureRecognizer *retryTapGestrue;
     UIView *_loadingView_;
     UIActivityIndicatorView *indicatorView;
+    
+    UIView *tabBar;
 }
 
 - (instancetype)initWithTaskDetailUrl:(NSString *)url {
@@ -55,6 +57,13 @@
     lblLoading.textColor = [UIColor grayColor];
     lblLoading.font = [UIFont systemFontOfSize:17.f];
     [_loadingView_ addSubview:lblLoading];
+    
+    tabBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 64 - 49, self.view.bounds.size.width, 49)];
+    tabBar.backgroundColor = [UIColor appColor];
+    UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(tabBar.bounds.size.width - 90, 0, 90, 35)];
+    [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
+    [tabBar addSubview:confirmButton];
+    [self.view addSubview:tabBar];
     
     _url_ = @"http://localhost:8080/moneymoney/platform/yoomid/task?categoryId=jfjds&taskId=ff";
     [self requestTaskDetailWithUrl:_url_];

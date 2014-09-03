@@ -12,6 +12,6 @@
 
 -(void)getCategories:(id)target success:(SEL)success failure:(SEL)failure
 {
-    [self.httpClient get:[NSString stringWithFormat:@"/publisher/categories?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/platform/yoomid/categories?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 @end

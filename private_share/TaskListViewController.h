@@ -8,6 +8,6 @@
 
 #import "TransitionViewController.h"
 
-@interface TaskListViewController : TransitionViewController
+@interface TaskListViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end

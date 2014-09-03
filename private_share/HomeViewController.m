@@ -7,16 +7,17 @@
 //
 
 #import "HomeViewController.h"
-#import "CustomCollectionView.h"
-#import "MyPointsRecordViewController.h"
-#import "UINavigationViewInitializer.h"
 #import "MallViewController.h"
-#import "UIDevice+ScreenSize.h"
+#import "MyPointsRecordViewController.h"
 #import "ShoppingCartViewController2.h"
-#import "UIImage+Color.h"
-#import "TaskDetailViewController.h"
-#import "DiskCacheManager.h"
 #import "SettingViewController.h"
+#import "TaskListViewController.h"
+
+#import "DiskCacheManager.h"
+#import "UIImage+Color.h"
+#import "UIDevice+ScreenSize.h"
+#import "CustomCollectionView.h"
+#import "UINavigationViewInitializer.h"
 
 #import "AdwoOfferWall.h"
 #import "YouMiWall.h"
@@ -113,7 +114,7 @@
 }
 
 -(void)getCategoriesInfo {
-    TaskCategoriesService *taskCategories = [[TaskCategoriesService alloc]init];
+    TaskCategoriesService *taskCategories = [[TaskCategoriesService alloc] init];
     [taskCategories getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
@@ -268,8 +269,8 @@
     }
 
     if(!rootCategoryExists) {
-        TaskDetailViewController *taskVC = [[TaskDetailViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskVC];
+        TaskListViewController *taskListViewController = [[TaskListViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:taskListViewController];
         [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
         [self rightPresentViewController:navigationController animated:YES];
     } else {

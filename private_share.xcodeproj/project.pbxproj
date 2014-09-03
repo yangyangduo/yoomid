@@ -190,7 +190,6 @@
 		6F8823DA1940531F00757633 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8823CE1940531F00757633 /* grayArrow@2x.png */; };
 		6F8823DB1940531F00757633 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8823CF1940531F00757633 /* whiteArrow.png */; };
 		6F8823DC1940531F00757633 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8823D01940531F00757633 /* whiteArrow@2x.png */; };
-		6F8823DF1940630600757633 /* MerchandiseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8823DE1940630600757633 /* MerchandiseDetailViewController.m */; };
 		6F8823E71940A40500757633 /* NumberPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8823E61940A40500757633 /* NumberPicker.m */; };
 		6F8823EB1940BD9600757633 /* HtmlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8823EA1940BD9600757633 /* HtmlView.m */; };
 		6F8823EF1940C45E00757633 /* ShoppingCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8823EE1940C45E00757633 /* ShoppingCart.m */; };
@@ -215,6 +214,10 @@
 		6F97099C193F55D000EA5E3A /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F97099B193F55D000EA5E3A /* JsonUtil.m */; };
 		6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA327101956890700570BCC /* AccountPointsUpdatedEvent.m */; };
 		6FA3271419568EE800570BCC /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3271319568EE800570BCC /* AccountViewController.m */; };
+		6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */; };
+		6FB0E19F19B6B591002F9A18 /* TaskItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */; };
+		6FB0E1A119B6C244002F9A18 /* bottom_button2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A019B6C244002F9A18 /* bottom_button2@2x.png */; };
+		6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A219B6C2D4002F9A18 /* modal_background@2x.png */; };
 		6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */; };
 		6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B831973ACCB00E6C7D2 /* icon57.png */; };
 		6FBB6B861973AD0600E6C7D2 /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */; };
@@ -720,8 +723,6 @@
 		6F8823CE1940531F00757633 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
 		6F8823CF1940531F00757633 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		6F8823D01940531F00757633 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
-		6F8823DD1940630600757633 /* MerchandiseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseDetailViewController.h; sourceTree = "<group>"; };
-		6F8823DE1940630600757633 /* MerchandiseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseDetailViewController.m; sourceTree = "<group>"; };
 		6F8823E51940A40500757633 /* NumberPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberPicker.h; sourceTree = "<group>"; };
 		6F8823E61940A40500757633 /* NumberPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberPicker.m; sourceTree = "<group>"; };
 		6F8823E91940BD9600757633 /* HtmlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HtmlView.h; sourceTree = "<group>"; };
@@ -766,6 +767,11 @@
 		6FA327101956890700570BCC /* AccountPointsUpdatedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPointsUpdatedEvent.m; sourceTree = "<group>"; };
 		6FA3271219568EE800570BCC /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		6FA3271319568EE800570BCC /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_button@2x.png"; sourceTree = "<group>"; };
+		6FB0E19D19B6B591002F9A18 /* TaskItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskItemCell.h; sourceTree = "<group>"; };
+		6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskItemCell.m; sourceTree = "<group>"; };
+		6FB0E1A019B6C244002F9A18 /* bottom_button2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_button2@2x.png"; sourceTree = "<group>"; };
+		6FB0E1A219B6C2D4002F9A18 /* modal_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modal_background@2x.png"; sourceTree = "<group>"; };
 		6FB714DA196E623700598457 /* MerchandiseDetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseDetailViewController2.h; sourceTree = "<group>"; };
 		6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseDetailViewController2.m; sourceTree = "<group>"; };
 		6FBB6B831973ACCB00E6C7D2 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
@@ -1700,8 +1706,6 @@
 				6F3632FA193EC87800340645 /* RegisterCompleteViewController.m */,
 				6F363316193F1CA300340645 /* MerchandiseOrdersViewController.h */,
 				6F363317193F1CA300340645 /* MerchandiseOrdersViewController.m */,
-				6F8823DD1940630600757633 /* MerchandiseDetailViewController.h */,
-				6F8823DE1940630600757633 /* MerchandiseDetailViewController.m */,
 				6F418976194848C900F9DC2C /* ContactInfoPickerViewController.h */,
 				6F418977194848C900F9DC2C /* ContactInfoPickerViewController.m */,
 				6F2BD0C4194ECEBF0092BA23 /* ViewQRCodeViewController.h */,
@@ -1930,6 +1934,7 @@
 			isa = PBXGroup;
 			children = (
 				6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */,
+				6FB0E1A219B6C2D4002F9A18 /* modal_background@2x.png */,
 			);
 			name = modal;
 			sourceTree = "<group>";
@@ -1960,6 +1965,8 @@
 			children = (
 				D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */,
 				D670D6C319B0770800FB241D /* button@2x.png */,
+				6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */,
+				6FB0E1A019B6C244002F9A18 /* bottom_button2@2x.png */,
 				D670D6C719B07E6000FB241D /* newlogin@2x.png */,
 				6F97096C193F3EEF00EA5E3A /* btn_blue@2x.png */,
 			);
@@ -2050,6 +2057,8 @@
 				6F2C52CB19751D510045BFC1 /* GuideViewController.m */,
 				D6B13F6A19A4861B007658CB /* CustomCollectionView.h */,
 				D6B13F6B19A4861B007658CB /* CustomCollectionView.m */,
+				6FB0E19D19B6B591002F9A18 /* TaskItemCell.h */,
+				6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -2546,6 +2555,7 @@
 				D3644C0D197A171000B44785 /* dianru_green_dianru_triangle.png in Resources */,
 				D3644C16197A171000B44785 /* dianru_orange_dianru_iphone_download.png in Resources */,
 				6FF5334019387D26001D607C /* btn_menu@2x.png in Resources */,
+				6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */,
 				D3644BFD197A171000B44785 /* dianru_help.png in Resources */,
 				6FE009451953DF1B002A675D /* contact_us.html in Resources */,
 				D3644C19197A171000B44785 /* dianru_orange_left_cell.png in Resources */,
@@ -2557,6 +2567,7 @@
 				D3644C0B197A171000B44785 /* dianru_green_dianru_iphone_download.png in Resources */,
 				D670D6C419B0770800FB241D /* button@2x.png in Resources */,
 				D6A152C919A5F73B0094B565 /* ktct@2x.png in Resources */,
+				6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */,
 				D676302519A7741C0015CADF /* level7@2x.png in Resources */,
 				6F4FA07419A489460049C023 /* 1@2x.png in Resources */,
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
@@ -2665,6 +2676,7 @@
 				6F8823D61940531F00757633 /* blackArrow@2x.png in Resources */,
 				6F8823DA1940531F00757633 /* grayArrow@2x.png in Resources */,
 				D3644BF7197A171000B44785 /* dianru_cell.jpg in Resources */,
+				6FB0E1A119B6C244002F9A18 /* bottom_button2@2x.png in Resources */,
 				6F7BD32F1953F8E60031D2DD /* btn_info@2x.png in Resources */,
 				D3644BF5197A171000B44785 /* dianru_background.png in Resources */,
 				6F2C52C219751D2C0045BFC1 /* guide2-568h@2x.png in Resources */,
@@ -2807,7 +2819,6 @@
 				D6B13F6C19A4861B007658CB /* CustomCollectionView.m in Sources */,
 				D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */,
 				6FE605F419591372009C623D /* UIDevice+Identifier.m in Sources */,
-				6F8823DF1940630600757633 /* MerchandiseDetailViewController.m in Sources */,
 				6F2B51D2195565F20069798A /* EventNameConstants.m in Sources */,
 				6F2BFDF9198241F300426757 /* ShoppingItemConfirmCell.m in Sources */,
 				6F72C1901976312800100D12 /* DynamicButton.m in Sources */,
@@ -2831,6 +2842,7 @@
 				6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */,
 				6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */,
 				6F3632FB193EC87800340645 /* RegisterCompleteViewController.m in Sources */,
+				6FB0E19F19B6B591002F9A18 /* TaskItemCell.m in Sources */,
 				D66B497D19B450CD002615CC /* SettingViewController.m in Sources */,
 				6F5B5E3019B598EB00495F0C /* YoomidBaseModalView.m in Sources */,
 				6F970993193F52C300EA5E3A /* PointsOrder.m in Sources */,

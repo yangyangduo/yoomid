@@ -31,7 +31,7 @@
         _scrollView_.alwaysBounceVertical = YES;
         
         _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, 0);
-        _scrollView_.backgroundColor = [UIColor whiteColor];
+        _scrollView_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_scrollView_];
     }
     return self;

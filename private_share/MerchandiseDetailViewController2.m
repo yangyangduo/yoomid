@@ -151,7 +151,7 @@
 }
 
 - (void)showMiRepo:(id)sender {
-    [self.navigationController pushViewController:[[ShoppingCartViewController2 alloc] init] animated:YES];
+    //[self.navigationController pushViewController:[[ShoppingCartViewController2 alloc] init] animated:YES];
 }
 
 - (NSString *)errorHtml {

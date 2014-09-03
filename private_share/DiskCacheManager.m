@@ -9,7 +9,7 @@
 #import "DiskCacheManager.h"
 #import "JsonUtil.h"
 
-NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL = 5;
+NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL = 1;
 
 NSString * const YOOMID_DIRECTORY_NAME = @"yoomid-data";
 
