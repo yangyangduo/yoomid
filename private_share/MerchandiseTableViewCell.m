@@ -21,7 +21,11 @@
     
     UILabel *titleLabel;
     UILabel *pointsLabel;
+    UILabel *rmbLabel;
     UILabel *messageLabel;
+    
+    UIImageView *bao;
+    UIImageView *rmb ;
 }
 
 @synthesize merchandise = _merchandise_;
@@ -65,16 +69,28 @@
         titleLabel.textColor = [UIColor blackColor];
         [bootomView addSubview:titleLabel];
         
-        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, titleLabel.frame.origin.y + titleLabel.bounds.size.height-10, 125, 36)];
+        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, titleLabel.frame.origin.y + titleLabel.bounds.size.height-18, 125, 36)];
         pointsLabel.font = [UIFont systemFontOfSize:20.f];
         pointsLabel.textColor = [UIColor appColor];
         pointsLabel.backgroundColor = [UIColor clearColor];
         pointsLabel.text = @"";
         [bootomView addSubview:pointsLabel];
         
-        UIImageView *bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bao"]];
+        bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bao"]];
         bao.frame = CGRectMake(126, pointsLabel.frame.origin.y+10, 32/2, 32/2);
         [bootomView addSubview:bao];
+        
+        rmbLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, pointsLabel.frame.origin.y + pointsLabel.bounds.size.height-18, 125, 36)];
+        rmbLabel.font = [UIFont systemFontOfSize:20.f];
+        rmbLabel.textColor = [UIColor appColor];
+        rmbLabel.backgroundColor = [UIColor clearColor];
+        rmbLabel.text = @"111";
+        [bootomView addSubview:rmbLabel];
+        
+        rmb = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"rmb_blue"]];
+        rmb.frame = CGRectMake(126, rmbLabel.frame.origin.y+10, 32/2, 32/2);
+        [bootomView addSubview:rmb];
+
         
         messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 80, 100, 34)];
         messageLabel.font = [UIFont systemFontOfSize:14.f];
@@ -102,6 +118,7 @@
     {
         titleLabel.text = @"";
         pointsLabel.text = @"";
+        rmbLabel.text = @"";
         messageLabel.text = @"";
         imageView.image = DEFAULT_IMAGE;
     } else
@@ -122,7 +139,18 @@
         
         [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"米米" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
         pointsLabel.attributedText = pointsString;
+        pointsLabel.frame = CGRectMake(146,(titleLabel.frame.origin.y+titleLabelSize.height), 125, 36);
+        bao.frame = CGRectMake(126, pointsLabel.frame.origin.y + 10,32/2, 32/2);
+
+        //积分%100取余为0 ，就没小数点，反之，取一位小数点，小数点后面第一位 为毛，二位为分，(分会四舍五入）
+        NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:(merchandise.points%100)== 0 ?[NSString stringWithFormat:@"%.0f ", (CGFloat)merchandise.points/100] : [NSString stringWithFormat:@"%.1f ", (CGFloat)merchandise.points/100] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
         
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
+        rmbLabel.attributedText = rmbString;
+        rmbLabel.frame = CGRectMake(146,pointsLabel.frame.origin.y+18, 125, 36);
+        rmb.frame = CGRectMake(126, rmbLabel.frame.origin.y + 10,32/2, 32/2);
+
         messageLabel.text = [NSString stringWithFormat:@"%ld%@!", (long)merchandise.exchangeCount, NSLocalizedString(@"has_exchanges", @"")];
         
         float progress = 1.f;

@@ -7,11 +7,16 @@
 //
 
 #import "XiaojiRecommendTableViewCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+
+#define DEFAULT_IMAGE [UIImage imageNamed:@"merchandise_placeholder"]
 
 @implementation XiaojiRecommendTableViewCell
 {
     UIImageView *imageView;
 }
+
+@synthesize merchandise = _merchandise;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -23,7 +28,7 @@
         self.backgroundColor = [UIColor clearColor];
 
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.bounds.size.width-20, [UIDevice is4InchDevice] ? 400 : 325)];
-        imageView.image = [UIImage imageNamed:@"xiaojibg"];
+//        imageView.image = [UIImage imageNamed:@"xiaojibg"];
         [self addSubview:imageView];
         
         UIImageView *mikuImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
@@ -44,6 +49,18 @@
         [imageView addSubview:exchangeBtn];
     }
     return self;
+}
+
+- (void)setMerchandise:(Merchandise *)merchandise
+{
+    if(merchandise == nil) return;
+    if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
+        imageView.image = DEFAULT_IMAGE;
+    } else {
+        NSString *displayedImageUrl = [merchandise.imageUrls objectAtIndex:0];
+        [imageView setImageWithURL:[NSURL URLWithString:displayedImageUrl] placeholderImage:DEFAULT_IMAGE];
+    }
+    
 }
 
 - (void)awakeFromNib

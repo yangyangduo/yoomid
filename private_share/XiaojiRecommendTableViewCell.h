@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIDevice+ScreenSize.h"
+#import "Merchandise.h"
 
 @interface XiaojiRecommendTableViewCell : UITableViewCell
+@property (nonatomic, strong) Merchandise *merchandise;
 
 @end

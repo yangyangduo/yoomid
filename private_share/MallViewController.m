@@ -21,6 +21,7 @@
 
 @implementation MallViewController {
     NSMutableArray *merchandises;
+    NSMutableArray *recommendedMerchandises;
     NSInteger pageIndex;
     PullTableView *tblMerchandises;
     PullTableView *xiaoji;
@@ -52,7 +53,7 @@
     xiaoji.separatorStyle = NO;
     xiaoji.backgroundColor = [UIColor clearColor];
     [self.view addSubview:xiaoji];
-//    xiaoji.pullTableIsRefreshing = YES;
+    xiaoji.pullTableIsLoadingMore = NO;
     
     tblMerchandises = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     tblMerchandises.delegate = self;
@@ -62,7 +63,6 @@
     tblMerchandises.tag = 1;
     [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:tblMerchandises];
-//    tblMerchandises.pullTableIsRefreshing = YES;
     [tblMerchandises setHidden:YES];
 }
 
@@ -73,6 +73,54 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self mayRefresh];
+    [self xiaojiRefresh];
+}
+
+-(void)xiaojiRefresh
+{
+    BOOL isExpired;
+    NSArray *_recommendedMerchandises_ = [[DiskCacheManager manager] recommendedMerchandises:&isExpired];
+    if (_recommendedMerchandises_ != nil) {
+        recommendedMerchandises = [NSMutableArray arrayWithArray:_recommendedMerchandises_];
+        [xiaoji reloadData];
+    }
+    
+    if (isExpired || _recommendedMerchandises_ == nil) {
+        [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.5f];
+    }
+}
+
+-(void)refreshXiaoji
+{
+    MerchandiseService *service = [[MerchandiseService alloc] init];
+    [service getEcommendedMerchandisesTarget:self success:@selector(getEcommendedMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:)];
+}
+
+- (void)getEcommendedMerchandisesSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200) {
+        if (recommendedMerchandises == nil) {
+            recommendedMerchandises = [[NSMutableArray alloc] init];
+        }
+        else
+        {
+            [recommendedMerchandises removeAllObjects];
+        }
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if (jsonArray != nil) {
+            for (int i = 0; i<jsonArray.count; i++) {
+                NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+                [recommendedMerchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
+            }
+        }
+        
+        xiaoji.pullLastRefreshDate = [NSDate date];
+        [xiaoji reloadData];
+        
+        [[DiskCacheManager manager] setRecommendedMerchandises:recommendedMerchandises];
+        [self cancelRefresh];
+        [self cancelLoadMore];
+    }
 }
 
 - (void)mayRefresh {
@@ -183,7 +231,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger counts = 0;
     if (tableView.tag == 0) {
-        counts = 3;
+        counts = recommendedMerchandises == nil ? 0 : recommendedMerchandises.count;
     }
     else
     {
@@ -201,6 +249,7 @@
         {
             cell = [[XiaojiRecommendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
+        cell.merchandise = [recommendedMerchandises objectAtIndex:indexPath.row];
         idcell = cell;
     }
     else
@@ -231,7 +280,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == 0) {
-        
+        MerchandiseDetailViewController2 *controller = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:[recommendedMerchandises objectAtIndex:indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else
     {
@@ -245,27 +295,45 @@
 #pragma mark Pull Table View Delegate
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView {
-    if(tblMerchandises.pullTableIsLoadingMore) {
-        [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
-        return;
+    if (pullTableView.tag == 0) {
+        if (xiaoji.pullTableIsLoadingMore) {
+            [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
+            return;
+        }
+        [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.3f];
     }
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
+    else if (pullTableView.tag == 1) {
+        if(tblMerchandises.pullTableIsLoadingMore) {
+            [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
+            return;
+        }
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
+    }
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView {
-    if(tblMerchandises.pullTableIsRefreshing) {
-        [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
+    if (pullTableView.tag == 0) {
+        [self cancelLoadMore];
+        [self cancelRefresh];
         return;
     }
-    [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
+   else if (pullTableView.tag == 1) {
+        if(tblMerchandises.pullTableIsRefreshing) {
+            [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
+            return;
+        }
+        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
+    }
 }
 
 - (void)cancelRefresh {
     tblMerchandises.pullTableIsRefreshing = NO;
+    xiaoji.pullTableIsRefreshing = NO;
 }
 
 - (void)cancelLoadMore {
     tblMerchandises.pullTableIsLoadingMore = NO;
+    xiaoji.pullTableIsLoadingMore = NO;
 }
 
 #pragma mark -

@@ -21,6 +21,8 @@
 
 - (void)getMerchandiseOrdersByPageIndex:(NSInteger)pageIndex orderState:(MerchandiseOrderState)orderState target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
+- (void)getEcommendedMerchandisesTarget:(id)target success:(SEL)success failure:(SEL)failure;
+
 - (void)getActivityMerchandisesWithShopId:(NSString *)shopId pageIndex:(NSInteger)pageIndex target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
 - (void)submitActivityWithShopId:(NSString *)shopId activityId:(NSString *)activityId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;

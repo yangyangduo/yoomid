@@ -40,4 +40,9 @@
     [self.httpClient get:[NSString stringWithFormat:@"/merchandise_orders?page=%ld&orderState=%lu&%@", (long)pageIndex, (long)orderState, self.authenticationString] target:target success:success failure:failure userInfo:userInfo];
 }
 
+- (void)getEcommendedMerchandisesTarget:(id)target success:(SEL)success failure:(SEL)failure
+{
+    [self.httpClient get:[NSString stringWithFormat:@"merchandises/recommend?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
+}
+
 @end
