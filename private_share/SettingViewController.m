@@ -13,6 +13,7 @@
 #import "ViewControllerAccessor.h"
 #import "LoginViewController.h"
 #import "UINavigationViewInitializer.h"
+#import "PasswordChangeViewController.h"
 
 @interface SettingViewController ()
 
@@ -38,6 +39,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"设置";
+    
     // Do any additional setup after loading the view.
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
@@ -48,7 +52,7 @@
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
+    tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [UIColor clearColor];
     tableview.delegate = self;
     tableview.dataSource = self;
@@ -351,6 +355,7 @@
         }
         case 7:
         {
+            [self.navigationController pushViewController:[[PasswordChangeViewController alloc] init] animated:YES];
             break;
         }
     
