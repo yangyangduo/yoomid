@@ -36,8 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"设置";
-    
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     
     retryTapGestrue = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryLoading)];

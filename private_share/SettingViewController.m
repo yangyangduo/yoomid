@@ -26,19 +26,12 @@
     NSMutableArray *userInfoArray;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.title = @"设置";
+    
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
     userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"1990-02-23",@"男",@"白领",@"哈佛大学", nil];
@@ -392,8 +385,7 @@
     [tableview reloadData];
 }
 
--(void)willPresentActionSheet:(UIActionSheet *)actionSheet
-{
+-(void)willPresentActionSheet:(UIActionSheet *)actionSheet {
     for (UIView *subViwe in actionSheet.subviews) {
         if ([subViwe isKindOfClass:[UIButton class]]) {
             UIButton *button = (UIButton*)subViwe;
@@ -402,25 +394,8 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dismissViewController {
     [self rightDismissViewControllerAnimated:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

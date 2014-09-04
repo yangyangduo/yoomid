@@ -247,12 +247,9 @@
     }
 }
 
-
-
 #pragma mark - EGORefreshTableHeaderDelegate
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(OEGORefreshTableHeaderView*)view
-{
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(OEGORefreshTableHeaderView*)view {
     pullTableIsRefreshing = YES;
     [pullDelegate pullTableViewDidTriggerRefresh:self];
 }
@@ -263,8 +260,7 @@
 
 #pragma mark - LoadMoreTableViewDelegate
 
-- (void)loadMoreTableFooterDidTriggerLoadMore:(LoadMoreTableFooterView *)view
-{
+- (void)loadMoreTableFooterDidTriggerLoadMore:(LoadMoreTableFooterView *)view {
     pullTableIsLoadingMore = YES;
     [pullDelegate pullTableViewDidTriggerLoadMore:self];
 }
