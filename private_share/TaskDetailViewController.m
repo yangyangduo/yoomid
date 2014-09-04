@@ -9,7 +9,14 @@
 #import "TaskDetailViewController.h"
 #import "JsonUtil.h"
 #import "MyPointsRecordViewController.h"
-#import "BaseService.h"
+#import "TaskService.h"
+
+typedef NS_ENUM(NSUInteger, TaskResult) {
+    TaskResultUnCompleted = 4,
+    TaskResultRetry       = 3,
+    TaskResultNoChance    = 2,
+    TaskResultSuccess     = 1
+};
 
 @implementation TaskDetailViewController {
     UIWebView *_webView_;
@@ -50,13 +57,13 @@
     indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 100, 44, 44)];
     indicatorView.backgroundColor = [UIColor clearColor];
     indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    indicatorView.center = CGPointMake(self.view.center.x - 44, self.view.bounds.size.height / 2);
+    indicatorView.center = CGPointMake(self.view.center.x - 44, (self.view.bounds.size.height - 49 - 64) / 2);
     [_loadingView_ addSubview:indicatorView];
     UILabel *lblLoading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
     lblLoading.tag = 1000;
     lblLoading.center = CGPointMake(indicatorView.center.x + 75, indicatorView.center.y);
     lblLoading.backgroundColor = [UIColor clearColor];
-    lblLoading.textColor = [UIColor grayColor];
+    lblLoading.textColor = [UIColor darkGrayColor];
     lblLoading.font = [UIFont systemFontOfSize:17.f];
     [_loadingView_ addSubview:lblLoading];
     
@@ -78,20 +85,62 @@
     if(result != nil && ![@"" isEqualToString:result]) {
         NSData *postData = [result dataUsingEncoding:NSUTF8StringEncoding];
         
-        [JsonUtil printJsonData:postData];
-    } else {
-#ifdef DEBUG
-        NSLog(@"[Task Detail] Error on submit answers that post data is empty");
-#endif
+        NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:postData];
+        if(result != nil) {
+            NSInteger taskResult = [result numberForKey:@"result"].integerValue;
+            if(TaskResultUnCompleted == taskResult) {
+                
+                return;
+            } else if(TaskResultRetry == taskResult) {
+                
+                return;
+            } else if(TaskResultNoChance == taskResult
+                        || TaskResultSuccess == taskResult ) {
+                
+                NSMutableDictionary *content = [NSMutableDictionary dictionaryWithDictionary:[result dictionaryForKey:@"content"]];
+                [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
+                [content setMayBlankString:@"aaa" forKey:@"deviceId"];
+                
+                TaskService *service = [[TaskService alloc] init];
+                [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:)];
+
+                return;
+            }
+        }
     }
+    // other error
+    
+#ifdef DEBUG
+    NSLog(@"[Task Detail] Error on submit answers that post data is empty");
+#endif
+}
+
+
+#pragma mark -
+#pragma mark Network request
+
+- (void)postAnswersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
+        
+        return;
+    }
+    [self postAnswersFailure:resp];
+}
+
+- (void)postAnswersFailure:(HttpResponse *)resp {
+    [self handleFailureHttpResponse:resp];
 }
 
 - (void)requestTaskDetailWithUrl:(NSString *)url {
     [self showLoadingViewIfNeed];
+
     NSURL *requestUrl = [[NSURL alloc] initWithString:url];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.f];
     [_webView_ loadRequest:request];
 }
+
+
+#pragma mark -
 
 - (void)retryLoading {
     [self requestTaskDetailWithUrl:_url_];
@@ -102,7 +151,6 @@
     
     UILabel *lblLoading = (UILabel *)[_loadingView_ viewWithTag:1000];
     lblLoading.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"loading", @""), @"..."];
-    
     lblLoading.textAlignment = NSTextAlignmentLeft;
     CGRect frame = lblLoading.frame;
     lblLoading.frame = CGRectMake(indicatorView.frame.origin.x + indicatorView.frame.size.width, 0, frame.size.width, frame.size.height);
@@ -154,22 +202,23 @@
 #pragma mark Web view delegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self hideLoadingViewIfNeed];
+    //
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self hideLoadingViewIfNeed];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    //[self showRetryView];
+    [self showRetryView];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSURL *requestURL = [request URL];
-    if([[requestURL scheme] isEqualToString:@"yoomid"]) {
-        [self findTaskResultAndSubmit];
-        return NO;
-    }
+//    NSURL *requestURL = [request URL];
+//    if([[requestURL scheme] isEqualToString:@"yoomid"]) {
+//        [self findTaskResultAndSubmit];
+//        return NO;
+//    }
     return YES;
 }
 

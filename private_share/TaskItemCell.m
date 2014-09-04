@@ -29,12 +29,12 @@
     _task_ = task;
     
     if(_task_ == nil) {
-        self.imageView.image = [UIImage imageNamed:@"no_task"];
+        self.imageView.image = [UIImage imageNamed:@"default_task"];
     } else {
         if(_task_.taskDescriptionUrl != nil && ![@"" isEqualToString:_task_.taskDescriptionUrl]) {
             [self.imageView setImageWithURL:[[NSURL alloc] initWithString:_task_.taskDescriptionUrl]];
         } else {
-            self.imageView.image = [UIImage imageNamed:@"no_task"];
+            self.imageView.image = [UIImage imageNamed:@"default_task"];
         }
     }
 }

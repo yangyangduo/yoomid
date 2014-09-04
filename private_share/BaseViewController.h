@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+App.h"
 #import "UIDevice+SystemVersion.h"
+#import "NSMutableDictionary+Extension.h"
+#import "NSDictionary+Extension.h"
 #import "XXAlertView.h"
 #import "XXStringUtils.h"
 #import "JsonUtil.h"
