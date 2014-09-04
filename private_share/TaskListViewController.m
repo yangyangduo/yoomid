@@ -17,6 +17,7 @@
     UICollectionView *_collection_view_;
     
     NSMutableArray *_tasks_;
+    NSString *_cell_identifier_;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -24,6 +25,7 @@
 - (instancetype)initWithTaskCategory:(TaskCategory *)taskCategory {
     self = [super init];
     if(self) {
+        _cell_identifier_ = @"cellIdentifier";
         _taskCategory_ = taskCategory;
         _tasks_ = [NSMutableArray array];
     }
@@ -49,7 +51,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _collection_view_ = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)) collectionViewLayout:layout];
     _collection_view_.backgroundColor = [UIColor clearColor];
-    [_collection_view_ registerClass:[TaskItemCell class] forCellWithReuseIdentifier:@"f"];
+    [_collection_view_ registerClass:[TaskItemCell class] forCellWithReuseIdentifier:_cell_identifier_];
     _collection_view_.alwaysBounceVertical = YES;
     _collection_view_.delegate = self;
     _collection_view_.dataSource = self;
@@ -100,7 +102,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    TaskItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"f" forIndexPath:indexPath];
+    TaskItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cell_identifier_ forIndexPath:indexPath];
     cell.task = [_tasks_ objectAtIndex:indexPath.row];
     return cell;
 }

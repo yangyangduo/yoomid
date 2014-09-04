@@ -222,6 +222,7 @@
 		6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */; };
 		6FB8072A19B7FEDB003ABF77 /* rmb_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */; };
 		6FB8072C19B7FF24003ABF77 /* shipping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072B19B7FF24003ABF77 /* shipping@2x.png */; };
+		6FB8072E19B80D13003ABF77 /* anwo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */; };
 		6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B831973ACCB00E6C7D2 /* icon57.png */; };
 		6FBB6B861973AD0600E6C7D2 /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */; };
 		6FBB6B891973AD2500E6C7D2 /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B871973AD2500E6C7D2 /* icon29.png */; };
@@ -782,6 +783,7 @@
 		6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseDetailViewController2.m; sourceTree = "<group>"; };
 		6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rmb_blue@2x.png"; sourceTree = "<group>"; };
 		6FB8072B19B7FF24003ABF77 /* shipping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shipping@2x.png"; sourceTree = "<group>"; };
+		6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anwo_icon@2x.png"; sourceTree = "<group>"; };
 		6FBB6B831973ACCB00E6C7D2 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon80@2x.png"; sourceTree = "<group>"; };
 		6FBB6B871973AD2500E6C7D2 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
@@ -1480,6 +1482,7 @@
 				D62FBE0119A61B150041195B /* survey@2x.png */,
 				D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */,
 				D6A152C819A5F73B0094B565 /* guess_picture@2x.png */,
+				6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */,
 				6F5B5E3E19B5C2C100495F0C /* domob_icon@2x.png */,
 				6F5B5E3F19B5C2C100495F0C /* youmi_icon@2x.png */,
 				6F5B5E3819B5AFA800495F0C /* categoryLeft@2x.png */,
@@ -2683,6 +2686,7 @@
 				D3644C33197A171000B44785 /* dianru_red_right_view.png in Resources */,
 				D3644BF1197A171000B44785 /* dianru_blue_right_cell.png in Resources */,
 				D3644BFC197A171000B44785 /* dianru_DRDefaultIcon.png in Resources */,
+				6FB8072E19B80D13003ABF77 /* anwo_icon@2x.png in Resources */,
 				D3644C22197A171000B44785 /* dianru_purple_dianru_titlebg.jpg in Resources */,
 				D3644C14197A171000B44785 /* dianru_orange_dianru_download.png in Resources */,
 				6FBE928F1941B1D200B94195 /* back@2x.png in Resources */,
