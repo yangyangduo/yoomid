@@ -33,7 +33,7 @@
     
     [selectedAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:titleString
              attributes: @{
-                           NSForegroundColorAttributeName : [UIColor appColor],
+                           NSForegroundColorAttributeName : [UIColor appLightBlue],
                            NSFontAttributeName : [UIFont systemFontOfSize:15.f]
                            }]];
     
@@ -46,7 +46,7 @@
         
         [selectedAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (返%ld积分)", (long)returnPoints]
                  attributes: @{
-                               NSForegroundColorAttributeName : [UIColor appColor],
+                               NSForegroundColorAttributeName : [UIColor appLightBlue],
                                NSFontAttributeName : [UIFont systemFontOfSize:12.f]
                                }]];
     }
@@ -69,7 +69,7 @@
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     if(selected) {
-        self.layer.borderColor = [UIColor appColor].CGColor;
+        self.layer.borderColor = [UIColor appLightBlue].CGColor;
     } else {
         self.layer.borderColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f].CGColor;
     }

@@ -6,15 +6,12 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "PullScrollZoomImagesView.h"
-#import "HomePageItemCell.h"
-#import "TaskService.h"
 #import "TransitionViewController.h"
-#import "CategoryButtonItem.h"
 #import "AdPlatformPickerView.h"
+#import "CategoryButtonItem.h"
+#import "ImagesScrollView.h"
 
-@interface HomeViewController : TransitionViewController<UIScrollViewDelegate, PullScrollZoomImagesViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, CategoryButtonItemDelegate, ModalViewDelegate>
+@interface HomeViewController : TransitionViewController<UIScrollViewDelegate, UICollectionViewDelegate, ImagesScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CategoryButtonItemDelegate, ModalViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *allCategories;
 @property (nonatomic, strong) NSMutableArray *rootCategories;

@@ -13,11 +13,15 @@
 #import "SettingViewController.h"
 #import "TaskListViewController.h"
 
+#import "HomePageItemCell.h"
+
+#import "TaskService.h"
 #import "DiskCacheManager.h"
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
 #import "CustomCollectionView.h"
 #import "UINavigationViewInitializer.h"
+#import "UIDevice+ScreenSize.h"
 
 #import "AdwoOfferWall.h"
 #import "YouMiWall.h"
@@ -28,7 +32,7 @@
 @end
 
 @implementation HomeViewController {
-    PullScrollZoomImagesView *pullImagesView;
+    ImagesScrollView *imagesScrollView;
     UIScrollView *scrollview;
     UIPageControl *pageControl;
     
@@ -59,9 +63,16 @@
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
     
-    pullImagesView = [[PullScrollZoomImagesView alloc]initAndEmbeddedInScrollView:_collectionView viewHeight:[UIDevice is4InchDevice] ? 330 : 280];
-    pullImagesView.delegate = self;
+
     
+    CGFloat imagesViewHeight = self.view.bounds.size.height - ([UIDevice is4InchDevice] ? 4 : 3) * 58;
+    imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -imagesViewHeight, self.view.bounds.size.width, imagesViewHeight)];
+    [_collectionView insertSubview:imagesScrollView atIndex:0];
+    _collectionView.contentInset = UIEdgeInsetsMake(imagesViewHeight - 20, 0, 0, 0);
+    _collectionView.contentOffset = CGPointMake(0, -imagesViewHeight);
+    imagesScrollView.delegate = self;
+    
+    /*
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, pullImagesView.bounds.size.height-20, 80, 30)];
     pageControl.numberOfPages = 3;
     pageControl.currentPage = 0;
@@ -69,6 +80,7 @@
     pageControl.currentPageIndicatorTintColor = [UIColor appBlue];
     [pageControl addTarget:self action:@selector(actionChangePage:) forControlEvents:UIControlEventValueChanged];
     [pullImagesView addSubview:pageControl];
+     */
     
     NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
     ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
@@ -80,7 +92,7 @@
     ImageItem *item2 = [[ImageItem alloc] initWithUrl:url2 title:nil];
 
     NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
-    pullImagesView.imageItems = imagearray;
+    imagesScrollView.imageItems = imagearray;
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
@@ -135,11 +147,12 @@
     }
 }
 
+/*
 - (void)actionChangePage:(id)sender {
     pullImagesView.pageIndex = pageControl.currentPage;
     [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
 }
-
+ */
 
 #pragma mark -
 #pragma mark Show view controllers
@@ -305,30 +318,10 @@
 }
 
 #pragma mark -
-#pragma mark Pull scroll images view delegate
+#pragma mark Scroll images view delegate
 
--(void)pullScrollZoomImagesView:(PullScrollZoomImagesView *)pullScrollZoomImagesView imagesPageIndexChangedTo:(NSUInteger)newPageIndex {
-    pageControl.currentPage = newPageIndex;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pullImagesView.scrollViewLocked = YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [pullImagesView pullScrollViewDidScroll:scrollView];
-    pageControl.frame = CGRectMake(pullImagesView.bounds.size.width/2-40, pullImagesView.bounds.size.height-30, 80, 30);
-
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if(!decelerate) {
-        pullImagesView.scrollViewLocked = NO;
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    pullImagesView.scrollViewLocked = NO;
+- (void)imagesScrollView:(ImagesScrollView *)imagesScrollView imagesPageIndexChangedTo:(NSUInteger)pageIndex {
+    
 }
 
 #pragma mark -

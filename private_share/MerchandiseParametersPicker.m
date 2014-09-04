@@ -105,7 +105,7 @@
                     DynamicGroupButtonView *groupButtonView = [DynamicGroupButtonView dynamicGroupButtonViewWithPoint:CGPointMake(0, lastY) nameValues:propertyValues];
                     groupButtonView.identifier = property.name;
                     groupButtonView.delegate = self;
-                    groupButtonView.tintColor = [UIColor appColor];
+                    groupButtonView.tintColor = [UIColor appLightBlue];
                     if(propertyValues.count == 1) {
                         groupButtonView.selectedItem = [propertyValues objectAtIndex:0];
                     }
@@ -126,6 +126,7 @@
         lastY += 11.f;
         
         pointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lastY) paymentType:PaymentTypePoints points:_merchandise_.points returnPoints:0];
+        pointsPaymentButton.selected = YES;
         [scrollView addSubview:pointsPaymentButton];
         
         cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + 10, lastY) paymentType:PaymentTypeCash points:_merchandise_.points returnPoints:_merchandise_.returnPoints];
@@ -178,12 +179,11 @@
         bottomView.backgroundColor = [UIColor colorWithRed:250.f / 255.f green:250.f / 255.f blue:250.f / 255.f alpha:1.0];
         [self addSubview:bottomView];
         
-        UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 10, 120, 26)];
+        UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(bottomView.bounds.size.width - 90 - 10, 0, 180.f / 2, 72.f / 2)];
         [purchaseButton addTarget:self action:@selector(confirmMerchandiseSelect:) forControlEvents:UIControlEventTouchUpInside];
-        [purchaseButton setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
-        purchaseButton.layer.cornerRadius = 5;
-        purchaseButton.layer.masksToBounds = YES;
+        [purchaseButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
         [purchaseButton setTitle:NSLocalizedString(@"determine", @"") forState:UIControlStateNormal];
+        purchaseButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         [bottomView addSubview:purchaseButton];
     }
     return self;
@@ -212,8 +212,12 @@
     paymentButton.selected = !paymentButton.selected;
     if(paymentButton == pointsPaymentButton) {
         cashPaymentButton.selected = !paymentButton.selected;
+        pointsImageView.image = [UIImage imageNamed:@"points_blue"];
+        pointsLabel.text = [NSString stringWithFormat:@"%ld%@", (long)_merchandise_.points, NSLocalizedString(@"points", @"")];
     } else {
         pointsPaymentButton.selected = !paymentButton.selected;
+        pointsImageView.image = [UIImage imageNamed:@"rmb_blue"];
+        pointsLabel.text = [NSString stringWithFormat:@"%.1f%@", ((float)(_merchandise_.points) / 100.f), NSLocalizedString(@"yuan", @"")];
     }
 }
 

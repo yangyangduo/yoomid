@@ -11,7 +11,7 @@
 @implementation UIDevice (ScreenSize)
 
 + (BOOL)is4InchDevice {
-    return [UIScreen mainScreen].bounds.size.height == 568.f;
+    return [UIScreen mainScreen].bounds.size.height >= 568.f;
 }
 
 @end

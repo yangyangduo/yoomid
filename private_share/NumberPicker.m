@@ -110,7 +110,7 @@
     } else {
         numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(_buttonWidth_, 0, _textWidth_, _height_)];
     }
-    numberLabel.textColor = [UIColor appColor];
+    numberLabel.textColor = [UIColor appLightBlue];
     numberLabel.textAlignment = NSTextAlignmentCenter;
     numberLabel.font = [UIFont systemFontOfSize:18.f];
     numberLabel.backgroundColor = [UIColor clearColor];
