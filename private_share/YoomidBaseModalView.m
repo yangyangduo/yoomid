@@ -28,7 +28,7 @@
         
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(_contentView_.frame.origin.x + _contentView_.bounds.size.width - 18, 4, 56.f / 2, 56.f / 2)];
         [closeButton setBackgroundImage:[UIImage imageNamed:@"modal_close"] forState:UIControlStateNormal];
-        [closeButton addTarget:self action:@selector(closeviewInternal) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
         
         _contentView_.layer.cornerRadius = 10;
@@ -37,7 +37,7 @@
     return self;
 }
 
-- (void)closeviewInternal {
+- (void)closeViewInternal {
     [self closeViewAnimated:YES completion:nil];
 }
 

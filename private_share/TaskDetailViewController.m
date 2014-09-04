@@ -10,6 +10,7 @@
 #import "JsonUtil.h"
 #import "MyPointsRecordViewController.h"
 #import "TaskService.h"
+#import "YoomidRewardModalView.h"
 
 typedef NS_ENUM(NSUInteger, TaskResult) {
     TaskResultUnCompleted = 4,
@@ -20,11 +21,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 @implementation TaskDetailViewController {
     UIWebView *_webView_;
-    
     NSString *_url_;
-    
-    
-    
     UIView *tabBar;
 }
 
@@ -106,7 +103,10 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 - (void)postAnswersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
         [[XXAlertView currentAlertView] dismissAlertView];
-        NSLog(@"fuck every body");
+        
+        YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
+        [modalView showInView:self.navigationController.view completion:^{ }];
+        
         return;
     }
     [self postAnswersFailure:resp];
@@ -117,11 +117,13 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 }
 
 - (void)requestTaskDetailWithUrl:(NSString *)url {
-    [self showLoadingViewIfNeed];
+    if(url != nil && ![@"" isEqualToString:url]) {
+        [self showLoadingViewIfNeed];
 
-    NSURL *requestUrl = [[NSURL alloc] initWithString:url];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.f];
-    [_webView_ loadRequest:request];
+        NSURL *requestUrl = [[NSURL alloc] initWithString:url];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.f];
+        [_webView_ loadRequest:request];
+    }
 }
 
 
