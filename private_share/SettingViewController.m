@@ -35,7 +35,7 @@
 
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
-    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"1990-02-23",@"男",@"白领",@"哈佛大学", nil];
+    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"1990-02-23",@"男",@"学生",@"哈佛大学", nil];
 
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
@@ -126,10 +126,16 @@
     [textViewController.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark- agePickerPopupView delegate
+#pragma mark- PickerPopupView delegate
 -(void)setDate:(NSString *)date
 {
     [userInfoArray replaceObjectAtIndex:2 withObject:date];
+    [tableview reloadData];
+}
+
+-(void)setProfession:(NSString *)profession
+{
+    [userInfoArray replaceObjectAtIndex:4 withObject:profession];
     [tableview reloadData];
 }
 
@@ -310,7 +316,7 @@
         }
         case 2:
         {
-            AgePickerPopupView *agePickerPopupView = [[AgePickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoArray objectAtIndex:indexPath.row]];
+            PickerPopupView *agePickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoArray objectAtIndex:indexPath.row]];
             agePickerPopupView.delegate = self;
             [agePickerPopupView showInView:self.navigationController.view];
             break;
@@ -324,10 +330,9 @@
         }
         case 4:
         {
-            UIActionSheet *professionActionSheet = [[UIActionSheet alloc]initWithTitle:@"请选择职业:" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"白领" otherButtonTitles:@"红领", @"蓝领", nil];
-            professionActionSheet.tag = 400;
-            [professionActionSheet showInView:self.view];
-
+            PickerPopupView *professionPickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) profession:[userInfoArray objectAtIndex:indexPath.row]];
+            professionPickerPopupView.delegate = self;
+            [professionPickerPopupView showInView:self.navigationController.view];
             break;
         }
         case 5:
@@ -366,20 +371,6 @@
         else if (buttonIndex == 1)
         {
             [userInfoArray replaceObjectAtIndex:3 withObject:@"女"];
-        }
-    }
-    else if (actionSheet.tag == 400)
-    {
-        if (buttonIndex == 0) {
-            [userInfoArray replaceObjectAtIndex:4 withObject:@"白领"];
-        }
-        else if (buttonIndex == 1)
-        {
-            [userInfoArray replaceObjectAtIndex:4 withObject:@"红领"];
-        }
-        else if (buttonIndex == 2)
-        {
-            [userInfoArray replaceObjectAtIndex:4 withObject:@"蓝领"];
         }
     }
     

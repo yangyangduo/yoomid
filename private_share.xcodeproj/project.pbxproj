@@ -368,6 +368,7 @@
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
+		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
 		D66B497819B416D1002615CC /* reduce2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497719B416D1002615CC /* reduce2@2x.png */; };
 		D66B497A19B44ECF002615CC /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497919B44ECF002615CC /* setting@2x.png */; };
@@ -973,6 +974,8 @@
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
+		D66AF64A19B8516500B9185C /* PickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPopupView.h; sourceTree = "<group>"; };
+		D66AF64B19B8516500B9185C /* PickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerPopupView.m; sourceTree = "<group>"; };
 		D66B497519B416C9002615CC /* add2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add2@2x.png"; sourceTree = "<group>"; };
 		D66B497719B416D1002615CC /* reduce2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reduce2@2x.png"; sourceTree = "<group>"; };
 		D66B497919B44ECF002615CC /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
@@ -2068,7 +2071,7 @@
 				6F36330E193F037C00340645 /* table_view_cell */,
 				6F3632F5193EBF7C00340645 /* text_field */,
 				6FF533291938614D001D607C /* drawer_view_controller */,
-				D698655019B58E3300781F54 /* agepicker_popupview */,
+				D698655019B58E3300781F54 /* picker_popupview */,
 				6F72A3DB193DB54A001DAA3E /* DrawerItemView.h */,
 				6F72A3DC193DB54A001DAA3E /* DrawerItemView.m */,
 				6F3632FC193EC8F600340645 /* DefaultStyleButton.h */,
@@ -2395,13 +2398,15 @@
 			name = settings;
 			sourceTree = "<group>";
 		};
-		D698655019B58E3300781F54 /* agepicker_popupview */ = {
+		D698655019B58E3300781F54 /* picker_popupview */ = {
 			isa = PBXGroup;
 			children = (
 				D698655119B58EDE00781F54 /* AgePickerPopupView.h */,
 				D698655219B58EDE00781F54 /* AgePickerPopupView.m */,
+				D66AF64A19B8516500B9185C /* PickerPopupView.h */,
+				D66AF64B19B8516500B9185C /* PickerPopupView.m */,
 			);
-			name = agepicker_popupview;
+			name = picker_popupview;
 			sourceTree = "<group>";
 		};
 		D6A152C719A5F7120094B565 /* home */ = {
@@ -2764,6 +2769,7 @@
 				6F2BD0C6194ECEBF0092BA23 /* ViewQRCodeViewController.m in Sources */,
 				6F3632FE193EC8F600340645 /* DefaultStyleButton.m in Sources */,
 				6F170349194EE3D9008C1C64 /* ShoppingCompleteViewController.m in Sources */,
+				D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */,
 				6F41898319485BFC00F9DC2C /* Contact.m in Sources */,
 				6F53EFE2194B3E4F0080B4DD /* Constants.m in Sources */,
 				6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */,

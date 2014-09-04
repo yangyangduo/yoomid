@@ -7,9 +7,9 @@
 //
 
 #import "TransitionViewController.h"
-#import "AgePickerPopupView.h"
 #import "TextViewController2.h"
+#import "PickerPopupView.h"
 
-@interface SettingViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,AgePickerPopupViewDelegate,TextViewController2Delegate>
+@interface SettingViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,TextViewController2Delegate,PickerPopupViewDelegate>
 
 @end
