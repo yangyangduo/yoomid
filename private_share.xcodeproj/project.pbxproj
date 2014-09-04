@@ -140,7 +140,6 @@
 		6F72C18D19762F6700100D12 /* NameValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72C18C19762F6700100D12 /* NameValue.m */; };
 		6F72C1901976312800100D12 /* DynamicButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72C18F1976312800100D12 /* DynamicButton.m */; };
 		6F72C1961976831900100D12 /* PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72C1951976831900100D12 /* PaymentButton.m */; };
-		6F72C1981976889C00100D12 /* rmb_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72C1971976889C00100D12 /* rmb_blue@2x.png */; };
 		6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74E1CF1949EE7F00C7E3D6 /* Account.m */; };
 		6F75A53A1957FE7700E4FE52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37E195020C500B47132 /* MapKit.framework */; };
 		6F75A541195800EA00E4FE52 /* DomobOfferWallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F75A53D195800EA00E4FE52 /* DomobOfferWallBundle.bundle */; };
@@ -221,6 +220,8 @@
 		6FB0E1A619B6D898002F9A18 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A519B6D898002F9A18 /* Task.m */; };
 		6FB0E1A819B714A2002F9A18 /* no_task@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A719B714A2002F9A18 /* no_task@2x.png */; };
 		6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */; };
+		6FB8072A19B7FEDB003ABF77 /* rmb_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */; };
+		6FB8072C19B7FF24003ABF77 /* shipping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072B19B7FF24003ABF77 /* shipping@2x.png */; };
 		6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B831973ACCB00E6C7D2 /* icon57.png */; };
 		6FBB6B861973AD0600E6C7D2 /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */; };
 		6FBB6B891973AD2500E6C7D2 /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B871973AD2500E6C7D2 /* icon29.png */; };
@@ -658,7 +659,6 @@
 		6F72C18F1976312800100D12 /* DynamicButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicButton.m; sourceTree = "<group>"; };
 		6F72C1941976831900100D12 /* PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentButton.h; sourceTree = "<group>"; };
 		6F72C1951976831900100D12 /* PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentButton.m; sourceTree = "<group>"; };
-		6F72C1971976889C00100D12 /* rmb_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rmb_blue@2x.png"; sourceTree = "<group>"; };
 		6F74E1CE1949EE7F00C7E3D6 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
 		6F74E1CF1949EE7F00C7E3D6 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
 		6F75A5231957F85E00E4FE52 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -780,6 +780,8 @@
 		6FB0E1A719B714A2002F9A18 /* no_task@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_task@2x.png"; sourceTree = "<group>"; };
 		6FB714DA196E623700598457 /* MerchandiseDetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseDetailViewController2.h; sourceTree = "<group>"; };
 		6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseDetailViewController2.m; sourceTree = "<group>"; };
+		6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rmb_blue@2x.png"; sourceTree = "<group>"; };
+		6FB8072B19B7FF24003ABF77 /* shipping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shipping@2x.png"; sourceTree = "<group>"; };
 		6FBB6B831973ACCB00E6C7D2 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon80@2x.png"; sourceTree = "<group>"; };
 		6FBB6B871973AD2500E6C7D2 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
@@ -1957,6 +1959,9 @@
 		6FB0E19719B6A247002F9A18 /* merchandise */ = {
 			isa = PBXGroup;
 			children = (
+				6FB8072B19B7FF24003ABF77 /* shipping@2x.png */,
+				6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */,
+				D670D6C519B07E4600FB241D /* points_blue@2x.png */,
 				D670D6C119B074A200FB241D /* miku2@2x.png */,
 				6FBE928C194167DD00B94195 /* merchandise_placeholder@2x.png */,
 				D670D6C919B07E7500FB241D /* shopping@2x.png */,
@@ -2010,8 +2015,6 @@
 				6FBE928E1941B1D200B94195 /* back@2x.png */,
 				6FF5333F19387D26001D607C /* btn_menu@2x.png */,
 				6F5B5E3C19B5B00E00495F0C /* login_background_image@2x.png */,
-				D670D6C519B07E4600FB241D /* points_blue@2x.png */,
-				6F72C1971976889C00100D12 /* rmb_blue@2x.png */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -2609,7 +2612,6 @@
 				D3644BE9197A171000B44785 /* dianru_blue_dianru_bottom.png in Resources */,
 				D3644BF4197A171000B44785 /* dianru_back_btn.png in Resources */,
 				D3644C09197A171000B44785 /* dianru_green_dianru_download.png in Resources */,
-				6F72C1981976889C00100D12 /* rmb_blue@2x.png in Resources */,
 				6F7657ED19345C7C003BF61C /* InfoPlist.strings in Resources */,
 				D66B498819B45C53002615CC /* setupbg@2x.png in Resources */,
 				D3644BEF197A171000B44785 /* dianru_blue_left_cell.png in Resources */,
@@ -2637,6 +2639,7 @@
 				6F7657F519345C7C003BF61C /* Images.xcassets in Resources */,
 				D3644C08197A171000B44785 /* dianru_green_dianru_bottom.png in Resources */,
 				D62FBE0019A61B0A0041195B /* social_sharing@2x.png in Resources */,
+				6FB8072C19B7FF24003ABF77 /* shipping@2x.png in Resources */,
 				D3644BFE197A171000B44785 /* dianru_logo.png in Resources */,
 				6F7BD3291953F8A00031D2DD /* line_scanner@2x.png in Resources */,
 				6F4FA07319A489460049C023 /* 0@2x.png in Resources */,
@@ -2693,6 +2696,7 @@
 				6F7BD32F1953F8E60031D2DD /* btn_info@2x.png in Resources */,
 				D3644BF5197A171000B44785 /* dianru_background.png in Resources */,
 				6F2C52C219751D2C0045BFC1 /* guide2-568h@2x.png in Resources */,
+				6FB8072A19B7FEDB003ABF77 /* rmb_blue@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
