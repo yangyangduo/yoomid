@@ -65,6 +65,7 @@
 }
 
 - (void)refresh {
+    [self showLoadingViewIfNeed];
     TaskService *service = [[TaskService alloc] init];
     [service getTasksWithCategoryId:self.taskCategory.identifier target:self success:@selector(getTasksSuccess:) failure:@selector(getTasksFailure:)];
 }
@@ -83,11 +84,25 @@
         }
         
         [_collection_view_ reloadData];
+        [self hideLoadingViewIfNeed];
+        return;
     }
+    [self showRetryView];
 }
 
 - (void)getTasksFailure:(HttpResponse *)resp {
     [self handleFailureHttpResponse:resp];
+    [self showRetryView];
+}
+
+#pragma mark -
+
+- (void)retryLoading {
+    [self refresh];
+}
+
+- (CGFloat)contentViewCenterY {
+    return (self.view.bounds.size.height - 64) / 2;
 }
 
 #pragma mark -

@@ -14,14 +14,38 @@
 
 @end
 
-@implementation BaseViewController
+@implementation BaseViewController {
+    UIGestureRecognizer *retryTapGestrue;
+    UIView *_loadingView_;
+    UIActivityIndicatorView *indicatorView;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_image"]];
+    
+    retryTapGestrue = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryLoading)];
+    
+    _loadingView_ = [[UIView alloc] initWithFrame:self.view.bounds];
+    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 100, 44, 44)];
+    indicatorView.backgroundColor = [UIColor clearColor];
+    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    indicatorView.center = CGPointMake(self.view.center.x - 44, [self contentViewCenterY]);
+    [_loadingView_ addSubview:indicatorView];
+    UILabel *lblLoading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
+    lblLoading.tag = 1000;
+    lblLoading.center = CGPointMake(indicatorView.center.x + 75, indicatorView.center.y);
+    lblLoading.backgroundColor = [UIColor clearColor];
+    lblLoading.textColor = [UIColor darkGrayColor];
+    lblLoading.font = [UIFont systemFontOfSize:17.f];
+    [_loadingView_ addSubview:lblLoading];
 }
+
+#pragma mark -
+#pragma mark About keyboard
 
 - (void)registerTapGestureToResignKeyboard {
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -41,6 +65,72 @@
         }
     }
 }
+
+#pragma mark -
+#pragma mark About loading view
+
+- (void)showLoadingViewIfNeed {
+    [self.view removeGestureRecognizer:retryTapGestrue];
+    
+    UILabel *lblLoading = (UILabel *)[_loadingView_ viewWithTag:1000];
+    lblLoading.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"loading", @""), @"..."];
+    lblLoading.textAlignment = NSTextAlignmentLeft;
+    CGRect frame = lblLoading.frame;
+    lblLoading.frame = CGRectMake(indicatorView.frame.origin.x + indicatorView.frame.size.width, 0, frame.size.width, frame.size.height);
+    lblLoading.center = CGPointMake(lblLoading.center.x, indicatorView.center.y);
+    
+    indicatorView.hidden = NO;
+    [indicatorView startAnimating];
+    
+    if(_loadingView_.superview == nil) {
+        [self.view addSubview:_loadingView_];
+    }
+}
+
+- (void)hideLoadingViewIfNeed {
+    [self.view removeGestureRecognizer:retryTapGestrue];
+    
+    [indicatorView stopAnimating];
+    if(_loadingView_.superview != nil) {
+        [_loadingView_ removeFromSuperview];
+    }
+}
+
+- (void)showRetryView {
+    UILabel *lblLoading = (UILabel *)[_loadingView_ viewWithTag:1000];
+    lblLoading.text = @"失败了, 请点击屏幕重新加载!";
+    lblLoading.center = CGPointMake(self.view.center.x, lblLoading.center.y);
+    lblLoading.textAlignment = NSTextAlignmentCenter;
+    
+    BOOL gestureExists = NO;
+    for(UIGestureRecognizer *gestrue in self.view.gestureRecognizers) {
+        if(gestrue == retryTapGestrue) {
+            gestureExists = YES;
+            break;
+        }
+    }
+    
+    if(!gestureExists) {
+        [self.view addGestureRecognizer:retryTapGestrue];
+    }
+    
+    indicatorView.hidden = YES;
+    [indicatorView stopAnimating];
+    if(_loadingView_.superview == nil) {
+        [self.view addSubview:_loadingView_];
+    }
+}
+
+- (CGFloat)contentViewCenterY {
+    return self.view.bounds.size.height / 2;
+}
+
+- (void)retryLoading {
+    
+}
+
+#pragma mark -
+#pragma mark About network
 
 - (void)handleFailureHttpResponse:(HttpResponse *)resp {
     if(1001 == resp.statusCode) {

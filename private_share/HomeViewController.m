@@ -65,7 +65,7 @@
     
 
     
-    CGFloat imagesViewHeight = self.view.bounds.size.height - ([UIDevice is4InchDevice] ? 4 : 3) * 58;
+    CGFloat imagesViewHeight = self.view.bounds.size.height - 4 * 58;
     imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -imagesViewHeight, self.view.bounds.size.width, imagesViewHeight)];
     [_collectionView insertSubview:imagesScrollView atIndex:0];
     _collectionView.contentInset = UIEdgeInsetsMake(imagesViewHeight - 20, 0, 0, 0);

@@ -25,4 +25,10 @@
 
 - (void)handleFailureHttpResponse:(HttpResponse *)resp;
 
+- (void)showLoadingViewIfNeed;
+- (void)hideLoadingViewIfNeed;
+- (void)showRetryView;
+- (void)retryLoading;
+- (CGFloat)contentViewCenterY;
+
 @end
