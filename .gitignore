@@ -32,3 +32,5 @@ profile
 *.xcbkptlist
 
 *.xcuserstate
+
+private_share.xcworkspace/xcuserdata/young.xcuserdatad/UserInterfaceState.xcuserstate
