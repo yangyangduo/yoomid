@@ -121,8 +121,7 @@
         rmbLabel.text = @"";
         messageLabel.text = @"";
         imageView.image = DEFAULT_IMAGE;
-    } else
-    {
+    } else {
         if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
             imageView.image = DEFAULT_IMAGE;
         } else {
@@ -135,21 +134,22 @@
         titleLabel.frame = CGRectMake(132, 13, titleLabelSize.width, titleLabelSize.height);
         
         NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
-        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
+        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
         
-        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"米米" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
+        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"points", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
         pointsLabel.attributedText = pointsString;
-        pointsLabel.frame = CGRectMake(152,(titleLabel.frame.origin.y+titleLabelSize.height), 125, 36);
+        //(titleLabel.frame.origin.y+titleLabelSize.height)
+        pointsLabel.frame = CGRectMake(152, 45, 125, 36);
         bao.frame = CGRectMake(132, pointsLabel.frame.origin.y + 10,32/2, 32/2);
-
-        //积分%100取余为0 ，就没小数点，反之，取一位小数点，小数点后面第一位 为毛，二位为分，(分会四舍五入）
-        NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
-        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:(merchandise.points%100)== 0 ?[NSString stringWithFormat:@"%.0f ", (CGFloat)merchandise.points/100] : [NSString stringWithFormat:@"%.1f ", (CGFloat)merchandise.points/100] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
         
-        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
+
+        NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.1f", (float)merchandise.points / 100.f] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
+        
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"yuan", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
         rmbLabel.attributedText = rmbString;
-        rmbLabel.frame = CGRectMake(152,pointsLabel.frame.origin.y+18, 125, 36);
-        rmb.frame = CGRectMake(132, rmbLabel.frame.origin.y + 10,32/2, 32/2);
+        rmbLabel.frame = CGRectMake(152,pointsLabel.frame.origin.y + 22, 125, 36);
+        rmb.frame = CGRectMake(132, rmbLabel.frame.origin.y + 10, 32/2, 32/2);
 
         messageLabel.text = [NSString stringWithFormat:@"%ld%@!", (long)merchandise.exchangeCount, NSLocalizedString(@"has_exchanges", @"")];
         
