@@ -37,15 +37,15 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
         
-        UIView *bootomView = [[UIView alloc]initWithFrame:CGRectMake(10, 15, 320-20, 133-15)];
+        UIView *bootomView = [[UIView alloc]initWithFrame:CGRectMake(10, 15, 320-20, 143-15)];
         bootomView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bootomView];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 100, 70)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 105, 80)];
         imageView.image = DEFAULT_IMAGE;
         [bootomView addSubview:imageView];
         
-        progressView = [[ProgressView alloc] initWithFrame:CGRectMake(13, 95, 70, 7)];
+        progressView = [[ProgressView alloc] initWithFrame:CGRectMake(13, 106, 75, 7)];
         progressView.backgroundView.backgroundColor = [UIColor colorWithRed:208.f / 255.f green:209.f / 255.f blue:211.f / 255.f alpha:1.f];// 162,226
         progressView.trackView.backgroundColor = [UIColor appLightBlue];
         progressView.layer.cornerRadius = 5;
@@ -61,15 +61,15 @@
         progressLabel.center = CGPointMake(progressLabel.center.x, progressView.center.y);
         [bootomView addSubview:progressLabel];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 13, 145, 45)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 13, 145, 45)];
         titleLabel.numberOfLines = 2;
-        titleLabel.font = [UIFont systemFontOfSize:13.f];
+        titleLabel.font = [UIFont systemFontOfSize:14.f];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.text = @"";
         titleLabel.textColor = [UIColor blackColor];
         [bootomView addSubview:titleLabel];
         
-        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, titleLabel.frame.origin.y + titleLabel.bounds.size.height-18, 125, 36)];
+        pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(132+20, titleLabel.frame.origin.y + titleLabel.bounds.size.height-18, 125, 36)];
         pointsLabel.font = [UIFont systemFontOfSize:20.f];
         pointsLabel.textColor = [UIColor appColor];
         pointsLabel.backgroundColor = [UIColor clearColor];
@@ -77,10 +77,10 @@
         [bootomView addSubview:pointsLabel];
         
         bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bao"]];
-        bao.frame = CGRectMake(126, pointsLabel.frame.origin.y+10, 32/2, 32/2);
+        bao.frame = CGRectMake(132, pointsLabel.frame.origin.y+10, 32/2, 32/2);
         [bootomView addSubview:bao];
         
-        rmbLabel = [[UILabel alloc] initWithFrame:CGRectMake(126+20, pointsLabel.frame.origin.y + pointsLabel.bounds.size.height-18, 125, 36)];
+        rmbLabel = [[UILabel alloc] initWithFrame:CGRectMake(132+20, pointsLabel.frame.origin.y + pointsLabel.bounds.size.height-18, 125, 36)];
         rmbLabel.font = [UIFont systemFontOfSize:20.f];
         rmbLabel.textColor = [UIColor appColor];
         rmbLabel.backgroundColor = [UIColor clearColor];
@@ -88,18 +88,18 @@
         [bootomView addSubview:rmbLabel];
         
         rmb = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"rmb_blue"]];
-        rmb.frame = CGRectMake(126, rmbLabel.frame.origin.y+10, 32/2, 32/2);
+        rmb.frame = CGRectMake(132, rmbLabel.frame.origin.y+10, 32/2, 32/2);
         [bootomView addSubview:rmb];
 
         
-        messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 80, 100, 34)];
+        messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 91, 100, 34)];
         messageLabel.font = [UIFont systemFontOfSize:14.f];
         messageLabel.textColor = [UIColor lightGrayColor];
         messageLabel.backgroundColor = [UIColor clearColor];
         messageLabel.text = @"";
         [bootomView addSubview:messageLabel];
         
-        UIImageView *cartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(245, 78, 51 / 2, 51.f / 2)];
+        UIImageView *cartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(245, 88, 51 / 2, 51.f / 2)];
         cartImageView.image = [UIImage imageNamed:@"shopping"];
         [bootomView addSubview:cartImageView];
     }
@@ -130,17 +130,17 @@
             [imageView setImageWithURL:[NSURL URLWithString:displayedImageUrl] placeholderImage:DEFAULT_IMAGE];
         }
         titleLabel.text = merchandise.name;
-        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:13.f]};
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14.f]};
         CGSize titleLabelSize = [merchandise.name boundingRectWithSize:CGSizeMake(145, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-        titleLabel.frame = CGRectMake(126, 13, titleLabelSize.width, titleLabelSize.height);
+        titleLabel.frame = CGRectMake(132, 13, titleLabelSize.width, titleLabelSize.height);
         
         NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
         [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:20.f] }]];
         
         [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"米米" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
         pointsLabel.attributedText = pointsString;
-        pointsLabel.frame = CGRectMake(146,(titleLabel.frame.origin.y+titleLabelSize.height), 125, 36);
-        bao.frame = CGRectMake(126, pointsLabel.frame.origin.y + 10,32/2, 32/2);
+        pointsLabel.frame = CGRectMake(152,(titleLabel.frame.origin.y+titleLabelSize.height), 125, 36);
+        bao.frame = CGRectMake(132, pointsLabel.frame.origin.y + 10,32/2, 32/2);
 
         //积分%100取余为0 ，就没小数点，反之，取一位小数点，小数点后面第一位 为毛，二位为分，(分会四舍五入）
         NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
@@ -148,8 +148,8 @@
         
         [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:10.f] }]];
         rmbLabel.attributedText = rmbString;
-        rmbLabel.frame = CGRectMake(146,pointsLabel.frame.origin.y+18, 125, 36);
-        rmb.frame = CGRectMake(126, rmbLabel.frame.origin.y + 10,32/2, 32/2);
+        rmbLabel.frame = CGRectMake(152,pointsLabel.frame.origin.y+18, 125, 36);
+        rmb.frame = CGRectMake(132, rmbLabel.frame.origin.y + 10,32/2, 32/2);
 
         messageLabel.text = [NSString stringWithFormat:@"%ld%@!", (long)merchandise.exchangeCount, NSLocalizedString(@"has_exchanges", @"")];
         

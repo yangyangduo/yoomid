@@ -150,6 +150,7 @@ static CGRect oldframe;
     pointsOrderTableView.delegate = self;
     pointsOrderTableView.dataSource = self;
     pointsOrderTableView.pullDelegate = self;
+    pointsOrderTableView.backgroundColor = [UIColor clearColor];
 
     [self.view addSubview:pointsOrderTableView];
     [self refresh:YES];
@@ -329,7 +330,6 @@ static CGRect oldframe;
         cell.textLabel.text = @"2014-8-21 12:30:30 看图猜图获得200积分";
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     return cell;
 }
 

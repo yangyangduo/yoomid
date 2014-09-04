@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Merchandise.h"
 
-static CGFloat kMerchandiseTableViewCellHeight = 133.f;
+static CGFloat kMerchandiseTableViewCellHeight = 143.f;
 
 @interface MerchandiseTableViewCell : UITableViewCell
 
