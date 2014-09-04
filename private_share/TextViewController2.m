@@ -47,7 +47,11 @@
     textField.delegate = self;
     [self.view addSubview:textField];
     
-    UIButton *btnSubmit = [[DefaultStyleButton alloc] initWithFrame:CGRectMake(0, textField.frame.origin.y + textField.bounds.size.height + 15, 260, 30)];
+    UIButton *btnSubmit = [[DefaultStyleButton alloc] initWithFrame:CGRectMake(20, textField.frame.origin.y + textField.bounds.size.height + 15, self.view.bounds.size.width-40, 40)];
+    btnSubmit.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    [btnSubmit setTintColor:[UIColor whiteColor]];
+    [btnSubmit setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [btnSubmit setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     btnSubmit.center = CGPointMake(self.view.center.x, btnSubmit.center.y);
     [btnSubmit addTarget:self action:@selector(btnSubmitPressed:) forControlEvents:UIControlEventTouchUpInside];
     [btnSubmit setTitle:NSLocalizedString(@"determine", @"") forState:UIControlStateNormal];

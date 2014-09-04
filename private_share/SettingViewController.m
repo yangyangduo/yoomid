@@ -7,13 +7,13 @@
 //
 
 #import "SettingViewController.h"
-#import "AddContactInfoViewController.h"
 #import "UIDevice+ScreenSize.h"
 #import "AppDelegate.h"
 #import "ViewControllerAccessor.h"
 #import "LoginViewController.h"
 #import "UINavigationViewInitializer.h"
 #import "PasswordChangeViewController.h"
+#import "UIColor+App.h"
 
 @interface SettingViewController ()
 
@@ -84,8 +84,7 @@
 
 -(void)editBtnClick
 {
-    AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
-    [self.navigationController pushViewController:add animated:YES];
+
 }
 
 
@@ -391,7 +390,7 @@
     for (UIView *subViwe in actionSheet.subviews) {
         if ([subViwe isKindOfClass:[UIButton class]]) {
             UIButton *button = (UIButton*)subViwe;
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
         }
     }
 }
