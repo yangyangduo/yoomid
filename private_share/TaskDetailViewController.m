@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"validateAnswers()"];
     if(result != nil && ![@"" isEqualToString:result]) {
         NSData *postData = [result dataUsingEncoding:NSUTF8StringEncoding];
-        
+        [JsonUtil printJsonData:postData];
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:postData];
         if(result != nil) {
             NSInteger taskResult = [result numberForKey:@"result"].integerValue;
@@ -83,6 +83,8 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
                 [content setMayBlankString:@"aaa" forKey:@"deviceId"];
                 
+                [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
                 TaskService *service = [[TaskService alloc] init];
                 [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:)];
 
@@ -103,7 +105,8 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 - (void)postAnswersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
-        
+        [[XXAlertView currentAlertView] dismissAlertView];
+        NSLog(@"fuck every body");
         return;
     }
     [self postAnswersFailure:resp];
