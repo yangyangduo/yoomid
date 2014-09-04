@@ -152,6 +152,7 @@ static CGRect oldframe;
     pointsOrderTableView.pullDelegate = self;
 
     [self.view addSubview:pointsOrderTableView];
+    [self refresh:YES];
 }
 
 -(void)setPoints:(NSString*)numberStr
@@ -190,7 +191,73 @@ static CGRect oldframe;
     [service getPointsOrdersByPageIndex:pageIndex orderType:pointsOrderType target:self success:@selector(getPointsOrdersSuccess:) failure:@selector(getPointsOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex], @"orderType" : [NSNumber numberWithInt:pointsOrderType]}];
 }
 
+- (void)loadMore {
+    PointsOrderService *service = [[PointsOrderService alloc] init];
+    [service getPointsOrdersByPageIndex:pageIndex + 1 orderType:pointsOrderType target:self success:@selector(getPointsOrdersSuccess:) failure:@selector(getPointsOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex  + 1], @"orderType" : [NSNumber numberWithInt:pointsOrderType]}];
+}
 
+- (void)getPointsOrdersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
+        
+        NSInteger page = ((NSNumber *)[resp.userInfo objectForKey:@"page"]).integerValue;
+        NSInteger oType = ((NSNumber *)[resp.userInfo objectForKey:@"orderType"]).integerValue;
+        
+        if(oType != pointsOrderType) return;
+        
+        if(pointsOrders == nil) {
+            pointsOrders = [NSMutableArray array];
+        } else {
+            if(page == 0) {
+                [pointsOrders removeAllObjects];
+            }
+        }
+        
+        NSArray *results = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        NSUInteger lastIndex = pointsOrders.count;
+        if(results != nil) {
+            for(int i=0; i<results.count; i++) {
+                PointsOrder *order = [[PointsOrder alloc] initWithJson:[results objectAtIndex:i]];
+                [pointsOrders addObject:order];
+                if(page > 0) {
+                    [indexPaths addObject:[NSIndexPath indexPathForItem:lastIndex + i inSection:0]];
+                }
+            }
+        }
+        
+        if(page > 0) {
+            if(results != nil && results.count > 0) {
+                pageIndex++;
+                [pointsOrderTableView beginUpdates];
+                [pointsOrderTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [pointsOrderTableView endUpdates];
+            } else {
+                [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"no_more", @"") forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+            }
+        } else {
+            pointsOrderTableView.pullLastRefreshDate = [NSDate date];
+            [pointsOrderTableView reloadData];
+        }
+        
+        [self cancelRefresh];
+        [self cancelLoadMore];
+        
+        if(page == 0) {
+            if(PointsOrderTypePay == pointsOrderType) {
+                reducePointsOrders = [NSMutableArray arrayWithArray:pointsOrders];
+                reducePointsOrdersRefreshDate = pointsOrderTableView.pullLastRefreshDate;
+            } else {
+                additionPointsOrders = [NSMutableArray arrayWithArray:pointsOrders];
+                additionPointsOrdersRefreshDate = pointsOrderTableView.pullLastRefreshDate;
+            }
+        }
+        
+        return;
+    }
+    
+    [self getPointsOrdersFailure:resp];
+}
 
 -(void)addPoints:(id)sender
 {
@@ -208,7 +275,7 @@ static CGRect oldframe;
         [self refresh:YES];
     }
 
-    [self setPoints:@"000"];
+//    [self setPoints:@"000"];
 }
 
 -(void)reducePoints:(id)sender
@@ -228,7 +295,7 @@ static CGRect oldframe;
         [self refresh:YES];
     }
 
-    [self setPoints:@"111"];
+//    [self setPoints:@"111"];
 }
 
 - (void)getPointsOrdersFailure:(HttpResponse *)resp {
@@ -244,11 +311,11 @@ static CGRect oldframe;
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return pointsOrders == nil ? 0 : pointsOrders.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -261,6 +328,8 @@ static CGRect oldframe;
         cell.textLabel.font = [UIFont systemFontOfSize:12.5f];
         cell.textLabel.text = @"2014-8-21 12:30:30 看图猜图获得200积分";
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 
@@ -278,12 +347,20 @@ static CGRect oldframe;
 
 -(void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
-    
+    if(pointsOrderTableView.pullTableIsLoadingMore) {
+        [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
+        return;
+    }
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
 }
 
 -(void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
 {
-    
+    if(pointsOrderTableView.pullTableIsRefreshing) {
+        [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
+        return;
+    }
+    [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
 }
 - (void)cancelRefresh {
     pointsOrderTableView.pullTableIsRefreshing = NO;
