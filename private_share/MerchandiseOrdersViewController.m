@@ -51,12 +51,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedString(@"my_merchandise_orders", @"");
-    self.view.backgroundColor = [UIColor appSilver];
+    self.title = @"我的商品";
     
     orderState = MerchandiseOrderStateSubmitted;
 
-    _segmentedControl_ = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"order_unfinished", @""), NSLocalizedString(@"order_finished", @""), NSLocalizedString(@"order_cancelled", @""), nil]];
+    _segmentedControl_ = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"待处理", @"已完成", nil]];
     _segmentedControl_.frame = CGRectMake(10, 10, 300, 30);
     _segmentedControl_.tintColor = [UIColor colorWithRed:92.f / 255.f green:99.f / 255.f blue:112.f / 255.f alpha:1];
 //    _segmentedControl_.tintColor = [UIColor appBlue];

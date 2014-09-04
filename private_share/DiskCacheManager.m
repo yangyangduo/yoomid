@@ -17,6 +17,7 @@ NSString * const kFileNameActivities = @"activities";
 NSString * const kFileNameMerchandises = @"merchandises";
 NSString * const kFileNameTaskCategories = @"task-categories";
 NSString * const kFileNameRecommendedMerchandises = @"recommended-merchandises";
+NSString * const kFileNameCompletedTaskIds = @"completed-task-ids";
 
 NSString * const kFileNameContacts = @"contacts";
 NSString * const kFileNamePointsOrder = @"points-order";
@@ -29,6 +30,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     CacheData *_merchandises_data_;
     CacheData *_task_categories_data_;
     CacheData *_recommended_merchandises_data_;
+    CacheData *_completed_task_ids_data_;
     
     //
     CacheData *_contacts_data_;
@@ -158,6 +160,27 @@ NSString * const kFileNamePointsOrder = @"points-order";
     return data;
 }
 
+- (NSArray *)activities:(BOOL *)isExpired {
+    
+    return nil;
+}
+
+- (NSArray *)completedTaskIds:(BOOL *)isExpired {
+    NSArray *completedTaskIds = nil;
+    
+    if(_completed_task_ids_data_ == nil) {
+        _completed_task_ids_data_ = [self cacheDataFromDisk:kFileNameCompletedTaskIds inUserDirectory:NO];
+    }
+    
+    if(_completed_task_ids_data_ != nil && _completed_task_ids_data_.data != nil) {
+        completedTaskIds = [NSArray arrayWithArray:_completed_task_ids_data_.data];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_completed_task_ids_data_];
+
+    return completedTaskIds;
+}
+
 - (id)cacheDataFromDisk:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
     CacheData *cacheData = nil;
     
@@ -189,11 +212,6 @@ NSString * const kFileNamePointsOrder = @"points-order";
     }
     
     return dataArray.count == 0 ? nil : dataArray;
-}
-
-- (NSArray *)activities:(BOOL *)isExpired {
-    
-    return nil;
 }
 
 #pragma mark -
@@ -249,20 +267,35 @@ NSString * const kFileNamePointsOrder = @"points-order";
 - (void)setActivities:(NSArray *)activities {
 }
 
+- (void)setCompletedTaskIds:(NSArray *)taskIds {
+    if(_completed_task_ids_data_ == nil) {
+        _completed_task_ids_data_ = [[CacheData alloc] init];
+    }
+    [self setCacheData:_completed_task_ids_data_ jsonEntities:taskIds entityIsBasicType:YES fileName:kFileNameCompletedTaskIds inUserDirectory:NO];
+}
+
+
 - (void)setCacheData:(CacheData *)cacheData jsonEntities:(NSArray *)jsonEntities
-            fileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
+            entityIsBasicType:(BOOL)entityIsBasicType fileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
     if(cacheData == nil || fileName == nil) {
         NSLog(@"[Disk Cache Manager] Parameter invalid");
         return;
     }
     
-    NSMutableArray *data = [NSMutableArray array];
+    NSMutableArray *data = nil;
+    
     if(jsonEntities != nil) {
-        for(int i=0; i<jsonEntities.count; i++) {
-            id<JsonEntity> jsonEntity = [jsonEntities objectAtIndex:i];
-            [data addObject:[jsonEntity toJson]];
+        if(entityIsBasicType) {
+            data = [NSMutableArray arrayWithArray:jsonEntities];
+        } else {
+            data = [NSMutableArray array];
+            for(int i=0; i<jsonEntities.count; i++) {
+                id<JsonEntity> jsonEntity = [jsonEntities objectAtIndex:i];
+                [data addObject:[jsonEntity toJson]];
+            }
         }
     }
+    
     cacheData.data = data.count == 0 ? nil : data;
     cacheData.lastRefreshTime = [NSDate date];
     
@@ -270,6 +303,11 @@ NSString * const kFileNamePointsOrder = @"points-order";
 #ifdef DEBUG
     NSLog(@"[Disk Cache Manager] Store [%@] to disk cache", fileName);
 #endif
+}
+
+- (void)setCacheData:(CacheData *)cacheData jsonEntities:(NSArray *)jsonEntities
+            fileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
+    [self setCacheData:cacheData jsonEntities:jsonEntities entityIsBasicType:NO fileName:fileName inUserDirectory:inUserDirectory];
 }
 
 - (BOOL)cacheDataIsExpired:(CacheData *)cacheData {
