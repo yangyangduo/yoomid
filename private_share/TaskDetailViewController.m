@@ -102,10 +102,10 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 - (void)postAnswersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
-        [[XXAlertView currentAlertView] dismissAlertView];
-        
-        YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
-        [modalView showInView:self.navigationController.view completion:^{ }];
+        [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+            YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
+            [modalView showInView:self.navigationController.view completion:^{ }];
+        }];
         
         return;
     }

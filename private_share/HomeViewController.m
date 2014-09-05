@@ -48,11 +48,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    cellIdentifier = @"cellIdentifier";
 
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypePresentation;
     
-    cellIdentifier = @"cellIdentifier";
+    self.view.backgroundColor = [UIColor appColor];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];

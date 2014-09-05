@@ -38,5 +38,6 @@ typedef void(^XXAlertViewCancelledBlock)(void);
 - (void)alertForLock:(BOOL)isLock timeout:(NSTimeInterval)timeout timeoutMessage:(NSString *)message;
 - (void)delayDismissAlertView;
 - (void)dismissAlertView;
+- (void)dismissAlertViewCompletion:(void (^)(void))completion;
 
 @end

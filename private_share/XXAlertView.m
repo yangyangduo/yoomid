@@ -154,7 +154,7 @@
     timer = [NSTimer scheduledTimerWithTimeInterval:DELAY_DURATION target:self selector:@selector(dismissAlertView) userInfo:nil repeats:NO];
 }
 
-- (void)dismissAlertView {
+- (void)dismissAlertViewCompletion:(void (^)(void))completion {
     _cancelled_block_ = nil;
     if(timer != nil && timer.isValid) {
         [timer invalidate];
@@ -180,8 +180,13 @@
                                  lockedView = nil;
                              }
                              self.alertViewState = AlertViewStateReady;
+                             if(completion) completion();
                          }];
     }
+}
+
+- (void)dismissAlertView {
+    [self dismissAlertViewCompletion:nil];
 }
 
 - (void)setMessage:(NSString *)message forType:(AlertViewType)type {
