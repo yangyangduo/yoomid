@@ -14,6 +14,7 @@
 #import "UINavigationViewInitializer.h"
 #import "PasswordChangeViewController.h"
 #import "UIColor+App.h"
+#import "UserInfoService.h"
 
 @interface SettingViewController ()
 
@@ -25,6 +26,7 @@
     UITableView *tableview;
     
     NSMutableArray *userInfoArray;
+    NSMutableDictionary *userInfoDictionary;
 }
 
 - (void)viewDidLoad
@@ -80,11 +82,53 @@
     [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:exitBtn];
 
+    [self getUserInfo];
+}
+
+-(void)getUserInfo
+{
+    UserInfoService *service = [[UserInfoService alloc]init];
+    [service getUserInfo:self success:@selector(getUserInfoSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+-(void)getUserInfoSuccess:(HttpResponse *)resp
+{
+    if(userInfoDictionary == nil) {
+        userInfoDictionary = [NSMutableDictionary dictionary];
+    }
+    
+    if (resp.statusCode == 200) {
+        NSDictionary *_jsonDicti = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_jsonDicti != nil) {
+            NSDictionary *userDetail = [_jsonDicti dictionaryForKey:@"detail"];
+            if(userDetail != nil) {
+                userInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:userDetail];
+                [tableview reloadData];
+            }
+        }
+    }else
+    {
+        [self handleFailureHttpResponse:resp];
+    }
 }
 
 -(void)editBtnClick
 {
+    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:userInfoDictionary,@"detail", nil];
+    NSData *body = [JsonUtil createJsonDataFromDictionary:tempD];
+    UserInfoService *service = [[UserInfoService alloc]init];
+    [service modifyUserInfoData:body target:self success:@selector(modifyUserInfoSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
 
+-(void)modifyUserInfoSuccess:(HttpResponse *)resp
+{
+    if (resp.statusCode == 200) {
+        [[XXAlertView currentAlertView] setMessage:@"保存成功" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] delayDismissAlertView];
+    }else
+    {
+        [self handleFailureHttpResponse:resp];
+    }
 }
 
 
@@ -112,15 +156,15 @@
 -(void)textViewController2:(TextViewController2 *)textViewController didConfirmNewText:(NSString *)newText
 {
     if ([@"kNickName" isEqualToString:textViewController.identifier]) {
-        [userInfoArray replaceObjectAtIndex:0 withObject:newText];
+        [userInfoDictionary setObject:newText forKey:@"nickName"];
     }
     else if ([@"kUserName" isEqualToString:textViewController.identifier])
     {
-        [userInfoArray replaceObjectAtIndex:1 withObject:newText];
+        [userInfoDictionary setObject:newText forKey:@"realName"];
     }
     else if ([@"kCompanyOrSchoolName" isEqualToString:textViewController.identifier])
     {
-        [userInfoArray replaceObjectAtIndex:5 withObject:newText];
+        [userInfoDictionary setObject:newText forKey:@"company"];
     }
     [tableview reloadData];
     [textViewController.navigationController popViewControllerAnimated:YES];
@@ -129,13 +173,13 @@
 #pragma mark- PickerPopupView delegate
 -(void)setDate:(NSString *)date
 {
-    [userInfoArray replaceObjectAtIndex:2 withObject:date];
+    [userInfoDictionary setObject:date forKey:@"birthday"];
     [tableview reloadData];
 }
 
 -(void)setProfession:(NSString *)profession
 {
-    [userInfoArray replaceObjectAtIndex:4 withObject:profession];
+    [userInfoDictionary setObject:profession forKey:@"position"];
     [tableview reloadData];
 }
 
@@ -175,9 +219,8 @@
     CGRect rect;
     UIImage *image;
 
-    
     if (indexPath.row == 0) {
-        textLabel.text = [NSString stringWithFormat:@"昵称:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        textLabel.text = [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 0, 97, 47);//创建矩形框
@@ -189,7 +232,7 @@
     }
     else if (indexPath.row == 1)
     {
-        textLabel.text = [NSString stringWithFormat:@"姓名:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        textLabel.text = [NSString stringWithFormat:@"姓名:  %@",[userInfoDictionary objectForKey:@"realName"]];
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -201,7 +244,7 @@
     }
     else if (indexPath.row == 2)
     {
-        textLabel.text = [NSString stringWithFormat:@"生日:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        textLabel.text = [NSString stringWithFormat:@"生日:  %@",[userInfoDictionary objectForKey:@"birthday"]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
@@ -213,7 +256,8 @@
     }
     else if (indexPath.row == 3)
     {
-        textLabel.text = [NSString stringWithFormat:@"性别:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        textLabel.text = [NSString stringWithFormat:@"性别:  %@",[userInfoDictionary objectForKey:@"sex"]];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
@@ -224,7 +268,7 @@
     }
     else if (indexPath.row == 4)
     {
-        textLabel.text = [NSString stringWithFormat:@"职位:  %@",[userInfoArray objectAtIndex:indexPath.row]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        textLabel.text = [NSString stringWithFormat:@"职位:  %@",[userInfoDictionary objectForKey:@"position"]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
@@ -235,7 +279,7 @@
     }
     else if (indexPath.row == 5)
     {
-        textLabel.text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoArray objectAtIndex:indexPath.row]];
+        textLabel.text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -301,7 +345,7 @@
         case 0:
         {
             textView.identifier = @"kNickName";
-            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.defaultValue = [userInfoDictionary objectForKey:@"nickName"];
             textView.descriptionText = @"请输入昵称:";
             [self.navigationController pushViewController:textView animated:YES];
             break;
@@ -309,14 +353,14 @@
         case 1:
         {
             textView.identifier = @"kUserName";
-            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.defaultValue = [userInfoDictionary objectForKey:@"realName"];
             textView.descriptionText = @"请输入姓名:";
             [self.navigationController pushViewController:textView animated:YES];
             break;
         }
         case 2:
         {
-            PickerPopupView *agePickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoArray objectAtIndex:indexPath.row]];
+            PickerPopupView *agePickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoDictionary objectForKey:@"birthday"]];
             agePickerPopupView.delegate = self;
             [agePickerPopupView showInView:self.navigationController.view];
             break;
@@ -330,7 +374,7 @@
         }
         case 4:
         {
-            PickerPopupView *professionPickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) profession:[userInfoArray objectAtIndex:indexPath.row]];
+            PickerPopupView *professionPickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 200) profession:[userInfoDictionary objectForKey:@"position"]];
             professionPickerPopupView.delegate = self;
             [professionPickerPopupView showInView:self.navigationController.view];
             break;
@@ -338,7 +382,7 @@
         case 5:
         {
             textView.identifier = @"kCompanyOrSchoolName";
-            textView.defaultValue = [userInfoArray objectAtIndex:indexPath.row];
+            textView.defaultValue = [userInfoDictionary objectForKey:@"company"];
             textView.descriptionText = @"请输入单位/学校名称:";
             [self.navigationController pushViewController:textView animated:YES];
             break;
@@ -366,14 +410,13 @@
 {
     if (actionSheet.tag == 300) {
         if (buttonIndex == 0) {
-            [userInfoArray replaceObjectAtIndex:3 withObject:@"男"];
+            [userInfoDictionary setObject:@"男" forKey:@"sex"];
         }
         else if (buttonIndex == 1)
         {
-            [userInfoArray replaceObjectAtIndex:3 withObject:@"女"];
+            [userInfoDictionary setObject:@"女" forKey:@"sex"];
         }
     }
-    
     [tableview reloadData];
 }
 
