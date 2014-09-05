@@ -10,6 +10,7 @@
 #import "ShoppingCart.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIParameterAlertView.h"
+#import "UIColor+App.h"
 
 CGFloat const NameSize = 13.f;
 CGFloat const PropertiesSize = 12.f;
@@ -24,7 +25,6 @@ CGFloat const ImageViewHeight = 64.f;
     UIView *lineView;
     
     // payment element
-    UIImageView *paymentImageView;
     UILabel *paymentLabel;
     NumberPicker *numberPicker;
 }
@@ -64,13 +64,9 @@ CGFloat const ImageViewHeight = 64.f;
         propertiesLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:propertiesLabel];
         
-        paymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width + 10, nameLabel.frame.origin.y + 2, 16, 16)];
-        [self addSubview:paymentImageView];
-        
-        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(paymentImageView.frame.origin.x + paymentImageView.bounds.size.width + 5, paymentImageView.frame.origin.y - 2, 50, 20)];
+        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width + 10, nameLabel.frame.origin.y + 2, 62, 20)];
         paymentLabel.backgroundColor = [UIColor clearColor];
-        paymentLabel.font = [UIFont systemFontOfSize:14.f];
-        paymentLabel.textColor = [UIColor lightGrayColor];
+        paymentLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:paymentLabel];
         
         numberPicker = [NumberPicker numberPickerWithPoint:CGPointMake(self.bounds.size.width - 120, 0) height:26 buttonWidth:36 textWidth:40 direction:NumberPickerDirectionHorizontal];
@@ -161,18 +157,27 @@ image height px
         selfFrame.size.height = numberPicker.frame.origin.y + numberPicker.bounds.size.height + 20;
         self.frame = selfFrame;
         
+        NSString *_payment_string_ = nil;
         if(PaymentTypePoints == _shoppingItem_.paymentType) {
-            paymentImageView.image = [UIImage imageNamed:@"points_blue"];
-            paymentLabel.text = [NSString stringWithFormat:@"%ld", (long)shoppingItem.singlePayment.points];
+            _payment_string_ = [NSString stringWithFormat:@"%ld ", (long)shoppingItem.singlePayment.points];
         } else {
-            paymentImageView.image = [UIImage imageNamed:@"rmb_blue"];
-            paymentLabel.text = [NSString stringWithFormat:@"%.1f", shoppingItem.singlePayment.cash];
+            _payment_string_ = [NSString stringWithFormat:@"%.1f ", shoppingItem.singlePayment.cash];
         }
+        NSMutableAttributedString *paymentString = [[NSMutableAttributedString alloc] initWithString:_payment_string_ attributes:
+                @{
+                    NSFontAttributeName : [UIFont systemFontOfSize:15.f],
+                    NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
+        
+        [paymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == _shoppingItem_.paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+                @{
+                    NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+                    NSForegroundColorAttributeName :  [UIColor lightGrayColor] }]];
+        
+        paymentLabel.attributedText = paymentString;
     } else {
         imageView.image = nil;
         nameLabel.text = @"";
         propertiesLabel.text = @"";
-        paymentImageView.image = nil;
         paymentLabel.text = @"";
         selectButton.selected = NO;
     }

@@ -47,7 +47,7 @@
         summariesLabel.font = [UIFont systemFontOfSize:12.f];
         [self addSubview:summariesLabel];
         
-        pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 15, 10, 16, 16)];
+        pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 8, 10, 16, 16)];
         pointsPaymentImageView.image = [UIImage imageNamed:@"points_blue"];
         [self addSubview:pointsPaymentImageView];
         
@@ -88,14 +88,28 @@
 }
 
 - (void)setPayment:(Payment *)payment {
-    pointsPaymentLabel.text = [NSString stringWithFormat:@"%d", payment.points];
-    cashPaymentLabel.text = [NSString stringWithFormat:@"%.1f", payment.cash];
+    pointsPaymentLabel.attributedText = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
+    cashPaymentLabel.attributedText = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", payment.cash] paymentType:PaymentTypeCash];
     
     if(!selectButtonHidden) {
         selectButton.selected = [ShoppingCart myShoppingCart].allSelect;
     } else {
         summariesLabel.text = [NSString stringWithFormat:@"共%d件商品  合计:", payment.numberOfMerchandises];
     }
+}
+
+- (NSAttributedString *)paymentAttributeStringWithString:(NSString *)paymentString paymentType:(PaymentType)paymentType {
+    NSMutableAttributedString *attributePaymentString = [[NSMutableAttributedString alloc] initWithString:paymentString attributes:
+                                                         @{
+                                                           NSFontAttributeName : [UIFont systemFontOfSize:15.f],
+                                                           NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
+    
+    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+                                                    @{
+                                                      NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+                                                      NSForegroundColorAttributeName :  [UIColor lightGrayColor] }]];
+    
+    return attributePaymentString;
 }
 
 - (void)selectButtonPressed:(id)sender {

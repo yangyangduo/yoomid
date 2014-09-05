@@ -117,15 +117,12 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         if(result != nil) {
             NSInteger taskResult = [result numberForKey:@"result"].integerValue;
             if(TaskResultUnCompleted == taskResult) {
-                [[XXAlertView currentAlertView] setMessage:@"请答完所有题目哦" forType:AlertViewTypeFailed];
-                [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"请回答完所有题目!" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                [modal showInView:self.navigationController.view completion:nil];
                 return;
             } else if(TaskResultRetry == taskResult) {
-                
-                
-                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"回答错误! 你还剩下一次机会哦!" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
                 [modal showInView:self.navigationController.view completion:nil];
-                
                 return;
             } else if(TaskResultNoChance == taskResult
                         || TaskResultSuccess == taskResult ) {
@@ -159,15 +156,16 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
             NSNumber *number = resp.userInfo;
             NSInteger taskResult = number.integerValue;
-            
-            /*
-            if(TaskResultTimeout )
-            
-            
-            YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
-            [modalView showInView:self.navigationController.view completion:^{ }];*/
-            
-            
+            if(TaskResultTimeout == taskResult) {
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"回答超时!很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                [modal showInView:self.navigationController.view completion:nil];
+            } else if(TaskResultNoChance == taskResult) {
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                [modal showInView:self.navigationController.view completion:nil];
+            } else if(TaskResultSuccess == taskResult) {
+                YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
+                [modalView showInView:self.navigationController.view completion:^{ }];
+            }
         }];
         return;
     }

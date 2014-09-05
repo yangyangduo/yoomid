@@ -9,7 +9,7 @@
 #import "ContactDisplayView.h"
 #import "ShoppingCart.h"
 
-CGFloat const kContactDisplayViewHeight = 78.f;
+CGFloat const kContactDisplayViewHeight = 88.f;
 
 @implementation ContactDisplayView
 

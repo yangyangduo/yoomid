@@ -10,6 +10,7 @@
 #import "UIImage+Color.h"
 #import "UIColor+App.h"
 #import "Payment.h"
+#import "ShoppingItem.h"
 
 @implementation ShoppingItemFooterView {
     UILabel *summariesLabel;
@@ -71,13 +72,28 @@
     summariesLabel.text = [NSString stringWithFormat:@"共%d件商品   合计:", number];
 }
 
+- (NSAttributedString *)paymentAttributeStringWithString:(NSString *)paymentString paymentType:(PaymentType)paymentType {
+    NSMutableAttributedString *attributePaymentString = [[NSMutableAttributedString alloc] initWithString:paymentString attributes:
+                                                @{
+                                                  NSFontAttributeName : [UIFont systemFontOfSize:15.f],
+                                                  NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
+    
+    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+                                           @{
+                                             NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+                                             NSForegroundColorAttributeName :  [UIColor lightGrayColor] }]];
+    
+    return attributePaymentString;
+}
+
 - (void)setTotalPayment:(Payment *)payment {
-    NSString *pointsPaymentString = [NSString stringWithFormat:@"%d", payment.points];
-    NSString *cashPaymentString = [NSString stringWithFormat:@"%.1f", payment.cash];
+    NSAttributedString *pointsPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
+    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", payment.cash] paymentType:PaymentTypeCash];
+
     
-    CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:14.f] } context:nil].size;
+    CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
     
-    CGSize cashSize = [cashPaymentString boundingRectWithSize:CGSizeMake(150, cashPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:14.f] } context:nil].size;
+    CGSize cashSize = [cashPaymentString boundingRectWithSize:CGSizeMake(150, cashPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
     
     CGFloat width = pointsSize.width;
     if(cashSize.width > width) {
@@ -106,8 +122,8 @@
     sFrame.origin.x = piFrame.origin.x - sFrame.size.width - 10;
     summariesLabel.frame = sFrame;
     
-    pointsPaymentLabel.text = pointsPaymentString;
-    cashPaymentLabel.text = cashPaymentString;
+    pointsPaymentLabel.attributedText = pointsPaymentString;
+    cashPaymentLabel.attributedText = cashPaymentString;
     [self setMerchandiseNumber:payment.numberOfMerchandises];
 }
 
