@@ -11,7 +11,7 @@
 
 @protocol CashPaymentTypePickerDelegate;
 
-@interface CashPaymentTypePicker : YoomidBaseModalView
+@interface CashPaymentTypePicker : YoomidBaseModalView<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, weak) id<CashPaymentTypePickerDelegate> delegate;
 

@@ -117,11 +117,12 @@
     [self.view addSubview:invitationCodeTextField];
     
     registerButton = [[UIButton alloc]initWithFrame:CGRectMake(60, invitationCodeTextField.frame.origin.y+invitationCodeTextField.bounds.size.height+25, 200, 36)];
+    
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [registerButton setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
+    registerButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
-    registerButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    registerButton.layer.cornerRadius = 4;
-    registerButton.backgroundColor = [UIColor colorWithRed:0/255.f green:164/255. blue:229/255.f alpha:1.0];
     [registerButton addTarget:self action:@selector(submitNewPassword:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
 
