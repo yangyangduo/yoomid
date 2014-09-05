@@ -161,8 +161,10 @@
 }
 
 -(void)showNotifications:(id)sender {
-    YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(250, 250) image:[UIImage imageNamed:@"sad"] message:@""];
-    [modal showInView:self.view completion:nil];
+    
+    
+    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 320)];
+    [picker showInView:self.view completion:nil];
 }
 
 -(void)showMiRepository:(id)sender {
