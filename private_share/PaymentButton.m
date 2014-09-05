@@ -15,25 +15,33 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 4, 22, 22)];
     imageView.image = [UIImage imageNamed:(PaymentTypePoints == paymentType ? @"points_blue" : @"rmb_blue")];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-    NSMutableAttributedString *selectedAttributedString = [[NSMutableAttributedString alloc] init];
-    
     NSString *titleString;
     if(PaymentTypePoints == paymentType) {
-        titleString = [NSString stringWithFormat:@"%ld%@", (long)points, NSLocalizedString(@"points", @"")];
+        titleString = [NSString stringWithFormat:@"%ld ", (long)points];
     } else {
-        titleString = [NSString stringWithFormat:@"%.1f%@", ((float)points) / 100.f, NSLocalizedString(@"yuan", @"")];
+        titleString = [NSString stringWithFormat:@"%.1f ", ((float)points) / 100.f];
     }
     
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:titleString
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:titleString attributes:@{
+                                                        NSForegroundColorAttributeName : [UIColor grayColor],
+                                                        NSFontAttributeName : [UIFont systemFontOfSize:15.f]
+                                                    }];
+    
+    
+    NSMutableAttributedString *selectedAttributedString = [[NSMutableAttributedString alloc] initWithString:titleString attributes:@{
+                                                            NSForegroundColorAttributeName : [UIColor appLightBlue],
+                                                            NSFontAttributeName : [UIFont systemFontOfSize:15.f]
+                                                            }];
+    
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @""))
             attributes: @{
                NSForegroundColorAttributeName : [UIColor grayColor],
                NSFontAttributeName : [UIFont systemFontOfSize:15.f]
                }]];
     
-    [selectedAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:titleString
+    [selectedAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @""))
              attributes: @{
-                           NSForegroundColorAttributeName : [UIColor appLightBlue],
+                           NSForegroundColorAttributeName : [UIColor grayColor],
                            NSFontAttributeName : [UIFont systemFontOfSize:15.f]
                            }]];
     
@@ -46,7 +54,7 @@
         
         [selectedAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (返%ld积分)", (long)returnPoints]
                  attributes: @{
-                               NSForegroundColorAttributeName : [UIColor appLightBlue],
+                               NSForegroundColorAttributeName : [UIColor grayColor],
                                NSFontAttributeName : [UIFont systemFontOfSize:12.f]
                                }]];
     }

@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     UILabel *timerLabel;
     NSInteger timeLeft;
     NSTimer *taskTimer;
+    BOOL isExpired;
 }
 
 @synthesize task = _task_;
@@ -88,31 +89,33 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if(self.task.isGuessPictureTask) {
-        if(taskTimer == nil) {
-            timeLeft = self.task.timeLimitInSeconds;
-            taskTimer = [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(doTaskTimer) userInfo:nil repeats:YES];
-        }
-    }
 }
 
 - (void)doTaskTimer {
     timerLabel.text = [NSString stringWithFormat:@"%d", timeLeft];
     timeLeft--;
     if(timeLeft < 0) {
+        isExpired = YES;
         [taskTimer invalidate];
         taskTimer = nil;
         
-        // timeout
+        // submit failure answers
+        NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"getJsonResultString(Result.NoChance, 1, '')"];
+        if(result != nil && ![@"" isEqualToString:result]) {
+    
+        }
     }
 }
 
 - (void)findTaskResultAndSubmit {
+    if(isExpired) return;
+    
     NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"validateAnswers()"];
     if(result != nil && ![@"" isEqualToString:result]) {
         NSData *postData = [result dataUsingEncoding:NSUTF8StringEncoding];
+#ifdef DEBUG
         [JsonUtil printJsonData:postData];
+#endif
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:postData];
         if(result != nil) {
             NSInteger taskResult = [result numberForKey:@"result"].integerValue;
@@ -127,10 +130,14 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
             } else if(TaskResultNoChance == taskResult
                         || TaskResultSuccess == taskResult ) {
                 
+                if(taskTimer != nil && taskTimer.isValid) {
+                    [taskTimer invalidate];
+                    taskTimer = nil;
+                }
+                
                 NSMutableDictionary *content = [NSMutableDictionary dictionaryWithDictionary:[result dictionaryForKey:@"content"]];
                 [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
                 [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
-                
                 [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
                 TaskService *service = [[TaskService alloc] init];
@@ -206,6 +213,13 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self hideLoadingViewIfNeed];
+    
+    if(self.task.isGuessPictureTask) {
+        if(taskTimer == nil) {
+            timeLeft = self.task.timeLimitInSeconds;
+            taskTimer = [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(doTaskTimer) userInfo:nil repeats:YES];
+        }
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
