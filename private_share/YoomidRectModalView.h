@@ -10,6 +10,6 @@
 
 @interface YoomidRectModalView : YoomidBaseModalView
 
-- (instancetype)initWithSize:(CGSize)size image:(UIImage *)image message:(NSString *)message;
+- (instancetype)initWithSize:(CGSize)size image:(UIImage *)image message:(NSString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex;
 
 @end

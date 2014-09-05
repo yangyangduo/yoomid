@@ -18,10 +18,10 @@
     [self.httpClient get:[NSString stringWithFormat:@"/yoomid/tasks?category=%@&%@", categoryId, self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
-- (void)postAnswers:(NSDictionary *)contentJson target:(id)target success:(SEL)success failure:(SEL)failure {
+- (void)postAnswers:(NSDictionary *)contentJson target:(id)target success:(SEL)success failure:(SEL)failure taskResult:(NSInteger)taskResult {
     NSData *bodyData = [JsonUtil createJsonDataFromDictionary:contentJson];
     [JsonUtil printJsonData:bodyData];
-    [self.httpClient post:[NSString stringWithFormat:@"/yoomid/points_order?%@", self.authenticationString] contentType:@"application/json" body:bodyData target:target success:success failure:failure userInfo:nil];
+    [self.httpClient post:[NSString stringWithFormat:@"/yoomid/points_order?%@", self.authenticationString] contentType:@"application/json" body:bodyData target:target success:success failure:failure userInfo:[NSNumber numberWithInteger:taskResult]];
 }
 
 @end

@@ -33,8 +33,8 @@ NSString * const kMiidiAppSecretKey     = @"cy4ka2vd1j728be3";
 
 NSString * const kHentreStoreID         = @"0000";
 
-//NSString * const kBaseUrl               = @"http://172.16.8.162:7070/moneymoney";
-NSString * const kBaseUrl               = @"http://localhost:8080/moneymoney";
+NSString * const kBaseUrl               = @"http://172.16.8.162:7070/moneymoney";
+//NSString * const kBaseUrl               = @"http://localhost:8080/moneymoney";
 
 @implementation Constants
 

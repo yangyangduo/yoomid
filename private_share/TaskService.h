@@ -14,6 +14,6 @@
 
 - (void)getTasksWithCategoryId:(NSString *)categoryId target:(id)target success:(SEL)success failure:(SEL)failure;
 
-- (void)postAnswers:(NSDictionary *)contentJson target:(id)target success:(SEL)success failure:(SEL)failure;
+- (void)postAnswers:(NSDictionary *)contentJson target:(id)target success:(SEL)success failure:(SEL)failure taskResult:(NSInteger)taskResult;
 
 @end

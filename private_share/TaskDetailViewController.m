@@ -7,13 +7,16 @@
 //
 
 #import "TaskDetailViewController.h"
-#import "JsonUtil.h"
 #import "MyPointsRecordViewController.h"
-#import "TaskService.h"
+#import "YoomidRectModalView.h"
 #import "YoomidRewardModalView.h"
+#import "TaskService.h"
 #import "UIDevice+Identifier.h"
+#import "JsonUtil.h"
+
 
 typedef NS_ENUM(NSUInteger, TaskResult) {
+    TaskResultTimeout     = 5,
     TaskResultUnCompleted = 4,
     TaskResultRetry       = 3,
     TaskResultNoChance    = 2,
@@ -60,6 +63,11 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     confirmButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
+    
+    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 133.f / 2, 133.f / 2)];
+    pointsImageView.image = [UIImage imageNamed:@"mm"];
+    pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2, pointsImageView.center.y);
+    [tabBar addSubview:pointsImageView];
     
     if(self.task.isGuessPictureTask) {
         UIImageView *taskTimerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, - (136.f / 4) - 6, 112.f / 2, 136.f / 2)];
@@ -109,9 +117,14 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         if(result != nil) {
             NSInteger taskResult = [result numberForKey:@"result"].integerValue;
             if(TaskResultUnCompleted == taskResult) {
-                
+                [[XXAlertView currentAlertView] setMessage:@"请答完所有题目哦" forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
                 return;
             } else if(TaskResultRetry == taskResult) {
+                
+                
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                [modal showInView:self.navigationController.view completion:nil];
                 
                 return;
             } else if(TaskResultNoChance == taskResult
@@ -124,7 +137,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
                 TaskService *service = [[TaskService alloc] init];
-                [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:)];
+                [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:) taskResult:taskResult];
 
                 return;
             }
@@ -144,8 +157,17 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 - (void)postAnswersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
         [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+            NSNumber *number = resp.userInfo;
+            NSInteger taskResult = number.integerValue;
+            
+            /*
+            if(TaskResultTimeout )
+            
+            
             YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
-            [modalView showInView:self.navigationController.view completion:^{ }];
+            [modalView showInView:self.navigationController.view completion:^{ }];*/
+            
+            
         }];
         return;
     }

@@ -153,17 +153,20 @@
 #pragma mark -
 #pragma mark Show view controllers
 
--(void)showSettings:(id)sender {
+- (void)showSettings:(id)sender {
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
 }
 
--(void)showNotifications:(id)sender {
+- (void)showNotifications:(id)sender {
     
     
-    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 320)];
+    
+    return;
+    
+    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
     [picker showInView:self.view completion:nil];
 }
 
