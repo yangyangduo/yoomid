@@ -87,8 +87,8 @@
         modalViewState = ModalViewStateClosed;
         if(completion) completion();
         if(self.modalViewDelegate != nil
-           && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed)]) {
-            [self.modalViewDelegate modalViewDidClosed];
+           && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed:)]) {
+            [self.modalViewDelegate modalViewDidClosed:self];
         }
         return;
     }
@@ -107,8 +107,8 @@
                          modalViewState = ModalViewStateClosed;
                          if(completion) completion();
                          if(self.modalViewDelegate != nil
-                                && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed)]) {
-                             [self.modalViewDelegate modalViewDidClosed];
+                                && [self.modalViewDelegate respondsToSelector:@selector(modalViewDidClosed:)]) {
+                             [self.modalViewDelegate modalViewDidClosed:self];
                          }
                      }];
 }

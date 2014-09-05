@@ -68,8 +68,6 @@
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
     
-
-    
     CGFloat imagesViewHeight = self.view.bounds.size.height - 4 * 58;
     imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -imagesViewHeight, self.view.bounds.size.width, imagesViewHeight)];
     [_collectionView insertSubview:imagesScrollView atIndex:0];
@@ -152,13 +150,6 @@
     }
 }
 
-/*
-- (void)actionChangePage:(id)sender {
-    pullImagesView.pageIndex = pageControl.currentPage;
-    [[pullImagesView scrollView] setContentOffset:CGPointMake(pullImagesView.bounds.size.width*pageControl.currentPage, 0)];
-}
- */
-
 #pragma mark -
 #pragma mark Show view controllers
 
@@ -170,13 +161,8 @@
 }
 
 -(void)showNotifications:(id)sender {
-    /*
     YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(250, 250) image:[UIImage imageNamed:@"sad"] message:@""];
     [modal showInView:self.view completion:nil];
-     */
-    
-    CashPaymentTypePicker *cashPaymentTypePicker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 320)];
-    [cashPaymentTypePicker showInView:self.view completion:nil];
 }
 
 -(void)showMiRepository:(id)sender {
@@ -215,7 +201,7 @@
 #pragma mark -
 #pragma mark Modal view delegate
 
-- (void)modalViewDidClosed {
+- (void)modalViewDidClosed:(ModalView *)modalView {
     [self.animationController enableGesture];
     currentModalView = nil;
 }

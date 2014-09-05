@@ -15,13 +15,7 @@ typedef NS_ENUM(NSInteger , ModalViewState) {
     ModalViewStateOpened,
 };
 
-
-@protocol ModalViewDelegate <NSObject>
-
-- (void)modalViewDidClosed;
-
-@end
-
+@protocol ModalViewDelegate;
 
 @interface ModalView : UIView
 
@@ -32,5 +26,11 @@ typedef NS_ENUM(NSInteger , ModalViewState) {
 
 - (void)showInView:(UIView *)view completion:(void (^)(void))completion;
 - (void)closeViewAnimated:(BOOL)animated completion:(void (^)(void))completion;
+
+@end
+
+@protocol ModalViewDelegate <NSObject>
+
+- (void)modalViewDidClosed:(ModalView *)modalView;
 
 @end
