@@ -22,4 +22,6 @@
 
 //@property (nonatomic, strong) NSDate *deadLine;
 
+- (BOOL)isGuessPictureTask;
+
 @end

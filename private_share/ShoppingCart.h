@@ -10,6 +10,13 @@
 #import "ShopShoppingItems.h"
 #import "Contact.h"
 
+typedef NS_ENUM(NSUInteger, CashPaymentType) {
+    CashPaymentTypeNone,
+    CashPaymentTypeAlipay,
+    CashPaymentTypeWechatPay,
+    CashPaymentTypeUnionPay
+};
+
 @interface ShoppingCart : NSObject
 
 @property (nonatomic, strong) Contact *orderContact;

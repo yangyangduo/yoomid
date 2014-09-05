@@ -76,6 +76,13 @@
 		6F418978194848C900F9DC2C /* ContactInfoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F418977194848C900F9DC2C /* ContactInfoPickerViewController.m */; };
 		6F41897C1948587B00F9DC2C /* CheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F41897B1948587B00F9DC2C /* CheckBox.m */; };
 		6F41898319485BFC00F9DC2C /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F41898219485BFC00F9DC2C /* Contact.m */; };
+		6F4E4F0819B95049006E4E15 /* task_timer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4E4F0719B95049006E4E15 /* task_timer@2x.png */; };
+		6F4E4F0A19B96230006E4E15 /* modal_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4E4F0919B96230006E4E15 /* modal_success@2x.png */; };
+		6F4E4F0D19B9698C006E4E15 /* YoomidRectModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */; };
+		6F4E4F1119B96BFA006E4E15 /* cry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4E4F0E19B96BFA006E4E15 /* cry@2x.png */; };
+		6F4E4F1219B96BFA006E4E15 /* happy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4E4F0F19B96BFA006E4E15 /* happy@2x.png */; };
+		6F4E4F1319B96BFA006E4E15 /* sad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4E4F1019B96BFA006E4E15 /* sad@2x.png */; };
+		6F4E4F1619B971A7006E4E15 /* CashPaymentTypePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E4F1519B971A7006E4E15 /* CashPaymentTypePicker.m */; };
 		6F4F234F195927040028EBD1 /* ActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4F234E195927040028EBD1 /* ActivitiesViewController.m */; };
 		6F4FA07319A489460049C023 /* 0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4FA06919A489460049C023 /* 0@2x.png */; };
 		6F4FA07419A489460049C023 /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4FA06A19A489460049C023 /* 1@2x.png */; };
@@ -555,6 +562,15 @@
 		6F41897B1948587B00F9DC2C /* CheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBox.m; sourceTree = "<group>"; };
 		6F41898119485BFC00F9DC2C /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		6F41898219485BFC00F9DC2C /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		6F4E4F0719B95049006E4E15 /* task_timer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_timer@2x.png"; sourceTree = "<group>"; };
+		6F4E4F0919B96230006E4E15 /* modal_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modal_success@2x.png"; sourceTree = "<group>"; };
+		6F4E4F0B19B9698C006E4E15 /* YoomidRectModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidRectModalView.h; sourceTree = "<group>"; };
+		6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidRectModalView.m; sourceTree = "<group>"; };
+		6F4E4F0E19B96BFA006E4E15 /* cry@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cry@2x.png"; sourceTree = "<group>"; };
+		6F4E4F0F19B96BFA006E4E15 /* happy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "happy@2x.png"; sourceTree = "<group>"; };
+		6F4E4F1019B96BFA006E4E15 /* sad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sad@2x.png"; sourceTree = "<group>"; };
+		6F4E4F1419B971A7006E4E15 /* CashPaymentTypePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashPaymentTypePicker.h; sourceTree = "<group>"; };
+		6F4E4F1519B971A7006E4E15 /* CashPaymentTypePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashPaymentTypePicker.m; sourceTree = "<group>"; };
 		6F4F234D195927040028EBD1 /* ActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesViewController.h; sourceTree = "<group>"; };
 		6F4F234E195927040028EBD1 /* ActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesViewController.m; sourceTree = "<group>"; };
 		6F4FA06919A489460049C023 /* 0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0@2x.png"; sourceTree = "<group>"; };
@@ -1480,6 +1496,8 @@
 				6F5B5E3519B5AF9600495F0C /* CategoryButtonItem.m */,
 				6FB8073119B86903003ABF77 /* YoomidRewardModalView.h */,
 				6FB8073219B86903003ABF77 /* YoomidRewardModalView.m */,
+				6F4E4F0B19B9698C006E4E15 /* YoomidRectModalView.h */,
+				6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */,
 			);
 			name = yoomid_modal_view;
 			sourceTree = "<group>";
@@ -1487,6 +1505,7 @@
 		6F5B5E3719B5AF9E00495F0C /* task */ = {
 			isa = PBXGroup;
 			children = (
+				6F4E4F0719B95049006E4E15 /* task_timer@2x.png */,
 				D62FBE0319A61B280041195B /* product_experience@2x.png */,
 				6FB8072F19B80D6D003ABF77 /* default_task@2x.png */,
 				6FB0E1A719B714A2002F9A18 /* no_task@2x.png */,
@@ -1966,6 +1985,10 @@
 			children = (
 				6F5B5E2C19B58F5100495F0C /* modal_close@2x.png */,
 				6FB0E1A219B6C2D4002F9A18 /* modal_background@2x.png */,
+				6F4E4F0E19B96BFA006E4E15 /* cry@2x.png */,
+				6F4E4F0F19B96BFA006E4E15 /* happy@2x.png */,
+				6F4E4F1019B96BFA006E4E15 /* sad@2x.png */,
+				6F4E4F0919B96230006E4E15 /* modal_success@2x.png */,
 			);
 			name = modal;
 			sourceTree = "<group>";
@@ -2091,6 +2114,8 @@
 				D6B13F6B19A4861B007658CB /* CustomCollectionView.m */,
 				6FB0E19D19B6B591002F9A18 /* TaskItemCell.h */,
 				6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */,
+				6F4E4F1419B971A7006E4E15 /* CashPaymentTypePicker.h */,
+				6F4E4F1519B971A7006E4E15 /* CashPaymentTypePicker.m */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -2524,6 +2549,7 @@
 				D3644C18197A171000B44785 /* dianru_orange_dianru_triangle.png in Resources */,
 				6FE79C5A197CE5CE005B11E1 /* cb_select@2x.png in Resources */,
 				D3644C2E197A171000B44785 /* dianru_red_dianru_titlebg.jpg in Resources */,
+				6F4E4F1119B96BFA006E4E15 /* cry@2x.png in Resources */,
 				6F4FA07519A489460049C023 /* 2@2x.png in Resources */,
 				D66B497819B416D1002615CC /* reduce2@2x.png in Resources */,
 				6FFB8D9619790567008F0BBB /* top10@2x.png in Resources */,
@@ -2587,6 +2613,7 @@
 				D3644C16197A171000B44785 /* dianru_orange_dianru_iphone_download.png in Resources */,
 				6FF5334019387D26001D607C /* btn_menu@2x.png in Resources */,
 				6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */,
+				6F4E4F0819B95049006E4E15 /* task_timer@2x.png in Resources */,
 				D3644BFD197A171000B44785 /* dianru_help.png in Resources */,
 				6FE009451953DF1B002A675D /* contact_us.html in Resources */,
 				D3644C19197A171000B44785 /* dianru_orange_left_cell.png in Resources */,
@@ -2600,6 +2627,7 @@
 				D6A152C919A5F73B0094B565 /* guess_picture@2x.png in Resources */,
 				6FB8073019B80D6D003ABF77 /* default_task@2x.png in Resources */,
 				6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */,
+				6F4E4F1219B96BFA006E4E15 /* happy@2x.png in Resources */,
 				D676302519A7741C0015CADF /* level7@2x.png in Resources */,
 				6F4FA07419A489460049C023 /* 1@2x.png in Resources */,
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
@@ -2626,6 +2654,7 @@
 				6F5B5E3B19B5AFA800495F0C /* categoryRight@2x.png in Resources */,
 				D3644C0C197A171000B44785 /* dianru_green_dianru_titlebg.jpg in Resources */,
 				D3644C01197A171000B44785 /* dianru_set_btn.png in Resources */,
+				6F4E4F1319B96BFA006E4E15 /* sad@2x.png in Resources */,
 				D3644BE9197A171000B44785 /* dianru_blue_dianru_bottom.png in Resources */,
 				D3644BF4197A171000B44785 /* dianru_back_btn.png in Resources */,
 				D3644C09197A171000B44785 /* dianru_green_dianru_download.png in Resources */,
@@ -2660,6 +2689,7 @@
 				D3644BFE197A171000B44785 /* dianru_logo.png in Resources */,
 				6F7BD3291953F8A00031D2DD /* line_scanner@2x.png in Resources */,
 				6F4FA07319A489460049C023 /* 0@2x.png in Resources */,
+				6F4E4F0A19B96230006E4E15 /* modal_success@2x.png in Resources */,
 				6F2C52C519751D2C0045BFC1 /* guide3@2x.png in Resources */,
 				D676302819A7741C0015CADF /* level10@2x.png in Resources */,
 				D3644BF3197A171000B44785 /* dianru_back.png in Resources */,
@@ -2776,6 +2806,7 @@
 				6F170349194EE3D9008C1C64 /* ShoppingCompleteViewController.m in Sources */,
 				D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */,
 				6F41898319485BFC00F9DC2C /* Contact.m in Sources */,
+				6F4E4F0D19B9698C006E4E15 /* YoomidRectModalView.m in Sources */,
 				6F53EFE2194B3E4F0080B4DD /* Constants.m in Sources */,
 				6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */,
 				6F418971194803EA00F9DC2C /* HttpResponseAuthorizationFilter.m in Sources */,
@@ -2856,6 +2887,7 @@
 				6F2BD0C9194ECFAE0092BA23 /* UIParameterButton.m in Sources */,
 				D6B13F6C19A4861B007658CB /* CustomCollectionView.m in Sources */,
 				D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */,
+				6F4E4F1619B971A7006E4E15 /* CashPaymentTypePicker.m in Sources */,
 				6FE605F419591372009C623D /* UIDevice+Identifier.m in Sources */,
 				6F2B51D2195565F20069798A /* EventNameConstants.m in Sources */,
 				6F2BFDF9198241F300426757 /* ShoppingItemConfirmCell.m in Sources */,

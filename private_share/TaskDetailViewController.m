@@ -11,6 +11,7 @@
 #import "MyPointsRecordViewController.h"
 #import "TaskService.h"
 #import "YoomidRewardModalView.h"
+#import "UIDevice+Identifier.h"
 
 typedef NS_ENUM(NSUInteger, TaskResult) {
     TaskResultUnCompleted = 4,
@@ -22,7 +23,11 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 @implementation TaskDetailViewController {
     UIWebView *_webView_;
     NSString *_url_;
+    
     UIView *tabBar;
+    UILabel *timerLabel;
+    NSInteger timeLeft;
+    NSTimer *taskTimer;
 }
 
 @synthesize task = _task_;
@@ -56,7 +61,43 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
     
+    if(self.task.isGuessPictureTask) {
+        UIImageView *taskTimerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, - (136.f / 4) - 6, 112.f / 2, 136.f / 2)];
+        taskTimerImageView.image = [UIImage imageNamed:@"task_timer"];
+        [tabBar addSubview:taskTimerImageView];
+        
+        timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 24, 55, 32)];
+        timerLabel.backgroundColor = [UIColor clearColor];
+        timerLabel.font = [UIFont systemFontOfSize:30.f];
+        timerLabel.textAlignment = NSTextAlignmentCenter;
+        timerLabel.text = [NSString stringWithFormat:@"%d", self.task.timeLimitInSeconds];
+        timerLabel.textColor = [UIColor appLightBlue];
+        [taskTimerImageView addSubview:timerLabel];
+    }
+    
     [self requestTaskDetailWithUrl:_url_];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if(self.task.isGuessPictureTask) {
+        if(taskTimer == nil) {
+            timeLeft = self.task.timeLimitInSeconds;
+            taskTimer = [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(doTaskTimer) userInfo:nil repeats:YES];
+        }
+    }
+}
+
+- (void)doTaskTimer {
+    timerLabel.text = [NSString stringWithFormat:@"%d", timeLeft];
+    timeLeft--;
+    if(timeLeft < 0) {
+        [taskTimer invalidate];
+        taskTimer = nil;
+        
+        // timeout
+    }
 }
 
 - (void)findTaskResultAndSubmit {
@@ -78,7 +119,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 
                 NSMutableDictionary *content = [NSMutableDictionary dictionaryWithDictionary:[result dictionaryForKey:@"content"]];
                 [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
-                [content setMayBlankString:@"aaa" forKey:@"deviceId"];
+                [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
                 
                 [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
@@ -106,7 +147,6 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
             YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
             [modalView showInView:self.navigationController.view completion:^{ }];
         }];
-        
         return;
     }
     [self postAnswersFailure:resp];

@@ -31,4 +31,9 @@
     return self;
 }
 
+- (BOOL)isGuessPictureTask {
+    if(self.categoryId == nil) return NO;
+    return [@"y:i:gp" isEqualToString:self.categoryId];
+}
+
 @end

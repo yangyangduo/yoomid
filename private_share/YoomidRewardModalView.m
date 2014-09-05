@@ -18,6 +18,8 @@
         UIImage *backgroundImage = [UIImage imageNamed:@"modal_background"];
         backgroundImageView.image = backgroundImage;
         [self addSubview:backgroundImageView];
+        
+        //[UIImage imageWithContentsOfFile:@""];
     }
     return self;
 }
