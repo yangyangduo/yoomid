@@ -22,7 +22,6 @@ NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHead
 NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFooterIdentifier";
 
 @implementation PurchaseViewController {
-    UIView *backgroundView;
     UICollectionView *_collectionView_;
     SettlementView *settlementView;
     ContactDisplayView *contactDisplayView;
@@ -46,7 +45,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     self.title = NSLocalizedString(@"confirm_order", @"");

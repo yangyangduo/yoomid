@@ -7,9 +7,11 @@
 //
 
 #import "MerchandiseOrdersViewController.h"
-#import "OrderItemCell.h"
-#import "OrderFooterView.h"
-#import "OrderHeaderView.h"
+
+#import "OrderShoppingItemCell.h"
+#import "ShoppingItemHeaderView.h"
+#import "ShoppingItemFooterView.h"
+
 #import "DateTimeUtil.h"
 #import "MerchandiseService.h"
 
@@ -18,16 +20,24 @@
 @end
 
 @implementation MerchandiseOrdersViewController {
+    
+    NSArray *_shopShoppingItemss_;
+    NSMutableArray *merchandiseOrders;
+    
     UISegmentedControl *_segmentedControl_;
     PullCollectionView *_collectionView_;
     
-    NSMutableArray *merchandiseOrders;
     NSInteger pageIndex;
     MerchandiseOrderState orderState;
     
     NSString *orderItemCellIdentifier;
     NSString *orderFooterViewIdentifier;
     NSString *orderHeaderViewIdentifier;
+    
+    
+    
+    
+    
     
     NSMutableArray *submittedOrders;
     NSMutableArray *transactionOrders;
@@ -37,28 +47,19 @@
     NSDate *cancelledOrdersRefreshDate;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
     self.title = @"我的商品";
     
     orderState = MerchandiseOrderStateSubmitted;
 
-    _segmentedControl_ = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"待处理", @"已完成", nil]];
+    _segmentedControl_ = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"未支付", @"处理中", @"已完成", nil]];
     _segmentedControl_.frame = CGRectMake(10, 10, 300, 30);
     _segmentedControl_.tintColor = [UIColor colorWithRed:92.f / 255.f green:99.f / 255.f blue:112.f / 255.f alpha:1];
-//    _segmentedControl_.tintColor = [UIColor appBlue];
     _segmentedControl_.selectedSegmentIndex = 0;
     [_segmentedControl_ addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentedControl_];
@@ -70,9 +71,9 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _collectionView_ = [[PullCollectionView alloc] initWithFrame:CGRectMake(0, _segmentedControl_.bounds.size.height + 10 + 15, self.view.bounds.size.width, self.view.bounds.size.height - _segmentedControl_.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 10 - 15) collectionViewLayout:layout];
     _collectionView_.backgroundColor = [UIColor clearColor];
-    [_collectionView_ registerClass:[OrderItemCell class] forCellWithReuseIdentifier:orderItemCellIdentifier];
-    [_collectionView_ registerClass:[OrderFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
-    [_collectionView_ registerClass:[OrderHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
+    [_collectionView_ registerClass:[OrderShoppingItemCell class] forCellWithReuseIdentifier:orderItemCellIdentifier];
+    [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
+    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
     _collectionView_.alwaysBounceVertical = YES;
     _collectionView_.delegate = self;
     _collectionView_.dataSource = self;
@@ -83,18 +84,15 @@
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    if(segmentedControl.selectedSegmentIndex == 0)
-    {
+    if(segmentedControl.selectedSegmentIndex == 0) {
         orderState = MerchandiseOrderStateSubmitted;
         merchandiseOrders = [NSMutableArray arrayWithArray:submittedOrders];
         _collectionView_.pullLastRefreshDate = submittedOrdersRefreshDate;
-    } else if(segmentedControl.selectedSegmentIndex == 1)
-    {
+    } else if(segmentedControl.selectedSegmentIndex == 1) {
         orderState = MerchandiseOrderStateTransaction;
         merchandiseOrders = [NSMutableArray arrayWithArray:transactionOrders];
         _collectionView_.pullLastRefreshDate = transactionOrdersRefreshDate;
-    } else
-    {
+    } else {
         orderState = MerchandiseOrderStateCancelled;
         merchandiseOrders = [NSMutableArray arrayWithArray:cancelledOrders];
         _collectionView_.pullLastRefreshDate = cancelledOrdersRefreshDate;
@@ -124,6 +122,9 @@
     MerchandiseService *service = [[MerchandiseService alloc] init];
     [service getMerchandiseOrdersByPageIndex:pageIndex + 1 orderState:MerchandiseOrderStateSubmitted target:self success:@selector(getMerchandiseOrdersSuccess:) failure:@selector(getMerchandiseOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex + 1], @"orderState" : [NSNumber numberWithInteger:orderState]}];
 }
+
+#pragma mark -
+#pragma mark Service call back
 
 - (void)getMerchandiseOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
@@ -224,39 +225,35 @@
     _collectionView_.pullTableIsLoadingMore = NO;
 }
 
+
 #pragma mark -
 #pragma mark Collection view delegate
 
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return merchandiseOrders == nil ? 0 : merchandiseOrders.count;
+    return _shopShoppingItemss_ == nil ? 0 : _shopShoppingItemss_.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:section];
-    return merchandiseOrder.merchandiseLists == nil ? 0 : merchandiseOrder.merchandiseLists.count;
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:section];
+    return ssi.selectShoppingItems.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    OrderItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:orderItemCellIdentifier forIndexPath:indexPath];
-    MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:indexPath.section];
-    MerchandiseOrderItem *orderItem = [merchandiseOrder.merchandiseLists objectAtIndex:indexPath.row];
-    
-    if(orderItem.paymentType == 1) {
-        [cell setTitle:orderItem.name number:orderItem.number points:orderItem.points];
-    } else if(orderItem.paymentType == 2) {
-        [cell setTitle:orderItem.name number:orderItem.number cash:orderItem.cash];
-    }
-    
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
+    ShoppingItem *si = [ssi.selectShoppingItems objectAtIndex:indexPath.row];
+    OrderShoppingItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:orderItemCellIdentifier forIndexPath:indexPath];
+    cell.shoppingItem = si;
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.view.bounds.size.width, 20);
+    ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
+    CGFloat height = [OrderShoppingItemCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
+    return CGSizeMake(self.view.bounds.size.width, height);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    return 20;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -264,24 +261,24 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 70);
+    return CGSizeMake(self.view.bounds.size.width, 60);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 65);
+    return CGSizeMake(self.view.bounds.size.width, 44);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:indexPath.section];
+    ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
     if(UICollectionElementKindSectionFooter == kind) {
-        OrderFooterView *orderFooterView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
-        orderFooterView.containerViewController = self;
-        [orderFooterView setTotalPoints:merchandiseOrder.totalPoints totalCash:merchandiseOrder.totalCash orderId:merchandiseOrder.orderId];
-        return orderFooterView;
+        ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
+        [footerView setTotalPayment:shopShoppingItems.totalSelectPayment];
+        return footerView;
     } else {
-        OrderHeaderView *orderHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderHeaderViewIdentifier forIndexPath:indexPath];
-        [orderHeaderView setOrderId:merchandiseOrder.orderId orderTime:merchandiseOrder.createTime];
-        return orderHeaderView;
+        ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderHeaderViewIdentifier forIndexPath:indexPath];
+        [headerView setSelectButtonHidden];
+        headerView.shopId = shopShoppingItems.shopID;
+        return headerView;
     }
     return nil;
 }

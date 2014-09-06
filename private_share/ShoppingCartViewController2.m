@@ -7,16 +7,20 @@
 //
 
 #import "ShoppingCartViewController2.h"
-#import "ShoppingCart.h"
+#import "MerchandiseOrdersViewController.h"
+#import "PurchaseViewController.h"
+
 #import "ShoppingItemCell.h"
 #import "ShoppingItemHeaderView.h"
 #import "ShoppingItemFooterView.h"
-#import "UIDevice+ScreenSize.h"
-#import "ShoppingItemSelectPropertyChangedEvent.h"
-#import "ShoppingItemsChangedEvent.h"
+
 #import "XXEventNameFilter.h"
-#import "PurchaseViewController.h"
+#import "ShoppingItemsChangedEvent.h"
+#import "ShoppingItemSelectPropertyChangedEvent.h"
+
+#import "ShoppingCart.h"
 #import "UIImage+Color.h"
+#import "UIDevice+ScreenSize.h"
 
 NSString * const ShoppingItemCellIdentifier   = @"ShoppingItemCellIdentifier";
 NSString * const ShoppingItemHeaderIdentifier = @"ShoppingItemHeaderIdentifier";
