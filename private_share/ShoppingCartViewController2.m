@@ -113,6 +113,11 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 }
 
 - (void)showPurchaseViewController {
+    if ([ShoppingCart myShoppingCart].selectShopShoppingItemss.count == 0) {
+        [[XXAlertView currentAlertView] setMessage:@"您还没选择商品!" forType:AlertViewTypeFailed];
+        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+        return;
+    }
     [self.navigationController pushViewController:
         [[PurchaseViewController alloc] initWithShopShoppingItemss:[ShoppingCart myShoppingCart].selectShopShoppingItemss] animated:YES];
 }
