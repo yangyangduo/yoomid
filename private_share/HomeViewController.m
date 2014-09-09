@@ -57,7 +57,7 @@
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypePresentation;
     
-    self.view.backgroundColor = [UIColor appColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];

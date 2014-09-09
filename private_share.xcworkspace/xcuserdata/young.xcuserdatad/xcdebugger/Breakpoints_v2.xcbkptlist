@@ -335,8 +335,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
             endingLineNumber = "128"
-            landmarkName = "-refresh:"
-            landmarkType = "5">
+            landmarkName = "@implementation MerchandiseOrdersViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -351,7 +351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
-            landmarkName = "-refresh:"
+            landmarkName = "-loadMore"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1487,8 +1487,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "221"
             endingLineNumber = "221"
-            landmarkName = "-collectionView:numberOfItemsInSection:"
-            landmarkType = "5">
+            landmarkName = "@implementation HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1503,7 +1503,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "309"
             endingLineNumber = "309"
-            landmarkName = "-rootCategories"
+            landmarkName = "-setAllCategories:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -8,7 +8,7 @@
 
 #import "MerchandiseOrdersViewController.h"
 
-#import "OrderShoppingItemCell.h"
+#import "ShoppingItemConfirmCell.h"
 #import "ShoppingItemHeaderView.h"
 #import "ShoppingItemFooterView.h"
 
@@ -71,7 +71,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _collectionView_ = [[PullCollectionView alloc] initWithFrame:CGRectMake(0, _segmentedControl_.bounds.size.height + 10 + 15, self.view.bounds.size.width, self.view.bounds.size.height - _segmentedControl_.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 10 - 15) collectionViewLayout:layout];
     _collectionView_.backgroundColor = [UIColor clearColor];
-    [_collectionView_ registerClass:[OrderShoppingItemCell class] forCellWithReuseIdentifier:orderItemCellIdentifier];
+    [_collectionView_ registerClass:[ShoppingItemConfirmCell class] forCellWithReuseIdentifier:orderItemCellIdentifier];
     [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
     [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
     _collectionView_.alwaysBounceVertical = YES;
@@ -241,14 +241,14 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
     ShoppingItem *si = [ssi.selectShoppingItems objectAtIndex:indexPath.row];
-    OrderShoppingItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:orderItemCellIdentifier forIndexPath:indexPath];
+    ShoppingItemConfirmCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:orderItemCellIdentifier forIndexPath:indexPath];
     cell.shoppingItem = si;
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
-    CGFloat height = [OrderShoppingItemCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
+    CGFloat height = [ShoppingItemConfirmCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
     return CGSizeMake(self.view.bounds.size.width, height);
 }
 
