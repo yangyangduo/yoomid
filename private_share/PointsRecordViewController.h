@@ -8,7 +8,8 @@
 
 #import "BaseViewController.h"
 #import "PullTableView.h"
+#import "PanBackTransitionViewController.h"
 
-@interface PointsRecordViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
+@interface PointsRecordViewController : PanBackTransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 
 @end

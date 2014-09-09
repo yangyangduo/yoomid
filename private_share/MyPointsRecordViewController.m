@@ -130,7 +130,7 @@ static CGRect oldframe;
     mm.image = [UIImage imageNamed:@"mm"];
     [topView addSubview:mm];
     
-    UIImageView *levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 28, 50, 50)];
+    UIImageView *levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 25, 50, 50)];
     levelImage.image = [UIImage imageNamed:@"levelbg"];
     
     levelbgImage = [[UIImageView alloc]initWithFrame:CGRectMake(4, 4, 42, 42)];
@@ -275,8 +275,6 @@ static CGRect oldframe;
     if(pointsOrderTableView.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
-
-//    [self setPoints:@"000"];
 }
 
 -(void)reducePoints:(id)sender
@@ -295,8 +293,6 @@ static CGRect oldframe;
     if(pointsOrderTableView.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
-
-//    [self setPoints:@"111"];
 }
 
 - (void)getPointsOrdersFailure:(HttpResponse *)resp {
@@ -312,10 +308,13 @@ static CGRect oldframe;
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSInteger count = 0;
     return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+//    return pointsOrderType == PointsOrderTypeIncome ? additionPointsOrders.count : reducePointsOrders.count;
+
     return pointsOrders == nil ? 0 : pointsOrders.count;
 }
 

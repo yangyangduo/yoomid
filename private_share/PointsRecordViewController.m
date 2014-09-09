@@ -37,7 +37,12 @@
     
     self.title = NSLocalizedString(@"points_record_view_title", @"");
     self.view.backgroundColor = [UIColor appSilver];
-    
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+
     _segmentedControl_ = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"earn_record", @""), NSLocalizedString(@"exchange_record", @""), nil]];
     _segmentedControl_.frame = CGRectMake(10, 10, 300, 30);
     _segmentedControl_.tintColor = [UIColor colorWithRed:92.f / 255.f green:99.f / 255.f blue:112.f / 255.f alpha:1];
@@ -214,7 +219,9 @@
     
     
     NSString *orderTypeName = [NSString stringWithFormat:@"%@", [PointsOrder pointsOrderTypeAsString:order.orderType]];
-    if(/*PointsOrderTypeAdTask == order.orderType*/![XXStringUtils isBlank:order.providerName]) {
+    
+    if(/*PointsOrderTypeAdTask == order.orderType*/![XXStringUtils isBlank:order.providerName])
+    {
         orderTypeName = [NSString stringWithFormat:@"%@%@", order.providerName, orderTypeName];
     }
     if(![XXStringUtils isBlank:order.taskName]) {
@@ -262,5 +269,10 @@
 - (void)cancelLoadMore {
     pointsOrderTableView.pullTableIsLoadingMore = NO;
 }
+
+- (void)dismissViewController {
+    [self rightDismissViewControllerAnimated:YES];
+}
+
 
 @end
