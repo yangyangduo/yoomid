@@ -65,10 +65,18 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
     
-    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -4, 133.f / 2, 133.f / 2)];
+    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -2, 133.f / 2, 133.f / 2)];
     pointsImageView.image = [UIImage imageNamed:@"mm"];
-    pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2, pointsImageView.center.y);
+    pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2 + 15, pointsImageView.center.y);
     [tabBar addSubview:pointsImageView];
+    
+    UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsImageView.frame.origin.x - 60, 4, 50, 41)];
+    pointsLabel.backgroundColor = [UIColor clearColor];
+    pointsLabel.font = [UIFont boldSystemFontOfSize:22.f];
+    pointsLabel.textColor = [UIColor whiteColor];
+    pointsLabel.textAlignment = NSTextAlignmentRight;
+    pointsLabel.text = self.task == nil ? @"" : [NSString stringWithFormat:@"%d", self.task.points];
+    [tabBar addSubview:pointsLabel];
     
     if(self.task.isGuessPictureTask) {
         UIImageView *taskTimerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, - (136.f / 4) - 6, 112.f / 2, 136.f / 2)];
