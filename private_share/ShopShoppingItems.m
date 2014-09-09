@@ -12,7 +12,17 @@
 
 @synthesize shopID;
 @synthesize shopName;
+@synthesize remark;
+@synthesize postPaymentType;
 @synthesize shoppingItems = _shoppingItems_;
+
+- (instancetype)init {
+    self = [super init];
+    if(self) {
+        self.postPaymentType = PaymentTypePoints;
+    }
+    return self;
+}
 
 - (NSArray *)shoppingItemsWithPaymentType:(PaymentType)paymentType {
     if(PaymentTypeAll == paymentType) {

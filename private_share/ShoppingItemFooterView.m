@@ -30,13 +30,13 @@
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 0, 100, 30)];
+        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 120, 30)];
         summariesLabel.backgroundColor = [UIColor clearColor];
-        summariesLabel.font = [UIFont systemFontOfSize:12.f];
+        summariesLabel.font = [UIFont systemFontOfSize:13.f];
         [self setMerchandiseNumber:0];
         [self addSubview:summariesLabel];
         
-        pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 5, 5 + 2, 16, 16)];
+        pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 8, 5 + 2, 16, 16)];
         pointsPaymentImageView.image = [UIImage imageNamed:@"points_blue"];
         [self addSubview:pointsPaymentImageView];
         

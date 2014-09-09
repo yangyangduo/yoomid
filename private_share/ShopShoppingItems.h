@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSString *shopID;
 @property (nonatomic, strong) NSString *shopName;
 @property (nonatomic, strong) NSMutableArray *shoppingItems;
+@property (nonatomic, assign) PaymentType postPaymentType;
+@property (nonatomic, strong) NSString *remark;
 
 - (NSArray *)shoppingItemsWithPaymentType:(PaymentType)paymentType;
 - (NSArray *)shoppingItemsWithMerchandiseId:(NSString *)merchandiseId;

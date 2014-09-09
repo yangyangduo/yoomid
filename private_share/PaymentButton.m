@@ -45,7 +45,7 @@
                            NSFontAttributeName : [UIFont systemFontOfSize:15.f]
                            }]];
     
-    if(PaymentTypeCash == paymentType) {
+    if(PaymentTypeCash == paymentType && returnPoints > 0) {
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (返%ld积分)", (long)returnPoints]
                  attributes: @{
                                NSForegroundColorAttributeName : [UIColor grayColor],

@@ -10,7 +10,7 @@
 #import "ShoppingCart.h"
 #import "ShoppingItemConfirmCell.h"
 #import "ShoppingItemHeaderView.h"
-#import "ShoppingItemFooterView.h"
+#import "ShoppingItemConfirmFooterView.h"
 #import "UIDevice+ScreenSize.h"
 #import "ContactDisplayView.h"
 #import "AddContactInfoViewController.h"
@@ -49,6 +49,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     self.title = NSLocalizedString(@"confirm_order", @"");
+    
+    [self registerTapGestureToResignKeyboard];
 
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
@@ -61,7 +63,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     _collectionView_.backgroundColor = [UIColor clearColor];
     [_collectionView_ registerClass:[ShoppingItemConfirmCell class] forCellWithReuseIdentifier:ShoppingItemConfirmCellIdentifier];
     
-    [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ShoppingItemConfirmFooterIdentifier];
+    [_collectionView_ registerClass:[ShoppingItemConfirmFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ShoppingItemConfirmFooterIdentifier];
     [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier];
     
     _collectionView_.alwaysBounceVertical = YES;
@@ -255,7 +257,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 60);
+    return CGSizeMake(self.view.bounds.size.width, 300);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
@@ -265,8 +267,9 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
     if(UICollectionElementKindSectionFooter == kind) {
-        ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmFooterIdentifier forIndexPath:indexPath];
-        [footerView setTotalPayment:shopShoppingItems.totalSelectPayment];
+        ShoppingItemConfirmFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmFooterIdentifier forIndexPath:indexPath];
+//        [footerView setTotalPayment:shopShoppingItems.totalSelectPayment];
+        footerView.shopShoppingItems = shopShoppingItems;
         return footerView;
     } else {
         ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier forIndexPath:indexPath];
@@ -299,7 +302,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
                                     @"basicInfo" : @{
                                     @"shopId" : ssi.shopID,
                                     @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
-                                    @"remark" : @""
+                                    @"remark" : ssi.remark
                                     },
                                     @"shoppingItems" : shoppingItems
         };
