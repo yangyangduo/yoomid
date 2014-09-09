@@ -86,8 +86,13 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     [self requestTaskDetailWithUrl:_url_];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    if(taskTimer != nil || taskTimer.isValid) {
+        [taskTimer invalidate];
+        taskTimer = nil;
+    }
 }
 
 - (void)doTaskTimer {
