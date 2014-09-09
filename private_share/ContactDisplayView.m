@@ -12,6 +12,9 @@
 CGFloat const kContactDisplayViewHeight = 88.f;
 
 @implementation ContactDisplayView
+{
+    UIImageView *intoIamgeview;
+}
 
 @synthesize currentContact = _currentContact_;
 
@@ -37,8 +40,7 @@ CGFloat const kContactDisplayViewHeight = 88.f;
         _address.lineBreakMode = NSLineBreakByCharWrapping;
         _address.textColor = [UIColor grayColor];
         
-        UIImageView *intoIamgeview = [[UIImageView alloc]initWithFrame:CGRectMake(bgView.bounds.size.width-40-20, bgView.bounds.size.height/2-30, 121.0/2, 121.0/2)];
-        intoIamgeview.image = [UIImage imageNamed:@"into"];
+        intoIamgeview = [[UIImageView alloc]initWithFrame:CGRectMake(bgView.bounds.size.width-40-20, bgView.bounds.size.height/2-30, 121.0/2, 121.0/2)];
         [bgView addSubview:intoIamgeview];
         
         [bgView addSubview:_name];
@@ -61,15 +63,24 @@ CGFloat const kContactDisplayViewHeight = 88.f;
 - (void)setCurrentContact:(Contact *)currentContact {
     _currentContact_ = currentContact;
     // should update display here
+    if (currentContact == nil) {
+        _name.text = @"";
+        _phoneNumber.text = @"";
+        _address.text = @"";
+        intoIamgeview.image = nil;
+    }
+    else{
+        _name.text = [NSString stringWithFormat:@"收货人:%@",currentContact.name];
+        _phoneNumber.text = currentContact.phoneNumber;
+        NSString *contactAddress = [NSString stringWithFormat:@"收货地址:%@",currentContact.address];
+        _address.text = contactAddress;
     
-    _name.text = [NSString stringWithFormat:@"收货人:%@",currentContact.name];
-    _phoneNumber.text = currentContact.phoneNumber;
-    NSString *contactAddress = [NSString stringWithFormat:@"收货地址:%@",currentContact.address];
-    _address.text = contactAddress;
-    
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:11.f]};
-    CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:11.f]};
+        CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+        _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
+        
+        intoIamgeview.image = [UIImage imageNamed:@"into"];
+    }
 }
 
 @end

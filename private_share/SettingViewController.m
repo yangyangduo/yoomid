@@ -15,6 +15,9 @@
 #import "PasswordChangeViewController.h"
 #import "UIColor+App.h"
 #import "UserInfoService.h"
+#import "DiskCacheManager.h"
+#import "ContactService.h"
+#import "ManageContactInfoViewController.h"
 
 @interface SettingViewController ()
 
@@ -27,6 +30,7 @@
     
     NSMutableDictionary *userInfoDictionary;
     NSMutableDictionary *accountInfoDictionary;
+    NSMutableArray *contacts;
 }
 
 - (void)viewDidLoad
@@ -36,7 +40,10 @@
     self.title = @"设置";
 
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
+    
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
@@ -81,6 +88,67 @@
     [bottomView addSubview:exitBtn];
 
     [self getUserInfo];
+    [self mayGetContactInfo];
+}
+
+-(void)deleteContactArray:(NSNotification*)notif
+{
+    contacts = notif.object;
+}
+
+-(void)updateContactArray:(NSNotification*)notif
+{
+    contacts = notif.object;
+}
+
+- (void)mayGetContactInfo {
+    BOOL isExpired;
+    NSArray *_contacts_ = [[DiskCacheManager manager] contacts:&isExpired];
+    
+    if(_contacts_ != nil) {
+        contacts = [NSMutableArray arrayWithArray:_contacts_];
+    }
+    
+    if(isExpired || _contacts_ == nil) {
+        [self getContactInfo];
+    }
+}
+
+- (void)getContactInfo {
+    ContactService *contactService = [[ContactService alloc]init];
+    [contactService getContactInfo:self success:@selector(getContactSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+- (void)getContactSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200 && resp.body != nil) {
+        
+        if(contacts == nil) {
+            contacts = [NSMutableArray array];
+        } else {
+            [contacts removeAllObjects];
+        }
+        
+        NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_contacts_ != nil) {
+            for(int i=0; i<_contacts_.count; i++) {
+                NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
+                Contact *contact = [[Contact alloc] initWithJson:contactJson];
+                if (i == 0) {
+                    contact.isDefault = YES;
+                }
+                else
+                {
+                    contact.isDefault = NO;
+                }
+                [contacts addObject:contact];
+            }
+        }
+        
+        //
+        [[DiskCacheManager manager] setContacts:contacts];
+    } else {
+        [self handleFailureHttpResponse:resp];
+    }
 }
 
 -(void)getUserInfo
@@ -399,6 +467,7 @@
         }
         case 6:
         {
+            [self.navigationController pushViewController:[[ManageContactInfoViewController alloc] initWithContactInfo:contacts] animated:YES];
             break;
         }
         case 7:
@@ -441,6 +510,12 @@
 
 - (void)dismissViewController {
     [self rightDismissViewControllerAnimated:YES];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
 }
 
 @end
