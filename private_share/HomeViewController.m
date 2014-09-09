@@ -161,9 +161,6 @@
 }
 
 - (void)showNotifications:(id)sender {
-    
-    
-    
     return;
     
     CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];

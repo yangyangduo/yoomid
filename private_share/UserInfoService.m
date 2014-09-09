@@ -14,11 +14,11 @@
 
 -(void)getUserInfo:(id)target success:(SEL)success failure:(SEL)failure
 {
-    [self.httpClient get:[NSString stringWithFormat:@"/profile/view/account?%@",self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/profile/view/%@?%@",[Account currentAccount].accountId,self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
 -(void)modifyUserInfoData:(NSData *)data target:(id)target success:(SEL)success failure:(SEL)failure
 {
-    [self.httpClient put:[NSString stringWithFormat:@"/profile/upt?account&%@", self.authenticationString] contentType:@"application/json" body:data target:target success:success failure:false userInfo:nil];
+    [self.httpClient put:[NSString stringWithFormat:@"/profile/upt?%@",self.authenticationString] contentType:@"application/json" body:data target:target success:success failure:false userInfo:nil];
 }
 @end

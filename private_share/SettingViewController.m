@@ -25,8 +25,8 @@
     UIImageView *perfectinformation2;
     UITableView *tableview;
     
-    NSMutableArray *userInfoArray;
     NSMutableDictionary *userInfoDictionary;
+    NSMutableDictionary *accountInfoDictionary;
 }
 
 - (void)viewDidLoad
@@ -36,8 +36,6 @@
     self.title = @"设置";
 
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-    
-    userInfoArray = [[NSMutableArray alloc]initWithObjects:@"忧伤的鑫",@"李四",@"1990-02-23",@"男",@"学生",@"哈佛大学", nil];
 
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
@@ -96,11 +94,19 @@
     if(userInfoDictionary == nil) {
         userInfoDictionary = [NSMutableDictionary dictionary];
     }
+    if (accountInfoDictionary == nil) {
+        accountInfoDictionary = [NSMutableDictionary dictionary];
+    }
     
     if (resp.statusCode == 200) {
         NSDictionary *_jsonDicti = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_jsonDicti != nil) {
             NSDictionary *userDetail = [_jsonDicti dictionaryForKey:@"detail"];
+            NSDictionary *accountInfo = [_jsonDicti dictionaryForKey:@"accountInfo"];
+
+            if (accountInfo != nil) {
+                accountInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:accountInfo];
+            }
             if(userDetail != nil) {
                 userInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:userDetail];
                 [tableview reloadData];
@@ -114,8 +120,12 @@
 
 -(void)editBtnClick
 {
-    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:userInfoDictionary,@"detail", nil];
+    NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:accountInfoDictionary,@"accountInfo",userInfoDictionary,@"detail", nil];
     NSData *body = [JsonUtil createJsonDataFromDictionary:tempD];
+    
+    [[XXAlertView currentAlertView] setMessage:@"正在保存..." forType:AlertViewTypeWaitting];
+    [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+    
     UserInfoService *service = [[UserInfoService alloc]init];
     [service modifyUserInfoData:body target:self success:@selector(modifyUserInfoSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
