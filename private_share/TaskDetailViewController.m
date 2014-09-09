@@ -8,8 +8,6 @@
 
 #import "TaskDetailViewController.h"
 #import "MyPointsRecordViewController.h"
-#import "YoomidRectModalView.h"
-#import "YoomidSemicircleModalView.h"
 #import "TaskService.h"
 #import "UIDevice+Identifier.h"
 #import "JsonUtil.h"
@@ -31,7 +29,9 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     UILabel *timerLabel;
     NSInteger timeLeft;
     NSTimer *taskTimer;
+    
     BOOL isExpired;
+    BOOL isSubmitting;
 }
 
 @synthesize task = _task_;
@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     [tabBar addSubview:confirmButton];
     [self.view addSubview:tabBar];
     
-    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 133.f / 2, 133.f / 2)];
+    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -4, 133.f / 2, 133.f / 2)];
     pointsImageView.image = [UIImage imageNamed:@"mm"];
     pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2, pointsImageView.center.y);
     [tabBar addSubview:pointsImageView];
@@ -83,7 +83,6 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         timerLabel.textColor = [UIColor appLightBlue];
         [taskTimerImageView addSubview:timerLabel];
     }
-    self.task.timeLimitInSeconds = 3;
     [self requestTaskDetailWithUrl:_url_];
 }
 
@@ -100,20 +99,32 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         taskTimer = nil;
         
         // submit failure answers
-        NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"getJsonResultString(Result.NoChance, 1, '')"];
-        if(result != nil && ![@"" isEqualToString:result]) {
-            YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼答对了!" message:@"额外获得300米米" buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:1];
-            [modal showInView:self.navigationController.view completion:nil];
+        NSString *resultString = [_webView_ stringByEvaluatingJavaScriptFromString:@"getJsonResultString(Result.NoChance, 1, '')"];
+        if(resultString != nil && ![@"" isEqualToString:resultString]) {
+            NSData *postData = [resultString dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:postData];
+            if(result != nil) {
+                isSubmitting = YES;
+                
+                NSMutableDictionary *content = [NSMutableDictionary dictionaryWithDictionary:[result dictionaryForKey:@"content"]];
+                [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
+                [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
+                [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+                TaskService *service = [[TaskService alloc] init];
+                [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:) taskResult:TaskResultTimeout];
+            }
         }
     }
 }
 
 - (void)findTaskResultAndSubmit {
     if(isExpired) return;
+    if(isSubmitting) return;
     
-    NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"validateAnswers()"];
-    if(result != nil && ![@"" isEqualToString:result]) {
-        NSData *postData = [result dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *resultString = [_webView_ stringByEvaluatingJavaScriptFromString:@"validateAnswers()"];
+    if(resultString != nil && ![@"" isEqualToString:resultString]) {
+        NSData *postData = [resultString dataUsingEncoding:NSUTF8StringEncoding];
 #ifdef DEBUG
         [JsonUtil printJsonData:postData];
 #endif
@@ -130,6 +141,8 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 return;
             } else if(TaskResultNoChance == taskResult
                         || TaskResultSuccess == taskResult ) {
+                
+                isSubmitting = YES;
                 
                 if(taskTimer != nil && taskTimer.isValid) {
                     [taskTimer invalidate];
@@ -166,13 +179,16 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
             NSInteger taskResult = number.integerValue;
             if(TaskResultTimeout == taskResult) {
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"回答超时!很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultNoChance == taskResult) {
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
+                modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultSuccess == taskResult) {
-                //YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
-                //[modalView showInView:self.navigationController.view completion:^{ }];
+                YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼答对了!" message:[NSString stringWithFormat:@"额外获得%d%@", self.task.points, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
+                modal.modalViewDelegate = self;
+                [modal showInView:self.navigationController.view completion:nil];
             }
         }];
         return;
@@ -182,6 +198,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 
 - (void)postAnswersFailure:(HttpResponse *)resp {
     [self handleFailureHttpResponse:resp];
+    isSubmitting = NO;
 }
 
 - (void)requestTaskDetailWithUrl:(NSString *)url {
@@ -234,6 +251,14 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 //        return NO;
 //    }
     return YES;
+}
+
+
+#pragma mark -
+#pragma mark Modal view delegate
+
+- (void)modalViewDidClosed:(ModalView *)modalView {
+    [self rightPopViewControllerAnimated:YES];
 }
 
 #pragma mark -

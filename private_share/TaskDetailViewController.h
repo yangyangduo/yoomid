@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PanBackTransitionViewController.h"
+#import "YoomidRectModalView.h"
+#import "YoomidSemicircleModalView.h"
 #import "Task.h"
 
-@interface TaskDetailViewController : PanBackTransitionViewController<UIWebViewDelegate>
+@interface TaskDetailViewController : PanBackTransitionViewController<UIWebViewDelegate, ModalViewDelegate>
 
 - (instancetype)initWithTask:(Task *)task;
 

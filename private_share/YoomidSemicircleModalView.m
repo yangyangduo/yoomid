@@ -34,8 +34,15 @@
             titleLabel.text = titleMessage;
             [self addSubview:titleLabel];
             
-            y += titleLabel.bounds.size.height + 30.f;
+            y += titleLabel.bounds.size.height + 10.f;
         }
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, y, 220, 1)];
+        lineView.center = CGPointMake(centerX, lineView.center.y);
+        lineView.backgroundColor = [UIColor colorWithRed:230.f / 255.f green:230.f / 255 blue:230.f / 255 alpha:1.0];
+        [self addSubview:lineView];
+        
+        y += 15;
         
         if(message) {
             UIFont *messageFont = [UIFont systemFontOfSize:18.f];
@@ -51,26 +58,25 @@
             messageLabel.text = message;
             [self addSubview:messageLabel];
             
-            y += messageLabel.bounds.size.height + 30.f;
+            y += messageLabel.bounds.size.height + 20.f;
         }
         
         if(buttonTitles != nil && buttonTitles.count > 0) {
             for(int i=0; i<buttonTitles.count; i++) {
-                UIButton *button = nil;
-                if(buttonTitles.count == 1) {
-                    button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 142, 40)];
-                    button.center = CGPointMake(centerX, button.center.y);
+                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 90, 40)];
+                button.center = CGPointMake(centerX, button.center.y);
+                [button setBackgroundImage:[UIImage imageNamed:((i % 2 == 0) ? @"button_up" : @"button_down")] forState:UIControlStateNormal];
+                if(i % 2 == 0) {
+                    button.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
                 } else {
-                    button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 96, 40)];
-                    button.center = CGPointMake(centerX + (i == 0 ? -55 : 55), button.center.y);
+                    button.titleEdgeInsets = UIEdgeInsetsMake(-6, 2, 0, 0);
                 }
-                [button setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
-                button.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
                 if(cancelButtonIndex == i) {
                     [button addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
                 }
                 [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
                 [self addSubview:button];
+                y += button.bounds.size.height + 20;
             }
         }
     }

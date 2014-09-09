@@ -260,6 +260,8 @@
 		6FE79C59197CE5CE005B11E1 /* cb_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE79C57197CE5CE005B11E1 /* cb_unselect@2x.png */; };
 		6FE79C5A197CE5CE005B11E1 /* cb_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE79C58197CE5CE005B11E1 /* cb_select@2x.png */; };
 		6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE79C5C197CEF5B005B11E1 /* SettlementView.m */; };
+		6FECF3E919BE9ADC00CAB301 /* button_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FECF3E819BE9ADC00CAB301 /* button_down@2x.png */; };
+		6FECF3EB19BEA9AB00CAB301 /* button_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FECF3EA19BEA9AB00CAB301 /* button_up@2x.png */; };
 		6FF1BE04197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */; };
 		6FF31BD519BACACA004DFE98 /* OrderShoppingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF31BD419BACACA004DFE98 /* OrderShoppingItemCell.m */; };
 		6FF533271938512E001D607C /* DrawerViewControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF533261938512E001D607C /* DrawerViewControllerConfig.m */; };
@@ -842,6 +844,8 @@
 		6FE79C58197CE5CE005B11E1 /* cb_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cb_select@2x.png"; sourceTree = "<group>"; };
 		6FE79C5B197CEF5B005B11E1 /* SettlementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettlementView.h; sourceTree = "<group>"; };
 		6FE79C5C197CEF5B005B11E1 /* SettlementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettlementView.m; sourceTree = "<group>"; };
+		6FECF3E819BE9ADC00CAB301 /* button_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_down@2x.png"; sourceTree = "<group>"; };
+		6FECF3EA19BEA9AB00CAB301 /* button_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_up@2x.png"; sourceTree = "<group>"; };
 		6FF1BE02197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemSelectPropertyChangedEvent.h; sourceTree = "<group>"; };
 		6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemSelectPropertyChangedEvent.m; sourceTree = "<group>"; };
 		6FF31BD319BACACA004DFE98 /* OrderShoppingItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderShoppingItemCell.h; sourceTree = "<group>"; };
@@ -2009,6 +2013,8 @@
 			children = (
 				D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */,
 				D670D6C319B0770800FB241D /* button@2x.png */,
+				6FECF3E819BE9ADC00CAB301 /* button_down@2x.png */,
+				6FECF3EA19BEA9AB00CAB301 /* button_up@2x.png */,
 				6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */,
 				6FB0E1A019B6C244002F9A18 /* bottom_button2@2x.png */,
 				D670D6C719B07E6000FB241D /* newlogin@2x.png */,
@@ -2559,6 +2565,7 @@
 				D3644C02197A171000B44785 /* dianru_title.jpg in Resources */,
 				D3644BFF197A171000B44785 /* dianru_msg.png in Resources */,
 				6FBE928D194167DD00B94195 /* merchandise_placeholder@2x.png in Resources */,
+				6FECF3E919BE9ADC00CAB301 /* button_down@2x.png in Resources */,
 				6F970977193F4B5300EA5E3A /* alert_failed@2x.png in Resources */,
 				6F7261FA195AAFCA00BD17D8 /* black_bottom@2x.png in Resources */,
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
@@ -2658,6 +2665,7 @@
 				D3644C0C197A171000B44785 /* dianru_green_dianru_titlebg.jpg in Resources */,
 				D3644C01197A171000B44785 /* dianru_set_btn.png in Resources */,
 				6F4E4F1319B96BFA006E4E15 /* sad@2x.png in Resources */,
+				6FECF3EB19BEA9AB00CAB301 /* button_up@2x.png in Resources */,
 				D3644BE9197A171000B44785 /* dianru_blue_dianru_bottom.png in Resources */,
 				D3644BF4197A171000B44785 /* dianru_back_btn.png in Resources */,
 				D3644C09197A171000B44785 /* dianru_green_dianru_download.png in Resources */,
