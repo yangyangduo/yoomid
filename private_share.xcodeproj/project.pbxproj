@@ -228,7 +228,7 @@
 		6FB8072C19B7FF24003ABF77 /* shipping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072B19B7FF24003ABF77 /* shipping@2x.png */; };
 		6FB8072E19B80D13003ABF77 /* anwo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */; };
 		6FB8073019B80D6D003ABF77 /* default_task@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072F19B80D6D003ABF77 /* default_task@2x.png */; };
-		6FB8073319B86903003ABF77 /* YoomidRewardModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB8073219B86903003ABF77 /* YoomidRewardModalView.m */; };
+		6FB8073319B86903003ABF77 /* YoomidSemicircleModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB8073219B86903003ABF77 /* YoomidSemicircleModalView.m */; };
 		6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B831973ACCB00E6C7D2 /* icon57.png */; };
 		6FBB6B861973AD0600E6C7D2 /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */; };
 		6FBB6B891973AD2500E6C7D2 /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB6B871973AD2500E6C7D2 /* icon29.png */; };
@@ -797,8 +797,8 @@
 		6FB8072B19B7FF24003ABF77 /* shipping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shipping@2x.png"; sourceTree = "<group>"; };
 		6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anwo_icon@2x.png"; sourceTree = "<group>"; };
 		6FB8072F19B80D6D003ABF77 /* default_task@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_task@2x.png"; sourceTree = "<group>"; };
-		6FB8073119B86903003ABF77 /* YoomidRewardModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidRewardModalView.h; sourceTree = "<group>"; };
-		6FB8073219B86903003ABF77 /* YoomidRewardModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidRewardModalView.m; sourceTree = "<group>"; };
+		6FB8073119B86903003ABF77 /* YoomidSemicircleModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidSemicircleModalView.h; sourceTree = "<group>"; };
+		6FB8073219B86903003ABF77 /* YoomidSemicircleModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidSemicircleModalView.m; sourceTree = "<group>"; };
 		6FBB6B831973ACCB00E6C7D2 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		6FBB6B851973AD0600E6C7D2 /* icon80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon80@2x.png"; sourceTree = "<group>"; };
 		6FBB6B871973AD2500E6C7D2 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
@@ -1478,8 +1478,8 @@
 				6F5B5E3219B5A53000495F0C /* SubTaskCategoryView.m */,
 				6F5B5E3419B5AF9600495F0C /* CategoryButtonItem.h */,
 				6F5B5E3519B5AF9600495F0C /* CategoryButtonItem.m */,
-				6FB8073119B86903003ABF77 /* YoomidRewardModalView.h */,
-				6FB8073219B86903003ABF77 /* YoomidRewardModalView.m */,
+				6FB8073119B86903003ABF77 /* YoomidSemicircleModalView.h */,
+				6FB8073219B86903003ABF77 /* YoomidSemicircleModalView.m */,
 				6F4E4F0B19B9698C006E4E15 /* YoomidRectModalView.h */,
 				6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */,
 			);
@@ -1496,6 +1496,7 @@
 				D62FBE0119A61B150041195B /* survey@2x.png */,
 				D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */,
 				D6A152C819A5F73B0094B565 /* guess_picture@2x.png */,
+				D66B498519B458A1002615CC /* setup2@2x.png */,
 				6FB8072D19B80D13003ABF77 /* anwo_icon@2x.png */,
 				6F5B5E3E19B5C2C100495F0C /* domob_icon@2x.png */,
 				6F5B5E3F19B5C2C100495F0C /* youmi_icon@2x.png */,
@@ -2423,7 +2424,6 @@
 			isa = PBXGroup;
 			children = (
 				D66B498719B45C53002615CC /* setupbg@2x.png */,
-				D66B498519B458A1002615CC /* setup2@2x.png */,
 				D66B498119B453AC002615CC /* perfectinformation1@2x.png */,
 				D66B498219B453AC002615CC /* perfectinformation2@2x.png */,
 				D66B497F19B4539D002615CC /* edit@2x.png */,
@@ -2881,7 +2881,7 @@
 				6FFE4E8D1952BCF500954E71 /* DiskCacheManager.m in Sources */,
 				6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */,
 				6FB0E1A619B6D898002F9A18 /* Task.m in Sources */,
-				6FB8073319B86903003ABF77 /* YoomidRewardModalView.m in Sources */,
+				6FB8073319B86903003ABF77 /* YoomidSemicircleModalView.m in Sources */,
 				6F8823EF1940C45E00757633 /* ShoppingCart.m in Sources */,
 				6FD8A1DA1977D87100514C17 /* ShoppingItemCell.m in Sources */,
 				6FFB8DA119792717008F0BBB /* ShoppingItemHeaderView.m in Sources */,

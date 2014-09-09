@@ -9,7 +9,7 @@
 #import "TaskDetailViewController.h"
 #import "MyPointsRecordViewController.h"
 #import "YoomidRectModalView.h"
-#import "YoomidRewardModalView.h"
+#import "YoomidSemicircleModalView.h"
 #import "TaskService.h"
 #import "UIDevice+Identifier.h"
 #import "JsonUtil.h"
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         timerLabel.textColor = [UIColor appLightBlue];
         [taskTimerImageView addSubview:timerLabel];
     }
-    
+    self.task.timeLimitInSeconds = 3;
     [self requestTaskDetailWithUrl:_url_];
 }
 
@@ -102,7 +102,8 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         // submit failure answers
         NSString *result = [_webView_ stringByEvaluatingJavaScriptFromString:@"getJsonResultString(Result.NoChance, 1, '')"];
         if(result != nil && ![@"" isEqualToString:result]) {
-    
+            YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼答对了!" message:@"额外获得300米米" buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:1];
+            [modal showInView:self.navigationController.view completion:nil];
         }
     }
 }
@@ -170,8 +171,8 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultSuccess == taskResult) {
-                YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
-                [modalView showInView:self.navigationController.view completion:^{ }];
+                //YoomidRewardModalView *modalView = [[YoomidRewardModalView alloc] initWithSize:CGSizeMake(250, 250)];
+                //[modalView showInView:self.navigationController.view completion:^{ }];
             }
         }];
         return;
