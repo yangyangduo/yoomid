@@ -8,8 +8,8 @@
 
 #import "ShoppingItemConfirmCell.h"
 #import "ShoppingCart.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIColor+App.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 CGFloat const NameSize2 = 13.f;
 CGFloat const PropertiesSize2 = 12.f;

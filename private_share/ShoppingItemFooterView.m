@@ -11,6 +11,7 @@
 #import "UIColor+App.h"
 #import "Payment.h"
 #import "ShoppingItem.h"
+#import "PaymentButton.h"
 
 @implementation ShoppingItemFooterView {
     UILabel *summariesLabel;
