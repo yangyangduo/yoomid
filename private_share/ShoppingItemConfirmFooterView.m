@@ -15,6 +15,7 @@
 
 @implementation ShoppingItemConfirmFooterView {
     UILabel *summariesLabel;
+    UITextView *remarkTextField;
     
     UIImageView *pointsPaymentImageView;
     UILabel *pointsPaymentLabel;
@@ -52,7 +53,6 @@
         
         [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        postPointsPaymentButton.selected = YES;
         
         [self addSubview:postPointsPaymentButton];
         [self addSubview:postCashPaymentButton];
@@ -61,13 +61,14 @@
         lineView2.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView2];
         
-        UITextView *remarkTextField = [[UITextView alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 100)];
+        remarkTextField = [[UITextView alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 100)];
         
         //remarkTextField.placeholder = @"留言:";
         remarkTextField.layer.cornerRadius = 8;
         remarkTextField.layer.borderWidth = 1.f;
         remarkTextField.layer.borderColor = [UIColor colorWithRed:219.f / 255 green:220.f / 255 blue:222.f / 255 alpha:1.0f].CGColor;
         remarkTextField.backgroundColor = [UIColor colorWithRed:241.f / 255.f green:241.f / 255.f blue:243.f / 255.f alpha:1.f];
+        remarkTextField.delegate = self;
         [self addSubview:remarkTextField];
         
         summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];
@@ -136,8 +137,10 @@
     
     NSAttributedString *postPaymentString = nil;
     if(PaymentTypePoints == postPaymentType) {
+        postPointsPaymentButton.selected = YES;
         postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", postPoints] paymentType:PaymentTypePoints];
     } else {
+        postCashPaymentButton.selected = YES;
         postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", postCash] paymentType:PaymentTypeCash];
     }
     
@@ -214,6 +217,7 @@
 
 - (void)refresh {
     if(_shopShoppingItems_ != nil) {
+        remarkTextField.text = _shopShoppingItems_.remark;
         NSInteger points = 0;
         float cash = 0;
         if(PaymentTypePoints == _shopShoppingItems_.postPaymentType) {
@@ -222,6 +226,14 @@
             cash = 5.0f;
         }
         [self setTotalPayment:_shopShoppingItems_.totalSelectPayment postPaymentType:_shopShoppingItems_.postPaymentType postPoints:points postCash:cash];
+    } else {
+        remarkTextField.text = @"";
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if(self.shopShoppingItems != nil) {
+        self.shopShoppingItems.remark = textView.text;
     }
 }
 

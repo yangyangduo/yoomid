@@ -10,7 +10,7 @@
 #import "Payment.h"
 #import "ShopShoppingItems.h"
 
-@interface ShoppingItemConfirmFooterView : UICollectionReusableView
+@interface ShoppingItemConfirmFooterView : UICollectionReusableView<UITextViewDelegate>
 
 @property (nonatomic, strong) ShopShoppingItems *shopShoppingItems;
 

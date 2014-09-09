@@ -1018,11 +1018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingCart.m"
-            timestampString = "429591878.950894"
+            timestampString = "431945486.885527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "-printShoppingCartForHentreStoreAsJson"
             landmarkType = "5">
          </BreakpointContent>
@@ -1744,6 +1744,22 @@
             startingLineNumber = "16"
             endingLineNumber = "16"
             landmarkName = "-initWithSize:backgroundImage:titleMessage:message:buttonTitles:cancelButtonIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "private_share/ShoppingCartViewController2.m"
+            timestampString = "431945610.15052"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

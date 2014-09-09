@@ -239,6 +239,10 @@
 
 - (void)setAllSelect:(BOOL)select {
     for(ShopShoppingItems *ssi in self.shopShoppingItemss) {
+        if(!select) {
+            ssi.postPaymentType = PaymentTypePoints;
+            ssi.remark = @"";
+        }
         for(ShoppingItem *si in ssi.shoppingItems) {
             si.selected = select;
         }
