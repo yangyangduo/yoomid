@@ -383,7 +383,6 @@ static CGRect oldframe;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:12.5f];
-        cell.textLabel.text = @"2014-8-21 12:30:30 看图猜图获得200积分";
     }
     
     if(dateFormatter == nil) {

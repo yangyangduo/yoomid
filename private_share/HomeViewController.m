@@ -14,6 +14,7 @@
 #import "TaskListViewController.h"
 #import "PointsRecordViewController.h"
 #import "HomePageItemCell.h"
+#import "NotificationsViewController.h"
 
 #import "TaskService.h"
 #import "DiskCacheManager.h"
@@ -161,6 +162,12 @@
 }
 
 - (void)showNotifications:(id)sender {
+    NotificationsViewController *notificationsVC = [[NotificationsViewController alloc]init];
+    UINavigationController *navigationControllers = [[UINavigationController alloc] initWithRootViewController:notificationsVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationControllers];
+    [self rightPresentViewController:navigationControllers animated:YES];
+
+    return;
     PointsRecordViewController *settingVC = [[PointsRecordViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];

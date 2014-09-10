@@ -386,6 +386,8 @@
 		D66B498419B453AC002615CC /* perfectinformation2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498219B453AC002615CC /* perfectinformation2@2x.png */; };
 		D66B498619B458A1002615CC /* setup2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498519B458A1002615CC /* setup2@2x.png */; };
 		D66B498819B45C53002615CC /* setupbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B498719B45C53002615CC /* setupbg@2x.png */; };
+		D66D120819C0219C005BF0FA /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66D120719C0219C005BF0FA /* NotificationsViewController.m */; };
+		D66D120A19C02271005BF0FA /* setup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66D120919C02271005BF0FA /* setup@2x.png */; };
 		D670D6C019B0749000FB241D /* into@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6BF19B0749000FB241D /* into@2x.png */; };
 		D670D6C219B074A200FB241D /* miku2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C119B074A200FB241D /* miku2@2x.png */; };
 		D670D6C419B0770800FB241D /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C319B0770800FB241D /* button@2x.png */; };
@@ -1003,6 +1005,9 @@
 		D66B498219B453AC002615CC /* perfectinformation2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "perfectinformation2@2x.png"; sourceTree = "<group>"; };
 		D66B498519B458A1002615CC /* setup2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setup2@2x.png"; sourceTree = "<group>"; };
 		D66B498719B45C53002615CC /* setupbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setupbg@2x.png"; sourceTree = "<group>"; };
+		D66D120619C0219C005BF0FA /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		D66D120719C0219C005BF0FA /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		D66D120919C02271005BF0FA /* setup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setup@2x.png"; sourceTree = "<group>"; };
 		D670D6BF19B0749000FB241D /* into@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "into@2x.png"; sourceTree = "<group>"; };
 		D670D6C119B074A200FB241D /* miku2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku2@2x.png"; sourceTree = "<group>"; };
 		D670D6C319B0770800FB241D /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
@@ -1788,6 +1793,8 @@
 				D66B497C19B450CD002615CC /* SettingViewController.m */,
 				6F57538219B5DE52005A4605 /* TaskListViewController.h */,
 				6F57538319B5DE52005A4605 /* TaskListViewController.m */,
+				D66D120619C0219C005BF0FA /* NotificationsViewController.h */,
+				D66D120719C0219C005BF0FA /* NotificationsViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2194,6 +2201,7 @@
 				D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */,
 				D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */,
 				D670D6BF19B0749000FB241D /* into@2x.png */,
+				D66D120919C02271005BF0FA /* setup@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -2634,6 +2642,7 @@
 				6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */,
 				6F4E4F1219B96BFA006E4E15 /* happy@2x.png in Resources */,
 				D676302519A7741C0015CADF /* level7@2x.png in Resources */,
+				D66D120A19C02271005BF0FA /* setup@2x.png in Resources */,
 				6F4FA07419A489460049C023 /* 1@2x.png in Resources */,
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
 				D3644C13197A171000B44785 /* dianru_orange_dianru_bottom.png in Resources */,
@@ -2908,6 +2917,7 @@
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */,
 				6F97097C193F4DAC00EA5E3A /* SecurityConfig.m in Sources */,
+				D66D120819C0219C005BF0FA /* NotificationsViewController.m in Sources */,
 				6FF533271938512E001D607C /* DrawerViewControllerConfig.m in Sources */,
 				6F0177C4196A4DC7003DD9E3 /* ProgressView.m in Sources */,
 				D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */,

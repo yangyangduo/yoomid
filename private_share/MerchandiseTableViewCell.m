@@ -76,7 +76,7 @@
         pointsLabel.text = @"";
         [bootomView addSubview:pointsLabel];
         
-        bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bao"]];
+        bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"points_blue"]];
         bao.frame = CGRectMake(132, pointsLabel.frame.origin.y+10, 32/2, 32/2);
         [bootomView addSubview:bao];
         
