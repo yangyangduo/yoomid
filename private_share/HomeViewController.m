@@ -12,7 +12,7 @@
 #import "ShoppingCartViewController2.h"
 #import "SettingViewController.h"
 #import "TaskListViewController.h"
-
+#import "PointsRecordViewController.h"
 #import "HomePageItemCell.h"
 
 #import "TaskService.h"
@@ -161,6 +161,11 @@
 }
 
 - (void)showNotifications:(id)sender {
+    PointsRecordViewController *settingVC = [[PointsRecordViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    [self rightPresentViewController:navigationController animated:YES];
+
     return;
     
     CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];

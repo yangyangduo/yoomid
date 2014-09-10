@@ -11,6 +11,7 @@ static CGRect oldframe;
 #import "PointsOrder.h"
 #import "Account.h"
 #import "PointsOrderService.h"
+#import "DiskCacheManager.h"
 
 @interface MyPointsRecordViewController ()
 
@@ -55,8 +56,6 @@ static CGRect oldframe;
     levelImageView.image = image;
     [imageView addSubview:levelImageView];
 
-    
-    
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
     [backgroundView addGestureRecognizer: tap];
     
@@ -130,7 +129,7 @@ static CGRect oldframe;
     mm.image = [UIImage imageNamed:@"mm"];
     [topView addSubview:mm];
     
-    UIImageView *levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 28, 50, 50)];
+    UIImageView *levelImage = [[UIImageView alloc]initWithFrame:CGRectMake(topView.bounds.size.width - 70, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 25, 50, 50)];
     levelImage.image = [UIImage imageNamed:@"levelbg"];
     
     levelbgImage = [[UIImageView alloc]initWithFrame:CGRectMake(4, 4, 42, 42)];
@@ -153,6 +152,11 @@ static CGRect oldframe;
     pointsOrderTableView.backgroundColor = [UIColor clearColor];
 
     [self.view addSubview:pointsOrderTableView];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self refresh:YES];
 }
 
@@ -180,10 +184,27 @@ static CGRect oldframe;
 - (void)refresh:(BOOL)animated {
     if(animated) {
         pointsOrderTableView.pullTableIsRefreshing = YES;
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
+        BOOL isExpired;
+        NSArray *pointsArray = [[DiskCacheManager manager] pointsOrdersWithPointsOrderType:pointsOrderType isExpired:&isExpired];
+        
+        if (pointsArray != nil) {
+            if (pointsOrderType == PointsOrderTypeIncome) {
+                additionPointsOrders = [NSMutableArray arrayWithArray:pointsArray];
+            }
+            else
+            {
+                reducePointsOrders = [NSMutableArray arrayWithArray:pointsArray];
+            }
+            [pointsOrderTableView reloadData];
+            [self cancelLoadMore];
+            [self cancelRefresh];
+        }
+        if (isExpired || pointsArray == nil) {
+            [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
+        }
         return;
     }
-    [self refresh];
+//    [self refresh];
 }
 
 - (void)refresh {
@@ -226,6 +247,27 @@ static CGRect oldframe;
             }
         }
         
+        if (pointsOrderType == PointsOrderTypeIncome) {
+            if (additionPointsOrders == nil) {
+                additionPointsOrders = [[NSMutableArray array]init];
+            }
+            else
+            {
+                [additionPointsOrders removeAllObjects];
+            }
+            additionPointsOrders = pointsOrders;
+        }
+        else
+        {
+            if (reducePointsOrders == nil) {
+                reducePointsOrders = [[NSMutableArray array]init];
+            }
+            else
+            {
+                [reducePointsOrders removeAllObjects];
+            }
+            reducePointsOrders = pointsOrders;
+        }
         if(page > 0) {
             if(results != nil && results.count > 0) {
                 pageIndex++;
@@ -275,8 +317,6 @@ static CGRect oldframe;
     if(pointsOrderTableView.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
-
-//    [self setPoints:@"000"];
 }
 
 -(void)reducePoints:(id)sender
@@ -295,8 +335,6 @@ static CGRect oldframe;
     if(pointsOrderTableView.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
-
-//    [self setPoints:@"111"];
 }
 
 - (void)getPointsOrdersFailure:(HttpResponse *)resp {
@@ -312,11 +350,29 @@ static CGRect oldframe;
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
+    NSInteger count = 0;
+    if (pointsOrderType == PointsOrderTypeIncome) {
+        count = additionPointsOrders.count == 0 ? 0 : 1;
+    }
+    else
+    {
+        count = reducePointsOrders.count == 0 ? 0 : 1;
+    }
+    return count;
+//    return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return pointsOrders == nil ? 0 : pointsOrders.count;
+    NSInteger count = 0;
+    if (pointsOrderType == PointsOrderTypeIncome) {
+        count = additionPointsOrders.count;
+    }
+    else
+    {
+        count = reducePointsOrders.count;
+    }
+    return count;
+//    return pointsOrders == nil ? 0 : pointsOrders.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -328,6 +384,22 @@ static CGRect oldframe;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:12.5f];
         cell.textLabel.text = @"2014-8-21 12:30:30 看图猜图获得200积分";
+    }
+    
+    if(dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
+    }
+    PointsOrder *order = nil;
+
+    if (pointsOrderType == PointsOrderTypeIncome) {
+        order = [additionPointsOrders objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@获得%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
+    }
+    else
+    {
+        order = [reducePointsOrders objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@使用%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

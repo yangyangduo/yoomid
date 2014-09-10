@@ -103,6 +103,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     if(_contacts_ != nil) {
         contacts = [NSMutableArray arrayWithArray:_contacts_];
         [contactDisplayView setCurrentContact:[self defaultContact]];
+        [ShoppingCart myShoppingCart].orderContact = [self defaultContact];
     }
     
     if(isExpired || _contacts_ == nil) {
