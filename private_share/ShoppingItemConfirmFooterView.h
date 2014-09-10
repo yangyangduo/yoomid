@@ -13,5 +13,6 @@
 @interface ShoppingItemConfirmFooterView : UICollectionReusableView<UITextViewDelegate>
 
 @property (nonatomic, strong) ShopShoppingItems *shopShoppingItems;
+@property (nonatomic, weak) id purchaseViewController;
 
 @end

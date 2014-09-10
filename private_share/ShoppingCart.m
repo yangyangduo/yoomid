@@ -185,6 +185,14 @@
     return payment;
 }
 
+- (Payment *)totalSelectPaymentWithPostPay {
+    Payment *payment = [Payment emptyPayment];
+    for(ShopShoppingItems *ssi in shopShoppingItemss) {
+        [payment addWithPayment:ssi.totalSelectPaymentWithPostPay];
+    }
+    return payment;
+}
+
 - (NSMutableDictionary *)toDictionaryWithShopID:(NSString *)shopID {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     ShopShoppingItems *ssi = [self shopShoppingItemsWithShopID:shopID];

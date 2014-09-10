@@ -7,6 +7,7 @@
 //
 
 #import "ShoppingItemConfirmFooterView.h"
+#import "PurchaseViewController.h"
 #import "UIImage+Color.h"
 #import "UIColor+App.h"
 #import "Payment.h"
@@ -33,6 +34,7 @@
 }
 
 @synthesize shopShoppingItems = _shopShoppingItems_;
+@synthesize purchaseViewController;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -208,6 +210,11 @@
         postPointsPaymentButton.selected = !paymentButton.selected;
     }
     [self refresh];
+    
+    if(self.purchaseViewController != nil && [self.purchaseViewController isKindOfClass:[PurchaseViewController class]]) {
+        PurchaseViewController *pVC = (PurchaseViewController *)self.purchaseViewController;
+        [pVC refreshSettlementView];
+    }
 }
 
 - (void)setShopShoppingItems:(ShopShoppingItems *)shopShoppingItems {

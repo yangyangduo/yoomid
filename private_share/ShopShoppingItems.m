@@ -113,6 +113,23 @@
     return payment;
 }
 
+- (Payment *)totalSelectPaymentWithPostPay {
+    Payment *payment = [Payment emptyPayment];
+    if(PaymentTypePoints == self.postPaymentType) {
+        payment = [[Payment alloc] initWithPoints:300 cash:0];
+    } else if(PaymentTypeCash == self.postPaymentType) {
+        payment = [[Payment alloc] initWithPoints:0 cash:5.f];
+    }
+    
+    for(int i=0; i<self.shoppingItems.count; i++) {
+        ShoppingItem *shoppingItem = [self.shoppingItems objectAtIndex:i];
+        if(shoppingItem.selected) {
+            [payment addWithPayment:shoppingItem.payment];
+        }
+    }
+    return payment;
+}
+
 - (void)clearEmptyShoppingItems {
     NSMutableArray *removedList = [NSMutableArray array];
     for(int i=0; i<self.shoppingItems.count; i++) {

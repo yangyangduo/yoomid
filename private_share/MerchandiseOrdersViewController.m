@@ -26,7 +26,7 @@
     PullCollectionView *_collectionView_;
     
     NSInteger pageIndex;
-    MerchandiseOrderState orderState;
+    NSInteger orderState;
     
     NSString *orderItemCellIdentifier;
     NSString *orderFooterViewIdentifier;
@@ -89,7 +89,7 @@
         merchandiseOrders = [NSMutableArray arrayWithArray:submittedOrders];
         _collectionView_.pullLastRefreshDate = submittedOrdersRefreshDate;
     } else if(segmentedControl.selectedSegmentIndex == 1) {
-        orderState = MerchandiseOrderStateSubmitted | MerchandiseOrderStateUnConfirmed;
+        orderState = (MerchandiseOrderStateSubmitted | MerchandiseOrderStateUnConfirmed);
         merchandiseOrders = [NSMutableArray arrayWithArray:transactionOrders];
         _collectionView_.pullLastRefreshDate = transactionOrdersRefreshDate;
     } else {
@@ -98,6 +98,9 @@
         _collectionView_.pullLastRefreshDate = cancelledOrdersRefreshDate;
     }
     [_collectionView_ reloadData];
+    if(merchandiseOrders.count > 0) {
+        //[_collectionView_ scrollToItemAtIndexPath:nil atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
     if(_collectionView_.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
@@ -184,10 +187,10 @@
         [self cancelLoadMore];
         
         if(page == 0) {
-            if(MerchandiseOrderStateSubmitted == orderState) {
+            if(MerchandiseOrderStateUnCashPayment == orderState) {
                 submittedOrders = [NSMutableArray arrayWithArray:merchandiseOrders];
                 submittedOrdersRefreshDate = _collectionView_.pullLastRefreshDate;
-            } else if(MerchandiseOrderStateSubmitted == orderState) {
+            } else if(MerchandiseOrderStateUnCashPayment != orderState && MerchandiseOrderStateConfirmed != orderState) {
                 transactionOrders = [NSMutableArray arrayWithArray:merchandiseOrders];
                 transactionOrdersRefreshDate = _collectionView_.pullLastRefreshDate;
             } else {

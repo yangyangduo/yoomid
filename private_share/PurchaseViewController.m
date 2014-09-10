@@ -53,7 +53,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
     [settlementView setSelectButtonHidden];
-    [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPayment];
     [self.view addSubview:settlementView];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -77,6 +76,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     
     _collectionView_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
     [_collectionView_ addSubview:contactDisplayView];
+    
+    [self refreshSettlementView];
     
     [self mayGetContactInfo];
 }
@@ -177,9 +178,9 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [self.navigationController pushViewController:selectContactAddress animated:YES];
 }
 
-#pragma mark -
-#pragma mark UIAlertView delegate
-
+- (void)refreshSettlementView {
+    [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
+}
 
 #pragma mark -
 #pragma mark Select contact info delegate
@@ -240,6 +241,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     if(UICollectionElementKindSectionFooter == kind) {
         ShoppingItemConfirmFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmFooterIdentifier forIndexPath:indexPath];
         footerView.shopShoppingItems = shopShoppingItems;
+        footerView.purchaseViewController = self;
         return footerView;
     } else {
         ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier forIndexPath:indexPath];
@@ -271,6 +273,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         NSDictionary *shopOrder = @{
                                     @"basicInfo" : @{
                                     @"shopId" : ssi.shopID,
+                                    @"shippingPaymentType" : [NSNumber numberWithInteger:ssi.postPaymentType],
                                     @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
                                     @"remark" : ssi.remark
                                     },

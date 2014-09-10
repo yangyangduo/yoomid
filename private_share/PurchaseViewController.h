@@ -16,4 +16,6 @@
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss;
 
+- (void)refreshSettlementView;
+
 @end
