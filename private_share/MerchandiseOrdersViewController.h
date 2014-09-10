@@ -8,7 +8,8 @@
 
 #import "BaseViewController.h"
 #import "PullCollectionView.h"
+#import "PanBackTransitionViewController.h"
 
-@interface MerchandiseOrdersViewController : BaseViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate>
+@interface MerchandiseOrdersViewController : PanBackTransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate>
 
 @end

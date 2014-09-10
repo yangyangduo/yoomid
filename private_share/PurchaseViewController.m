@@ -82,37 +82,16 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (void)deleteContactArray:(NSNotification*)notif {
-
-//    if(contacts.count == 0) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您还没有设置收货地址，请点击确定设置!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//        [alert show];
-//        return;
-//    }
-    
-//    NSDictionary *tempD = [contacts objectAtIndex:0];
-//    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
-//    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
-//    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
-//    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
     contacts = notif.object;
-
     if (contacts.count > 0) {
         _select = 0;
-        
         [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:0];
     }
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-
 }
 
 - (void)updateContactArray:(NSNotification*)notif {
     contacts = notif.object;
-    
-//    NSDictionary *tempD = [contacts objectAtIndex:_select];
-//    [ShoppingCart myShoppingCart].orderContact.identifier = [tempD objectForKey:@"id"];
-//    [ShoppingCart myShoppingCart].orderContact.name = [tempD objectForKey:@"name"];
-//    [ShoppingCart myShoppingCart].orderContact.phoneNumber = [tempD objectForKey:@"contactPhone"];
-//    [ShoppingCart myShoppingCart].orderContact.address = [tempD objectForKey:@"deliveryAddress"];
     [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:_select];
     [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
 }
@@ -200,17 +179,10 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 #pragma mark -
 #pragma mark UIAlertView delegate
 
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex == 0) {
-////        [self.navigationController popViewControllerAnimated:YES];
-//        [self.navigationController popToRootViewControllerAnimated:YES];
-//    } else {
-//        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]initWithContactArray:0];
-//        [self.navigationController pushViewController:add animated:YES];
-//    }
-//}
 
-#pragma mark selectContactInfo delegate
+#pragma mark -
+#pragma mark Select contact info delegate
+
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select
 {
     [ShoppingCart myShoppingCart].orderContact = contact;

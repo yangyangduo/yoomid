@@ -35,17 +35,14 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //
+    [ShoppingCart myShoppingCart].allSelect = NO;
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
     self.title = NSLocalizedString(@"mi_repo2", @"");
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    //
-    [ShoppingCart myShoppingCart].allSelect = NO;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showMerchandiseOrderViewController)];
     
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
@@ -115,6 +112,10 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 - (void)showPurchaseViewController {
     [self.navigationController pushViewController:
         [[PurchaseViewController alloc] initWithShopShoppingItemss:[ShoppingCart myShoppingCart].selectShopShoppingItemss] animated:YES];
+}
+
+- (void)showMerchandiseOrderViewController {
+    [self.navigationController pushViewController:[[MerchandiseOrdersViewController alloc] init] animated:YES];
 }
 
 #pragma mark -

@@ -19,7 +19,7 @@
 
 - (void)getHentreStoreMerchandisesByPageIndex:(NSInteger)pageIndex target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
-- (void)getMerchandiseOrdersByPageIndex:(NSInteger)pageIndex orderState:(MerchandiseOrderState)orderState target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+- (void)getMerchandiseOrdersByPageIndex:(NSInteger)pageIndex orderState:(NSInteger)orderState target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
 - (void)getEcommendedMerchandisesTarget:(id)target success:(SEL)success failure:(SEL)failure;
 

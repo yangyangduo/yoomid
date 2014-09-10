@@ -299,7 +299,7 @@
 
     if (indexPath.row == 0) {
         textLabel.text = [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(40, 0, bgView.bounds.size.width, 47)];
         
         rect = CGRectMake(0, 0, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片

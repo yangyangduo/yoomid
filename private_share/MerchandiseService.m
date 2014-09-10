@@ -36,7 +36,7 @@
     [self getMerchandisesWithShopId:kHentreStoreID pageIndex:pageIndex target:target success:success failure:failure userInfo:userInfo];
 }
 
-- (void)getMerchandiseOrdersByPageIndex:(NSInteger)pageIndex orderState:(MerchandiseOrderState)orderState target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo {
+- (void)getMerchandiseOrdersByPageIndex:(NSInteger)pageIndex orderState:(NSInteger)orderState target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo {
     [self.httpClient get:[NSString stringWithFormat:@"/merchandise_orders?page=%ld&orderState=%lu&%@", (long)pageIndex, (long)orderState, self.authenticationString] target:target success:success failure:failure userInfo:userInfo];
 }
 

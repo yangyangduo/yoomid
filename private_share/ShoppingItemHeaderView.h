@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *shopId;
 
-
 - (void)setSelectButtonHidden;
+- (void)setOrderId:(NSString *)orderId;
 
 @end

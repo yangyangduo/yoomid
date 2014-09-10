@@ -30,4 +30,6 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 - (Payment *)singlePayment;
 - (NSString *)propertiesAsString;
 
+- (void)setPropertiesUsingString:(NSString *)propertiesString;
+
 @end

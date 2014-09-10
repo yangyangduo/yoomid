@@ -38,7 +38,6 @@
 		6F2BD0BA194EB2A60092BA23 /* PullCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0B9194EB2A60092BA23 /* PullCollectionView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0BC194EB5D30092BA23 /* DateTimeUtil.m */; };
 		6F2BD0C0194EBEF70092BA23 /* MerchandiseOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0BF194EBEF70092BA23 /* MerchandiseOrder.m */; };
-		6F2BD0C3194EC8370092BA23 /* MerchandiseOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0C2194EC8370092BA23 /* MerchandiseOrderItem.m */; };
 		6F2BD0C6194ECEBF0092BA23 /* ViewQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0C5194ECEBF0092BA23 /* ViewQRCodeViewController.m */; };
 		6F2BD0C9194ECFAE0092BA23 /* UIParameterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BD0C8194ECFAE0092BA23 /* UIParameterButton.m */; };
 		6F2BFDF61982419500426757 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2BFDF51982419500426757 /* PurchaseViewController.m */; };
@@ -498,8 +497,6 @@
 		6F2BD0BC194EB5D30092BA23 /* DateTimeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeUtil.m; sourceTree = "<group>"; };
 		6F2BD0BE194EBEF70092BA23 /* MerchandiseOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseOrder.h; sourceTree = "<group>"; };
 		6F2BD0BF194EBEF70092BA23 /* MerchandiseOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseOrder.m; sourceTree = "<group>"; };
-		6F2BD0C1194EC8370092BA23 /* MerchandiseOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseOrderItem.h; sourceTree = "<group>"; };
-		6F2BD0C2194EC8370092BA23 /* MerchandiseOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseOrderItem.m; sourceTree = "<group>"; };
 		6F2BD0C4194ECEBF0092BA23 /* ViewQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewQRCodeViewController.h; sourceTree = "<group>"; };
 		6F2BD0C5194ECEBF0092BA23 /* ViewQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewQRCodeViewController.m; sourceTree = "<group>"; };
 		6F2BD0C7194ECFAE0092BA23 /* UIParameterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIParameterButton.h; sourceTree = "<group>"; };
@@ -1309,8 +1306,6 @@
 				6F74E1CF1949EE7F00C7E3D6 /* Account.m */,
 				6F2BD0BE194EBEF70092BA23 /* MerchandiseOrder.h */,
 				6F2BD0BF194EBEF70092BA23 /* MerchandiseOrder.m */,
-				6F2BD0C1194EC8370092BA23 /* MerchandiseOrderItem.h */,
-				6F2BD0C2194EC8370092BA23 /* MerchandiseOrderItem.m */,
 				6F7BD33019540A620031D2DD /* QRCode.h */,
 				6F7BD33119540A620031D2DD /* QRCode.m */,
 				6F7261ED195A6DA800BD17D8 /* Address.h */,
@@ -2823,7 +2818,6 @@
 				6F418971194803EA00F9DC2C /* HttpResponseAuthorizationFilter.m in Sources */,
 				6F5B5E2719B5807100495F0C /* ModalView.m in Sources */,
 				6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */,
-				6F2BD0C3194EC8370092BA23 /* MerchandiseOrderItem.m in Sources */,
 				6F72A3F0193DF7D2001DAA3E /* DrawerMenuViewController.m in Sources */,
 				6F4F234F195927040028EBD1 /* ActivitiesViewController.m in Sources */,
 				6F2816AB19495379009B29DB /* PullScrollZoomImageHtmlView.m in Sources */,

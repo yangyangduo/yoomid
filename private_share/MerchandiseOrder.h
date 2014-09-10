@@ -7,12 +7,12 @@
 //
 
 #import "BaseModel.h"
-#import "MerchandiseOrderItem.h"
 
 typedef NS_ENUM(NSUInteger, MerchandiseOrderState) {
-    MerchandiseOrderStateSubmitted     = 1,
-    MerchandiseOrderStateTransaction   = 2,
-    MerchandiseOrderStateCancelled     = 3
+    MerchandiseOrderStateUnCashPayment    = 1,
+    MerchandiseOrderStateSubmitted        = 2,
+    MerchandiseOrderStateUnConfirmed      = 3,
+    MerchandiseOrderStateConfirmed        = 4
 };
 
 @interface MerchandiseOrder : BaseModel

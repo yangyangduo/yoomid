@@ -31,15 +31,8 @@
         self.shopName = [json noNilStringForKey:@"shopName"];
         self.orderState = [json numberForKey:@"orderState"].unsignedIntegerValue;
         self.createTime = [json dateWithMillisecondsForKey:@"createTime"];
-        NSArray *mls = [json arrayForKey:@"merchandiseLists"];
-        NSMutableArray *orders = [NSMutableArray array];
-        if(mls != nil) {
-            for(int i=0; i<mls.count; i++) {
-                NSDictionary *ml = [mls objectAtIndex:i];
-                [orders addObject:[[MerchandiseOrderItem alloc] initWithJson:ml]];
-            }
-        }
-        self.merchandiseLists = orders;
+        
+        self.merchandiseLists = [NSMutableArray array];
     }
     return self;
 }
