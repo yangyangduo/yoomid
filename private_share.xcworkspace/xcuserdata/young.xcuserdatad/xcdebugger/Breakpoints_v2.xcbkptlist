@@ -1402,11 +1402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431585145.404772"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1418,11 +1418,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431585145.404772"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -1482,28 +1482,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431589010.172853"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "@implementation HomeViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "private_share/HomeViewController.m"
-            timestampString = "431589010.172853"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "-setAllCategories:"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "-modalViewDidClosed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1514,12 +1498,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431589010.172853"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "-setAllCategories:"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "-allCategories"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1530,11 +1514,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431585145.404772"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-rootCategories"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "private_share/HomeViewController.m"
+            timestampString = "432028729.575855"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-getCategoriesSuccess:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1594,7 +1594,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/HomeViewController.m"
-            timestampString = "431585145.404772"
+            timestampString = "432028729.575855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
