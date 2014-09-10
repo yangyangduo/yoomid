@@ -26,7 +26,7 @@
     PullCollectionView *_collectionView_;
     
     NSInteger pageIndex;
-    MerchandiseOrderState orderState;
+    NSInteger orderState;
     
     NSString *orderItemCellIdentifier;
     NSString *orderFooterViewIdentifier;
@@ -184,10 +184,10 @@
         [self cancelLoadMore];
         
         if(page == 0) {
-            if(MerchandiseOrderStateSubmitted == orderState) {
+            if(MerchandiseOrderStateUnCashPayment == orderState) {
                 submittedOrders = [NSMutableArray arrayWithArray:merchandiseOrders];
                 submittedOrdersRefreshDate = _collectionView_.pullLastRefreshDate;
-            } else if(MerchandiseOrderStateSubmitted == orderState) {
+            } else if(MerchandiseOrderStateUnCashPayment != orderState && MerchandiseOrderStateConfirmed != orderState) {
                 transactionOrders = [NSMutableArray arrayWithArray:merchandiseOrders];
                 transactionOrdersRefreshDate = _collectionView_.pullLastRefreshDate;
             } else {
