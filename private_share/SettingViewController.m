@@ -61,11 +61,11 @@
     topView.backgroundColor = [UIColor clearColor];
     tableview.tableHeaderView = topView;
 
-    UIImageView *perfectinformation1 = [[UIImageView alloc]initWithFrame:CGRectMake(20, 34, 345/2, 35/2)];
+    UIImageView *perfectinformation1 = [[UIImageView alloc]initWithFrame:CGRectMake(20, 36, 345/2, 35/2)];
     perfectinformation1.image = [UIImage imageNamed:@"perfectinformation1"];
     [topView addSubview:perfectinformation1];
     
-     perfectinformation2 = [[UIImageView alloc]initWithFrame:CGRectMake(30+perfectinformation1.bounds.size.width, 1, 200/2, 162/2)];
+     perfectinformation2 = [[UIImageView alloc]initWithFrame:CGRectMake(30+perfectinformation1.bounds.size.width, 3, 200/2, 162/2)];
     perfectinformation2.image = [UIImage imageNamed:@"perfectinformation2"];
     [topView addSubview:perfectinformation2];
 
@@ -279,125 +279,125 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
+        
+        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-30, 47)];
+        bgView.tag = 100;
+        [cell addSubview:bgView];
+        
+        UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, bgView.bounds.size.width-30, 47)];
+        textLabel.tag = 200;
+        textLabel.font = [UIFont systemFontOfSize:15];
+        
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(12,46, bgView.bounds.size.width-24, 1)];
+        line.backgroundColor = [UIColor colorWithRed:228.f/255.f green:230.f/255.f blue:230/255.f alpha:1];//228 230  230
+        UIImageView *intoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(243, 0, 47, 47)];
+        line.tag = 300;
+        intoImageView.image = [UIImage imageNamed:@"into"];
+        
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, cell.bounds.size.width-30, 47)];
+        imageview.tag = 400;
+        [bgView addSubview:imageview];
+        [bgView addSubview:textLabel];
+        [bgView addSubview:intoImageView];
+        [bgView addSubview:line];
     }
-    
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-30, 47)];
-    [cell addSubview:bgView];
-
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, bgView.bounds.size.width-30, 47)];
-    textLabel.font = [UIFont systemFontOfSize:15];
-    
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(12,46, bgView.bounds.size.width-24, 1)];
-    line.backgroundColor = [UIColor colorWithRed:228.f/255.f green:230.f/255.f blue:230/255.f alpha:1];//228 230  230
-    UIImageView *intoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(243, 0, 47, 47)];
-    intoImageView.image = [UIImage imageNamed:@"into"];
     
     UIImage *bgImage = [UIImage imageNamed:@"setupbg"];
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 20, 0, 20);
     CGRect rect;
     UIImage *image;
 
+    UIImageView *imageview = (UIImageView *)[cell viewWithTag:400];
     if (indexPath.row == 0) {
-        textLabel.text = [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
-        
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
+
         rect = CGRectMake(0, 0, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
 
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 1)
     {
-        textLabel.text = [NSString stringWithFormat:@"姓名:  %@",[userInfoDictionary objectForKey:@"realName"]];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"姓名:  %@",[userInfoDictionary objectForKey:@"realName"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 2)
     {
-        textLabel.text = [NSString stringWithFormat:@"生日:  %@",[userInfoDictionary objectForKey:@"birthday"]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
-        
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"生日:  %@",[userInfoDictionary objectForKey:@"birthday"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
+
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
-
     }
     else if (indexPath.row == 3)
     {
-        textLabel.text = [NSString stringWithFormat:@"性别:  %@",[userInfoDictionary objectForKey:@"sex"]];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"性别:  %@",[userInfoDictionary objectForKey:@"sex"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 4)
     {
-        textLabel.text = [NSString stringWithFormat:@"职位:  %@",[userInfoDictionary objectForKey:@"position"]];        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"职位:  %@",[userInfoDictionary objectForKey:@"position"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 5)
     {
-        textLabel.text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 6)
     {
-        textLabel.text = @"收货地址管理";
-        textLabel.frame = CGRectMake(15, 0, 150, 47);
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = @"收货地址管理";
+        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
     }
     else if (indexPath.row == 7)
     {
-        textLabel.text = @"修改密码";
-        textLabel.frame = CGRectMake(15, 0, 150, 47);
-        [line setHidden:YES];
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, bgView.bounds.size.width, 47)];
+        ((UILabel *)[cell viewWithTag:200]).text = @"修改密码";
+        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
+        [(UIView *)[cell viewWithTag:300] setHidden:YES];
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 50, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-        [bgView addSubview:imageview];
-
     }else{}
-    [bgView addSubview:textLabel];
-    [bgView addSubview:intoImageView];
-    [bgView addSubview:line];
 
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

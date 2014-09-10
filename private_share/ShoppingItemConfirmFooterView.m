@@ -68,7 +68,7 @@
         remarkTextField.layer.borderWidth = 1.f;
         remarkTextField.layer.borderColor = [UIColor colorWithRed:219.f / 255 green:220.f / 255 blue:222.f / 255 alpha:1.0f].CGColor;
         remarkTextField.backgroundColor = [UIColor colorWithRed:241.f / 255.f green:241.f / 255.f blue:243.f / 255.f alpha:1.f];
-        remarkTextField.delegate = self;
+//        remarkTextField.delegate = self;
         [self addSubview:remarkTextField];
         
         summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];

@@ -96,7 +96,7 @@
     } else {
         summariesLabel.text = [NSString stringWithFormat:@"共%d件商品  合计:", payment.numberOfMerchandises];
         CGRect sFrame = summariesLabel.frame;
-        sFrame.origin.x = sFrame.origin.x - 50;
+        sFrame.origin.x = sFrame.origin.x - 30;
         summariesLabel.frame = sFrame;
     }
 }
