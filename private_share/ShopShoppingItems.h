@@ -29,5 +29,6 @@
 - (BOOL)hasMerchandises;
 - (Payment *)totalPayment;
 - (Payment *)totalSelectPayment;
+- (Payment *)totalSelectPaymentWithPostPay;
 
 @end

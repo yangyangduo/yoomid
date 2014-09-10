@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, CashPaymentType) {
 
 - (Payment *)totalPayment;
 - (Payment *)totalSelectPayment;
+- (Payment *)totalSelectPaymentWithPostPay;
 
 - (ShopShoppingItems *)shopShoppingItemsWithShopID:(NSString *)shopID;
 

@@ -11,8 +11,8 @@
 typedef NS_ENUM(NSUInteger, MerchandiseOrderState) {
     MerchandiseOrderStateUnCashPayment    = 1,
     MerchandiseOrderStateSubmitted        = 2,
-    MerchandiseOrderStateUnConfirmed      = 3,
-    MerchandiseOrderStateConfirmed        = 4
+    MerchandiseOrderStateUnConfirmed      = 4,
+    MerchandiseOrderStateConfirmed        = 8
 };
 
 @interface MerchandiseOrder : BaseModel

@@ -84,6 +84,9 @@
 - (void)setSelectButtonHidden {
     selectButtonHidden = YES;
     selectButton.hidden = YES;
+    CGRect sFrame = summariesLabel.frame;
+    sFrame.origin.x = sFrame.origin.x - 30;
+    summariesLabel.frame = sFrame;
     [rightButton setTitle:NSLocalizedString(@"determine", @"") forState:UIControlStateNormal];
 }
 
@@ -95,9 +98,6 @@
         selectButton.selected = [ShoppingCart myShoppingCart].allSelect;
     } else {
         summariesLabel.text = [NSString stringWithFormat:@"共%d件商品  合计:", payment.numberOfMerchandises];
-        CGRect sFrame = summariesLabel.frame;
-        sFrame.origin.x = sFrame.origin.x - 30;
-        summariesLabel.frame = sFrame;
     }
 }
 
