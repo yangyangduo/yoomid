@@ -91,16 +91,13 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 6;
-    
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
-    //    用TableSampleIdentifier表示需要重用的单元
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
-    //    如果如果没有多余单元，则需要创建新的单元
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
         UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 54, cell.bounds.size.width, 1)];

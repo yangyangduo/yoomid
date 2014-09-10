@@ -69,11 +69,12 @@
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
     
-    CGFloat imagesViewHeight = self.view.bounds.size.height - 4 * 58;
-    imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -imagesViewHeight, self.view.bounds.size.width, imagesViewHeight)];
+//    CGFloat imagesViewHeight = self.view.bounds.size.height - 4 * 58;
+    CGFloat viewHeight = self.view.bounds.size.width + (self.view.bounds.size.width/3);
+    imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -viewHeight, self.view.bounds.size.width, viewHeight)];
     [_collectionView insertSubview:imagesScrollView atIndex:0];
-    _collectionView.contentInset = UIEdgeInsetsMake(imagesViewHeight - 20, 0, 0, 0);
-    _collectionView.contentOffset = CGPointMake(0, -imagesViewHeight);
+    _collectionView.contentInset = UIEdgeInsetsMake(viewHeight - 20, 0, 0, 0);
+    _collectionView.contentOffset = CGPointMake(0, -viewHeight);
     imagesScrollView.delegate = self;
     
     /*
