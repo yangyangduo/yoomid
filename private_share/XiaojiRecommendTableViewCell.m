@@ -30,12 +30,12 @@
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.bounds.size.width-20, [UIDevice is4InchDevice] ? 400 : 325)];
 //        imageView.image = [UIImage imageNamed:@"xiaojibg"];
         [self addSubview:imageView];
+//        
+//        UIImageView *mikuImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
+//        mikuImage.image = [UIImage imageNamed:@"miku3"];
+//        [imageView addSubview:mikuImage];
         
-        UIImageView *mikuImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
-        mikuImage.image = [UIImage imageNamed:@"miku3"];
-        [imageView addSubview:mikuImage];
-        
-        UIImageView *goodImage = [[UIImageView alloc]initWithFrame:CGRectMake(51, 10, 31, 31)];
+        UIImageView *goodImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
         goodImage.image = [UIImage imageNamed:@"good2"];
         [imageView addSubview:goodImage];
         

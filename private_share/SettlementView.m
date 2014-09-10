@@ -69,12 +69,13 @@
         cashPaymentLabel.text = @"";
         [self addSubview:cashPaymentLabel];
         
-        rightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 60 - 10, 17, 60, 26)];
+        rightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 90 - 10, 0, 180/2, 71/2)];
         [rightButton setTitle:NSLocalizedString(@"settlement", @"") forState:UIControlStateNormal];
         rightButton.layer.cornerRadius = 4;
         rightButton.layer.masksToBounds = YES;
         rightButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
-        [rightButton setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
+//        [rightButton setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
+        [rightButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
         [rightButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rightButton];
     }
