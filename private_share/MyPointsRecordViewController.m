@@ -159,6 +159,7 @@ static CGRect oldframe;
     
     XXEventNameFilter *nameFilter = [[XXEventNameFilter alloc] initWithSupportedEventNames:@[ kEventAccountInfoUpdated ]];
     XXEventSubscription *subscription = [[XXEventSubscription alloc] initWithSubscriber:self eventFilter:nameFilter];
+    subscription.notifyMustInMainThread = YES;
     [[XXEventSubscriptionPublisher defaultPublisher] subscribeFor:subscription];
 }
 
