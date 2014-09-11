@@ -5,6 +5,7 @@
 //  Created by 曹大为 on 14-8-20.
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
+
 static CGRect oldframe;
 
 #import "MyPointsRecordViewController.h"
@@ -12,6 +13,9 @@ static CGRect oldframe;
 #import "Account.h"
 #import "PointsOrderService.h"
 #import "DiskCacheManager.h"
+#import "XXEventNameFilter.h"
+#import "AccountInfoUpdatedEvent.h"
+#import "Account.h"
 
 @interface MyPointsRecordViewController ()
 
@@ -38,7 +42,7 @@ static CGRect oldframe;
     NSDate *additionPointsOrdersRefreshDate;
 }
 
--(void)showImage:(UIImageView *)avatarImageView{
+- (void)showImage:(UIImageView *)avatarImageView {
     UIImage *image=avatarImageView.image;
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -67,7 +71,7 @@ static CGRect oldframe;
     }];
 }
 
--(void)hideImage:(UITapGestureRecognizer*)tap{
+- (void)hideImage:(UITapGestureRecognizer*)tap {
     UIView *backgroundView=tap.view;
     UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
     [UIView animateWithDuration:0.3 animations:^{
@@ -76,15 +80,6 @@ static CGRect oldframe;
     } completion:^(BOOL finished) {
         [backgroundView removeFromSuperview];
     }];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)viewDidLoad
@@ -154,14 +149,38 @@ static CGRect oldframe;
     [self.view addSubview:pointsOrderTableView];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refresh:YES];
 }
 
--(void)setPoints:(NSString*)numberStr
-{
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    XXEventNameFilter *nameFilter = [[XXEventNameFilter alloc] initWithSupportedEventNames:@[ kEventAccountInfoUpdated ]];
+    XXEventSubscription *subscription = [[XXEventSubscription alloc] initWithSubscriber:self eventFilter:nameFilter];
+    [[XXEventSubscriptionPublisher defaultPublisher] subscribeFor:subscription];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[XXEventSubscriptionPublisher defaultPublisher] unSubscribeForSubscriber:self];
+}
+
+#pragma mark -
+#pragma mark XX event sub && pub
+
+- (NSString *)xxEventSubscriberIdentifier {
+    return @"pointsOrdersSubscriber";
+}
+
+- (void)xxEventPublisherNotifyWithEvent:(XXEvent *)event {
+    if([event isKindOfClass:[AccountInfoUpdatedEvent class]]) {
+        //[Account currentAccount].level;
+    }
+}
+
+- (void)setPoints:(NSString*)numberStr {
     for (UIView *v in [numberView subviews]) {
         [v removeFromSuperview];
     }
@@ -176,8 +195,7 @@ static CGRect oldframe;
     numberView.frame = CGRectMake((self.view.bounds.size.width/2 - (numberStr.length*30)/2) - 44, (topView.bounds.size.height-addBtn.bounds.size.height)/2-25, numberStr.length * 30, 50);
 }
 
-- (void)showLevelImage:(id)sender
-{
+- (void)showLevelImage:(id)sender {
     [self showImage:levelbgImage];//调用方法
 }
 

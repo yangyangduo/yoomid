@@ -9,7 +9,8 @@
 #import "BaseViewController.h"
 #import "PullTableView.h"
 #import "TransitionViewController.h"
+#import "XXEventSubscriptionPublisher.h"
 
-@interface MyPointsRecordViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate,PullTableViewDelegate>
+@interface MyPointsRecordViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate, XXEventSubscriber>
 
 @end
