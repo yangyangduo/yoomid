@@ -113,7 +113,6 @@ static CGRect oldframe;
     
     numberView = [[UIView alloc]init];
     numberView.backgroundColor = [UIColor clearColor];
-    [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
     [topView addSubview:numberView];
     
     UIImageView *triangleImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 55, 19, 16)];
@@ -128,7 +127,7 @@ static CGRect oldframe;
     levelImage.image = [UIImage imageNamed:@"levelbg"];
     
     levelbgImage = [[UIImageView alloc]initWithFrame:CGRectMake(4, 4, 42, 42)];
-    levelbgImage.image = [UIImage imageNamed:@"level1"];
+//    levelbgImage.image = [UIImage imageNamed:@"level1"];
     [levelImage addSubview:levelbgImage];
     
     [topView addSubview:levelImage];
@@ -152,6 +151,8 @@ static CGRect oldframe;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refresh:YES];
+    [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
+    [self setLevelImage:[Account currentAccount].level];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -179,6 +180,11 @@ static CGRect oldframe;
     if([event isKindOfClass:[AccountInfoUpdatedEvent class]]) {
         //[Account currentAccount].level;
     }
+}
+
+-(void)setLevelImage:(NSInteger)level
+{
+    levelbgImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"level%d",level+1]];
 }
 
 - (void)setPoints:(NSString*)numberStr {
