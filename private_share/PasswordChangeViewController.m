@@ -79,7 +79,6 @@
 
 - (void)handleFailureHttpResponse:(HttpResponse *)resp {
     [super handleFailureHttpResponse:resp];
-    
 }
 
 #pragma mark -
