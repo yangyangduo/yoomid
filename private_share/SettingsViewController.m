@@ -7,7 +7,6 @@
 //
 
 #import "SettingsViewController.h"
-#import "PointsRecordViewController.h"
 #import "MerchandiseOrdersViewController.h"
 #import "AboutYoomidViewController.h"
 #import "SecurityConfig.h"

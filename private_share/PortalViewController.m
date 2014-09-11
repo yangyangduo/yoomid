@@ -10,7 +10,6 @@
 #import "ViewControllerAccessor.h"
 #import "MerchandiseView.h"
 #import "MerchandiseOrdersViewController.h"
-#import "PointsRecordViewController.h"
 #import "AppDelegate.h"
 #import "ProgressView.h"
 #import "SettingsViewController.h"
@@ -261,7 +260,6 @@
     }
     
     if(sender.tag == 0) {
-        [self.navigationController pushViewController:[[PointsRecordViewController alloc] init] animated:YES];
     } else if(sender.tag == 1) {
         
     } else if(sender.tag == 2) {

@@ -12,7 +12,6 @@
 #import "ShoppingCartViewController2.h"
 #import "SettingViewController.h"
 #import "TaskListViewController.h"
-#import "PointsRecordViewController.h"
 #import "HomePageItemCell.h"
 #import "NotificationsViewController.h"
 
@@ -170,10 +169,6 @@
 //    [self rightPresentViewController:navigationControllers animated:YES];
 //
 //    return;
-    PointsRecordViewController *settingVC = [[PointsRecordViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    [self rightPresentViewController:navigationController animated:YES];
 
     return;
     
