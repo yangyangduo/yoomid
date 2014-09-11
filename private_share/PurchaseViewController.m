@@ -15,6 +15,7 @@
 #import "ContactDisplayView.h"
 #import "AddContactInfoViewController.h"
 #import "HomeViewController.h"
+#import "MerchandiseService.h"
 #import "DiskCacheManager.h"
 
 NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
@@ -282,7 +283,32 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         [ordersToSubmit addObject:shopOrder];
     }
     
+    
+    [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
+    [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+    
+    MerchandiseService *service =  [[MerchandiseService alloc] init];
+    [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+
+#ifdef DEBUG
     [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
+#endif
+}
+
+- (void)submitOrdersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 201) {
+        [[XXAlertView currentAlertView] setMessage:@"提交成功" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] delayDismissAlertView];
+        return;
+    }
+    
+    [self submitOrdersFailure:resp];
+}
+
+- (void)submitOrdersFailure:(HttpResponse *)resp {
+    NSLog(@"处嘻嘻了");
+    
+    [self handleFailureHttpResponse:resp];
 }
 
 - (void)dealloc {

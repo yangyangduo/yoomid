@@ -124,7 +124,7 @@ image height px
     if(_shoppingItem_ != nil) {
         selectButton.selected = shoppingItem.selected;
         
-        [imageView setImageWithURL:[NSURL URLWithString:_shoppingItem_.merchandise.firstImageUrl] placeholderImage:nil];
+        [imageView setImageWithURL:[NSURL URLWithString:_shoppingItem_.merchandise.firstImageUrl] placeholderImage:[UIImage imageNamed:@"merchandise_placeholder"]];
         
         nameLabel.text = _shoppingItem_.merchandise.name;
         

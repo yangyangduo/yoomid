@@ -111,7 +111,7 @@ CGFloat const ImageViewHeight2 = 64.f;
 - (void)setShoppingItem:(ShoppingItem *)shoppingItem {
     _shoppingItem_ = shoppingItem;
     if(_shoppingItem_ != nil) {
-        [imageView setImageWithURL:[NSURL URLWithString:_shoppingItem_.merchandise.firstImageUrl] placeholderImage:nil];
+        [imageView setImageWithURL:[NSURL URLWithString:_shoppingItem_.merchandise.firstImageUrl] placeholderImage:[UIImage imageNamed:@"merchandise_placeholder"]];
         
         nameLabel.text = _shoppingItem_.merchandise.name;
         CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(nameLabel.frame.size.width, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize2] } context:nil].size;
