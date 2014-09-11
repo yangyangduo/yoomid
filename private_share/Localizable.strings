@@ -48,7 +48,7 @@
 "please_enter"                         =     "请输入";
 "please_select"                        =     "请选择";
 "cancel"                               =     "取消";
-"access_token_invalid"                 =     "验证码已失效";
+"access_token_invalid"                 =     "请重新登录";
 "submitted_success"                    =     "提交成功";
 "modify_success"                       =     "修改成功";
 

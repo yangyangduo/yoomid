@@ -144,7 +144,6 @@
     }];
 }
 
-
 - (void)keyboardWillHide:(NSNotification *)notification {
     if(!keyboardIsShow) return;
     keyboardIsShow = NO;

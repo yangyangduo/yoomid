@@ -209,24 +209,22 @@
     }
 }
 
-
--(void)exitBtnClick
-{
+- (void)exitBtnClick {
     [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"being_logout", @"") forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
-    [self performSelector:@selector(delayLogout) withObject:nil afterDelay:0.8f];
-
+    [self performSelector:@selector(delayLogout) withObject:nil afterDelay:0.6f];
 }
 
 - (void)delayLogout {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app doAfterLogout];
-    [[XXAlertView currentAlertView] dismissAlertView];
-
-    UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-    [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-    [self.navigationController presentViewController:loginNavigationViewController animated:YES completion:^{
-}];
+    [self dismissViewControllerAnimated:NO completion:^{
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        [app doAfterLogout];
+        UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
+        [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+        [[XXAlertView currentAlertView] setMessage:@"已退出" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] delayDismissAlertView];
+    }];
 }
 
 #pragma mark -

@@ -63,18 +63,18 @@
 - (void)rightDismissViewControllerAnimated:(BOOL)animated {
     self.animationController.panDirection = PanDirectionRight;
     self.animationController.animationType = PanAnimationControllerTypeDismissal;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:animated completion:nil];
 }
 
 - (void)leftDismissViewControllerAnimated:(BOOL)animated {
     self.animationController.panDirection = PanDirectionLeft;
     self.animationController.animationType = PanAnimationControllerTypeDismissal;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:animated completion:nil];
 }
 
 - (void)rightPopViewControllerAnimated:(BOOL)animated {
     self.animationController.panDirection = PanDirectionRight;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:animated];
 }
 
 #pragma mark -

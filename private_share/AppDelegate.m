@@ -68,8 +68,6 @@
     [self.window makeKeyAndVisible];
     
     [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
-    
-    [[SecurityConfig defaultConfig] clearAuthenticationInfo];
 
     if(![SecurityConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
@@ -165,6 +163,7 @@
     [YouMiConfig launchWithAppID:kYoumiAppID appSecret:kYoumiSecretKey];
     [YouMiWall enable];
     
+    /*
     // init cocounion platform
     [PunchBoxAd startSession:kCocounionSecretKey];
     [PunchBoxAd setUserInfo:[SecurityConfig defaultConfig].userName];
@@ -172,6 +171,7 @@
     // init miidi adwall
     [MiidiManager setAppPublisher:kMiidiAppId withAppSecret:kMiidiAppSecretKey];
     [MiidiAdWall setUserParam:[SecurityConfig defaultConfig].userName];
+     */
 }
 
 #pragma mark -
