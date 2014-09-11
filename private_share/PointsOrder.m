@@ -23,7 +23,7 @@
         self.points = [json numberForKey:@"points"].integerValue;
         self.taskName = [json noNilStringForKey:@"taskName"];
         self.providerName = [json noNilStringForKey:@"providerName"];
-        self.orderType = [json numberForKey:@"orderType"].integerValue;
+        self.orderType = [json numberForKey:@"taskType"].integerValue;
         self.createTime = [json dateWithMillisecondsForKey:@"timestamp"];
     }
     return self;
@@ -31,7 +31,12 @@
 
 - (NSMutableDictionary *)toJson {
     NSMutableDictionary *json = [super toJson];
-    
+    [json setInteger:self.points forKey:@"points"];
+    [json setMayBlankString:self.taskName forKey:@"taskName"];
+    [json setMayBlankString:self.providerName forKey:@"providerName"];
+//    NSUInteger type = [NSString stringWithFormat:@"%ud",self.or];
+    [json setInteger:self.orderType forKey:@"taskType"];
+    [json setDateWithMilliseconds:self.createTime forKey:@"timestamp"];
     return json;
 }
 

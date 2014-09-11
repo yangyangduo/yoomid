@@ -186,25 +186,16 @@ static CGRect oldframe;
         pointsOrderTableView.pullTableIsRefreshing = YES;
         BOOL isExpired;
         NSArray *pointsArray = [[DiskCacheManager manager] pointsOrdersWithPointsOrderType:pointsOrderType isExpired:&isExpired];
-        
         if (pointsArray != nil) {
-            if (pointsOrderType == PointsOrderTypeIncome) {
-                additionPointsOrders = [NSMutableArray arrayWithArray:pointsArray];
-            }
-            else
-            {
-                reducePointsOrders = [NSMutableArray arrayWithArray:pointsArray];
-            }
+            pointsOrders = [NSMutableArray arrayWithArray:pointsArray];
             [pointsOrderTableView reloadData];
-            [self cancelLoadMore];
-            [self cancelRefresh];
+            [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:0.5f];
         }
+    
         if (isExpired || pointsArray == nil) {
             [self performSelector:@selector(refresh) withObject:nil afterDelay:0.5f];
         }
-        return;
     }
-//    [self refresh];
 }
 
 - (void)refresh {
@@ -246,28 +237,7 @@ static CGRect oldframe;
                 }
             }
         }
-        
-        if (pointsOrderType == PointsOrderTypeIncome) {
-            if (additionPointsOrders == nil) {
-                additionPointsOrders = [[NSMutableArray array]init];
-            }
-            else
-            {
-                [additionPointsOrders removeAllObjects];
-            }
-            additionPointsOrders = pointsOrders;
-        }
-        else
-        {
-            if (reducePointsOrders == nil) {
-                reducePointsOrders = [[NSMutableArray array]init];
-            }
-            else
-            {
-                [reducePointsOrders removeAllObjects];
-            }
-            reducePointsOrders = pointsOrders;
-        }
+       
         if(page > 0) {
             if(results != nil && results.count > 0) {
                 pageIndex++;
@@ -294,6 +264,8 @@ static CGRect oldframe;
                 additionPointsOrders = [NSMutableArray arrayWithArray:pointsOrders];
                 additionPointsOrdersRefreshDate = pointsOrderTableView.pullLastRefreshDate;
             }
+            [[DiskCacheManager manager]setPointsOrders:pointsOrders pointsOrderType:pointsOrderType];
+
         }
         
         return;
@@ -350,29 +322,11 @@ static CGRect oldframe;
 #pragma mark UITableView delegate mothed
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger count = 0;
-    if (pointsOrderType == PointsOrderTypeIncome) {
-        count = additionPointsOrders.count == 0 ? 0 : 1;
-    }
-    else
-    {
-        count = reducePointsOrders.count == 0 ? 0 : 1;
-    }
-    return count;
-//    return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
+    return (pointsOrders == nil || pointsOrders.count == 0) ? 0 : 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = 0;
-    if (pointsOrderType == PointsOrderTypeIncome) {
-        count = additionPointsOrders.count;
-    }
-    else
-    {
-        count = reducePointsOrders.count;
-    }
-    return count;
-//    return pointsOrders == nil ? 0 : pointsOrders.count;
+    return pointsOrders == nil ? 0 : pointsOrders.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -392,12 +346,12 @@ static CGRect oldframe;
     PointsOrder *order = nil;
 
     if (pointsOrderType == PointsOrderTypeIncome) {
-        order = [additionPointsOrders objectAtIndex:indexPath.row];
+        order = [pointsOrders objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@  %@获得%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
     }
     else
     {
-        order = [reducePointsOrders objectAtIndex:indexPath.row];
+        order = [pointsOrders objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@  %@使用%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
