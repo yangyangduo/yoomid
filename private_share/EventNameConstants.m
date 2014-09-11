@@ -9,7 +9,7 @@
 #import "EventNameConstants.h"
 
 NSString * const kEventShoppingItemsChanged = @"ShoppingItemsChangedEvent";
-NSString * const kEventAccountPointsUpdated = @"AccountPointsUpdatedEvent";
+NSString * const kEventAccountInfoUpdated = @"AccountInfoUpdatedEvent";
 NSString * const kEventShoppingItemSelectPropertyChangedEvent = @"EventShoppingItemSelectPropertyChangedEvent";
 
 @implementation EventNameConstants

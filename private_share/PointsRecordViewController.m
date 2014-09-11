@@ -9,6 +9,9 @@
 #import "PointsRecordViewController.h"
 #import "PointsOrderService.h"
 #import "PointsOrder.h"
+#import "XXEventNameFilter.h"
+#import "AccountInfoUpdatedEvent.h"
+#import "Account.h"
 
 @interface PointsRecordViewController ()
 
@@ -76,6 +79,19 @@
     if(pointsOrderTableView.pullLastRefreshDate == nil) {
         [self refresh:YES];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    XXEventNameFilter *nameFilter = [[XXEventNameFilter alloc] initWithSupportedEventNames:@[ kEventAccountInfoUpdated ]];
+    XXEventSubscription *subscription = [[XXEventSubscription alloc] initWithSubscriber:self eventFilter:nameFilter];
+    [[XXEventSubscriptionPublisher defaultPublisher] subscribeFor:subscription];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[XXEventSubscriptionPublisher defaultPublisher] unSubscribeForSubscriber:self];
 }
 
 - (void)refresh:(BOOL)animated {
@@ -168,6 +184,19 @@
     }
     [self cancelRefresh];
     [self cancelLoadMore];
+}
+
+#pragma mark -
+#pragma mark 
+
+- (NSString *)xxEventSubscriberIdentifier {
+    return @"pointsOrdersSubscriber";
+}
+
+- (void)xxEventPublisherNotifyWithEvent:(XXEvent *)event {
+    if([event isKindOfClass:[AccountInfoUpdatedEvent class]]) {
+        //[Account currentAccount].level;
+    }
 }
 
 #pragma mark -

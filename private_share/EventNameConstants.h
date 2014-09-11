@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const kEventShoppingItemsChanged;
-extern NSString * const kEventAccountPointsUpdated;
+extern NSString * const kEventAccountInfoUpdated;
 extern NSString * const kEventShoppingItemSelectPropertyChangedEvent;
 
 @interface EventNameConstants : NSObject

@@ -8,7 +8,7 @@
 
 #import "Account.h"
 #import "AccountService.h"
-#import "AccountPointsUpdatedEvent.h"
+#import "AccountInfoUpdatedEvent.h"
 #import "XXEventSubscriptionPublisher.h"
 #import "ShoppingCart.h"
 
@@ -45,8 +45,7 @@
             _taskCount_ = [_account_points_ numberForKey:@"taskCount"].longValue;
             _level_ = [_account_points_ numberForKey:@"level"].longValue;
         }
-        AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
-        [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
+        [self publishEvent];
         return;
     }
     [self getAccountPointsFailure:resp];
@@ -54,8 +53,7 @@
 
 - (void)setPoints:(NSInteger)points {
     _points_ = points;
-    AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
-    [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
+    [self publishEvent];
 }
 
 - (void)getAccountPointsFailure:(HttpResponse *)resp {
@@ -70,8 +68,11 @@
     self.experience = 0;
     self.taskCount = 0;
     self.level = 0;
-    AccountPointsUpdatedEvent *event = [[AccountPointsUpdatedEvent alloc] initWithPoints:self.points];
-    [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:event];
+    [self publishEvent];
+}
+
+- (void)publishEvent {
+    [[XXEventSubscriptionPublisher defaultPublisher] publishWithEvent:[[AccountInfoUpdatedEvent alloc] init]];
 }
 
 @end

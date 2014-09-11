@@ -214,7 +214,7 @@
 		6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F970995193F52CF00EA5E3A /* AccountPoints.m */; };
 		6F970999193F542500EA5E3A /* BaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F970998193F542500EA5E3A /* BaseService.m */; };
 		6F97099C193F55D000EA5E3A /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F97099B193F55D000EA5E3A /* JsonUtil.m */; };
-		6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA327101956890700570BCC /* AccountPointsUpdatedEvent.m */; };
+		6FA327111956890700570BCC /* AccountInfoUpdatedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA327101956890700570BCC /* AccountInfoUpdatedEvent.m */; };
 		6FA3271419568EE800570BCC /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3271319568EE800570BCC /* AccountViewController.m */; };
 		6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */; };
 		6FB0E19F19B6B591002F9A18 /* TaskItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */; };
@@ -780,8 +780,8 @@
 		6F970998193F542500EA5E3A /* BaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseService.m; sourceTree = "<group>"; };
 		6F97099A193F55D000EA5E3A /* JsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonUtil.h; sourceTree = "<group>"; };
 		6F97099B193F55D000EA5E3A /* JsonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonUtil.m; sourceTree = "<group>"; };
-		6FA3270F1956890700570BCC /* AccountPointsUpdatedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountPointsUpdatedEvent.h; sourceTree = "<group>"; };
-		6FA327101956890700570BCC /* AccountPointsUpdatedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPointsUpdatedEvent.m; sourceTree = "<group>"; };
+		6FA3270F1956890700570BCC /* AccountInfoUpdatedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfoUpdatedEvent.h; sourceTree = "<group>"; };
+		6FA327101956890700570BCC /* AccountInfoUpdatedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoUpdatedEvent.m; sourceTree = "<group>"; };
 		6FA3271219568EE800570BCC /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		6FA3271319568EE800570BCC /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_button@2x.png"; sourceTree = "<group>"; };
@@ -1243,8 +1243,8 @@
 				6F2B51D1195565F20069798A /* EventNameConstants.m */,
 				6F2B51CD19553B740069798A /* ShoppingItemsChangedEvent.h */,
 				6F2B51CE19553B740069798A /* ShoppingItemsChangedEvent.m */,
-				6FA3270F1956890700570BCC /* AccountPointsUpdatedEvent.h */,
-				6FA327101956890700570BCC /* AccountPointsUpdatedEvent.m */,
+				6FA3270F1956890700570BCC /* AccountInfoUpdatedEvent.h */,
+				6FA327101956890700570BCC /* AccountInfoUpdatedEvent.m */,
 				6FF1BE02197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.h */,
 				6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */,
 			);
@@ -2823,7 +2823,7 @@
 				6F41898319485BFC00F9DC2C /* Contact.m in Sources */,
 				6F4E4F0D19B9698C006E4E15 /* YoomidRectModalView.m in Sources */,
 				6F53EFE2194B3E4F0080B4DD /* Constants.m in Sources */,
-				6FA327111956890700570BCC /* AccountPointsUpdatedEvent.m in Sources */,
+				6FA327111956890700570BCC /* AccountInfoUpdatedEvent.m in Sources */,
 				6F418971194803EA00F9DC2C /* HttpResponseAuthorizationFilter.m in Sources */,
 				6F5B5E2719B5807100495F0C /* ModalView.m in Sources */,
 				6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */,

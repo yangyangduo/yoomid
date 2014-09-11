@@ -9,7 +9,8 @@
 #import "BaseViewController.h"
 #import "PullTableView.h"
 #import "PanBackTransitionViewController.h"
+#import "XXEventSubscriptionPublisher.h"
 
-@interface PointsRecordViewController : PanBackTransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
+@interface PointsRecordViewController : PanBackTransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate, XXEventSubscriber>
 
 @end
