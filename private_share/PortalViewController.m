@@ -12,7 +12,6 @@
 #import "MerchandiseOrdersViewController.h"
 #import "AppDelegate.h"
 #import "ProgressView.h"
-#import "SettingsViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "QRCodeScannerViewController.h"
 
@@ -282,7 +281,6 @@
 }
 
 - (void)showSettingsViewController:(id)sender {
-    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
 @end

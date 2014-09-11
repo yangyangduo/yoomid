@@ -17,6 +17,7 @@
 #import "HomeViewController.h"
 #import "MerchandiseService.h"
 #import "DiskCacheManager.h"
+#import "OrderResult.h"
 
 NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
 NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHeaderIdentifier";
@@ -283,7 +284,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         [ordersToSubmit addObject:shopOrder];
     }
     
-    
     [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     
@@ -297,8 +297,23 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
-        [[XXAlertView currentAlertView] setMessage:@"提交成功" forType:AlertViewTypeSuccess];
-        [[XXAlertView currentAlertView] delayDismissAlertView];
+
+        
+        
+        NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_order_result_json_ != nil) {
+            OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
+            if(orderResult.cashNeedToPay > 0) {
+                
+            }
+#ifdef DEBUG
+#endif
+            [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
+                modal.modalViewDelegate = self;
+                [modal showInView:self.navigationController.view completion:nil];
+            }];
+        }
         return;
     }
     
@@ -306,9 +321,11 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (void)submitOrdersFailure:(HttpResponse *)resp {
-    NSLog(@"处嘻嘻了");
     
-    [self handleFailureHttpResponse:resp];
+    [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
+        [modal showInView:self.navigationController.view completion:nil];
+    }];
 }
 
 - (void)dealloc {

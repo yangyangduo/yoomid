@@ -11,7 +11,7 @@
 @implementation PointsOrderService
 
 - (void)getPointsOrdersByPageIndex:(NSInteger)pageIndex orderType:(PointsOrderType)orderType target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo {
-    [self.httpClient get:[NSString stringWithFormat:@"/points_orders?page=%ld&ordertype=%lu&%@", (long)pageIndex, (long)orderType, self.authenticationString] target:target success:success failure:failure userInfo:userInfo];
+    [self.httpClient get:[NSString stringWithFormat:@"/points_orders/order_type?page=%ld&orderType=%lu&%@", (long)pageIndex, (long)orderType, self.authenticationString] target:target success:success failure:failure userInfo:userInfo];
 }
 
 @end

@@ -221,6 +221,7 @@
 		6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A219B6C2D4002F9A18 /* modal_background@2x.png */; };
 		6FB0E1A619B6D898002F9A18 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A519B6D898002F9A18 /* Task.m */; };
 		6FB0E1A819B714A2002F9A18 /* no_task@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A719B714A2002F9A18 /* no_task@2x.png */; };
+		6FB45B7919C17CC00091A117 /* OrderResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB45B7819C17CC00091A117 /* OrderResult.m */; };
 		6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */; };
 		6FB8072A19B7FEDB003ABF77 /* rmb_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */; };
 		6FB8072C19B7FF24003ABF77 /* shipping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8072B19B7FF24003ABF77 /* shipping@2x.png */; };
@@ -243,7 +244,6 @@
 		6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD9DF7819A713C60066CA88 /* TransitionViewController.m */; };
 		6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */; };
 		6FDC951119ADAA7A00F51E8D /* TaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */; };
-		6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0093D1953D99B002A675D /* SettingsViewController.m */; };
 		6FE009411953DED3002A675D /* AboutYoomidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE009401953DED3002A675D /* AboutYoomidViewController.m */; };
 		6FE009451953DF1B002A675D /* contact_us.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FE009431953DF1B002A675D /* contact_us.html */; };
 		6FE009461953DF1B002A675D /* disclaimer.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FE009441953DF1B002A675D /* disclaimer.html */; };
@@ -789,6 +789,8 @@
 		6FB0E1A419B6D898002F9A18 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		6FB0E1A519B6D898002F9A18 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		6FB0E1A719B714A2002F9A18 /* no_task@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_task@2x.png"; sourceTree = "<group>"; };
+		6FB45B7719C17CC00091A117 /* OrderResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderResult.h; sourceTree = "<group>"; };
+		6FB45B7819C17CC00091A117 /* OrderResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderResult.m; sourceTree = "<group>"; };
 		6FB714DA196E623700598457 /* MerchandiseDetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseDetailViewController2.h; sourceTree = "<group>"; };
 		6FB714DB196E623700598457 /* MerchandiseDetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseDetailViewController2.m; sourceTree = "<group>"; };
 		6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rmb_blue@2x.png"; sourceTree = "<group>"; };
@@ -819,8 +821,6 @@
 		6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanBackTransitionViewController.m; sourceTree = "<group>"; };
 		6FDC950F19ADAA7A00F51E8D /* TaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailViewController.h; sourceTree = "<group>"; };
 		6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailViewController.m; sourceTree = "<group>"; };
-		6FE0093C1953D99B002A675D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		6FE0093D1953D99B002A675D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6FE0093F1953DED3002A675D /* AboutYoomidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutYoomidViewController.h; sourceTree = "<group>"; };
 		6FE009401953DED3002A675D /* AboutYoomidViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutYoomidViewController.m; sourceTree = "<group>"; };
 		6FE009431953DF1B002A675D /* contact_us.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = contact_us.html; sourceTree = "<group>"; };
@@ -1373,6 +1373,8 @@
 				6F4189741948250000F9DC2C /* ReturnMessage.m */,
 				6F72C18B19762F6700100D12 /* NameValue.h */,
 				6F72C18C19762F6700100D12 /* NameValue.m */,
+				6FB45B7719C17CC00091A117 /* OrderResult.h */,
+				6FB45B7819C17CC00091A117 /* OrderResult.m */,
 			);
 			name = view_model;
 			sourceTree = "<group>";
@@ -1748,8 +1750,6 @@
 				6F170348194EE3D9008C1C64 /* ShoppingCompleteViewController.m */,
 				6F12F366194FF33800B47132 /* ExperienceTasksViewController.h */,
 				6F12F367194FF33800B47132 /* ExperienceTasksViewController.m */,
-				6FE0093C1953D99B002A675D /* SettingsViewController.h */,
-				6FE0093D1953D99B002A675D /* SettingsViewController.m */,
 				6FE0093F1953DED3002A675D /* AboutYoomidViewController.h */,
 				6FE009401953DED3002A675D /* AboutYoomidViewController.m */,
 				6FA3271219568EE800570BCC /* AccountViewController.h */,
@@ -2809,6 +2809,7 @@
 				6F8823D41940531F00757633 /* PullTableView.m in Sources */,
 				6FE009411953DED3002A675D /* AboutYoomidViewController.m in Sources */,
 				D6A7AD6919A1F271005E3312 /* HomeViewController.m in Sources */,
+				6FB45B7919C17CC00091A117 /* OrderResult.m in Sources */,
 				6F72A3E2193DCA8B001DAA3E /* MallViewController.m in Sources */,
 				6F873DE0199B072600B671AB /* ContactDisplayView.m in Sources */,
 				6F2BD0C6194ECEBF0092BA23 /* ViewQRCodeViewController.m in Sources */,
@@ -2918,7 +2919,6 @@
 				D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */,
 				6FDC951119ADAA7A00F51E8D /* TaskDetailViewController.m in Sources */,
 				6FD8A1D71977D7B100514C17 /* ShoppingCartViewController2.m in Sources */,
-				6FE0093E1953D99B002A675D /* SettingsViewController.m in Sources */,
 				6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */,
 				6F3632FB193EC87800340645 /* RegisterCompleteViewController.m in Sources */,
 				6FB0E19F19B6B591002F9A18 /* TaskItemCell.m in Sources */,
