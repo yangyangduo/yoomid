@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "-getPointsOrdersSuccess:"
+            landmarkName = "-loadMore"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
-            landmarkName = "-getPointsOrdersFailure:"
+            landmarkName = "-getPointsOrdersSuccess:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

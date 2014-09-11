@@ -114,10 +114,8 @@
 - (void)doAfterLogin {
     if([SecurityConfig defaultConfig].isLogin) {
         [self initAdPlatforms];
-        
         [Account currentAccount].accountId = [SecurityConfig defaultConfig].userName;
-        [[Account currentAccount] refreshPoints];
-        
+        [[Account currentAccount] refresh];
         [[DiskCacheManager manager] serveForAccount:[SecurityConfig defaultConfig].userName];
     }
 }

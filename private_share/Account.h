@@ -13,10 +13,13 @@
 
 @property (nonatomic, strong) NSString *accountId;
 @property (nonatomic, assign) NSInteger points;
+@property (nonatomic, assign) long experience;
+@property (nonatomic, assign) long taskCount;
+@property (nonatomic, assign) NSInteger level;
 
 + (instancetype)currentAccount;
-- (void)clear;
 
-- (void)refreshPoints;
+- (void)clear;
+- (void)refresh;
 
 @end
