@@ -69,7 +69,7 @@
         cashPaymentLabel.text = @"";
         [self addSubview:cashPaymentLabel];
         
-        rightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 90, 0, 160/2, 71/2)];
+        rightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 85, 0, 80, 35)];
         [rightButton setTitle:NSLocalizedString(@"settlement", @"") forState:UIControlStateNormal];
         rightButton.layer.cornerRadius = 4;
         rightButton.layer.masksToBounds = YES;

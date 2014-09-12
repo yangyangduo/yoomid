@@ -46,22 +46,25 @@
     [self.view addSubview:htmlView];
     
     UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
-    UIButton *addToShoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(140, 9, 80, 26)];
+    UIButton *addToShoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 0, 90, 30)];
     addToShoppingCartButton.tag = 200;
-    UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 9, 80, 26)];
+    
+    UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 0, 90, 30)];
     purchaseButton.tag = 300;
-    UIButton *showMiRepoButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10.5f, 23, 23)];
+    UIButton *showMiRepoButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 12.f, 20, 20)];
     
     [addToShoppingCartButton setTitle:NSLocalizedString(@"add_to_exchange", @"") forState:UIControlStateNormal];
-    [addToShoppingCartButton setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
+    [addToShoppingCartButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
     
     [purchaseButton setTitle:NSLocalizedString(@"purchase", @"") forState:UIControlStateNormal];
-    [purchaseButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0 green:168.f / 255.f blue:204.f / 255.f alpha:1.f] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
+    [purchaseButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
     
-    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
+    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"miku_blue"] forState:UIControlStateNormal];
     
-    purchaseButton.titleLabel.font = [UIFont systemFontOfSize:13.f];
-    addToShoppingCartButton.titleLabel.font = [UIFont systemFontOfSize:13.f];
+    purchaseButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    purchaseButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    addToShoppingCartButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    addToShoppingCartButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     purchaseButton.layer.cornerRadius = 5;
     addToShoppingCartButton.layer.cornerRadius = 5;

@@ -107,7 +107,7 @@
     UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
     [notificationsButton addTarget:self action:@selector(showNotifications:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:notificationsButton];
+    //[self.view addSubview:notificationsButton];
  
     UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [miRepositoryButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];

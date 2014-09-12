@@ -264,7 +264,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 300);
+    return CGSizeMake(self.view.bounds.size.width, 180);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {

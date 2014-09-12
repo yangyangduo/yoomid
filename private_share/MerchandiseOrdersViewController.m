@@ -287,7 +287,7 @@
     if(UICollectionElementKindSectionFooter == kind) {
         ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
         
-       // [footerView setTotalPayment:shopShoppingItems.totalSelectPayment];
+       [footerView setTotalPayment:[[Payment alloc] initWithPoints:merchandiseOrder.totalPoints cash:merchandiseOrder.totalCash]];
     
         return footerView;
     } else {

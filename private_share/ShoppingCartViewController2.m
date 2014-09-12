@@ -42,7 +42,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     self.title = NSLocalizedString(@"mi_repo2", @"");
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showMerchandiseOrderViewController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"order"] style:UIBarButtonItemStylePlain target:self action:@selector(showMerchandiseOrderViewController)];
     
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;

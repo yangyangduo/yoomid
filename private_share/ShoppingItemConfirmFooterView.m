@@ -70,10 +70,11 @@
         remarkTextField.returnKeyType = UIReturnKeyDone;
         remarkTextField.layer.borderColor = [UIColor colorWithRed:219.f / 255 green:220.f / 255 blue:222.f / 255 alpha:1.0f].CGColor;
         remarkTextField.backgroundColor = [UIColor colorWithRed:241.f / 255.f green:241.f / 255.f blue:243.f / 255.f alpha:1.f];
-        remarkTextField.delegate = self;
-        [self addSubview:remarkTextField];
+//        [self addSubview:remarkTextField];
         
-        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];
+//        remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10
+        
+        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 120, 30)];
         summariesLabel.backgroundColor = [UIColor clearColor];
         summariesLabel.font = [UIFont systemFontOfSize:13.f];
         [self setMerchandiseNumber:0];
@@ -243,10 +244,8 @@
     }
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    if(self.shopShoppingItems != nil) {
-        self.shopShoppingItems.remark = textView.text;
-    }
+- (void)showTextBox:(id)sender {
+    NSLog(@"fuck lady...");
 }
 
 @end

@@ -762,11 +762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/MerchandiseDetailViewController2.m"
-            timestampString = "432137580.100026"
+            timestampString = "432196505.378457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-showParameterPickerView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1114,7 +1114,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/SettlementView.m"
-            timestampString = "429413007.654935"
+            timestampString = "432197590.896537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -1802,11 +1802,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingItemHeaderView.m"
-            timestampString = "432012569.721126"
+            timestampString = "432195616.537292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "-initWithFrame:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1818,11 +1818,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingItemHeaderView.m"
-            timestampString = "432020310.951339"
+            timestampString = "432195616.537292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "-setSelectButtonHidden"
             landmarkType = "5">
          </BreakpointContent>
@@ -1834,11 +1834,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingItemHeaderView.m"
-            timestampString = "432020310.951339"
+            timestampString = "432195722.473314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "-setShopId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1850,11 +1850,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingItemHeaderView.m"
-            timestampString = "432020310.951339"
+            timestampString = "432195722.473314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "-prepareForReuse"
             landmarkType = "5">
          </BreakpointContent>
@@ -1914,11 +1914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/ShoppingItemConfirmFooterView.m"
-            timestampString = "432194018.825576"
+            timestampString = "432196889.499625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "-paymentButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1930,13 +1930,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "private_share/SettlementView.m"
-            timestampString = "432027255.528488"
+            timestampString = "432197590.896537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
             endingLineNumber = "94"
-            landmarkName = "-setPayment:"
-            landmarkType = "5">
+            landmarkName = "@implementation SettlementView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

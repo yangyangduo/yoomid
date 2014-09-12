@@ -12,7 +12,6 @@
 @implementation ShoppingItemHeaderView {
     UIButton *selectButton;
     UILabel *titleLabel;
-    UILabel *label;
     BOOL hideSelectButton;
 }
 
@@ -36,14 +35,7 @@
         [selectButton setImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateSelected];
         [backgroundView addSubview:selectButton];
         
-        label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
-        label.font = [UIFont systemFontOfSize:15.f];
-        label.textAlignment = NSTextAlignmentCenter;
-//        label.textColor = [UIColor lightGrayColor];
-        label.hidden = YES;
-        [backgroundView addSubview:label];
-        
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width + 10, 0, 200, 44)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 0, 220, 44)];
         titleLabel.text = @"";
         titleLabel.font = [UIFont systemFontOfSize:15.f];
         [backgroundView addSubview:titleLabel];
@@ -54,18 +46,18 @@
 - (void)setSelectButtonHidden {
     hideSelectButton = YES;
     selectButton.hidden = YES;
-    label.hidden = NO;
+    CGRect tFrame = titleLabel.frame;
+    tFrame.origin.x = 10;
+    titleLabel.frame = tFrame;
 }
 
 - (void)setOrderId:(NSString *)orderId {
-    label.text = @"单号:";
-    titleLabel.text = orderId;
+    titleLabel.text = [NSString stringWithFormat:@"单号: %@", orderId];
 }
 
 - (void)setShopId:(NSString *)shopId {
     _shopId_ = shopId;
-    label.text = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"shop", @"")];
-    titleLabel.text = @"有米得商城";
+    titleLabel.text = @"小吉商城";
     if(!hideSelectButton) {
         selectButton.selected = [[ShoppingCart myShoppingCart] selectWithShopId:_shopId_];
     }

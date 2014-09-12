@@ -25,6 +25,8 @@
 		6F27071519C2A6F900722C67 /* anwo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071419C2A6F900722C67 /* anwo_icon@2x.png */; };
 		6F27071819C2B35D00722C67 /* guess_pic_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071619C2B35D00722C67 /* guess_pic_locked@2x.png */; };
 		6F27071919C2B35D00722C67 /* survey_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071719C2B35D00722C67 /* survey_locked@2x.png */; };
+		6F27071B19C2CC2300722C67 /* miku_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071A19C2CC2300722C67 /* miku_blue@2x.png */; };
+		6F27071D19C2D00500722C67 /* order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071C19C2D00500722C67 /* order@2x.png */; };
 		6F2816AB19495379009B29DB /* PullScrollZoomImageHtmlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2816AA19495379009B29DB /* PullScrollZoomImageHtmlView.m */; };
 		6F2816B2194980CB009B29DB /* ImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2816B1194980CB009B29DB /* ImageItem.m */; };
 		6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F288012193819DD00197C83 /* LeftDrawerViewController.m */; };
@@ -470,6 +472,8 @@
 		6F27071419C2A6F900722C67 /* anwo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anwo_icon@2x.png"; sourceTree = "<group>"; };
 		6F27071619C2B35D00722C67 /* guess_pic_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guess_pic_locked@2x.png"; sourceTree = "<group>"; };
 		6F27071719C2B35D00722C67 /* survey_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey_locked@2x.png"; sourceTree = "<group>"; };
+		6F27071A19C2CC2300722C67 /* miku_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku_blue@2x.png"; sourceTree = "<group>"; };
+		6F27071C19C2D00500722C67 /* order@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order@2x.png"; sourceTree = "<group>"; };
 		6F2816A919495379009B29DB /* PullScrollZoomImageHtmlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullScrollZoomImageHtmlView.h; sourceTree = "<group>"; };
 		6F2816AA19495379009B29DB /* PullScrollZoomImageHtmlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullScrollZoomImageHtmlView.m; sourceTree = "<group>"; };
 		6F2816B0194980CB009B29DB /* ImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageItem.h; sourceTree = "<group>"; };
@@ -2029,6 +2033,7 @@
 		6FB0E19A19B6A3D7002F9A18 /* yoomid */ = {
 			isa = PBXGroup;
 			children = (
+				6F27071A19C2CC2300722C67 /* miku_blue@2x.png */,
 				6F2C52B51975188A0045BFC1 /* dash_borad */,
 				6F12F35E194FE48400B47132 /* level */,
 			);
@@ -2196,6 +2201,7 @@
 				6FBB6B8B1973B85600E6C7D2 /* mi_repo@2x.png */,
 				6FE0094A1953E177002A675D /* icon_disclosure@2x.png */,
 				6FFB8D9519790567008F0BBB /* top10@2x.png */,
+				6F27071C19C2D00500722C67 /* order@2x.png */,
 				6FBB6B9A1973D55500E6C7D2 /* logo2@2x.png */,
 				6F726B4B196CDEC900875B05 /* logo@2x.png */,
 				6F363312193F080100340645 /* line_dash_gray@2x.png */,
@@ -2578,6 +2584,7 @@
 				D66B497A19B44ECF002615CC /* setting@2x.png in Resources */,
 				6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */,
 				6F7BD32E1953F8E60031D2DD /* btn_flash_light@2x.png in Resources */,
+				6F27071D19C2D00500722C67 /* order@2x.png in Resources */,
 				6F2C52C019751D2C0045BFC1 /* guide1-568h@2x.png in Resources */,
 				D670D6C619B07E4600FB241D /* points_blue@2x.png in Resources */,
 				6F76F7861964F56D00C2FD52 /* exellent@2x.png in Resources */,
@@ -2672,6 +2679,7 @@
 				6F27071919C2B35D00722C67 /* survey_locked@2x.png in Resources */,
 				D3644C01197A171000B44785 /* dianru_set_btn.png in Resources */,
 				6F4E4F1319B96BFA006E4E15 /* sad@2x.png in Resources */,
+				6F27071B19C2CC2300722C67 /* miku_blue@2x.png in Resources */,
 				6FECF3EB19BEA9AB00CAB301 /* button_up@2x.png in Resources */,
 				D3644BE9197A171000B44785 /* dianru_blue_dianru_bottom.png in Resources */,
 				D3644BF4197A171000B44785 /* dianru_back_btn.png in Resources */,
