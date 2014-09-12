@@ -207,7 +207,6 @@
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
-    NSLog(@"changed to %ld", (long)sender.selectedSegmentIndex);
     if (sender.selectedSegmentIndex == 0)
     {
         [tblMerchandises setHidden:YES];
@@ -279,15 +278,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.tag == 0) {
-        MerchandiseDetailViewController2 *controller = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:[recommendedMerchandises objectAtIndex:indexPath.row]];
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-    else
-    {
-        MerchandiseDetailViewController2 *controller = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:[merchandises objectAtIndex:indexPath.row]];
-        [self.navigationController pushViewController:controller animated:YES];
-    }
+    Merchandise *merchandise = (tableView.tag == 0 ? [recommendedMerchandises objectAtIndex:indexPath.row] : [merchandises objectAtIndex:indexPath.row]);
+    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
+    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
 }
 
 
@@ -316,8 +309,7 @@
         [self cancelLoadMore];
         [self cancelRefresh];
         return;
-    }
-   else if (pullTableView.tag == 1) {
+    } else if (pullTableView.tag == 1) {
         if(tblMerchandises.pullTableIsRefreshing) {
             [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
             return;

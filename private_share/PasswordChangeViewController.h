@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 hentre. All rights reserved.
 //
 
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
 
-@interface PasswordChangeViewController : PanBackTransitionViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface PasswordChangeViewController : BackViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @end

@@ -6,10 +6,11 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
+
 @protocol TextViewController2Delegate;
 
-@interface TextViewController2 : PanBackTransitionViewController<UITextFieldDelegate>
+@interface TextViewController2 : BackViewController<UITextFieldDelegate>
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *defaultValue;
 @property (nonatomic, strong) NSString *descriptionText;

@@ -7,10 +7,12 @@
 //
 
 #import "MerchandiseDetailViewController2.h"
+#import "ShoppingCartViewController2.h"
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
-#import "MerchandiseParametersPicker.h"
 #import "ShoppingCartViewController2.h"
+#import "PurchaseViewController.h"
+#import "UINavigationViewInitializer.h"
 
 @implementation MerchandiseDetailViewController2 {
     UIWebView *htmlView;
@@ -33,7 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self automaticallyAdjustsScrollViewInsets];
+    
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
     htmlView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44)];
     htmlView.backgroundColor = [UIColor whiteColor];
@@ -43,7 +47,9 @@
     
     UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
     UIButton *addToShoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(140, 9, 80, 26)];
+    addToShoppingCartButton.tag = 200;
     UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 9, 80, 26)];
+    purchaseButton.tag = 300;
     UIButton *showMiRepoButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10.5f, 23, 23)];
     
     [addToShoppingCartButton setTitle:NSLocalizedString(@"add_to_exchange", @"") forState:UIControlStateNormal];
@@ -52,7 +58,7 @@
     [purchaseButton setTitle:NSLocalizedString(@"purchase", @"") forState:UIControlStateNormal];
     [purchaseButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0 green:168.f / 255.f blue:204.f / 255.f alpha:1.f] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
     
-    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"mi_repo"] forState:UIControlStateNormal];
+    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
     
     purchaseButton.titleLabel.font = [UIFont systemFontOfSize:13.f];
     addToShoppingCartButton.titleLabel.font = [UIFont systemFontOfSize:13.f];
@@ -78,9 +84,9 @@
     UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
     topMaskImageView.image = [UIImage imageNamed:@"black_top"];
     topMaskImageView.userInteractionEnabled = YES;
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(18, 25.5f, 29, 29)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 44, 44)];
     [backButton addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
     [self.view addSubview:topMaskImageView];
     [self.view addSubview:backButton];
     
@@ -142,16 +148,52 @@
 }
 
 - (void)popVC:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self rightDismissViewControllerAnimated:YES];
 }
 
 - (void)showParameterPickerView:(UIButton *)sender {
     MerchandiseParametersPicker *picker = [MerchandiseParametersPicker pickerWithMerchandise:self.merchandise];
+    picker.delegate = self;
+    if(sender.tag == 200) {
+        picker.pickerMode = MerchandisePickerModeForShoppingCart;
+    } else {
+        picker.pickerMode = MerchandisePickerModePurchase;
+    }
     [picker showInView:self.view];
 }
 
 - (void)showMiRepo:(id)sender {
-    //[self.navigationController pushViewController:[[ShoppingCartViewController2 alloc] init] animated:YES];
+    ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    [self rightPresentViewController:navigationController animated:YES];
+}
+
+- (void)merchandiseParametersPicker:(MerchandiseParametersPicker *)picker didPickMerchandiseWithPaymentType:(PaymentType)paymentType number:(NSInteger)number properties:(NSArray *)properties {
+    
+    [picker closeView];
+    
+    if(MerchandisePickerModeForShoppingCart == picker.pickerMode) {
+        [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:number paymentType:paymentType properties:properties];
+        [[XXAlertView currentAlertView] setMessage:@"已加入购物车" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+    } else {
+        ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];
+        shopShoppingItems.shopID = self.merchandise.shopId;
+        ShoppingItem *newItem = [[ShoppingItem alloc] init];
+        newItem.merchandise = self.merchandise;
+        newItem.number = number;
+        newItem.selected = YES;
+        newItem.paymentType = paymentType;
+        newItem.properties = properties;
+        newItem.shopId = shopShoppingItems.shopID;
+        [shopShoppingItems.shoppingItems addObject:newItem];
+        
+        PurchaseViewController *purchaseViewController = [[PurchaseViewController alloc] initWithShopShoppingItemss:@[ shopShoppingItems ] isFromShoppingCart:NO];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:purchaseViewController];
+        [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+        [self rightPresentViewController:navigationController animated:YES];
+    }
 }
 
 - (NSString *)errorHtml {

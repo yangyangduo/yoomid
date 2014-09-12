@@ -116,7 +116,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
         return;
     }
     [self.navigationController pushViewController:
-        [[PurchaseViewController alloc] initWithShopShoppingItemss:[ShoppingCart myShoppingCart].selectShopShoppingItemss] animated:YES];
+        [[PurchaseViewController alloc] initWithShopShoppingItemss:[ShoppingCart myShoppingCart].selectShopShoppingItemss isFromShoppingCart:YES] animated:YES];
 }
 
 - (void)showMerchandiseOrderViewController {

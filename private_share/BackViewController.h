@@ -1,5 +1,5 @@
 //
-//  PanBackTransitionViewController.h
+//  BackViewController.h
 //  private_share
 //
 //  Created by Zhao yang on 8/27/14.
@@ -8,6 +8,6 @@
 
 #import "TransitionViewController.h"
 
-@interface PanBackTransitionViewController : TransitionViewController
+@interface BackViewController : TransitionViewController
 
 @end

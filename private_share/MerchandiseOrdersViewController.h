@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "PullCollectionView.h"
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
 
-@interface MerchandiseOrdersViewController : PanBackTransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate>
+@interface MerchandiseOrdersViewController : BackViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate>
 
 @end

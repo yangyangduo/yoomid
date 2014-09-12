@@ -14,7 +14,6 @@
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
 #import "XXAlertView.h"
-#import "ShoppingCart.h"
 #import "Constants.h"
 
 @implementation MerchandiseParametersPicker {
@@ -33,6 +32,8 @@
 }
 
 @synthesize merchandise = _merchandise_;
+@synthesize delegate;
+@synthesize pickerMode;
 
 + (instancetype)pickerWithMerchandise:(Merchandise *)merchandise {
     MerchandiseParametersPicker *picker = [[MerchandiseParametersPicker alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 400) merchandise:merchandise];
@@ -243,9 +244,28 @@
     }
     
     PaymentType paymentType = pointsPaymentButton.selected ? PaymentTypePoints : PaymentTypeCash;
+    
+    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(merchandiseParametersPicker:didPickMerchandiseWithPaymentType:number:properties:)]) {
+        [self.delegate merchandiseParametersPicker:self didPickMerchandiseWithPaymentType:paymentType number:numberPicker.number properties:properties];
+    }
+    
+    /*
     [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:numberPicker.number paymentType:paymentType properties:properties];
+    [[XXAlertView currentAlertView] setMessage:@"已加入购物车" forType:AlertViewTypeSuccess];
+    [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
     
     
+    ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];
+    shopShoppingItems.shopID = self.merchandise.shopId;
+    ShoppingItem *newItem = [[ShoppingItem alloc] init];
+    newItem.merchandise = self.merchandise;
+    newItem.number = numberPicker.number;
+    newItem.paymentType = paymentType;
+    newItem.properties = properties;
+    newItem.shopId = shopShoppingItems.shopID;
+    [shopShoppingItems.shoppingItems addObject:newItem];
+     */
+
     /*
     BOOL success = [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:numberPicker.number paymentType:paymentType];
     if(success) {
@@ -257,8 +277,6 @@
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
     }
      */
-    
-    [self closeView];
 }
 
 @end

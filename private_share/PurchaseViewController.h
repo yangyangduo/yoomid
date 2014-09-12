@@ -6,16 +6,15 @@
 //  Copyright (c) 2014 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "SettlementView.h"
 #import "ContactService.h"
 #import "SelectContactAddressViewController.h"
-#import "PanBackTransitionViewController.h"
+#import "TransitionViewController.h"
 #import "YoomidRectModalView.h"
 
-@interface PurchaseViewController : PanBackTransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate>
+@interface PurchaseViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate>
 
-- (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss;
+- (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart;
 
 - (void)refreshSettlementView;
 

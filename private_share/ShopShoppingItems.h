@@ -27,6 +27,7 @@
 
 - (void)clearEmptyShoppingItems;
 - (BOOL)hasMerchandises;
+
 - (Payment *)totalPayment;
 - (Payment *)totalSelectPayment;
 - (Payment *)totalSelectPaymentWithPostPay;

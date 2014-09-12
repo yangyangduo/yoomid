@@ -13,12 +13,13 @@
 
 @property (nonatomic, strong, readonly) PanAnimationController *animationController;
 
+- (void)setRightPanDismissWithTransitionStyle;
+
 - (void)leftPresentViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (void)rightPresentViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 - (void)leftDismissViewControllerAnimated:(BOOL)animated;
 - (void)rightDismissViewControllerAnimated:(BOOL)animated;
-
 - (void)rightPopViewControllerAnimated:(BOOL)animated;
 
 @end

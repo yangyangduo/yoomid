@@ -33,12 +33,15 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     NSString *_default_contact_id_;
     NSMutableArray *contacts;
     NSInteger _select;
+    
+    BOOL _is_from_shopping_cart_;
 }
 
-- (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss {
+- (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
     self = [super init];
     if(self) {
         _shopShoppingItemss_ = shopShoppingItemss;
+        _is_from_shopping_cart_ = isFromShoppingCart;
         _select = 0;
     }
     return self;
@@ -51,6 +54,8 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     self.title = NSLocalizedString(@"confirm_order", @"");
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
 
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
@@ -79,8 +84,13 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     _collectionView_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
     [_collectionView_ addSubview:contactDisplayView];
     
-    [self refreshSettlementView];
+    if(_is_from_shopping_cart_) {
+        [self setRightPanDismissWithTransitionStyle];
+    } else {
+        self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    }
     
+    [self refreshSettlementView];
     [self mayGetContactInfo];
 }
 
@@ -181,18 +191,40 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (void)refreshSettlementView {
-    [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
+    if(_is_from_shopping_cart_) {
+        [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
+    } else {
+        Payment *totalPayment = [Payment emptyPayment];
+        for(int i=0; i<_shopShoppingItemss_.count; i++) {
+            ShopShoppingItems *ssis = [_shopShoppingItemss_ objectAtIndex:i];
+            [totalPayment addWithPayment:ssis.totalSelectPaymentWithPostPay];
+        }
+        [settlementView setPayment:totalPayment];
+    }
+}
+
+-(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
+    [ShoppingCart myShoppingCart].orderContact = contact;
+    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+    _select = select;
 }
 
 #pragma mark -
-#pragma mark Select contact info delegate
+#pragma mark 
 
--(void)contactInfo:(Contact *)contact selectd:(NSInteger)select
-{
-    [ShoppingCart myShoppingCart].orderContact = contact;
-    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+- (void)popViewController {
+    if(_is_from_shopping_cart_) {
+        [self rightPopViewControllerAnimated:YES];
+    } else {
+        [self rightDismissViewControllerAnimated:YES];
+    }
+}
 
-    _select = select;
+#pragma mark -
+#pragma mark 
+
+- (void)modalViewDidClosed:(ModalView *)modalView {
+    [self rightPopViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -298,8 +330,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
 
-        
-        
         NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_order_result_json_ != nil) {
             OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
@@ -321,7 +351,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 }
 
 - (void)submitOrdersFailure:(HttpResponse *)resp {
-    
     [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
         YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
         [modal showInView:self.navigationController.view completion:nil];

@@ -6,11 +6,10 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "ContactService.h"
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
 
-@interface AddContactInfoViewController : PanBackTransitionViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface AddContactInfoViewController : BackViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 -(instancetype)initWithContactArray:(NSInteger)fag;
 

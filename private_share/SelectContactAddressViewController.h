@@ -6,8 +6,7 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
 #import "SelectContactAddressTableViewCell.h"
 
 
@@ -17,7 +16,7 @@
 
 @end
 
-@interface SelectContactAddressViewController : PanBackTransitionViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SelectContactAddressViewController : BackViewController<UITableViewDataSource,UITableViewDelegate>
 
 
 @property(nonatomic,strong)UITableView *tableView;

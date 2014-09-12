@@ -242,7 +242,7 @@
 		6FD8A1D71977D7B100514C17 /* ShoppingCartViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8A1D61977D7B100514C17 /* ShoppingCartViewController2.m */; };
 		6FD8A1DA1977D87100514C17 /* ShoppingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */; };
 		6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD9DF7819A713C60066CA88 /* TransitionViewController.m */; };
-		6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */; };
+		6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC950D19AD9F8A00F51E8D /* BackViewController.m */; };
 		6FDC951119ADAA7A00F51E8D /* TaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */; };
 		6FE009411953DED3002A675D /* AboutYoomidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE009401953DED3002A675D /* AboutYoomidViewController.m */; };
 		6FE009451953DF1B002A675D /* contact_us.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FE009431953DF1B002A675D /* contact_us.html */; };
@@ -817,8 +817,8 @@
 		6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemCell.m; sourceTree = "<group>"; };
 		6FD9DF7719A713C60066CA88 /* TransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionViewController.h; sourceTree = "<group>"; };
 		6FD9DF7819A713C60066CA88 /* TransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionViewController.m; sourceTree = "<group>"; };
-		6FDC950C19AD9F8A00F51E8D /* PanBackTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanBackTransitionViewController.h; sourceTree = "<group>"; };
-		6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanBackTransitionViewController.m; sourceTree = "<group>"; };
+		6FDC950C19AD9F8A00F51E8D /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackViewController.h; sourceTree = "<group>"; };
+		6FDC950D19AD9F8A00F51E8D /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackViewController.m; sourceTree = "<group>"; };
 		6FDC950F19ADAA7A00F51E8D /* TaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailViewController.h; sourceTree = "<group>"; };
 		6FDC951019ADAA7A00F51E8D /* TaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailViewController.m; sourceTree = "<group>"; };
 		6FE0093F1953DED3002A675D /* AboutYoomidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutYoomidViewController.h; sourceTree = "<group>"; };
@@ -1436,8 +1436,8 @@
 				6F01D122199DB53F00A99975 /* PanAnimationController.m */,
 				6FD9DF7719A713C60066CA88 /* TransitionViewController.h */,
 				6FD9DF7819A713C60066CA88 /* TransitionViewController.m */,
-				6FDC950C19AD9F8A00F51E8D /* PanBackTransitionViewController.h */,
-				6FDC950D19AD9F8A00F51E8D /* PanBackTransitionViewController.m */,
+				6FDC950C19AD9F8A00F51E8D /* BackViewController.h */,
+				6FDC950D19AD9F8A00F51E8D /* BackViewController.m */,
 			);
 			name = transitions;
 			sourceTree = "<group>";
@@ -2908,7 +2908,7 @@
 				6F2C52AC1974D3850045BFC1 /* PopupView.m in Sources */,
 				6F970999193F542500EA5E3A /* BaseService.m in Sources */,
 				6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */,
-				6FDC950E19AD9F8A00F51E8D /* PanBackTransitionViewController.m in Sources */,
+				6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */,
 				6F72A3F3193DFF17001DAA3E /* ViewControllerAccessor.m in Sources */,
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */,

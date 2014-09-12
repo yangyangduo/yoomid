@@ -9,8 +9,10 @@
 #import "BaseViewController.h"
 #import "Merchandise.h"
 #import "PullScrollZoomImagesView.h"
+#import "MerchandiseParametersPicker.h"
+#import "TransitionViewController.h"
 
-@interface MerchandiseDetailViewController2 : BaseViewController<UIScrollViewDelegate, UIWebViewDelegate>
+@interface MerchandiseDetailViewController2 : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, MerchandiseParametersPickerDelegate>
 
 @property (nonatomic, strong) Merchandise *merchandise;
 

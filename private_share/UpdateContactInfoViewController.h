@@ -8,9 +8,9 @@
 
 #import "XXStringUtils.h"
 #import "ContactService.h"
-#import "PanBackTransitionViewController.h"
+#import "BackViewController.h"
 
-@interface UpdateContactInfoViewController : PanBackTransitionViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface UpdateContactInfoViewController : BackViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 - (instancetype)initWithContactInfo:(NSMutableArray *)array itmes:(NSInteger)item;
 

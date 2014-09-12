@@ -26,6 +26,16 @@
     }
 }
 
+- (void)setRightPanDismissWithTransitionStyle {
+#ifdef DEBUG
+    if(self.navigationController == nil) {
+        NSLog(@"[Transition View Controller] Method [setRightPanDismissWithTransitionStyle] for view controller must have an navigation container.");
+    }
+#endif
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
+    self.animationController.dismissStyle = PanAnimationControllerDismissStyleTransition;
+}
+
 - (void)rightPresentViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // set up view controller
     viewController.modalPresentationStyle = UIModalPresentationCustom;
