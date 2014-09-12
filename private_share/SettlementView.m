@@ -74,6 +74,7 @@
         rightButton.layer.cornerRadius = 4;
         rightButton.layer.masksToBounds = YES;
         rightButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
+        [rightButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
 //        [rightButton setBackgroundImage:[UIImage imageWithColor:[UIColor appColor] size:CGSizeMake(120, 26)] forState:UIControlStateNormal];
         [rightButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
         [rightButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

@@ -120,9 +120,11 @@
     }
 }
 
-- (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey {
+- (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey isFirstLogin:(BOOL)isFirstLogin
+{
     [SecurityConfig defaultConfig].userName = userName;
     [SecurityConfig defaultConfig].securityKey = securityKey;
+    [SecurityConfig defaultConfig].isFirstLogin = isFirstLogin;
     [[SecurityConfig defaultConfig] saveConfig];
     [self doAfterLogin];
 }

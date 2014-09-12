@@ -16,7 +16,7 @@
 
 - (void)doAfterLogout;
 - (void)doAfterLogin;
-- (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey;
+- (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey isFirstLogin:(BOOL)isFirstLogin;
 
 - (UIViewController *)topViewController;
 

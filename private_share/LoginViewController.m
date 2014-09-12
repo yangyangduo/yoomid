@@ -189,12 +189,12 @@
         
         // do after login
         AppDelegate *app = [UIApplication sharedApplication].delegate;
-        [app doAfterLoginWithUserName:userNameTextField.text securityKey:[result objectForKey:@"securityKey"]];
+        [app doAfterLoginWithUserName:userNameTextField.text securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
         
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
-        
-        [self.navigationController dismissViewControllerAnimated:NO completion:^{ }];
+      
+        [self.navigationController dismissViewControllerAnimated:NO completion:^{}];
         
         return;
     }

@@ -13,11 +13,13 @@
 NSString * const kGlobalConfigKey   =   @"global.config.key";
 NSString * const kUserNameKey       =   @"global.username.key";
 NSString * const kSecurityKeyKey    =   @"global.securitykey.key";
+NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
 
 @implementation SecurityConfig
 
 @synthesize userName;
 @synthesize securityKey;
+@synthesize isFirstLogin;
 
 + (instancetype)defaultConfig {
     static SecurityConfig *config;
@@ -36,9 +38,11 @@ NSString * const kSecurityKeyKey    =   @"global.securitykey.key";
         if(config == nil) {
             self.userName = @"";
             self.securityKey = @"";
+            self.isFirstLogin = YES;
         } else {
             self.userName = [config noNilStringForKey:kUserNameKey];
             self.securityKey = [config noNilStringForKey:kSecurityKeyKey];
+            self.isFirstLogin = [config booleanForKey:kIsFirstLoginKey];
         }
     }
     return self;
@@ -48,6 +52,7 @@ NSString * const kSecurityKeyKey    =   @"global.securitykey.key";
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setMayBlankString:self.userName forKey:kUserNameKey];
     [dictionary setMayBlankString:self.securityKey forKey:kSecurityKeyKey];
+    [dictionary setBoolean:self.isFirstLogin forKey:kIsFirstLoginKey];
     return dictionary;
 }
 

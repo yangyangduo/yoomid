@@ -120,7 +120,9 @@
         [[DiskCacheManager manager] setRecommendedMerchandises:recommendedMerchandises];
         [self cancelRefresh];
         [self cancelLoadMore];
+        return;
     }
+    [self getMerchandisesfailure:resp];
 }
 
 - (void)mayRefresh {

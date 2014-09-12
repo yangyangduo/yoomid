@@ -216,12 +216,16 @@
 }
 
 - (void)delayLogout {
+
     [self dismissViewControllerAnimated:NO completion:^{
         AppDelegate *app = [UIApplication sharedApplication].delegate;
         [app doAfterLogout];
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
+        [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{
+            [self dismissViewController];
+
+        }];
         [[XXAlertView currentAlertView] setMessage:@"已退出" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
     }];
