@@ -55,6 +55,7 @@
         
         [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        postCashPaymentButton.hidden = YES;
         
         [self addSubview:postPointsPaymentButton];
         [self addSubview:postCashPaymentButton];
@@ -242,10 +243,6 @@
     } else {
         remarkTextField.text = @"";
     }
-}
-
-- (void)showTextBox:(id)sender {
-    NSLog(@"fuck lady...");
 }
 
 @end

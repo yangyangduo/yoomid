@@ -131,6 +131,7 @@
         [scrollView addSubview:pointsPaymentButton];
         
         cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + 10, lastY) paymentType:PaymentTypeCash points:_merchandise_.points returnPoints:_merchandise_.returnPoints];
+        cashPaymentButton.hidden = YES;
         [scrollView addSubview:cashPaymentButton];
         
         [pointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -248,23 +249,6 @@
     if(self.delegate != nil && [self.delegate respondsToSelector:@selector(merchandiseParametersPicker:didPickMerchandiseWithPaymentType:number:properties:)]) {
         [self.delegate merchandiseParametersPicker:self didPickMerchandiseWithPaymentType:paymentType number:numberPicker.number properties:properties];
     }
-    
-    /*
-    [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:numberPicker.number paymentType:paymentType properties:properties];
-    [[XXAlertView currentAlertView] setMessage:@"已加入购物车" forType:AlertViewTypeSuccess];
-    [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
-    
-    
-    ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];
-    shopShoppingItems.shopID = self.merchandise.shopId;
-    ShoppingItem *newItem = [[ShoppingItem alloc] init];
-    newItem.merchandise = self.merchandise;
-    newItem.number = numberPicker.number;
-    newItem.paymentType = paymentType;
-    newItem.properties = properties;
-    newItem.shopId = shopShoppingItems.shopID;
-    [shopShoppingItems.shoppingItems addObject:newItem];
-     */
 
     /*
     BOOL success = [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:numberPicker.number paymentType:paymentType];
