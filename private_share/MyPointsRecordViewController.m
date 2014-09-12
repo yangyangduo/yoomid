@@ -27,7 +27,8 @@ static CGRect oldframe;
     NSDateFormatter *dateFormatter;
 
     UIView *topView;
-    UIView *numberView;
+//    UIView *numberView;
+    UILabel *numberLabel;
     
     UIButton *addBtn;
     UIButton *reduceBtn;
@@ -107,17 +108,23 @@ static CGRect oldframe;
     [reduceBtn addTarget:self action:@selector(reducePoints:) forControlEvents:UIControlEventTouchUpInside];
     [reduceBtn setImage:[UIImage imageNamed:@"reduce"] forState:UIControlStateNormal];
     [reduceBtn setTitle:@" 支出" forState:UIControlStateNormal];
-    
     [topView addSubview:addBtn];
     [topView addSubview:reduceBtn];
     
-    numberView = [[UIView alloc]init];
-    numberView.backgroundColor = [UIColor clearColor];
-    [topView addSubview:numberView];
+//    numberView = [[UIView alloc]init];
+//    numberView.backgroundColor = [UIColor clearColor];
+//    [topView addSubview:numberView];
     
     UIImageView *triangleImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 55, 19, 16)];
     triangleImage.image = [UIImage imageNamed:@"triangle"];
     [topView addSubview:triangleImage];
+    
+    numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(-8, triangleImage.frame.origin.y + triangleImage.bounds.size.height+13, 250, 65)];
+    numberLabel.textColor = [UIColor whiteColor];
+    numberLabel.textAlignment = NSTextAlignmentCenter;
+    numberLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size:65];
+    numberLabel.text = @"0";
+    [topView addSubview:numberLabel];
     
     UIImageView *mm = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width/2-33 -44, (topView.bounds.size.height-addBtn.bounds.size.height)/2 + 20, 66, 66)];
     mm.image = [UIImage imageNamed:@"mm"];
@@ -127,11 +134,8 @@ static CGRect oldframe;
     levelImage.image = [UIImage imageNamed:@"levelbg"];
     
     levelbgImage = [[UIImageView alloc]initWithFrame:CGRectMake(4, 4, 42, 42)];
-//    levelbgImage.image = [UIImage imageNamed:@"level1"];
     [levelImage addSubview:levelbgImage];
-    
     [topView addSubview:levelImage];
-    
     levelImage.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLevelImage:)];
@@ -188,7 +192,8 @@ static CGRect oldframe;
 }
 
 - (void)setPoints:(NSString*)numberStr {
-    for (UIView *v in [numberView subviews]) {
+    numberLabel.text = numberStr;
+/*    for (UIView *v in [numberView subviews]) {
         [v removeFromSuperview];
     }
     for (int i = 0; i<numberStr.length; i++) {
@@ -199,7 +204,7 @@ static CGRect oldframe;
         numberimage.frame = CGRectMake(i*30 + 4*i, 0, 30, 50);
         [numberView addSubview:numberimage];
     }
-    numberView.frame = CGRectMake((self.view.bounds.size.width/2 - (numberStr.length*30)/2) - 44, (topView.bounds.size.height-addBtn.bounds.size.height)/2-25, numberStr.length * 30, 50);
+    numberView.frame = CGRectMake((self.view.bounds.size.width/2 - (numberStr.length*30)/2) - 44, (topView.bounds.size.height-addBtn.bounds.size.height)/2-25, numberStr.length * 30, 50);*/
 }
 
 - (void)showLevelImage:(id)sender {
@@ -208,7 +213,7 @@ static CGRect oldframe;
 
 - (void)refresh:(BOOL)animated {
     if(animated) {
-        pointsOrderTableView.pullTableIsRefreshing = YES;
+//        pointsOrderTableView.pullTableIsRefreshing = YES;
         BOOL isExpired;
         NSArray *pointsArray = [[DiskCacheManager manager] pointsOrdersWithPointsOrderType:pointsOrderType isExpired:&isExpired];
         if (pointsArray != nil) {

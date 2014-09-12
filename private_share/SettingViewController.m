@@ -49,6 +49,13 @@
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    UIButton *saveButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width-44, 0, 44, 44)];
+    [saveButton addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
+    saveButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    [saveButton setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [UIColor clearColor];
     tableview.delegate = self;
@@ -69,16 +76,11 @@
     perfectinformation2.image = [UIImage imageNamed:@"perfectinformation2"];
     [topView addSubview:perfectinformation2];
 
-    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableview.bounds.size.width, 100)];
+    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableview.bounds.size.width, 60)];
     bottomView.backgroundColor = [UIColor clearColor];
     tableview.tableFooterView = bottomView;
     
-    UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(220, -15, 143/2, 91/2)];
-    [editBtn setBackgroundImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-    [editBtn addTarget:self action:@selector(editBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:editBtn];
-    
-    UIButton *exitBtn =[[UIButton alloc]initWithFrame:CGRectMake(20, editBtn.bounds.size.height-15, tableview.bounds.size.width-40, 40)];
+    UIButton *exitBtn =[[UIButton alloc]initWithFrame:CGRectMake(20, 15, tableview.bounds.size.width-40, 40)];
     [exitBtn setTitle:NSLocalizedString(@"logout", @"") forState:UIControlStateNormal];
     exitBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [exitBtn setTintColor:[UIColor whiteColor]];
@@ -186,7 +188,7 @@
     }
 }
 
--(void)editBtnClick
+-(void)saveBtnClick
 {
     NSDictionary *tempD = [[NSDictionary alloc]initWithObjectsAndKeys:accountInfoDictionary,@"accountInfo",userInfoDictionary,@"detail", nil];
     NSData *body = [JsonUtil createJsonDataFromDictionary:tempD];
