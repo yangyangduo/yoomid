@@ -18,6 +18,7 @@
 #import "MerchandiseService.h"
 #import "DiskCacheManager.h"
 #import "OrderResult.h"
+#import "ReturnMessage.h"
 
 NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
 NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHeaderIdentifier";
@@ -309,22 +310,22 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
                                     @"shopId" : ssi.shopID,
                                     @"shippingPaymentType" : [NSNumber numberWithInteger:ssi.postPaymentType],
                                     @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
-                                    @"remark" : ssi.remark
+                                    @"remark" : (ssi.remark == nil ? @"" : ssi.remark),
                                     },
                                     @"shoppingItems" : shoppingItems
         };
         [ordersToSubmit addObject:shopOrder];
     }
     
+#ifdef DEBUG
+    [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
+#endif
+    
     [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     
     MerchandiseService *service =  [[MerchandiseService alloc] init];
     [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
-
-#ifdef DEBUG
-    [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
-#endif
 }
 
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
@@ -337,6 +338,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
                 
             }
 #ifdef DEBUG
+            
 #endif
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
@@ -346,13 +348,28 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         }
         return;
     }
-    
     [self submitOrdersFailure:resp];
 }
 
 - (void)submitOrdersFailure:(HttpResponse *)resp {
+    NSString *errorMessage = @"出错啦!";
+    if(1001 == resp.statusCode) {
+        errorMessage = @"请求超时!";
+    } else if(400 == resp.statusCode) {
+        if(resp.contentType != nil && resp.body != nil && [resp.contentType rangeOfString:@"application/json" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            NSDictionary *_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+            if(_json_ != nil) {
+                ReturnMessage *message = [[ReturnMessage alloc] initWithJson:_json_];
+                errorMessage = [NSString stringWithFormat:@"对不起,%@!", message.message];
+            }
+        }
+    } else if(403 == resp.statusCode) {
+        errorMessage = @"请重新登录后再尝试!";
+    } else {
+        errorMessage = @"出错啦!";
+    }
     [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
+        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
         [modal showInView:self.navigationController.view completion:nil];
     }];
 }
