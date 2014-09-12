@@ -67,7 +67,12 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    NSLog(@"%d", _pageIndex_);
+#ifdef DEBUG
+    NSLog(@"Tap on page index [%d]", _pageIndex_);
+#endif
+    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(imagesScrollView:didTapOnPageIndex:)]) {
+        [self.delegate imagesScrollView:self didTapOnPageIndex:_pageIndex_];
+    }
 }
 
 - (void)recalculatedPageIndex {
