@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import "TransitionViewController.h"
 #import "Merchandise.h"
 #import "PullScrollZoomImagesView.h"
 
-@interface ActivityDetailViewController : BaseViewController<UIScrollViewDelegate, UIWebViewDelegate, PullScrollZoomImagesViewDelegate>
+@interface ActivityDetailViewController : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, PullScrollZoomImagesViewDelegate>
 
 @property (nonatomic, strong) Merchandise *merchandise;
 

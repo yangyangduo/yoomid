@@ -1,11 +1,3 @@
-//
-//  HomePageViewController.m
-//  private_share
-//
-//  Created by 曹大为 on 14-8-18.
-//  Copyright (c) 2014年 hentre. All rights reserved.
-//
-
 #import "HomeViewController.h"
 #import "MallViewController.h"
 #import "MyPointsRecordViewController.h"
@@ -15,7 +7,7 @@
 #import "HomePageItemCell.h"
 #import "NotificationsViewController.h"
 #import "ActivitiesService.h"
-#import "MerchandiseDetailViewController2.h"
+#import "ActivityDetailViewController.h"
 
 #import "TaskService.h"
 #import "DiskCacheManager.h"
@@ -46,8 +38,7 @@
 
     ModalView *currentModalView;
     
-    NSMutableArray *activitiesArray;
-    NSMutableArray *imageArray;
+    NSMutableArray *_activities_;
 }
 
 @synthesize allCategories = _allCategories_;
@@ -69,6 +60,7 @@
     _collectionView = [[CustomCollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.alwaysBounceVertical = YES;
     _collectionView.backgroundColor = [UIColor clearColor];
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
@@ -92,20 +84,6 @@
     [pullImagesView addSubview:pageControl];
      */
     
-//    NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
-//    ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
-//
-//    NSString *url1 = @"http://pic4.nipic.com/20091023/3103365_102101004770_2.jpg";
-//    ImageItem *item1 = [[ImageItem alloc] initWithUrl:url1 title:nil];
-//
-//    NSString *url2 = @"http://yoomid.com/image/test/003.png";
-//    ImageItem *item2 = [[ImageItem alloc] initWithUrl:url2 title:nil];
-//
-//    NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
-//    imagesScrollView.imageItems = imagearray;
-    
-    imageArray = [[NSMutableArray alloc]init];
-    
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
@@ -122,29 +100,74 @@
     [self.view addSubview:miRepositoryButton];
 }
 
--(void)viewDidAppear:(BOOL)animated {
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                            O\ = /O
+//                        ____/`---'\____
+//                      .   ' \\| |// `.
+//                       / \\||| : |||// \
+//                     / _||||| -:- |||||- \
+//                       | | \\\ - /// | |
+//                     | \_| ''\---/'' | |
+//                      \ .-\__ `-` ___/-. /
+//                   ___`. .' /--.--\ `. . __
+//                ."" '< `.___\_<|>_/___.' >'"".
+//               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+//                 \ \ `-. \_ __\ /__ _/ .-` / /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//
+//         .............................................
+//                  佛祖保佑             永无BUG
+
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self mayRefreshActivities];
+    [self mayRefreshTaskCategories];
+}
+
+- (void)mayRefreshTaskCategories {
     BOOL isExpired;
     NSArray *categories = [[DiskCacheManager manager] taskCategories:&isExpired];
     if(categories != nil) {
         self.allCategories = [NSMutableArray arrayWithArray:categories];
         [_collectionView reloadData];
     }
-    
     if(isExpired || categories == nil) {
         [self getCategoriesInfo];
     }
-    
-    [self activitiesRefresh];
 }
 
--(void)getCategoriesInfo {
+- (void)mayRefreshActivities {
+    BOOL isExpired;
+    NSArray *activities = [[DiskCacheManager manager] activities:&isExpired];
+    if (activities != nil) {
+        _activities_ = [NSMutableArray arrayWithArray:activities];
+        NSMutableArray *images = [[NSMutableArray alloc]init];
+        for (int i = 0; i<activities.count; i++) {
+            Merchandise *merchandise = [activities objectAtIndex:i];
+            ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
+            [images addObject:item];
+        }
+        imagesScrollView.imageItems = images;
+    }
+    if (isExpired || activities == nil) {
+        [self getActivitiesInfo];
+    }
+}
+
+#pragma mark -
+#pragma mark Request categories
+
+- (void)getCategoriesInfo {
     TaskService *service = [[TaskService alloc] init];
     [service getCategories:self success:@selector(getCategoriesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
--(void)getCategoriesSuccess:(HttpResponse *)resp {
+- (void)getCategoriesSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         NSMutableArray *categories = [NSMutableArray array];
@@ -161,42 +184,21 @@
     }
 }
 
--(void)activitiesRefresh
-{
-    BOOL isExpired;
-    NSArray *activities = [[DiskCacheManager manager] activities:&isExpired];
-    if (activities != nil) {
-        activitiesArray = [NSMutableArray arrayWithArray:activities];
-        NSMutableArray *imagearray = [[NSMutableArray alloc]init];
-        for (int i = 0; i<activities.count; i++) {
-            Merchandise *merchandise = [activities objectAtIndex:i];
-            ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
-            [imagearray addObject:item];
-        }
-        imagesScrollView.imageItems = imagearray;
-    }
-    
-    if (isExpired || activities == nil) {
-        [self getActivitiesInfo];
-    }
-}
+#pragma mark -
+#pragma mark Request activities
 
--(void)getActivitiesInfo
-{
+- (void)getActivitiesInfo {
     ActivitiesService *activitiesService = [[ActivitiesService alloc]init];
     [activitiesService getActivitiesInfo:self success:@selector(getActivitiesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
--(void)getActivitiesSuccess:(HttpResponse *)resp {
+- (void)getActivitiesSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
-        if (activitiesArray == nil) {
-            activitiesArray = [[NSMutableArray alloc] init];
+        if (_activities_ == nil) {
+            _activities_ = [[NSMutableArray alloc] init];
+        } else {
+            [_activities_ removeAllObjects];
         }
-        else
-        {
-            [activitiesArray removeAllObjects];
-        }
-        
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         NSMutableArray *imagearray = [[NSMutableArray alloc]init];
         if (jsonArray != nil) {
@@ -205,13 +207,12 @@
                 Merchandise *merchandise = [[Merchandise alloc]initWithJson:jsonObject];
                 ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
                 [imagearray addObject:item];
-                [activitiesArray addObject:merchandise];
+                [_activities_ addObject:merchandise];
             }
         }
         imagesScrollView.imageItems = imagearray;
-        [[DiskCacheManager manager] setActivities:activitiesArray];
-    }
-    else{
+        [[DiskCacheManager manager] setActivities:_activities_];
+    } else {
         [self handleFailureHttpResponse:resp];
     }
 }
@@ -233,9 +234,7 @@
 //    [self rightPresentViewController:navigationControllers animated:YES];
 //
 //    return;
-
     return;
-    
     CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
     [picker showInView:self.view completion:nil];
 }
@@ -305,7 +304,6 @@
     } else {
         cell.bg_image.image = nil;
     }
-    
     return cell;
 }
 
@@ -393,13 +391,13 @@
 #pragma mark Scroll images view delegate
 
 - (void)imagesScrollView:(ImagesScrollView *)imagesScrollView imagesPageIndexChangedTo:(NSUInteger)pageIndex {
-    
 }
 
--(void)imagesScrollView:(ImagesScrollView *)imagesScrollView didTapOnPageIndex:(NSUInteger)pageIndex
-{
-    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc]initWithMerchandise:[activitiesArray objectAtIndex:pageIndex]];
-    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+-(void)imagesScrollView:(ImagesScrollView *)imagesScrollView didTapOnPageIndex:(NSUInteger)pageIndex {
+    if(_activities_ != nil && _activities_.count > pageIndex) {
+        ActivityDetailViewController *merchandiseDetailViewController = [[ActivityDetailViewController alloc] initWithActivityMerchandise:[_activities_ objectAtIndex:pageIndex]];
+        [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+    }
 }
 
 #pragma mark -

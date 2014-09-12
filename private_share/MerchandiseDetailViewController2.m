@@ -87,6 +87,7 @@
     UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
     topMaskImageView.image = [UIImage imageNamed:@"black_top"];
     topMaskImageView.userInteractionEnabled = YES;
+    
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 44, 44)];
     [backButton addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];

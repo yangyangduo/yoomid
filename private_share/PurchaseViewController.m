@@ -225,7 +225,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 #pragma mark 
 
 - (void)modalViewDidClosed:(ModalView *)modalView {
-    [self rightPopViewControllerAnimated:YES];
+    [self popViewController];
 }
 
 #pragma mark -
@@ -372,7 +372,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
         errorMessage = @"出错啦!";
     }
     [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
+        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 340) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
         [modal showInView:self.navigationController.view completion:nil];
     }];
 }

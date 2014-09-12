@@ -13,6 +13,9 @@
 #import "PullScrollZoomImageHtmlView.h"
 #import "DefaultStyleButton.h"
 #import "UIDevice+ScreenSize.h"
+#import "ShoppingCart.h"
+#import "PurchaseViewController.h"
+#import "UINavigationViewInitializer.h"
 
 @interface ActivityDetailViewController ()
 
@@ -46,6 +49,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
     self.title = NSLocalizedString(@"app_name", @"");
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -100,7 +105,7 @@
     topMaskImageView.userInteractionEnabled = YES;
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(18, 25.5f, 29, 29)];
     [backButton addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
     [self.view addSubview:topMaskImageView];
     [self.view addSubview:backButton];
     
@@ -223,6 +228,21 @@
 }
 
 - (void)participateButtonPressed:(id)sender {
+    ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];
+    shopShoppingItems.shopID = self.merchandise.shopId;
+    ShoppingItem *newItem = [[ShoppingItem alloc] init];
+    newItem.merchandise = self.merchandise;
+    newItem.number = 1;
+    newItem.selected = YES;
+    newItem.paymentType = PaymentTypePoints;
+    newItem.properties = [NSArray array];
+    newItem.shopId = shopShoppingItems.shopID;
+    [shopShoppingItems.shoppingItems addObject:newItem];
+    
+    PurchaseViewController *purchaseViewController = [[PurchaseViewController alloc] initWithShopShoppingItemss:@[ shopShoppingItems ] isFromShoppingCart:NO];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:purchaseViewController];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    [self rightPresentViewController:navigationController animated:YES];
 }
 
 - (NSString *)errorHtml {
