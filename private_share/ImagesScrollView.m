@@ -57,11 +57,17 @@
         ImageItem *imageItem = [_imageItems_ objectAtIndex:i];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(scrollView.bounds.size.width * i, 0, scrollView.bounds.size.width, scrollView.bounds.size.height)];
         [imageView setImageWithURL:[NSURL URLWithString:imageItem.url] placeholderImage:nil];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        [imageView addGestureRecognizer:tapGesture];
         [scrollView addSubview:imageView];
     }
     scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * (_imageItems_.count == 0 ? 1 : _imageItems_.count), scrollView.bounds.size.height);
     _pageIndex_ = 0;
     [self recalculatedPageIndex];
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+    NSLog(@"%d", _pageIndex_);
 }
 
 - (void)recalculatedPageIndex {
