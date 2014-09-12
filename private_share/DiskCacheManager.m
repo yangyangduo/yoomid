@@ -18,6 +18,7 @@ NSString * const kFileNameMerchandises = @"merchandises";
 NSString * const kFileNameTaskCategories = @"task-categories";
 NSString * const kFileNameRecommendedMerchandises = @"recommended-merchandises";
 NSString * const kFileNameCompletedTaskIds = @"completed-task-ids";
+NSString * const kFileNameShoppingCart = @"shopping-cart";
 
 NSString * const kFileNameContacts = @"contacts";
 NSString * const kFileNamePointsOrder = @"points-order";
@@ -36,6 +37,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     CacheData *_contacts_data_;
     CacheData *_income_points_orders_data_;
     CacheData *_pay_points_orders_data_;
+    CacheData *_shopping_cart_data_;
 }
 
 + (DiskCacheManager *)manager {

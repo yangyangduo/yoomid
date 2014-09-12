@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ShopShoppingItems.h"
+#import "BaseModel.h"
 #import "Contact.h"
 
 typedef NS_ENUM(NSUInteger, CashPaymentType) {
