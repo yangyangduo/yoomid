@@ -21,6 +21,8 @@
 
 @protocol ImagesScrollViewDelegate <NSObject>
 
+@optional
+
 - (void)imagesScrollView:(ImagesScrollView *)imagesScrollView imagesPageIndexChangedTo:(NSUInteger)pageIndex;
 - (void)imagesScrollView:(ImagesScrollView *)imagesScrollView didTapOnPageIndex:(NSUInteger)pageIndex;
 

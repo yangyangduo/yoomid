@@ -139,7 +139,7 @@
     CGRect rect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width, scrollView.bounds.size.height + rect.size.height);
     [UIView animateWithDuration:0.3f animations:^{
-        scrollView.contentOffset = CGPointMake(0, after4s ? 0 : 30);
+        scrollView.contentOffset = CGPointMake(0, after4s ? 30 : 30);
     } completion:^(BOOL finished) {
     }];
 }
