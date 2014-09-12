@@ -15,6 +15,7 @@
 #import "HomePageItemCell.h"
 #import "NotificationsViewController.h"
 #import "ActivitiesService.h"
+#import "MerchandiseDetailViewController2.h"
 
 #import "TaskService.h"
 #import "DiskCacheManager.h"
@@ -393,6 +394,12 @@
 
 - (void)imagesScrollView:(ImagesScrollView *)imagesScrollView imagesPageIndexChangedTo:(NSUInteger)pageIndex {
     
+}
+
+-(void)imagesScrollView:(ImagesScrollView *)imagesScrollView didTapOnPageIndex:(NSUInteger)pageIndex
+{
+    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc]initWithMerchandise:[activitiesArray objectAtIndex:pageIndex]];
+    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
 }
 
 #pragma mark -

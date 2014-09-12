@@ -56,6 +56,7 @@
     for(int i=0; i<_imageItems_.count; i++) {
         ImageItem *imageItem = [_imageItems_ objectAtIndex:i];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(scrollView.bounds.size.width * i, 0, scrollView.bounds.size.width, scrollView.bounds.size.height)];
+        imageView.userInteractionEnabled = YES;
         [imageView setImageWithURL:[NSURL URLWithString:imageItem.url] placeholderImage:nil];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         [imageView addGestureRecognizer:tapGesture];
