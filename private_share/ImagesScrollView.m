@@ -29,17 +29,17 @@
         scrollView.delegate = self;
         [self addSubview:scrollView];
         
-        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 30, self.bounds.size.width, 30)];
-        maskView.backgroundColor = [UIColor blackColor];
-        maskView.alpha = 0.3f;
-        [self addSubview:maskView];
+//        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 30, self.bounds.size.width, 30)];
+//        maskView.backgroundColor = [UIColor blackColor];
+//        maskView.alpha = 0.3f;
+//        [self addSubview:maskView];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, maskView.frame.origin.y, self.bounds.size.width - 10, 30)];
-        titleLabel.text = @"";
-        titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.font = [UIFont systemFontOfSize:14.f];
-        titleLabel.textColor = [UIColor whiteColor];
-        [self addSubview:titleLabel];
+//        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, maskView.frame.origin.y, self.bounds.size.width - 10, 30)];
+//        titleLabel.text = @"";
+//        titleLabel.backgroundColor = [UIColor clearColor];
+//        titleLabel.font = [UIFont systemFontOfSize:14.f];
+//        titleLabel.textColor = [UIColor whiteColor];
+//        [self addSubview:titleLabel];
     }
     return self;
 }

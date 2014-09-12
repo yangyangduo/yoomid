@@ -377,6 +377,7 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
 		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
@@ -995,6 +996,8 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
+		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
 		D66A88FA19B997AC002CE48C /* UserInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoService.h; sourceTree = "<group>"; };
 		D66A88FB19B997AC002CE48C /* UserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoService.m; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 				D6A152C519A5D3300094B565 /* TaskService.m */,
 				D66A88FA19B997AC002CE48C /* UserInfoService.h */,
 				D66A88FB19B997AC002CE48C /* UserInfoService.m */,
+				D65F9F6419C2E2F40012231C /* ActivitiesService.h */,
+				D65F9F6519C2E2F40012231C /* ActivitiesService.m */,
 			);
 			name = service;
 			sourceTree = "<group>";
@@ -2867,6 +2872,7 @@
 				6F2B51C4195538570069798A /* XXAllAllowedEventFilter.m in Sources */,
 				D6A152C619A5D3300094B565 /* TaskService.m in Sources */,
 				6F2B51C6195538570069798A /* XXEventFilter.m in Sources */,
+				D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */,
 				6F2B51CB195538570069798A /* XXEventSubscriptionPublisher.m in Sources */,
 				6F50BF32196BCF3E006C9F1F /* ImagesScrollView.m in Sources */,
 				6F2BFDF61982419500426757 /* PurchaseViewController.m in Sources */,

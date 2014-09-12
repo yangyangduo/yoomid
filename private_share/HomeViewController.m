@@ -14,6 +14,7 @@
 #import "TaskListViewController.h"
 #import "HomePageItemCell.h"
 #import "NotificationsViewController.h"
+#import "ActivitiesService.h"
 
 #import "TaskService.h"
 #import "DiskCacheManager.h"
@@ -43,6 +44,9 @@
     CustomCollectionView *_collectionView;
 
     ModalView *currentModalView;
+    
+    NSMutableArray *activitiesArray;
+    NSMutableArray *imageArray;
 }
 
 @synthesize allCategories = _allCategories_;
@@ -87,17 +91,19 @@
     [pullImagesView addSubview:pageControl];
      */
     
-    NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
-    ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
-
-    NSString *url1 = @"http://pic4.nipic.com/20091023/3103365_102101004770_2.jpg";
-    ImageItem *item1 = [[ImageItem alloc] initWithUrl:url1 title:nil];
-
-    NSString *url2 = @"http://yoomid.com/image/test/003.png";
-    ImageItem *item2 = [[ImageItem alloc] initWithUrl:url2 title:nil];
-
-    NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
-    imagesScrollView.imageItems = imagearray;
+//    NSString *url = @"http://pic15.nipic.com/20110716/2304422_180244650175_2.jpg";
+//    ImageItem *item = [[ImageItem alloc] initWithUrl:url title:nil];
+//
+//    NSString *url1 = @"http://pic4.nipic.com/20091023/3103365_102101004770_2.jpg";
+//    ImageItem *item1 = [[ImageItem alloc] initWithUrl:url1 title:nil];
+//
+//    NSString *url2 = @"http://yoomid.com/image/test/003.png";
+//    ImageItem *item2 = [[ImageItem alloc] initWithUrl:url2 title:nil];
+//
+//    NSArray *imagearray = [[NSArray alloc]initWithObjects:item, item1, item2,nil];
+//    imagesScrollView.imageItems = imagearray;
+    
+    imageArray = [[NSMutableArray alloc]init];
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
@@ -128,6 +134,8 @@
     if(isExpired || categories == nil) {
         [self getCategoriesInfo];
     }
+    
+    [self activitiesRefresh];
 }
 
 -(void)getCategoriesInfo {
@@ -148,6 +156,61 @@
         [[DiskCacheManager manager] setTaskCategories:self.allCategories];
         [_collectionView reloadData];
     } else {
+        [self handleFailureHttpResponse:resp];
+    }
+}
+
+-(void)activitiesRefresh
+{
+    BOOL isExpired;
+    NSArray *activities = [[DiskCacheManager manager] activities:&isExpired];
+    if (activities != nil) {
+        activitiesArray = [NSMutableArray arrayWithArray:activities];
+        NSMutableArray *imagearray = [[NSMutableArray alloc]init];
+        for (int i = 0; i<activities.count; i++) {
+            Merchandise *merchandise = [activities objectAtIndex:i];
+            ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
+            [imagearray addObject:item];
+        }
+        imagesScrollView.imageItems = imagearray;
+    }
+    
+    if (isExpired || activities == nil) {
+        [self getActivitiesInfo];
+    }
+}
+
+-(void)getActivitiesInfo
+{
+    ActivitiesService *activitiesService = [[ActivitiesService alloc]init];
+    [activitiesService getActivitiesInfo:self success:@selector(getActivitiesSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+-(void)getActivitiesSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil) {
+        if (activitiesArray == nil) {
+            activitiesArray = [[NSMutableArray alloc] init];
+        }
+        else
+        {
+            [activitiesArray removeAllObjects];
+        }
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSMutableArray *imagearray = [[NSMutableArray alloc]init];
+        if (jsonArray != nil) {
+            for (int i = 0; i<jsonArray.count; i++) {
+                NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+                Merchandise *merchandise = [[Merchandise alloc]initWithJson:jsonObject];
+                ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
+                [imagearray addObject:item];
+                [activitiesArray addObject:merchandise];
+            }
+        }
+        imagesScrollView.imageItems = imagearray;
+        [[DiskCacheManager manager] setActivities:activitiesArray];
+    }
+    else{
         [self handleFailureHttpResponse:resp];
     }
 }
