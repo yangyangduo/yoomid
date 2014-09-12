@@ -17,11 +17,12 @@
 @property (nonatomic, assign) NSInteger points;
 @property (nonatomic, assign) NSInteger timeLimitInSeconds;
 @property (nonatomic, strong) NSString *taskDescriptionUrl;
-
+@property (nonatomic, assign) BOOL locked;
 @property (nonatomic, strong) NSString *categoryId;
 
 //@property (nonatomic, strong) NSDate *deadLine;
 
+- (BOOL)isSurveyTask;
 - (BOOL)isGuessPictureTask;
 
 @end

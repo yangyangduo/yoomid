@@ -11,7 +11,7 @@
 #import "TaskService.h"
 #import "UIDevice+Identifier.h"
 #import "JsonUtil.h"
-
+#import "DiskCacheManager.h"
 
 typedef NS_ENUM(NSUInteger, TaskResult) {
     TaskResultTimeout     = 5,
@@ -191,14 +191,17 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
             NSNumber *number = resp.userInfo;
             NSInteger taskResult = number.integerValue;
             if(TaskResultTimeout == taskResult) {
+                [self markTaskHistorical];
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"回答超时!很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultNoChance == taskResult) {
+                [self markTaskHistorical];
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾, 未能获得米米" buttonTitles:@[ @"继续答题" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultSuccess == taskResult) {
+                [self markTaskHistorical];
                 YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼答对了!" message:[NSString stringWithFormat:@"额外获得%d%@", self.task.points, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
@@ -207,6 +210,18 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         return;
     }
     [self postAnswersFailure:resp];
+}
+
+- (void)markTaskHistorical {
+    NSMutableArray *completedTaskIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
+    if(cacheData == nil) {
+        completedTaskIds = [NSMutableArray array];
+    } else {
+        completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    [completedTaskIds addObject:self.task.identifier];
+    [[DiskCacheManager manager] setCompletedTaskIds:completedTaskIds];
 }
 
 - (void)postAnswersFailure:(HttpResponse *)resp {

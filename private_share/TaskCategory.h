@@ -32,5 +32,6 @@ typedef NS_ENUM(NSUInteger, TaskCategoryType) {
 @property (nonatomic, assign) TaskCategoryType taskCategoryType;
 
 - (NSString *)iconName;
++ (NSString *)taskNameWithCategoryId:(NSString *)categoryId;
 
 @end

@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong , readonly) UIView *contentView;
 
+- (void)setCloseButtonHidden:(BOOL)hidden;
+
 @end

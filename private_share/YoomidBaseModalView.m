@@ -9,6 +9,7 @@
 #import "YoomidBaseModalView.h"
 
 @implementation YoomidBaseModalView {
+    UIButton *closeButton;
 }
 
 @synthesize contentView = _contentView_;
@@ -26,7 +27,7 @@
         backgroundImageView.image = backgroundImage;
         [_contentView_ addSubview:backgroundImageView];
         
-        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(_contentView_.frame.origin.x + _contentView_.bounds.size.width - 18, 4, 56.f / 2, 56.f / 2)];
+        closeButton = [[UIButton alloc] initWithFrame:CGRectMake(_contentView_.frame.origin.x + _contentView_.bounds.size.width - 18, 4, 56.f / 2, 56.f / 2)];
         [closeButton setBackgroundImage:[UIImage imageNamed:@"modal_close"] forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
@@ -43,6 +44,10 @@
 
 - (UIView *)contentView {
     return _contentView_;
+}
+
+- (void)setCloseButtonHidden:(BOOL)hidden {
+    closeButton.hidden = hidden;
 }
 
 @end

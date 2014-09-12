@@ -161,11 +161,21 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (NSArray *)activities:(BOOL *)isExpired {
+    NSArray *activities = nil;
     
-    return nil;
+    if(_activities_data_ == nil) {
+        _activities_data_ = [self cacheDataFromDisk:kFileNameActivities inUserDirectory:NO];
+    }
+    
+    if(_activities_data_ != nil) {
+        activities = [self arrayFromCacheData:_activities_data_ withEntityClass:[Merchandise class]];
+    }
+    
+    *isExpired = [self cacheDataIsExpired:_activities_data_];
+    return activities;
 }
 
-- (NSArray *)completedTaskIds:(BOOL *)isExpired {
+- (NSArray *)completedTaskIds {
     NSArray *completedTaskIds = nil;
     
     if(_completed_task_ids_data_ == nil) {
@@ -175,8 +185,6 @@ NSString * const kFileNamePointsOrder = @"points-order";
     if(_completed_task_ids_data_ != nil && _completed_task_ids_data_.data != nil) {
         completedTaskIds = [NSArray arrayWithArray:_completed_task_ids_data_.data];
     }
-    
-    *isExpired = [self cacheDataIsExpired:_completed_task_ids_data_];
 
     return completedTaskIds;
 }
@@ -265,6 +273,10 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 - (void)setActivities:(NSArray *)activities {
+    if(_activities_data_ == nil) {
+        _activities_data_ = [[CacheData alloc] init];
+    }
+    [self setCacheData:_activities_data_ jsonEntities:activities fileName:kFileNameActivities inUserDirectory:NO];
 }
 
 - (void)setCompletedTaskIds:(NSArray *)taskIds {

@@ -69,18 +69,18 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     _collectionView_.delegate = self;
     _collectionView_.dataSource = self;
     [self.view addSubview:_collectionView_];
-    
-    if(![ShoppingCart myShoppingCart].hasMerchandises) {
-        backgroundView.hidden = NO;
-        _collectionView_.hidden = YES;
-        return;
-    }
-    
-    [self refreshSettlementView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if(![ShoppingCart myShoppingCart].hasMerchandises) {
+        backgroundView.hidden = NO;
+        _collectionView_.hidden = YES;
+    } else {
+        [_collectionView_ reloadData];
+        [self refreshSettlementView];
+    }
     
     XXEventNameFilter *eventFilter = [[XXEventNameFilter alloc] initWithSupportedEventNames:[NSArray arrayWithObjects:kEventShoppingItemSelectPropertyChangedEvent, kEventShoppingItemsChanged, nil]];
     XXEventSubscription *subscription = [[XXEventSubscription alloc] initWithSubscriber:self eventFilter:eventFilter];

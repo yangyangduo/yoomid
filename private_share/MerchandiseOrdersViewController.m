@@ -123,7 +123,7 @@
 
 - (void)loadMore {
     MerchandiseService *service = [[MerchandiseService alloc] init];
-    [service getMerchandiseOrdersByPageIndex:pageIndex + 1 orderState:MerchandiseOrderStateSubmitted target:self success:@selector(getMerchandiseOrdersSuccess:) failure:@selector(getMerchandiseOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex + 1], @"orderState" : [NSNumber numberWithInteger:orderState]}];
+    [service getMerchandiseOrdersByPageIndex:pageIndex + 1 orderState:orderState target:self success:@selector(getMerchandiseOrdersSuccess:) failure:@selector(getMerchandiseOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex + 1], @"orderState" : [NSNumber numberWithInteger:orderState]}];
 }
 
 #pragma mark -
@@ -238,7 +238,6 @@
 - (void)cancelLoadMore {
     _collectionView_.pullTableIsLoadingMore = NO;
 }
-
 
 #pragma mark -
 #pragma mark Collection view delegate

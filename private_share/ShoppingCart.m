@@ -269,6 +269,17 @@
     return YES;
 }
 
+- (void)clearAllSelectShoppingItems {
+    NSMutableArray *removeList = [NSMutableArray array];
+    for(ShopShoppingItems *ssi in self.shopShoppingItemss) {
+        [ssi clearSelectShoppingItems];
+        if(ssi.shoppingItems.count == 0) {
+            [removeList addObject:removeList];
+        }
+    }
+    [self.shopShoppingItemss removeObjectsInArray:removeList];
+}
+
 - (void)printShoppingCartForHentreStoreAsJson {
     [JsonUtil printDictionaryAsJsonFormat:[self toDictionaryWithShopID:kHentreStoreID]];
 }

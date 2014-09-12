@@ -83,4 +83,21 @@
     }
 }
 
++ (NSString *)taskNameWithCategoryId:(NSString *)categoryId {
+    if(categoryId == nil) return @"";
+    if([@"y:e:ap" isEqualToString:categoryId]) {
+        return @"";
+    } else if([@"y:i:gp" isEqualToString:categoryId]) {
+        return @"看图猜题";
+    } else if([@"y:i:sv" isEqualToString:categoryId]) {
+        return @"问卷调查";
+    } else if([@"y:i:gm" isEqualToString:categoryId]) {
+        return @"游戏";
+    } else if([@"y:i:sc" isEqualToString:categoryId]) {
+        return @"社交分享";
+    } else {
+        return @"";
+    }
+}
+
 @end

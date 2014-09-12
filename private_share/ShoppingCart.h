@@ -52,6 +52,8 @@ typedef NS_ENUM(NSUInteger, CashPaymentType) {
 
 - (NSMutableArray *)shopShoppingItemss;
 
+- (void)clearAllSelectShoppingItems;
+
 - (void)publishEvent;
 - (void)publishSelectPropertyChangedEvent;
 

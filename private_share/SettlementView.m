@@ -41,8 +41,8 @@
         selectButton.selected = [ShoppingCart myShoppingCart].allSelect;
         [self addSubview:selectButton];
         
-        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 8, 100, 44)];
-        summariesLabel.text = @"全选         合计:";
+        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 8, 90, 44)];
+        summariesLabel.text = @"全选     合计:";
         summariesLabel.backgroundColor = [UIColor clearColor];
         summariesLabel.font = [UIFont systemFontOfSize:12.f];
         [self addSubview:summariesLabel];
@@ -99,7 +99,7 @@
     if(!selectButtonHidden) {
         selectButton.selected = [ShoppingCart myShoppingCart].allSelect;
     } else {
-        summariesLabel.text = [NSString stringWithFormat:@"共%d件商品  合计:", payment.numberOfMerchandises];
+        summariesLabel.text = [NSString stringWithFormat:@"共%d件商品 合计:", payment.numberOfMerchandises];
     }
 }
 

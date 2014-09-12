@@ -26,6 +26,7 @@
 - (NSArray *)selectShoppingItems;
 
 - (void)clearEmptyShoppingItems;
+- (void)clearSelectShoppingItems;
 - (BOOL)hasMerchandises;
 
 - (Payment *)totalPayment;

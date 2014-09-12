@@ -16,7 +16,7 @@
 
 @implementation ShoppingItemConfirmFooterView {
     UILabel *summariesLabel;
-    UITextView *remarkTextField;
+    UITextField *remarkTextField;
     
     UIImageView *pointsPaymentImageView;
     UILabel *pointsPaymentLabel;
@@ -63,14 +63,14 @@
         lineView2.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView2];
         
-        remarkTextField = [[UITextView alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 100)];
-        
-        //remarkTextField.placeholder = @"留言:";
+        remarkTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 36)];
+        remarkTextField.placeholder = @"留言:";
         remarkTextField.layer.cornerRadius = 8;
         remarkTextField.layer.borderWidth = 1.f;
+        remarkTextField.returnKeyType = UIReturnKeyDone;
         remarkTextField.layer.borderColor = [UIColor colorWithRed:219.f / 255 green:220.f / 255 blue:222.f / 255 alpha:1.0f].CGColor;
         remarkTextField.backgroundColor = [UIColor colorWithRed:241.f / 255.f green:241.f / 255.f blue:243.f / 255.f alpha:1.f];
-//        remarkTextField.delegate = self;
+        remarkTextField.delegate = self;
         [self addSubview:remarkTextField];
         
         summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];
@@ -113,6 +113,11 @@
         [self addSubview:postPaymentLabel];
     }
     return self;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)setMerchandiseNumber:(NSUInteger)number {

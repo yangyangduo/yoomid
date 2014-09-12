@@ -143,6 +143,19 @@
     }
 }
 
+- (void)clearSelectShoppingItems {
+    NSMutableArray *removedList = [NSMutableArray array];
+    for(int i=0; i<self.shoppingItems.count; i++) {
+        ShoppingItem *item = [self.shoppingItems objectAtIndex:i];
+        if(item.selected) {
+            [removedList addObject:item];
+        }
+    }
+    if(removedList.count != 0) {
+        [self.shoppingItems removeObjectsInArray:removedList];
+    }
+}
+
 - (BOOL)hasMerchandises {
     return (self.shoppingItems != nil) && (self.shoppingItems.count > 0);
 }

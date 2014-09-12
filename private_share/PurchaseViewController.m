@@ -338,10 +338,13 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
                 
             }
 #ifdef DEBUG
-            
 #endif
+            if(_is_from_shopping_cart_) {
+                [[ShoppingCart myShoppingCart] clearAllSelectShoppingItems];
+            }
+            
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:nil buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             }];

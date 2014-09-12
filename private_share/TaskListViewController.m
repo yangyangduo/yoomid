@@ -9,15 +9,18 @@
 #import "TaskListViewController.h"
 #import "TaskItemCell.h"
 #import "TaskService.h"
+#import "DiskCacheManager.h"
 #import "Task.h"
 #import "TaskDetailViewController.h"
 #import "MyPointsRecordViewController.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
+    NSArray *_completed_task_ids_;
     
     NSMutableArray *_tasks_;
     NSString *_cell_identifier_;
+    BOOL needReloading;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -62,9 +65,31 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if(needReloading) {
+        needReloading = NO;
+        if(_tasks_ != nil && _tasks_.count > 0) {
+            _completed_task_ids_ = [DiskCacheManager manager].completedTaskIds;
+            NSMutableArray *removeableTasks = [NSMutableArray array];
+            for(Task *task in _tasks_) {
+                if([self isCompletedTask:task]) {
+                    [removeableTasks addObject:task];
+                }
+            }
+            if(removeableTasks.count > 0) {
+                [_tasks_ removeObjectsInArray:removeableTasks];
+                [_collection_view_ reloadData];
+            }
+        }
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    needReloading = YES;
 }
 
 - (void)refresh {
+    _completed_task_ids_ = [DiskCacheManager manager].completedTaskIds;
+    
     [self showLoadingViewIfNeed];
     TaskService *service = [[TaskService alloc] init];
     [service getTasksWithCategoryId:self.taskCategory.identifier target:self success:@selector(getTasksSuccess:) failure:@selector(getTasksFailure:)];
@@ -73,21 +98,32 @@
 - (void)getTasksSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200 && resp.body) {
         [_tasks_ removeAllObjects];
-        
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
                 Task *task = [[Task alloc] initWithJson:[jsonArray objectAtIndex:i]];
                 task.categoryId = self.taskCategory.identifier;
-                [_tasks_ addObject:task];
+                if(![self isCompletedTask:task]) {
+                    [_tasks_ addObject:task];
+                }
             }
         }
-        
         [_collection_view_ reloadData];
         [self hideLoadingViewIfNeed];
         return;
     }
     [self showRetryView];
+}
+
+- (BOOL)isCompletedTask:(Task *)task {
+    if(task == nil || task.identifier == nil) return YES;
+    if(_completed_task_ids_ == nil) return NO;
+    for(NSString *taskId in _completed_task_ids_) {
+        if([taskId isEqualToString:task.identifier]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)getTasksFailure:(HttpResponse *)resp {
@@ -140,6 +176,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Task *task = [_tasks_ objectAtIndex:indexPath.row];
+    if(task.locked) {
+        NSMutableString *message = [NSMutableString stringWithFormat:@"哈尼\r\n要到LV%d才能解锁\r\n%@哦!", task.requiredUserLevel, task.name];
+        NSString *imageName = task.isGuessPictureTask ? @"guess_pic_locked@2x" : @"survey_locked@2x";
+        YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]] message:message buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
+        [modalView setCloseButtonHidden:YES];
+        [modalView showInView:self.navigationController.view completion:nil];
+        return;
+    }
     TaskDetailViewController *taskDetailViewController = [[TaskDetailViewController alloc] initWithTask:task];
     taskDetailViewController.title = self.title;
     [self.navigationController pushViewController:taskDetailViewController animated:YES];

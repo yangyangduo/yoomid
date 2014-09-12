@@ -16,6 +16,7 @@
         self.identifier = [json noNilStringForKey:@"id"];
         self.name = [json noNilStringForKey:@"name"];
         self.provider = [json noNilStringForKey:@"provider"];
+        self.locked = [json booleanForKey:@"locked"];
         
         NSNumber *levelNumber = [json numberForKey:@"requiredUserLevel"];
         self.requiredUserLevel = (levelNumber == nil ? 0 : levelNumber.integerValue);
@@ -34,6 +35,11 @@
 - (BOOL)isGuessPictureTask {
     if(self.categoryId == nil) return NO;
     return [@"y:i:gp" isEqualToString:self.categoryId];
+}
+
+- (BOOL)isSurveyTask {
+    if(self.categoryId == nil) return NO;
+    return [@"y:i:sv" isEqualToString:self.categoryId];
 }
 
 @end
