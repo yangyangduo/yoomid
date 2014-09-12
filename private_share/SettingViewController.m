@@ -312,7 +312,7 @@
     UIImageView *imageview = (UIImageView *)[cell viewWithTag:400];
     if (indexPath.row == 0) {
 
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"nickName"] == nil ? @"昵称:" : [NSString stringWithFormat:@"昵称:  %@",[userInfoDictionary objectForKey:@"nickName"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
 
         rect = CGRectMake(0, 0, 97, 47);//创建矩形框
@@ -323,9 +323,12 @@
     }
     else if (indexPath.row == 1)
     {
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"姓名:  %@",[userInfoDictionary objectForKey:@"realName"]];
-        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
+        if ([userInfoDictionary objectForKey:@"realName"] == nil) {
+            NSLog(@"字典:%@,姓名:%@ll",userInfoDictionary,[userInfoDictionary objectForKey:@"realName"]);
+        }
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"realName"] == nil ? @"姓名:" :[NSString stringWithFormat:@"姓名:  %@",[userInfoDictionary objectForKey:@"realName"]];
         
+        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
@@ -334,7 +337,7 @@
     }
     else if (indexPath.row == 2)
     {
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"生日:  %@",[userInfoDictionary objectForKey:@"birthday"]];
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"birthday"] == nil ? @"生日:" : [NSString stringWithFormat:@"生日:  %@",[userInfoDictionary objectForKey:@"birthday"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
 
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -345,7 +348,7 @@
     }
     else if (indexPath.row == 3)
     {
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"性别:  %@",[userInfoDictionary objectForKey:@"sex"]];
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"sex"] == nil ? @"性别:" : [NSString stringWithFormat:@"性别:  %@",[userInfoDictionary objectForKey:@"sex"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -356,7 +359,7 @@
     }
     else if (indexPath.row == 4)
     {
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"职位:  %@",[userInfoDictionary objectForKey:@"position"]];
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"position"] == nil ? @"职位:" : [NSString stringWithFormat:@"职位:  %@",[userInfoDictionary objectForKey:@"position"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -367,7 +370,7 @@
     }
     else if (indexPath.row == 5)
     {
-        ((UILabel *)[cell viewWithTag:200]).text = [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
+        ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"company"] == nil ? @"单位/学校名称:" : [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
         rect = CGRectMake(0, 20, 97, 47);//创建矩形框
@@ -441,7 +444,7 @@
         }
         case 2:
         {
-            PickerPopupView *agePickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoDictionary objectForKey:@"birthday"]];
+            PickerPopupView *agePickerPopupView = [[PickerPopupView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 250) date:[userInfoDictionary objectForKey:@"birthday"] == nil ? nil :[userInfoDictionary objectForKey:@"birthday"]];
             agePickerPopupView.delegate = self;
             [agePickerPopupView showInView:self.navigationController.view];
             break;
