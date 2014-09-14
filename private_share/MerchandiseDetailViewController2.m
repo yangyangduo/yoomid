@@ -40,7 +40,7 @@
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
     htmlView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44)];
-    htmlView.backgroundColor = [UIColor whiteColor];
+    htmlView.backgroundColor = [UIColor clearColor];
     htmlView.scrollView.delegate = self;
     htmlView.delegate = self;
     [self.view addSubview:htmlView];
