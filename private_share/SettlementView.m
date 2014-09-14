@@ -112,7 +112,7 @@
     [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
                                                     @{
                                                       NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                                      NSForegroundColorAttributeName :  [UIColor lightGrayColor] }]];
+                                                      NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
     
     return attributePaymentString;
 }

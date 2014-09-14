@@ -47,15 +47,15 @@
         
         _merchandise_ = merchandise;
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100, 75)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 21, 60, 60)];
         [imageView setImageWithURL:[NSURL URLWithString:_merchandise_.firstImageUrl] placeholderImage:nil];
         [self addSubview:imageView];
         
-        merchandiseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.frame.size.width + 10, 7, 160, 44)];
+        merchandiseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.frame.size.width + 10, 5, 160, 44)];
         merchandiseNameLabel.backgroundColor = [UIColor clearColor];
         merchandiseNameLabel.font = [UIFont systemFontOfSize:17.f];
         merchandiseNameLabel.numberOfLines = 2;
-        merchandiseNameLabel.textColor = [UIColor grayColor];
+        merchandiseNameLabel.textColor = [UIColor appTextColor];
         merchandiseNameLabel.text = merchandise.name;
         [self addSubview:merchandiseNameLabel];
         
@@ -68,7 +68,7 @@
         pointsLabel.backgroundColor = [UIColor clearColor];
         pointsLabel.font = [UIFont systemFontOfSize:15.f];
         pointsLabel.text = [NSString stringWithFormat:@"%ld%@", (long)_merchandise_.points, NSLocalizedString(@"points", @"")];
-        pointsLabel.textColor = [UIColor grayColor];
+        pointsLabel.textColor = [UIColor appTextColor];
         [self addSubview:pointsLabel];
         
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 49.f / 2 - 10, 40, 49.f / 2, 49.f / 2)];
@@ -76,7 +76,7 @@
         [closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [self addSubview:closeButton];
         
-        UIView *firstLine = [self lineViewWithY:imageView.frame.origin.y + imageView.frame.size.height + 10];
+        UIView *firstLine = [self lineViewWithY:imageView.frame.origin.y + imageView.frame.size.height + 18];
         [self addSubview:firstLine];
         
         // scroll view begin

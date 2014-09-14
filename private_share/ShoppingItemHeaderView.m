@@ -35,9 +35,9 @@
         [selectButton setImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateSelected];
         [backgroundView addSubview:selectButton];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 0, 220, 44)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 0, 260, 44)];
         titleLabel.text = @"";
-        titleLabel.font = [UIFont systemFontOfSize:15.f];
+        titleLabel.font = [UIFont systemFontOfSize:17.f];
         [backgroundView addSubview:titleLabel];
     }
     return self;

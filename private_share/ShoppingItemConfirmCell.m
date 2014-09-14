@@ -45,7 +45,7 @@ CGFloat const ImageViewHeight2 = 60.f;
         nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         nameLabel.backgroundColor = [UIColor clearColor];
         nameLabel.font = [UIFont systemFontOfSize:NameSize2];
-        nameLabel.textColor = [UIColor colorWithRed:42.f / 255.f green:50.f / 255 blue:65.f / 255 alpha:1];
+        nameLabel.textColor = [UIColor appTextColor];
         [self addSubview:nameLabel];
         
         propertiesLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.bounds.size.height + 5, NameWith2, 0)];
@@ -156,7 +156,7 @@ CGFloat const ImageViewHeight2 = 60.f;
         [paymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == _shoppingItem_.paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
                                                @{
                                                  NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                                 NSForegroundColorAttributeName :  [UIColor colorWithRed:42.f / 255.f green:50.f / 255 blue:65.f / 255 alpha:1] }]];
+                                                 NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
         
         paymentLabel.attributedText = paymentString;
         
