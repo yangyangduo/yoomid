@@ -80,7 +80,7 @@
     [bottomBar addSubview:purchaseButton];
     [self.view addSubview:bottomBar];
     
-    pullImagesView = [[PullScrollZoomImagesView alloc] initAndEmbeddedInScrollView:htmlView.scrollView];
+    pullImagesView = [[PullScrollZoomImagesView alloc] initAndEmbeddedInScrollView:htmlView.scrollView viewHeight:350];
     ImageItem *imageItem = [[ImageItem alloc] initWithUrl:self.merchandise.firstImageUrl title:nil];
     pullImagesView.imageItems = @[ imageItem ];
     

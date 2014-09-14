@@ -49,7 +49,11 @@
 }
 
 - (void)setImageItems:(NSArray *)imageItems {
-    _imageItems_ = [NSArray arrayWithArray:imageItems];
+    if(imageItems != nil) {
+        _imageItems_ = [NSArray arrayWithArray:imageItems];
+    } else {
+        _imageItems_ = [NSArray array];
+    }
     for(int i=0; i<scrollView.subviews.count; i++) {
         [[scrollView.subviews objectAtIndex:i] removeFromSuperview];
     }
@@ -78,10 +82,12 @@
 
 - (void)recalculatedPageIndex {
     _pageIndex_ = scrollView.contentOffset.x / scrollView.bounds.size.width;
-    ImageItem *item = [self.imageItems objectAtIndex:_pageIndex_];
-    titleLabel.text = item.title;
-    if(self.delegate != nil) {
-        [self.delegate imagesScrollView:self imagesPageIndexChangedTo:_pageIndex_];
+    if(self.imageItems.count > _pageIndex_) {
+        ImageItem *item = [self.imageItems objectAtIndex:_pageIndex_];
+        titleLabel.text = item.title;
+        if(self.delegate != nil) {
+            [self.delegate imagesScrollView:self imagesPageIndexChangedTo:_pageIndex_];
+        }
     }
 }
 
