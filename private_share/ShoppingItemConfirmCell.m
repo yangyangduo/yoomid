@@ -11,9 +11,11 @@
 #import "UIColor+App.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
-CGFloat const NameSize2 = 13.f;
-CGFloat const PropertiesSize2 = 12.f;
-CGFloat const ImageViewHeight2 = 64.f;
+CGFloat const TopInset2 = 18.f;
+CGFloat const NameSize2 = 15.f;
+CGFloat const NameWith2 = 140.f;
+CGFloat const PropertiesSize2 = 13.f;
+CGFloat const ImageViewHeight2 = 60.f;
 
 @implementation ShoppingItemConfirmCell {
     // basic element
@@ -35,39 +37,39 @@ CGFloat const ImageViewHeight2 = 64.f;
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, ImageViewHeight2, ImageViewHeight2)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, TopInset2, ImageViewHeight2, ImageViewHeight2)];
         [self addSubview:imageView];
         
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 10, 5, 150, 0)];
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 10, TopInset2, NameWith2, 0)];
         nameLabel.numberOfLines = 0;
         nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         nameLabel.backgroundColor = [UIColor clearColor];
         nameLabel.font = [UIFont systemFontOfSize:NameSize2];
-        nameLabel.textColor = [UIColor darkGrayColor];
+        nameLabel.textColor = [UIColor colorWithRed:42.f / 255.f green:50.f / 255 blue:65.f / 255 alpha:1];
         [self addSubview:nameLabel];
         
-        propertiesLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.bounds.size.height + 5, 150, 0)];
+        propertiesLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.bounds.size.height + 5, NameWith2, 0)];
         propertiesLabel.numberOfLines = 0;
         propertiesLabel.lineBreakMode = NSLineBreakByWordWrapping;
         propertiesLabel.backgroundColor = [UIColor clearColor];
         propertiesLabel.font = [UIFont systemFontOfSize:PropertiesSize2];
-        propertiesLabel.textColor = [UIColor lightGrayColor];
+        propertiesLabel.textColor = [UIColor colorWithRed:137.f / 255 green:137.f / 255 blue:137.f / 255 alpha:1];
         [self addSubview:propertiesLabel];
         
-        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width + 10, nameLabel.frame.origin.y + 2, 62, 20)];
+        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width, nameLabel.frame.origin.y - 2, 80, 20)];
         paymentLabel.textAlignment = NSTextAlignmentRight;
         paymentLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:paymentLabel];
         
-        numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(paymentLabel.frame.origin.x, paymentLabel.frame.origin.y + paymentLabel.bounds.size.height, 62, 20)];
+        numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(paymentLabel.frame.origin.x, paymentLabel.frame.origin.y + paymentLabel.bounds.size.height + 8, 80, 20)];
         numberLabel.backgroundColor = [UIColor clearColor];
-        numberLabel.font = [UIFont systemFontOfSize:13.f];
+        numberLabel.font = [UIFont systemFontOfSize:14.f];
         numberLabel.textColor = [UIColor lightGrayColor];
         numberLabel.textAlignment = NSTextAlignmentRight;
         numberLabel.text = @"";
         [self addSubview:numberLabel];
         
-        lineView = [[UIView alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y + imageView.bounds.size.height + 9.5f, frame.size.width - 20, 0.5f)];
+        lineView = [[UIView alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y + imageView.bounds.size.height + 19.5f, frame.size.width - 20, 0.5f)];
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
          
@@ -78,7 +80,7 @@ CGFloat const ImageViewHeight2 = 64.f;
 /*
  ------------------------------------
  |            |
- |            |            5 px
+ |            |            18 px
  |            |
  
                     nameLabel      x px
@@ -87,7 +89,7 @@ CGFloat const ImageViewHeight2 = 64.f;
  
  |                  propertiesLabel   y px
  |
- |     10 px
+ |     30 px
  |
  ------------------------------------
  */
@@ -96,16 +98,16 @@ CGFloat const ImageViewHeight2 = 64.f;
         NSString *nameString = shoppingItem.merchandise.name;
         NSString *propertiesString = [shoppingItem propertiesAsString];
         if(![@"" isEqualToString:nameString] && ![@"" isEqualToString:propertiesString]) {
-            CGSize nameSize = [shoppingItem.merchandise.name boundingRectWithSize:CGSizeMake(150, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize2] } context:nil].size;
-            CGSize propertiesSize =  [shoppingItem.propertiesAsString boundingRectWithSize:CGSizeMake(150, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize2] } context:nil].size;
-            CGFloat allLabelHeight = 5 + nameSize.height + 5 + propertiesSize.height;
-            if(allLabelHeight < 5 + ImageViewHeight2) {
-                allLabelHeight = 5 + ImageViewHeight2;
+            CGSize nameSize = [shoppingItem.merchandise.name boundingRectWithSize:CGSizeMake(NameWith2, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize2] } context:nil].size;
+            CGSize propertiesSize =  [shoppingItem.propertiesAsString boundingRectWithSize:CGSizeMake(NameWith2, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize2] } context:nil].size;
+            CGFloat allLabelHeight = TopInset2 + nameSize.height + 5 + propertiesSize.height;
+            if(allLabelHeight < TopInset2 + ImageViewHeight2) {
+                allLabelHeight = TopInset2 + ImageViewHeight2;
             }
-            return allLabelHeight + 20;
+            return allLabelHeight + 30;
         }
     }
-    return 5 + ImageViewHeight2 + 20;
+    return TopInset2 + ImageViewHeight2 + 30;
 }
 
 - (void)setShoppingItem:(ShoppingItem *)shoppingItem {
@@ -133,28 +135,28 @@ CGFloat const ImageViewHeight2 = 64.f;
         }
         
         CGRect lFrame = lineView.frame;
-        lFrame.origin.y = lY + 9.5f;
+        lFrame.origin.y = lY + 19.5f;
         lineView.frame = lFrame;
         
         CGRect selfFrame = self.frame;
-        selfFrame.size.height = lY + 20;
+        selfFrame.size.height = lY + 30;
         self.frame = selfFrame;
         
         NSString *_payment_string_ = nil;
         if(PaymentTypePoints == _shoppingItem_.paymentType) {
-            _payment_string_ = [NSString stringWithFormat:@"%ld ", (long)shoppingItem.singlePayment.points];
+            _payment_string_ = [NSString stringWithFormat:@"%ld", (long)shoppingItem.singlePayment.points];
         } else {
-            _payment_string_ = [NSString stringWithFormat:@"%.1f ", shoppingItem.singlePayment.cash];
+            _payment_string_ = [NSString stringWithFormat:@"%.1f", shoppingItem.singlePayment.cash];
         }
         NSMutableAttributedString *paymentString = [[NSMutableAttributedString alloc] initWithString:_payment_string_ attributes:
                                                     @{
-                                                      NSFontAttributeName : [UIFont systemFontOfSize:15.f],
+                                                      NSFontAttributeName : [UIFont systemFontOfSize:16.f],
                                                       NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
         
         [paymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == _shoppingItem_.paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
                                                @{
                                                  NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                                 NSForegroundColorAttributeName :  [UIColor lightGrayColor] }]];
+                                                 NSForegroundColorAttributeName :  [UIColor colorWithRed:42.f / 255.f green:50.f / 255 blue:65.f / 255 alpha:1] }]];
         
         paymentLabel.attributedText = paymentString;
         
