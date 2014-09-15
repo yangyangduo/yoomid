@@ -1,23 +1,23 @@
 //
-//  ShoppingItemConfirmCell.m
+//  ShoppingItemTableViewCell.m
 //  private_share
 //
-//  Created by Zhao yang on 7/25/14.
+//  Created by Zhao yang on 9/14/14.
 //  Copyright (c) 2014 hentre. All rights reserved.
 //
 
-#import "ShoppingItemConfirmCell.h"
+#import "ShoppingItemTableViewCell.h"
 #import "ShoppingCart.h"
 #import "UIColor+App.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
-CGFloat const TopInset2 = 18.f;
-CGFloat const NameSize2 = 15.f;
-CGFloat const NameWith2 = 140.f;
-CGFloat const PropertiesSize2 = 13.f;
-CGFloat const ImageViewHeight2 = 60.f;
+CGFloat const TopInset3 = 18.f;
+CGFloat const NameSize3 = 15.f;
+CGFloat const NameWith3 = 140.f;
+CGFloat const PropertiesSize3 = 13.f;
+CGFloat const ImageViewHeight3 = 60.f;
 
-@implementation ShoppingItemConfirmCell {
+@implementation ShoppingItemTableViewCell {
     // basic element
     UIImageView *imageView;
     UILabel *nameLabel;
@@ -32,27 +32,28 @@ CGFloat const ImageViewHeight2 = 60.f;
 @synthesize shoppingItem = _shoppingItem_;
 @synthesize shoppingCartViewController;
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, TopInset2, ImageViewHeight2, ImageViewHeight2)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, TopInset3, ImageViewHeight3, ImageViewHeight3)];
         [self addSubview:imageView];
         
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 10, TopInset2, NameWith2, 0)];
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 10, TopInset3, NameWith3, 0)];
         nameLabel.numberOfLines = 0;
         nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         nameLabel.backgroundColor = [UIColor clearColor];
-        nameLabel.font = [UIFont systemFontOfSize:NameSize2];
+        nameLabel.font = [UIFont systemFontOfSize:NameSize3];
         nameLabel.textColor = [UIColor appTextColor];
         [self addSubview:nameLabel];
         
-        propertiesLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.bounds.size.height + 5, NameWith2, 0)];
+        propertiesLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x, nameLabel.frame.origin.y + nameLabel.bounds.size.height + 5, NameWith3, 0)];
         propertiesLabel.numberOfLines = 0;
         propertiesLabel.lineBreakMode = NSLineBreakByWordWrapping;
         propertiesLabel.backgroundColor = [UIColor clearColor];
-        propertiesLabel.font = [UIFont systemFontOfSize:PropertiesSize2];
+        propertiesLabel.font = [UIFont systemFontOfSize:PropertiesSize3];
         propertiesLabel.textColor = [UIColor colorWithRed:137.f / 255 green:137.f / 255 blue:137.f / 255 alpha:1];
         [self addSubview:propertiesLabel];
         
@@ -69,7 +70,7 @@ CGFloat const ImageViewHeight2 = 60.f;
         numberLabel.text = @"";
         [self addSubview:numberLabel];
         
-        lineView = [[UIView alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y + imageView.bounds.size.height + 19.5f, frame.size.width - 20, 0.5f)];
+        lineView = [[UIView alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y + imageView.bounds.size.height + 19.5f, [UIScreen mainScreen].bounds.size.width - 20, 0.5f)];
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
     }
@@ -82,7 +83,7 @@ CGFloat const ImageViewHeight2 = 60.f;
  |            |            18 px
  |            |
  
-                    nameLabel      x px
+ nameLabel      x px
  image height px
  |            5 px
  
@@ -97,16 +98,16 @@ CGFloat const ImageViewHeight2 = 60.f;
         NSString *nameString = shoppingItem.merchandise.name;
         NSString *propertiesString = [shoppingItem propertiesAsString];
         if(![@"" isEqualToString:nameString] && ![@"" isEqualToString:propertiesString]) {
-            CGSize nameSize = [shoppingItem.merchandise.name boundingRectWithSize:CGSizeMake(NameWith2, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize2] } context:nil].size;
-            CGSize propertiesSize =  [shoppingItem.propertiesAsString boundingRectWithSize:CGSizeMake(NameWith2, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize2] } context:nil].size;
-            CGFloat allLabelHeight = TopInset2 + nameSize.height + 5 + propertiesSize.height;
-            if(allLabelHeight < TopInset2 + ImageViewHeight2) {
-                allLabelHeight = TopInset2 + ImageViewHeight2;
+            CGSize nameSize = [shoppingItem.merchandise.name boundingRectWithSize:CGSizeMake(NameWith3, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize3] } context:nil].size;
+            CGSize propertiesSize =  [shoppingItem.propertiesAsString boundingRectWithSize:CGSizeMake(NameWith3, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize3] } context:nil].size;
+            CGFloat allLabelHeight = TopInset3 + nameSize.height + 5 + propertiesSize.height;
+            if(allLabelHeight < TopInset3 + ImageViewHeight3) {
+                allLabelHeight = TopInset3 + ImageViewHeight3;
             }
             return allLabelHeight + 30;
         }
     }
-    return TopInset2 + ImageViewHeight2 + 30;
+    return TopInset3 + ImageViewHeight3 + 30;
 }
 
 - (void)setShoppingItem:(ShoppingItem *)shoppingItem {
@@ -115,13 +116,13 @@ CGFloat const ImageViewHeight2 = 60.f;
         [imageView setImageWithURL:[NSURL URLWithString:_shoppingItem_.merchandise.firstImageUrl] placeholderImage:[UIImage imageNamed:@"merchandise_placeholder"]];
         
         nameLabel.text = _shoppingItem_.merchandise.name;
-        CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(nameLabel.frame.size.width, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize2] } context:nil].size;
+        CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(nameLabel.frame.size.width, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:NameSize3] } context:nil].size;
         CGRect nFrame = nameLabel.frame;
         nFrame.size.height = nameSize.height;
         nameLabel.frame = nFrame;
         
         propertiesLabel.text = [_shoppingItem_ propertiesAsString];
-        CGSize propertiesSize = [propertiesLabel.text boundingRectWithSize:CGSizeMake(propertiesLabel.frame.size.width, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize2] } context:nil].size;
+        CGSize propertiesSize = [propertiesLabel.text boundingRectWithSize:CGSizeMake(propertiesLabel.frame.size.width, 160) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:PropertiesSize3] } context:nil].size;
         
         CGRect pFrame = propertiesLabel.frame;
         pFrame.origin.y = nFrame.origin.y + nFrame.size.height + 5;
@@ -167,10 +168,6 @@ CGFloat const ImageViewHeight2 = 60.f;
         paymentLabel.text = @"";
         numberLabel.text = @"";
     }
-}
-
-- (void)prepareForReuse {
-    [super prepareForReuse];
 }
 
 @end

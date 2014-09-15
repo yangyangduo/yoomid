@@ -272,6 +272,7 @@
 - (void)clearAllSelectShoppingItems {
     NSMutableArray *removeList = [NSMutableArray array];
     for(ShopShoppingItems *ssi in self.shopShoppingItemss) {
+        ssi.remark = @"";
         [ssi clearSelectShoppingItems];
         if(ssi.shoppingItems.count == 0) {
             [removeList addObject:removeList];
