@@ -56,7 +56,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     htmlView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 45)];
-    htmlView.backgroundColor = [UIColor whiteColor];
+    htmlView.backgroundColor = [UIColor clearColor];
     htmlView.scrollView.delegate = self;
     htmlView.delegate = self;
     [self.view addSubview:htmlView];
@@ -94,6 +94,22 @@
     participateButton = [[DefaultStyleButton alloc] initWithFrame:CGRectMake(20, self.view.bounds.size.height - 35, 280, 30)];
     [participateButton addTarget:self action:@selector(participateButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [participateButton setTitle:NSLocalizedString(@"participate", @"") forState:UIControlStateNormal];
+    
+    BOOL buttonIsDisable = NO;
+    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
+    if(self.merchandise.buyStartTime != nil) {
+        if(now < self.merchandise.buyStartTime.timeIntervalSince1970) {
+            // 活动未开始
+            buttonIsDisable = YES;
+        }
+    }
+    if(!buttonIsDisable && self.merchandise.buyEndTime != nil) {
+        if(now >= self.merchandise.buyEndTime.timeIntervalSince1970) {
+            buttonIsDisable = YES;
+        }
+    }
+    participateButton.enabled = !buttonIsDisable;
+    
     [self.view addSubview:participateButton];
     
     //
@@ -103,7 +119,7 @@
     UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
     topMaskImageView.image = [UIImage imageNamed:@"black_top"];
     topMaskImageView.userInteractionEnabled = YES;
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(18, 25.5f, 29, 29)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 44, 44)];
     [backButton addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
     [self.view addSubview:topMaskImageView];
@@ -168,7 +184,7 @@
 }
 
 - (void)popVC:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self rightDismissViewControllerAnimated:YES];
 }
 
 #pragma mark -

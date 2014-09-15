@@ -71,6 +71,10 @@
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
         
+        NSInteger postPointsPay = 0;
+        NSInteger cashPointsPay = 0;
+
+        
         postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:300 returnPoints:0];
         postCashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(postPointsPaymentButton.frame.origin.x + postPointsPaymentButton.bounds.size.width + 10, postPointsPaymentButton.frame.origin.y) paymentType:PaymentTypeCash points:500 returnPoints:0];
         
@@ -254,15 +258,28 @@
         remarkTextField.text = _shopShoppingItems_.remark;
         NSInteger points = 0;
         float cash = 0;
-        if(PaymentTypePoints == _shopShoppingItems_.postPaymentType) {
-            points = 300;
-        } else {
-            cash = 5.0f;
+        if(![self isActivityPay]) {
+            if(PaymentTypePoints == _shopShoppingItems_.postPaymentType) {
+                points = 300;
+            } else {
+                cash = 5.0f;
+            }
         }
         [self setTotalPayment:_shopShoppingItems_.totalSelectPayment postPaymentType:_shopShoppingItems_.postPaymentType postPoints:points postCash:cash];
     } else {
         remarkTextField.text = @"";
     }
+}
+
+- (BOOL)isActivityPay {
+    BOOL is_activity_pay = NO;
+    if(_shopShoppingItems_ != nil) {
+        if(_shopShoppingItems_.shoppingItems.count > 0) {
+            ShoppingItem *si = [_shopShoppingItems_.shoppingItems objectAtIndex:0];
+            is_activity_pay = si.merchandise.isActivity;
+        }
+    }
+    return is_activity_pay;
 }
 
 - (void)setPurchaseViewController:(id)purchaseViewController {

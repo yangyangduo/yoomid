@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *shopId;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign) NSInteger merchandiseType;
 @property (nonatomic, strong) NSString *shortDescription;
 @property (nonatomic, strong) NSArray *imageUrls;
 @property (nonatomic, strong) NSString *category;
@@ -36,5 +37,7 @@
 - (NSString *)firstImageUrl;
 // 3 : 4 小吉推荐
 - (NSString *)secondImageUrl;
+
+- (BOOL)isActivity;
 
 @end

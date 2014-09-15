@@ -41,6 +41,7 @@
         self.points = [json numberForKey:@"points"].integerValue;
         self.returnPoints = [json numberForKey:@"returnPoints"].integerValue;
         self.imageUrls = [json arrayForKey:@"imageUrls"];
+        self.merchandiseType = [json numberForKey:@"merchandiseType"].integerValue;
         
         NSMutableArray *propers = [NSMutableArray array];
         NSArray *_properties_ = [json arrayForKey:@"properties"];
@@ -78,6 +79,10 @@
     return [self firstImageUrl];
 }
 
+- (BOOL)isActivity {
+    return self.merchandiseType == 2;
+}
+
 - (NSMutableDictionary *)toJson {
     NSMutableDictionary *json = [super toJson];
     [json setMayBlankString:self.identifier forKey:@"id"];
@@ -86,6 +91,7 @@
     [json setMayBlankString:self.shortDescription forKey:@"shortDescrition"];
     [json setMayBlankString:self.category forKey:@"category"];
     [json setInteger:self.points forKey:@"points"];
+    [json setInteger:self.merchandiseType forKey:@"merchandiseType"];
     [json setInteger:self.returnPoints forKey:@"returnPoints"];
     [json setNoNilObject:self.imageUrls forKey:@"imageUrls"];
     
