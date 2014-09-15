@@ -75,15 +75,13 @@
     _collectionView.contentOffset = CGPointMake(0, -imagesViewHeight);
     imagesScrollView.delegate = self;
     
-    /*
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, pullImagesView.bounds.size.height-20, 80, 30)];
-    pageControl.numberOfPages = 3;
+    
+    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, imagesScrollView.bounds.size.height-30, 80, 30)];
     pageControl.currentPage = 0;
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor appBlue];
     [pageControl addTarget:self action:@selector(actionChangePage:) forControlEvents:UIControlEventValueChanged];
-    [pullImagesView addSubview:pageControl];
-     */
+    [imagesScrollView addSubview:pageControl];
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
@@ -158,6 +156,8 @@
     if (isExpired || activities == nil) {
         [self getActivitiesInfo];
     }
+    
+    pageControl.numberOfPages = imagesScrollView.imageItems.count;
 }
 
 #pragma mark -
@@ -388,10 +388,17 @@
     }
 }
 
+
+- (void)actionChangePage:(id)sender {
+    imagesScrollView.pageIndex = pageControl.currentPage;
+    [[imagesScrollView scrollView] setContentOffset:CGPointMake(imagesScrollView.bounds.size.width*pageControl.currentPage, 0)];
+}
+
 #pragma mark -
 #pragma mark Scroll images view delegate
 
 - (void)imagesScrollView:(ImagesScrollView *)imagesScrollView imagesPageIndexChangedTo:(NSUInteger)pageIndex {
+    pageControl.currentPage = pageIndex;
 }
 
 -(void)imagesScrollView:(ImagesScrollView *)imagesScrollView didTapOnPageIndex:(NSUInteger)pageIndex {

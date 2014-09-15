@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *imageItems;
 @property (nonatomic, assign) NSUInteger pageIndex;
 @property (nonatomic, assign) id<ImagesScrollViewDelegate> delegate;
+- (UIScrollView *)scrollView;
 
 @end
 

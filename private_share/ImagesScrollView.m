@@ -101,4 +101,9 @@
     [self recalculatedPageIndex];
 }
 
+- (UIScrollView *)scrollView {
+    return scrollView;
+}
+
+
 @end
