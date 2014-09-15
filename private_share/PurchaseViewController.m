@@ -150,7 +150,7 @@
     }
     CGRect keyboardFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [UIView animateWithDuration:0.3f animations:^{
-        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, keyboardFrame.size.height - 60, 0);
+        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, keyboardFrame.size.height - 20, 0);
     }];
 }
 
