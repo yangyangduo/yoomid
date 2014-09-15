@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     NSInteger timeLeft;
     NSTimer *taskTimer;
     
+    BOOL isLoaded;
     BOOL isExpired;
     BOOL isSubmitting;
 }
