@@ -343,8 +343,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:section];
-    ShoppingItemTableFooterView *footerView = [[ShoppingItemTableFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [self tableView:tableView heightForFooterInSection:section])];
-    footerView.shopShoppingItems = shopShoppingItems;
+    ShoppingItemTableFooterView *footerView = [[ShoppingItemTableFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [self tableView:tableView heightForFooterInSection:section]) shopShoppingItems:shopShoppingItems];
     footerView.purchaseViewController = self;
     return footerView;
 }

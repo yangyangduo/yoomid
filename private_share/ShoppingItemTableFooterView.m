@@ -57,7 +57,7 @@
 @synthesize shopShoppingItems = _shopShoppingItems_;
 @synthesize purchaseViewController = _purchaseViewController_;
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame shopShoppingItems:(ShopShoppingItems *)shopShoppingItems {
     self = [super initWithFrame:frame];
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
@@ -71,12 +71,16 @@
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
         
-        NSInteger postPointsPay = 0;
-        NSInteger cashPointsPay = 0;
-
+        NSInteger pointPostPay = 0;
+        NSInteger cashPostPay = 0;
         
-        postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:300 returnPoints:0];
-        postCashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(postPointsPaymentButton.frame.origin.x + postPointsPaymentButton.bounds.size.width + 10, postPointsPaymentButton.frame.origin.y) paymentType:PaymentTypeCash points:500 returnPoints:0];
+        if(![self isActivityPay:shopShoppingItems]) {
+            pointPostPay = 300;
+            cashPostPay = 5;
+        }
+        
+        postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:pointPostPay returnPoints:0];
+        postCashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(postPointsPaymentButton.frame.origin.x + postPointsPaymentButton.bounds.size.width + 10, postPointsPaymentButton.frame.origin.y) paymentType:PaymentTypeCash points:cashPostPay returnPoints:0];
         
         [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -141,6 +145,8 @@
         postPaymentLabel.textColor = [UIColor lightGrayColor];
         postPaymentLabel.text = @"";
         [self addSubview:postPaymentLabel];
+        
+        self.shopShoppingItems = shopShoppingItems;
     }
     return self;
 }
@@ -271,15 +277,19 @@
     }
 }
 
-- (BOOL)isActivityPay {
+- (BOOL)isActivityPay:(ShopShoppingItems *)shopShoppingItems {
     BOOL is_activity_pay = NO;
-    if(_shopShoppingItems_ != nil) {
-        if(_shopShoppingItems_.shoppingItems.count > 0) {
-            ShoppingItem *si = [_shopShoppingItems_.shoppingItems objectAtIndex:0];
+    if(shopShoppingItems != nil) {
+        if(shopShoppingItems.shoppingItems.count > 0) {
+            ShoppingItem *si = [shopShoppingItems.shoppingItems objectAtIndex:0];
             is_activity_pay = si.merchandise.isActivity;
         }
     }
     return is_activity_pay;
+}
+
+- (BOOL)isActivityPay {
+    return [self isActivityPay:_shopShoppingItems_];
 }
 
 - (void)setPurchaseViewController:(id)purchaseViewController {

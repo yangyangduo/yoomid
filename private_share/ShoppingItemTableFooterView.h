@@ -21,4 +21,6 @@
 @property (nonatomic, strong) ShopShoppingItems *shopShoppingItems;
 @property (nonatomic, weak) id purchaseViewController;
 
+- (instancetype)initWithFrame:(CGRect)frame shopShoppingItems:(ShopShoppingItems *)shopShoppingItems;
+
 @end
