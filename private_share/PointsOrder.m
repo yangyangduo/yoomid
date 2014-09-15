@@ -34,6 +34,7 @@
     [json setInteger:self.points forKey:@"points"];
     [json setMayBlankString:self.taskName forKey:@"taskName"];
     [json setMayBlankString:self.providerName forKey:@"providerName"];
+//    NSUInteger type = [NSString stringWithFormat:@"%ud",self.or];
     [json setInteger:self.orderType forKey:@"taskType"];
     [json setDateWithMilliseconds:self.createTime forKey:@"timestamp"];
     return json;

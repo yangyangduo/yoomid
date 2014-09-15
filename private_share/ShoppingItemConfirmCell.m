@@ -72,6 +72,7 @@ CGFloat const ImageViewHeight2 = 60.f;
         lineView = [[UIView alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y + imageView.bounds.size.height + 19.5f, frame.size.width - 20, 0.5f)];
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
+         
     }
     return self;
 }

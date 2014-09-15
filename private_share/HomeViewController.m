@@ -65,7 +65,7 @@
     [_collectionView registerClass:[HomePageItemCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.view addSubview:_collectionView];
     
-    CGFloat imagesViewHeight = self.view.bounds.size.width;
+    CGFloat imagesViewHeight = self.view.bounds.size.height - ([UIDevice is4InchDevice] ? 4 : 3) * 58;
     imagesScrollView = [[ImagesScrollView alloc] initWithFrame:CGRectMake(0, -imagesViewHeight, self.view.bounds.size.width, imagesViewHeight)];
     imagesScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_image"]];
 //    CGFloat viewHeight = self.view.bounds.size.width + (self.view.bounds.size.width/3);

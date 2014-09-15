@@ -53,7 +53,7 @@
     } else if(TaskCategoryTypeSurvey == self.taskCategoryType) {
         return @"survey";
     } else if(TaskCategoryTypeGame == self.taskCategoryType) {
-        return @"game";
+        return @"";
     } else if(TaskCategoryTypeSocialSharing == self.taskCategoryType) {
         return @"social_sharing";
     } else {

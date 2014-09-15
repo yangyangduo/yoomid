@@ -367,24 +367,23 @@ static CGRect oldframe;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:12.5f];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
     }
     
     if(dateFormatter == nil) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"MM-dd HH:mm:ss";
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
     }
     PointsOrder *order = nil;
 
-//    if (pointsOrderType == PointsOrderTypeIncome) {
+    if (pointsOrderType == PointsOrderTypeIncome) {
         order = [pointsOrders objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%d      %@      %@",order.points,order.taskName,[dateFormatter stringFromDate:order.createTime]];
-//    }
-//    else
-//    {
-//        order = [pointsOrders objectAtIndex:indexPath.row];
-//        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@使用%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
-//    }
+        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@获得%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
+    }
+    else
+    {
+        order = [pointsOrders objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@使用%d积分",[dateFormatter stringFromDate:order.createTime],order.taskName,order.points];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

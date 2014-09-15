@@ -71,13 +71,6 @@
     return [self.imageUrls objectAtIndex:0];
 }
 
-- (NSString *)secondImageUrl {
-    if(self.imageUrls != nil && self.imageUrls.count >= 2) {
-        return [self.imageUrls objectAtIndex:1];
-    }
-    return [self firstImageUrl];
-}
-
 - (NSMutableDictionary *)toJson {
     NSMutableDictionary *json = [super toJson];
     [json setMayBlankString:self.identifier forKey:@"id"];

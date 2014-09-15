@@ -97,7 +97,7 @@
     [self.view addSubview:participateButton];
     
     //
-    pullImagesView = [[PullScrollZoomImagesView alloc] initAndEmbeddedInScrollView:htmlView.scrollView viewHeight:self.view.bounds.size.width];
+    pullImagesView = [[PullScrollZoomImagesView alloc] initAndEmbeddedInScrollView:htmlView.scrollView viewHeight:350];
     pullImagesView.delegate = self;
     
     UIImageView *topMaskImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44)];
