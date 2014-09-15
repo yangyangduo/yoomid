@@ -220,6 +220,10 @@
 		6F97099C193F55D000EA5E3A /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F97099B193F55D000EA5E3A /* JsonUtil.m */; };
 		6FA327111956890700570BCC /* AccountInfoUpdatedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA327101956890700570BCC /* AccountInfoUpdatedEvent.m */; };
 		6FA3271419568EE800570BCC /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3271319568EE800570BCC /* AccountViewController.m */; };
+		6FA50F7A19C5927C00D435E2 /* ShoppingItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA50F7919C5927C00D435E2 /* ShoppingItemTableViewCell.m */; };
+		6FA50F7F19C593D600D435E2 /* ShoppingItemTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA50F7E19C593D600D435E2 /* ShoppingItemTableFooterView.m */; };
+		6FA50F8219C593E700D435E2 /* ShoppingItemTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA50F8119C593E700D435E2 /* ShoppingItemTableHeaderView.m */; };
+		6FA50F8419C69C0D00D435E2 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA50F8319C69C0D00D435E2 /* game@2x.png */; };
 		6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */; };
 		6FB0E19F19B6B591002F9A18 /* TaskItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */; };
 		6FB0E1A119B6C244002F9A18 /* bottom_button2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0E1A019B6C244002F9A18 /* bottom_button2@2x.png */; };
@@ -377,6 +381,7 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D64DEE9519C6B2BA00B14932 /* game@2x.png */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
@@ -791,6 +796,13 @@
 		6FA327101956890700570BCC /* AccountInfoUpdatedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfoUpdatedEvent.m; sourceTree = "<group>"; };
 		6FA3271219568EE800570BCC /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		6FA3271319568EE800570BCC /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		6FA50F7819C5927C00D435E2 /* ShoppingItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemTableViewCell.h; sourceTree = "<group>"; };
+		6FA50F7919C5927C00D435E2 /* ShoppingItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemTableViewCell.m; sourceTree = "<group>"; };
+		6FA50F7D19C593D600D435E2 /* ShoppingItemTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemTableFooterView.h; sourceTree = "<group>"; };
+		6FA50F7E19C593D600D435E2 /* ShoppingItemTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemTableFooterView.m; sourceTree = "<group>"; };
+		6FA50F8019C593E700D435E2 /* ShoppingItemTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemTableHeaderView.h; sourceTree = "<group>"; };
+		6FA50F8119C593E700D435E2 /* ShoppingItemTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemTableHeaderView.m; sourceTree = "<group>"; };
+		6FA50F8319C69C0D00D435E2 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
 		6FB0E19B19B6AD93002F9A18 /* bottom_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_button@2x.png"; sourceTree = "<group>"; };
 		6FB0E19D19B6B591002F9A18 /* TaskItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskItemCell.h; sourceTree = "<group>"; };
 		6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskItemCell.m; sourceTree = "<group>"; };
@@ -996,6 +1008,7 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D64DEE9519C6B2BA00B14932 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
@@ -1503,6 +1516,7 @@
 		6F5B5E3719B5AF9E00495F0C /* task */ = {
 			isa = PBXGroup;
 			children = (
+				D64DEE9519C6B2BA00B14932 /* game@2x.png */,
 				6F4E4F0719B95049006E4E15 /* task_timer@2x.png */,
 				D62FBE0319A61B280041195B /* product_experience@2x.png */,
 				6FB8072F19B80D6D003ABF77 /* default_task@2x.png */,
@@ -1513,6 +1527,7 @@
 				D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */,
 				6F27071419C2A6F900722C67 /* anwo_icon@2x.png */,
 				D6A152C819A5F73B0094B565 /* guess_picture@2x.png */,
+				6FA50F8319C69C0D00D435E2 /* game@2x.png */,
 				D66B498519B458A1002615CC /* setup2@2x.png */,
 				6F5B5E3E19B5C2C100495F0C /* domob_icon@2x.png */,
 				6F5B5E3F19B5C2C100495F0C /* youmi_icon@2x.png */,
@@ -1983,6 +1998,36 @@
 			name = service;
 			sourceTree = "<group>";
 		};
+		6FA50F7B19C5939500D435E2 /* collection_view */ = {
+			isa = PBXGroup;
+			children = (
+				6FD8A1D81977D87100514C17 /* ShoppingItemCell.h */,
+				6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */,
+				6F2BFDF7198241F300426757 /* ShoppingItemConfirmCell.h */,
+				6F2BFDF8198241F300426757 /* ShoppingItemConfirmCell.m */,
+				6FFB8D9C19792701008F0BBB /* ShoppingItemFooterView.h */,
+				6FFB8D9D19792701008F0BBB /* ShoppingItemFooterView.m */,
+				6FFB8D9F19792717008F0BBB /* ShoppingItemHeaderView.h */,
+				6FFB8DA019792717008F0BBB /* ShoppingItemHeaderView.m */,
+				6FECF3EC19BEC91500CAB301 /* ShoppingItemConfirmFooterView.h */,
+				6FECF3ED19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m */,
+			);
+			name = collection_view;
+			sourceTree = "<group>";
+		};
+		6FA50F7C19C5939C00D435E2 /* table_view */ = {
+			isa = PBXGroup;
+			children = (
+				6FA50F8019C593E700D435E2 /* ShoppingItemTableHeaderView.h */,
+				6FA50F8119C593E700D435E2 /* ShoppingItemTableHeaderView.m */,
+				6FA50F7819C5927C00D435E2 /* ShoppingItemTableViewCell.h */,
+				6FA50F7919C5927C00D435E2 /* ShoppingItemTableViewCell.m */,
+				6FA50F7D19C593D600D435E2 /* ShoppingItemTableFooterView.h */,
+				6FA50F7E19C593D600D435E2 /* ShoppingItemTableFooterView.m */,
+			);
+			name = table_view;
+			sourceTree = "<group>";
+		};
 		6FB0E19619B6A158002F9A18 /* modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -2086,16 +2131,8 @@
 		6FF31BD619BACAD2004DFE98 /* shopping_item */ = {
 			isa = PBXGroup;
 			children = (
-				6FD8A1D81977D87100514C17 /* ShoppingItemCell.h */,
-				6FD8A1D91977D87100514C17 /* ShoppingItemCell.m */,
-				6F2BFDF7198241F300426757 /* ShoppingItemConfirmCell.h */,
-				6F2BFDF8198241F300426757 /* ShoppingItemConfirmCell.m */,
-				6FFB8D9C19792701008F0BBB /* ShoppingItemFooterView.h */,
-				6FFB8D9D19792701008F0BBB /* ShoppingItemFooterView.m */,
-				6FFB8D9F19792717008F0BBB /* ShoppingItemHeaderView.h */,
-				6FFB8DA019792717008F0BBB /* ShoppingItemHeaderView.m */,
-				6FECF3EC19BEC91500CAB301 /* ShoppingItemConfirmFooterView.h */,
-				6FECF3ED19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m */,
+				6FA50F7B19C5939500D435E2 /* collection_view */,
+				6FA50F7C19C5939C00D435E2 /* table_view */,
 			);
 			name = shopping_item;
 			sourceTree = "<group>";
@@ -2575,6 +2612,11 @@
 				D3644C2E197A171000B44785 /* dianru_red_dianru_titlebg.jpg in Resources */,
 				6F4E4F1119B96BFA006E4E15 /* cry@2x.png in Resources */,
 				6F4FA07519A489460049C023 /* 2@2x.png in Resources */,
+<<<<<<< HEAD
+				D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */,
+=======
+				6FA50F8419C69C0D00D435E2 /* game@2x.png in Resources */,
+>>>>>>> FETCH_HEAD
 				D66B497819B416D1002615CC /* reduce2@2x.png in Resources */,
 				6FFB8D9619790567008F0BBB /* top10@2x.png in Resources */,
 				D3644C02197A171000B44785 /* dianru_title.jpg in Resources */,
@@ -2833,6 +2875,7 @@
 				6FB45B7919C17CC00091A117 /* OrderResult.m in Sources */,
 				6F72A3E2193DCA8B001DAA3E /* MallViewController.m in Sources */,
 				6F873DE0199B072600B671AB /* ContactDisplayView.m in Sources */,
+				6FA50F7A19C5927C00D435E2 /* ShoppingItemTableViewCell.m in Sources */,
 				6F2BD0C6194ECEBF0092BA23 /* ViewQRCodeViewController.m in Sources */,
 				6F3632FE193EC8F600340645 /* DefaultStyleButton.m in Sources */,
 				6F170349194EE3D9008C1C64 /* ShoppingCompleteViewController.m in Sources */,
@@ -2902,6 +2945,7 @@
 				6F363318193F1CA300340645 /* MerchandiseOrdersViewController.m in Sources */,
 				6FF5332F19386196001D607C /* BaseViewController.m in Sources */,
 				6F5B5E3319B5A53000495F0C /* SubTaskCategoryView.m in Sources */,
+				6FA50F7F19C593D600D435E2 /* ShoppingItemTableFooterView.m in Sources */,
 				6F8823E71940A40500757633 /* NumberPicker.m in Sources */,
 				D6C7CC8B199B910D00EC3061 /* SelectContactAddressViewController.m in Sources */,
 				6F8823BD19404DE200757633 /* BaseModel.m in Sources */,
@@ -2928,6 +2972,7 @@
 				6FD9DF7919A713C60066CA88 /* TransitionViewController.m in Sources */,
 				6FA3271419568EE800570BCC /* AccountViewController.m in Sources */,
 				6F2C52AC1974D3850045BFC1 /* PopupView.m in Sources */,
+				6FA50F8219C593E700D435E2 /* ShoppingItemTableHeaderView.m in Sources */,
 				6F970999193F542500EA5E3A /* BaseService.m in Sources */,
 				6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */,
 				6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */,

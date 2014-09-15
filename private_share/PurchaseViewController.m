@@ -7,25 +7,23 @@
 //
 
 #import "PurchaseViewController.h"
-#import "ShoppingCart.h"
-#import "ShoppingItemConfirmCell.h"
-#import "ShoppingItemHeaderView.h"
-#import "ShoppingItemConfirmFooterView.h"
-#import "UIDevice+ScreenSize.h"
-#import "ContactDisplayView.h"
-#import "AddContactInfoViewController.h"
 #import "HomeViewController.h"
+#import "AddContactInfoViewController.h"
+
+#import "ContactDisplayView.h"
+#import "ShoppingItemTableViewCell.h"
+#import "ShoppingItemTableHeaderView.h"
+#import "ShoppingItemTableFooterView.h"
+
+#import "ShoppingCart.h"
+#import "UIDevice+ScreenSize.h"
 #import "MerchandiseService.h"
 #import "DiskCacheManager.h"
 #import "OrderResult.h"
 #import "ReturnMessage.h"
 
-NSString * const ShoppingItemConfirmCellIdentifier   = @"ShoppingItemConfirmCellIdentifier";
-NSString * const ShoppingItemConfirmHeaderIdentifier = @"ShoppingItemConfirmHeaderIdentifier";
-NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFooterIdentifier";
-
 @implementation PurchaseViewController {
-    UICollectionView *_collectionView_;
+    UITableView *_table_view_;
     SettlementView *settlementView;
     ContactDisplayView *contactDisplayView;
     
@@ -36,6 +34,10 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     NSInteger _select;
     
     BOOL _is_from_shopping_cart_;
+    BOOL keyboardIsShow;
+    
+    __weak UITextField *lastActiveTextFiled;
+    UITapGestureRecognizer *resignKeyboardGesture;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
@@ -43,6 +45,7 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     if(self) {
         _shopShoppingItemss_ = shopShoppingItemss;
         _is_from_shopping_cart_ = isFromShoppingCart;
+        resignKeyboardGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureOnKeyboardShow:)];
         _select = 0;
     }
     return self;
@@ -51,10 +54,10 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = NSLocalizedString(@"confirm_order", @"");
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
-    
-    self.title = NSLocalizedString(@"confirm_order", @"");
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
 
@@ -63,27 +66,22 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [settlementView setSelectButtonHidden];
     [self.view addSubview:settlementView];
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    _collectionView_ = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60) collectionViewLayout:layout];
-    _collectionView_.backgroundColor = [UIColor clearColor];
-    [_collectionView_ registerClass:[ShoppingItemConfirmCell class] forCellWithReuseIdentifier:ShoppingItemConfirmCellIdentifier];
-    
-    [_collectionView_ registerClass:[ShoppingItemConfirmFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ShoppingItemConfirmFooterIdentifier];
-    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier];
-    
-    _collectionView_.alwaysBounceVertical = YES;
-    _collectionView_.delegate = self;
-    _collectionView_.dataSource = self;
-    [self.view addSubview:_collectionView_];
+    _table_view_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60) style:UITableViewStyleGrouped];
+    _table_view_.backgroundColor = [UIColor clearColor];
+    _table_view_.alwaysBounceVertical = YES;
+    _table_view_.delegate = self;
+    _table_view_.dataSource = self;
+    _table_view_.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_table_view_];
     
     contactDisplayView = [[ContactDisplayView alloc] initWithFrame:
                           CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0) contact:[ShoppingCart myShoppingCart].orderContact];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
-    [contactDisplayView addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
+    [contactDisplayView addGestureRecognizer:tapGesture2];
     
-    _collectionView_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
-    [_collectionView_ addSubview:contactDisplayView];
+    _table_view_.contentInset = UIEdgeInsetsMake(contactDisplayView.bounds.size.height, 0, 0, 0);
+    [_table_view_ addSubview:contactDisplayView];
     
     if(_is_from_shopping_cart_) {
         [self setRightPanDismissWithTransitionStyle];
@@ -94,6 +92,79 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     [self refreshSettlementView];
     [self mayGetContactInfo];
 }
+
+#pragma mark -
+#pragma mark Keyboards
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if(textField == nil) return NO;
+    
+    if([textField isKindOfClass:[RemarkTextField class]]) {
+        RemarkTextField *remarkTextField = (RemarkTextField *)textField;
+        ShopShoppingItems *ssi = remarkTextField.shopShoppingItems;
+        if(ssi != nil) {
+            ssi.remark = remarkTextField.text;
+        }
+    }
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    lastActiveTextFiled = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    lastActiveTextFiled = nil;
+}
+
+- (void)handleTapGestureOnKeyboardShow:(UITapGestureRecognizer *)tapGesture {
+    [self textFieldShouldReturn:lastActiveTextFiled];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    if(keyboardIsShow) return;
+    keyboardIsShow = YES;
+    BOOL gestureExists = NO;
+    for(UIGestureRecognizer *gesture in _table_view_.gestureRecognizers) {
+        if(gesture == resignKeyboardGesture) {
+            gestureExists = YES;
+            break;
+        }
+    }
+    if(!gestureExists) {
+        [_table_view_ addGestureRecognizer:resignKeyboardGesture];
+    }
+    CGRect keyboardFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    [UIView animateWithDuration:0.3f animations:^{
+        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, keyboardFrame.size.height - 20, 0);
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if(!keyboardIsShow) return;
+    keyboardIsShow = NO;
+    [_table_view_ removeGestureRecognizer:resignKeyboardGesture];
+    [UIView animateWithDuration:0.3f animations:^{
+        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, 0, 0);
+    }];
+}
+
+#pragma mark -
+#pragma mark Contacts
 
 - (void)deleteContactArray:(NSNotification*)notif {
     contacts = notif.object;
@@ -132,13 +203,11 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 
 - (void)getContactSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200 && resp.body != nil) {
-        
         if(contacts == nil) {
             contacts = [NSMutableArray array];
         } else {
             [contacts removeAllObjects];
         }
-        
         Contact *defaultContact = nil;
         NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_contacts_ != nil) {
@@ -160,7 +229,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
             contact.isDefault = YES;
             defaultContact = contact;
         }
-
         //
         [[DiskCacheManager manager] setContacts:contacts];
         
@@ -174,7 +242,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 - (Contact *)defaultContact {
     _default_contact_id_ = nil;
     if(contacts == nil || contacts.count == 0) return nil;
-    
     for(int i=0; i<contacts.count; i++) {
         Contact *contact = [contacts objectAtIndex:i];
         if(contact.isDefault) {
@@ -189,19 +256,6 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
     selectContactAddress.delegate = self;
     [self.navigationController pushViewController:selectContactAddress animated:YES];
-}
-
-- (void)refreshSettlementView {
-    if(_is_from_shopping_cart_) {
-        [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
-    } else {
-        Payment *totalPayment = [Payment emptyPayment];
-        for(int i=0; i<_shopShoppingItemss_.count; i++) {
-            ShopShoppingItems *ssis = [_shopShoppingItemss_ objectAtIndex:i];
-            [totalPayment addWithPayment:ssis.totalSelectPaymentWithPostPay];
-        }
-        [settlementView setPayment:totalPayment];
-    }
 }
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
@@ -221,8 +275,21 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
     }
 }
 
+- (void)refreshSettlementView {
+    if(_is_from_shopping_cart_) {
+        [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
+    } else {
+        Payment *totalPayment = [Payment emptyPayment];
+        for(int i=0; i<_shopShoppingItemss_.count; i++) {
+            ShopShoppingItems *ssis = [_shopShoppingItemss_ objectAtIndex:i];
+            [totalPayment addWithPayment:ssis.totalSelectPaymentWithPostPay];
+        }
+        [settlementView setPayment:totalPayment];
+    }
+}
+
 #pragma mark -
-#pragma mark 
+#pragma mark Modal view delegate
 
 - (void)modalViewDidClosed:(ModalView *)modalView {
     [self popViewController];
@@ -231,61 +298,59 @@ NSString * const ShoppingItemConfirmFooterIdentifier = @"ShoppingItemConfirmFoot
 #pragma mark -
 #pragma mark Collection view delegate
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _shopShoppingItemss_ == nil ? 0 : _shopShoppingItemss_.count;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:section];
     return ssi.selectShoppingItems.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cellIdentifier";
     ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
     ShoppingItem *si = [ssi.selectShoppingItems objectAtIndex:indexPath.row];
-    ShoppingItemConfirmCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShoppingItemConfirmCellIdentifier forIndexPath:indexPath];
-    cell.shoppingCartViewController = self;
+    ShoppingItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[ShoppingItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.shoppingCartViewController = self;
+    }
     cell.shoppingItem = si;
     return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShopShoppingItems *ssi = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
-    CGFloat height = [ShoppingItemConfirmCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
-    return CGSizeMake(self.view.bounds.size.width, height);
+    return [ShoppingItemTableViewCell calcCellHeightWithShoppingItem:[ssi.selectShoppingItems objectAtIndex:indexPath.row]];
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 20;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 44;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 240;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 180);
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:section];
+    ShoppingItemTableHeaderView *headerView = [[ShoppingItemTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [self tableView:tableView heightForHeaderInSection:section])];
+    [headerView setSelectButtonHidden];
+    headerView.shopId = shopShoppingItems.shopID;
+    return headerView;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 44);
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:section];
+    ShoppingItemTableFooterView *footerView = [[ShoppingItemTableFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, [self tableView:tableView heightForFooterInSection:section])];
+    footerView.shopShoppingItems = shopShoppingItems;
+    footerView.purchaseViewController = self;
+    return footerView;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    ShopShoppingItems *shopShoppingItems = [_shopShoppingItemss_ objectAtIndex:indexPath.section];
-    if(UICollectionElementKindSectionFooter == kind) {
-        ShoppingItemConfirmFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmFooterIdentifier forIndexPath:indexPath];
-        footerView.shopShoppingItems = shopShoppingItems;
-        footerView.purchaseViewController = self;
-        return footerView;
-    } else {
-        ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemConfirmHeaderIdentifier forIndexPath:indexPath];
-        [headerView setSelectButtonHidden];
-        headerView.shopId = shopShoppingItems.shopID;
-        return headerView;
-    }
-    return nil;
-}
+#pragma mark -
+#pragma mark Submit merchandise order
 
 - (void)purchaseButtonPressed:(id)sender {
     if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
