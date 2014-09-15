@@ -2612,11 +2612,7 @@
 				D3644C2E197A171000B44785 /* dianru_red_dianru_titlebg.jpg in Resources */,
 				6F4E4F1119B96BFA006E4E15 /* cry@2x.png in Resources */,
 				6F4FA07519A489460049C023 /* 2@2x.png in Resources */,
-<<<<<<< HEAD
 				D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */,
-=======
-				6FA50F8419C69C0D00D435E2 /* game@2x.png in Resources */,
->>>>>>> FETCH_HEAD
 				D66B497819B416D1002615CC /* reduce2@2x.png in Resources */,
 				6FFB8D9619790567008F0BBB /* top10@2x.png in Resources */,
 				D3644C02197A171000B44785 /* dianru_title.jpg in Resources */,
