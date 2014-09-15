@@ -8,12 +8,14 @@
 
 #import "ContactDisplayView.h"
 #import "ShoppingCart.h"
+#import "UIColor+App.h"
 
 CGFloat const kContactDisplayViewHeight = 75.f;
 
 @implementation ContactDisplayView
 {
     UIImageView *intoIamgeview;
+    UILabel *contactIsNilLabel;
 }
 
 @synthesize currentContact = _currentContact_;
@@ -41,8 +43,14 @@ CGFloat const kContactDisplayViewHeight = 75.f;
         _address.textColor = [UIColor grayColor];
         
         intoIamgeview = [[UIImageView alloc]initWithFrame:CGRectMake(bgView.bounds.size.width-40-20, bgView.bounds.size.height/2-30, 121.0/2, 121.0/2)];
+        intoIamgeview.image = [UIImage imageNamed:@"into"];
         [bgView addSubview:intoIamgeview];
         
+        contactIsNilLabel = [[UILabel alloc]initWithFrame:CGRectMake(45, 14, 250, 40)];
+        contactIsNilLabel.text = @"";
+        contactIsNilLabel.textColor = [UIColor appTextFieldGray];
+        
+        [bgView addSubview:contactIsNilLabel];
         [bgView addSubview:_name];
         [bgView addSubview:_phoneNumber];
         [bgView addSubview:_address];
@@ -67,7 +75,8 @@ CGFloat const kContactDisplayViewHeight = 75.f;
         _name.text = @"";
         _phoneNumber.text = @"";
         _address.text = @"";
-        intoIamgeview.image = nil;
+        contactIsNilLabel.text = @"点击增加收货人地址信息!";
+//        intoIamgeview.image = nil;
     }
     else{
         _name.text = [NSString stringWithFormat:@"收货人:%@",currentContact.name];
@@ -79,7 +88,6 @@ CGFloat const kContactDisplayViewHeight = 75.f;
         CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
         
-        intoIamgeview.image = [UIImage imageNamed:@"into"];
     }
 }
 
