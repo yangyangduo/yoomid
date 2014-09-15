@@ -51,6 +51,11 @@
             if(topViewController != nil) {
                 UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
                 [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
+                
+                if([topViewController isKindOfClass:[HomeViewController class]]) {
+                    [topViewController presentViewController:loginNavigationViewController animated:YES completion:nil];
+                }
+                
 //                if(topViewController.navigationController != nil) {
 //                    [topViewController.navigationController presentViewController:loginNavigationViewController animated:YES completion:^{ }];
 //                } else {
