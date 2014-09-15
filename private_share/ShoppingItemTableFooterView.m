@@ -14,9 +14,30 @@
 #import "ShoppingItem.h"
 #import "PaymentButton.h"
 
+@implementation RemarkTextField
+
+@synthesize shopShoppingItems;
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    CGRect rect = [super textRectForBounds:bounds];
+    rect.origin.x = rect.origin.x + 10;
+    rect.size.width = rect.size.width - 10;
+    return rect;
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return [self textRectForBounds:bounds];
+}
+
+- (CGRect)placeholderRectForBounds:(CGRect)bounds {
+    return [self textRectForBounds:bounds];
+}
+
+@end
+
 @implementation ShoppingItemTableFooterView {
     UILabel *summariesLabel;
-    UITextField *remarkTextField;
+    RemarkTextField *remarkTextField;
     
     UIImageView *pointsPaymentImageView;
     UILabel *pointsPaymentLabel;
@@ -34,7 +55,7 @@
 }
 
 @synthesize shopShoppingItems = _shopShoppingItems_;
-@synthesize purchaseViewController;
+@synthesize purchaseViewController = _purchaseViewController_;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -64,14 +85,15 @@
         lineView2.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView2];
         
-        remarkTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 36)];
+        remarkTextField = [[RemarkTextField alloc] initWithFrame:CGRectMake(10, lineView2.frame.origin.y + lineView2.bounds.size.height + 10, 300, 36)];
         remarkTextField.placeholder = @"留言:";
         remarkTextField.layer.cornerRadius = 8;
         remarkTextField.layer.borderWidth = 1.f;
+        remarkTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        remarkTextField.font = [UIFont systemFontOfSize:15.f];
         remarkTextField.returnKeyType = UIReturnKeyDone;
         remarkTextField.layer.borderColor = [UIColor colorWithRed:219.f / 255 green:220.f / 255 blue:222.f / 255 alpha:1.0f].CGColor;
         remarkTextField.backgroundColor = [UIColor colorWithRed:241.f / 255.f green:241.f / 255.f blue:243.f / 255.f alpha:1.f];
-        remarkTextField.delegate = self;
         [self addSubview:remarkTextField];
         
         //        remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10
@@ -117,19 +139,6 @@
         [self addSubview:postPaymentLabel];
     }
     return self;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if(self.shopShoppingItems != nil) {
-        self.shopShoppingItems.remark = textField.text;
-    }
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    NSLog(@"ffffjjkkk");
-    return YES;
 }
 
 - (void)setMerchandiseNumber:(NSUInteger)number {
@@ -236,6 +245,7 @@
 
 - (void)setShopShoppingItems:(ShopShoppingItems *)shopShoppingItems {
     _shopShoppingItems_ = shopShoppingItems;
+    remarkTextField.shopShoppingItems = shopShoppingItems;
     [self refresh];
 }
 
@@ -252,6 +262,16 @@
         [self setTotalPayment:_shopShoppingItems_.totalSelectPayment postPaymentType:_shopShoppingItems_.postPaymentType postPoints:points postCash:cash];
     } else {
         remarkTextField.text = @"";
+    }
+}
+
+- (void)setPurchaseViewController:(id)purchaseViewController {
+    _purchaseViewController_ = purchaseViewController;
+    if(_purchaseViewController_ != nil) {
+        if([_purchaseViewController_ isKindOfClass:[PurchaseViewController class]]) {
+            PurchaseViewController *pViewController = (PurchaseViewController *)_purchaseViewController_;
+            remarkTextField.delegate = pViewController;
+        }
     }
 }
 

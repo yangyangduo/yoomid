@@ -102,31 +102,37 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    lastActiveTextFiled = textField;
-    return YES;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if(textField == nil) return NO;
+    
+    if([textField isKindOfClass:[RemarkTextField class]]) {
+        RemarkTextField *remarkTextField = (RemarkTextField *)textField;
+        ShopShoppingItems *ssi = remarkTextField.shopShoppingItems;
+        if(ssi != nil) {
+            ssi.remark = remarkTextField.text;
+        }
+    }
+    [textField resignFirstResponder];
+    
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
+    lastActiveTextFiled = textField;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    
+    lastActiveTextFiled = nil;
 }
 
 - (void)handleTapGestureOnKeyboardShow:(UITapGestureRecognizer *)tapGesture {
-    
+    [self textFieldShouldReturn:lastActiveTextFiled];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -142,20 +148,9 @@
     if(!gestureExists) {
         [_table_view_ addGestureRecognizer:resignKeyboardGesture];
     }
-
     CGRect keyboardFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    // shang left bottom right
-    _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, keyboardFrame.size.height, 0);
-
-    
-    CGRect frm = [_table_view_ rectForFooterInSection:0];
-//    _table_view_.contentOffset = CGPointMake(0, frm.origin.y - 60);
-    
-    //scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width, scrollView.bounds.size.height + rect.size.height);
     [UIView animateWithDuration:0.3f animations:^{
-      //  scrollView.contentOffset = CGPointMake(0, after4s ? 30 : 30);
-    } completion:^(BOOL finished) {
+        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, keyboardFrame.size.height - 60, 0);
     }];
 }
 
@@ -163,14 +158,8 @@
     if(!keyboardIsShow) return;
     keyboardIsShow = NO;
     [_table_view_ removeGestureRecognizer:resignKeyboardGesture];
-    
-    // CGRect rect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, 0, 0);
-    
     [UIView animateWithDuration:0.3f animations:^{
-        //scrollView.contentOffset = CGPointMake(0, -20);
-    } completion:^(BOOL finished) {
-        //scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width, scrollView.bounds.size.height - rect.size.height);
+        _table_view_.contentInset = UIEdgeInsetsMake(_table_view_.contentInset.top, 0, 0, 0);
     }];
 }
 
@@ -219,7 +208,6 @@
         } else {
             [contacts removeAllObjects];
         }
-        
         Contact *defaultContact = nil;
         NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_contacts_ != nil) {
@@ -241,7 +229,6 @@
             contact.isDefault = YES;
             defaultContact = contact;
         }
-
         //
         [[DiskCacheManager manager] setContacts:contacts];
         
@@ -255,7 +242,6 @@
 - (Contact *)defaultContact {
     _default_contact_id_ = nil;
     if(contacts == nil || contacts.count == 0) return nil;
-    
     for(int i=0; i<contacts.count; i++) {
         Contact *contact = [contacts objectAtIndex:i];
         if(contact.isDefault) {
