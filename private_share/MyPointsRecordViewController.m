@@ -100,14 +100,14 @@ static CGRect oldframe;
     addBtn.backgroundColor = [UIColor colorWithRed:44.0f / 255.0f green:55.0f / 255.0f blue:66.0f / 255.0f alpha:1.0f];
     [addBtn addTarget:self action:@selector(addPoints:) forControlEvents:UIControlEventTouchUpInside];
     [addBtn setImage:[UIImage imageNamed:@"add2"] forState:UIControlStateNormal];
-    [addBtn setTitle:@" 收入" forState:UIControlStateNormal];
+    [addBtn setTitle:@"  收入" forState:UIControlStateNormal];
     
     reduceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     reduceBtn.frame = CGRectMake(addBtn.bounds.size.width+1, topView.frame.size.height-50, self.view.frame.size.width/2, 50);
     reduceBtn.backgroundColor = [UIColor colorWithRed:44.0f / 255.0f green:55.0f / 255.0f blue:66.0f / 255.0f alpha:1.0f];
     [reduceBtn addTarget:self action:@selector(reducePoints:) forControlEvents:UIControlEventTouchUpInside];
     [reduceBtn setImage:[UIImage imageNamed:@"reduce"] forState:UIControlStateNormal];
-    [reduceBtn setTitle:@" 支出" forState:UIControlStateNormal];
+    [reduceBtn setTitle:@"  支出" forState:UIControlStateNormal];
     [topView addSubview:addBtn];
     [topView addSubview:reduceBtn];
     
@@ -122,7 +122,7 @@ static CGRect oldframe;
     numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(-8, triangleImage.frame.origin.y + triangleImage.bounds.size.height+13, 250, 65)];
     numberLabel.textColor = [UIColor whiteColor];
     numberLabel.textAlignment = NSTextAlignmentCenter;
-    numberLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size:65];
+    numberLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size:58];
     numberLabel.text = @"0";
     [topView addSubview:numberLabel];
     
@@ -378,7 +378,7 @@ static CGRect oldframe;
 
 //    if (pointsOrderType == PointsOrderTypeIncome) {
         order = [pointsOrders objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%d      %@      %@",order.points,order.taskName,[dateFormatter stringFromDate:order.createTime]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%d %@ %@",order.points,order.taskName,[dateFormatter stringFromDate:order.createTime]];
 //    }
 //    else
 //    {
