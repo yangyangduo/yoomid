@@ -41,7 +41,7 @@
         bootomView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bootomView];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 105, 80)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 105, 105)];
         imageView.image = DEFAULT_IMAGE;
         [bootomView addSubview:imageView];
         
@@ -49,7 +49,7 @@
         progressView.backgroundView.backgroundColor = [UIColor colorWithRed:208.f / 255.f green:209.f / 255.f blue:211.f / 255.f alpha:1.f];// 162,226
         progressView.trackView.backgroundColor = [UIColor appLightBlue];
         progressView.layer.cornerRadius = 5;
-        [bootomView addSubview:progressView];
+//        [bootomView addSubview:progressView];
         
         progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(progressView.bounds.size.width + progressView.frame.origin.x, 0, 37, 22)];
         progressLabel.text = @"";
@@ -59,7 +59,7 @@
         progressLabel.textAlignment = NSTextAlignmentCenter;
         progressLabel.backgroundColor = [UIColor clearColor];
         progressLabel.center = CGPointMake(progressLabel.center.x, progressView.center.y);
-        [bootomView addSubview:progressLabel];
+//        [bootomView addSubview:progressLabel];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 13, 145, 45)];
         titleLabel.numberOfLines = 2;
@@ -84,7 +84,6 @@
         rmbLabel.font = [UIFont systemFontOfSize:20.f];
         rmbLabel.textColor = [UIColor appColor];
         rmbLabel.backgroundColor = [UIColor clearColor];
-        rmbLabel.text = @"111";
         [bootomView addSubview:rmbLabel];
         
         rmb = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"rmb_blue"]];
@@ -120,6 +119,7 @@
         pointsLabel.text = @"";
         rmbLabel.text = @"";
         messageLabel.text = @"";
+        rmbLabel.text = @"";
         imageView.image = DEFAULT_IMAGE;
     } else {
         if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
@@ -160,8 +160,8 @@
         if(progress > 1.f) {
             progress = 1;
         }
-        [progressView setProgress:progress];
-        progressLabel.text = [NSString stringWithFormat:@"%.0f%%", progress * 100];
+//        [progressView setProgress:progress];
+//        progressLabel.text = [NSString stringWithFormat:@"%.0f%%", progress * 100];
     }
     _merchandise_ = merchandise;
 }
