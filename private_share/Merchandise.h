@@ -32,6 +32,9 @@
 
 @property (nonatomic, strong) NSDate *createTime;
 
+// 1 : 1 其他
 - (NSString *)firstImageUrl;
+// 3 : 4 小吉推荐
+- (NSString *)secondImageUrl;
 
 @end
