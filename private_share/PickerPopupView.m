@@ -44,7 +44,7 @@
         birthdayDatePicker.datePickerMode = UIDatePickerModeDate;
         [birthdayDatePicker addTarget:self action:@selector(oneDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
         
-        if (date != nil) {
+        if (date != nil && ![date isEqualToString:@""]) {
             [birthdayDatePicker setDate:[dateFormatter dateFromString:date]];
         }
         [self addSubview:birthdayDatePicker];
