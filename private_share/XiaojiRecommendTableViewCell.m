@@ -57,7 +57,8 @@
     if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
         imageView.image = DEFAULT_IMAGE;
     } else {
-        NSString *displayedImageUrl = [merchandise.imageUrls objectAtIndex:0];
+//        NSString *displayedImageUrl = [merchandise.imageUrls objectAtIndex:0];
+        NSString *displayedImageUrl = [merchandise secondImageUrl];
         [imageView setImageWithURL:[NSURL URLWithString:displayedImageUrl] placeholderImage:DEFAULT_IMAGE];
     }
     

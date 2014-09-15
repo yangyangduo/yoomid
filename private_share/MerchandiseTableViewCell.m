@@ -41,7 +41,7 @@
         bootomView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bootomView];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 105, 105)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 12, 105, 105)];
         imageView.image = DEFAULT_IMAGE;
         [bootomView addSubview:imageView];
         
