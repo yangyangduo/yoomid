@@ -16,6 +16,7 @@
 #import "CustomCollectionView.h"
 #import "UINavigationViewInitializer.h"
 #import "UIDevice+ScreenSize.h"
+#import "Account.h"
 
 #import "AdwoOfferWall.h"
 #import "YouMiWall.h"
@@ -125,6 +126,7 @@
     
     [self mayRefreshActivities];
     [self mayRefreshTaskCategories];
+    [[Account currentAccount] mayRefresh];
 }
 
 - (void)mayRefreshTaskCategories {

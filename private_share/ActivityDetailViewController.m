@@ -20,6 +20,7 @@
 #import "OrderResult.h"
 #import "ShopShoppingItems.h"
 #import "ReturnMessage.h"
+#import "Account.h"
 
 @interface ActivityDetailViewController ()
 
@@ -305,6 +306,9 @@
                 [modal showInView:self.view completion:nil];
             }];
         }
+        
+        [[Account currentAccount] refresh];
+        
         return;
     }
     [self submitOrdersFailure:resp];

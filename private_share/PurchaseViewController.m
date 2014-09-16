@@ -16,6 +16,7 @@
 #import "ShoppingItemTableFooterView.h"
 
 #import "ShoppingCart.h"
+#import "Account.h"
 #import "UIDevice+ScreenSize.h"
 #import "MerchandiseService.h"
 #import "DiskCacheManager.h"
@@ -419,6 +420,8 @@
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             }];
+            
+            [[Account currentAccount] refresh];
         }
         return;
     }

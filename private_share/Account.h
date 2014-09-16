@@ -21,5 +21,6 @@
 
 - (void)clear;
 - (void)refresh;
+- (void)mayRefresh;
 
 @end

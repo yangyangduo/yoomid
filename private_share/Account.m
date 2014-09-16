@@ -12,7 +12,9 @@
 #import "XXEventSubscriptionPublisher.h"
 #import "ShoppingCart.h"
 
-@implementation Account
+@implementation Account {
+    NSDate *lastRefreshTime;
+}
 
 @synthesize accountId = _accountId_;
 @synthesize points = _points_;
@@ -29,8 +31,24 @@
     return account;
 }
 
+- (void)mayRefresh {
+    if(lastRefreshTime != nil) {
+        if(abs(lastRefreshTime.timeIntervalSinceNow) > 20) {
+#ifdef DEBUG
+            NSLog(@"start to refresh");
+#endif
+            [self refresh];
+            return;
+        }
+    }
+#ifdef DEBUG
+    NSLog(@"dosen't need to refresh");
+#endif
+}
+
 - (void)refresh {
     if([XXStringUtils isBlank:self.accountId]) return;
+    lastRefreshTime = [NSDate date];
     AccountService *service = [[AccountService alloc] init];
     [service getAccountPoints:self.accountId target:self success:@selector(getAccountPointsSuccess:) failure:@selector(getAccountPointsFailure:)];
 }
