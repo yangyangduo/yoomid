@@ -209,10 +209,10 @@
 #ifdef DEBUG
         NSLog(@"Will start present view controller [%@]", [[toViewController class] description]);
 #endif
-        /*
         UIView *lockView = [[UIView alloc] initWithFrame:toViewController.view.bounds];
-        lockView.backgroundColor = [UIColor redColor];
-        [toViewController.view addSubview:lockView];*/
+        lockView.backgroundColor = [UIColor clearColor];
+        lockView.tag = LOCK_VIEW_TAG;
+        [toViewController.view addSubview:lockView];
         
         [fromViewController viewWillDisappear:YES];
         
@@ -329,6 +329,13 @@
                 }
             }
             completion:^(BOOL finished){
+                if(PanAnimationControllerTypePresentation == animationType) {
+                    UIView *lockView = [toViewController.view viewWithTag:LOCK_VIEW_TAG];
+                    if(lockView != nil) {
+                        [lockView removeFromSuperview];
+                    }
+                }
+                
                 if(cancelled) {
                     [context cancelInteractiveTransition];
                     [context completeTransition:NO];
