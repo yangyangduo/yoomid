@@ -83,7 +83,7 @@
     [imagesScrollView addSubview:pageControl];
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [settingButton setImage:[UIImage imageNamed:@"settings"] forState:UIControlStateNormal];
+    [settingButton setImage:[UIImage imageNamed:@"settings_copy"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
 
