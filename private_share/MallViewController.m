@@ -45,6 +45,8 @@
     segmentedControl.frame = frame;
     self.navigationItem.titleView = segmentedControl;
     
+    UIView *xiaojiHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
+    xiaojiHeaderView.backgroundColor = [UIColor clearColor];
     xiaoji = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     xiaoji.delegate = self;
     xiaoji.dataSource = self;
@@ -52,9 +54,12 @@
     xiaoji.tag = 0;
     xiaoji.separatorStyle = NO;
     xiaoji.backgroundColor = [UIColor clearColor];
+    xiaoji.tableHeaderView = xiaojiHeaderView;
     [self.view addSubview:xiaoji];
     xiaoji.pullTableIsLoadingMore = NO;
     
+    UIView *merchandisesHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 15)];
+    merchandisesHeaderView.backgroundColor = [UIColor clearColor];
     tblMerchandises = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     tblMerchandises.delegate = self;
     tblMerchandises.dataSource = self;
@@ -62,6 +67,7 @@
     tblMerchandises.backgroundColor = [UIColor clearColor];
     tblMerchandises.tag = 1;
     [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    tblMerchandises.tableHeaderView = merchandisesHeaderView;
     [self.view addSubview:tblMerchandises];
     [tblMerchandises setHidden:YES];
 }
