@@ -16,6 +16,10 @@
 #import "ShoppingCart.h"
 #import "PurchaseViewController.h"
 #import "UINavigationViewInitializer.h"
+#import "MerchandiseService.h"
+#import "OrderResult.h"
+#import "ShopShoppingItems.h"
+#import "ReturnMessage.h"
 
 @interface ActivityDetailViewController ()
 
@@ -243,24 +247,6 @@
     }
 }
 
-- (void)participateButtonPressed:(id)sender {
-    ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];
-    shopShoppingItems.shopID = self.merchandise.shopId;
-    ShoppingItem *newItem = [[ShoppingItem alloc] init];
-    newItem.merchandise = self.merchandise;
-    newItem.number = 1;
-    newItem.selected = YES;
-    newItem.paymentType = PaymentTypePoints;
-    newItem.properties = [NSArray array];
-    newItem.shopId = shopShoppingItems.shopID;
-    [shopShoppingItems.shoppingItems addObject:newItem];
-    
-    PurchaseViewController *purchaseViewController = [[PurchaseViewController alloc] initWithShopShoppingItemss:@[ shopShoppingItems ] isFromShoppingCart:NO];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:purchaseViewController];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    [self rightPresentViewController:navigationController animated:YES];
-}
-
 - (NSString *)errorHtml {
     NSMutableString *html = [[NSMutableString alloc] init];
     [html appendString:@"<!doctype html><html>"];
@@ -275,6 +261,81 @@
     [html appendString:@"</body>"];
     [html appendString:@"</html>"];
     return html;
+}
+
+
+#pragma mark -
+#pragma mark Submit activity order
+
+- (void)participateButtonPressed:(id)sender {
+    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"contact_required", @"") forType:AlertViewTypeFailed];
+        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+        return;
+    }
+    
+    NSMutableArray *ordersToSubmit = [NSMutableArray array];
+    NSMutableArray *shoppingItems = [NSMutableArray array];
+    [shoppingItems addObject:@{
+                               @"merchandiseId" : self.merchandise.identifier,
+                               @"number" : [NSNumber numberWithInt:1],
+                               @"paymentType" : [NSNumber numberWithUnsignedInteger:PaymentTypePoints],
+                               }];
+    
+    NSDictionary *shopOrder = @{
+                                @"basicInfo" : @{
+                                        @"shopId" : self.merchandise.shopId
+                                        },
+                                @"shoppingItems" : shoppingItems
+                                };
+    [ordersToSubmit addObject:shopOrder];
+    
+#ifdef DEBUG
+    [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
+#endif
+    
+    [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
+    [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+    
+    MerchandiseService *service =  [[MerchandiseService alloc] init];
+    [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+}
+
+- (void)submitOrdersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 201) {
+        NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_order_result_json_ != nil) {
+            [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,已参加活动!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
+                [modal showInView:self.navigationController.view completion:nil];
+            }];
+        }
+        return;
+    }
+    [self submitOrdersFailure:resp];
+}
+
+- (void)submitOrdersFailure:(HttpResponse *)resp {
+    NSString *errorMessage = @"出错啦!";
+    if(1001 == resp.statusCode) {
+        errorMessage = @"请求超时!";
+    } else if(400 == resp.statusCode) {
+        if(resp.contentType != nil && resp.body != nil && [resp.contentType rangeOfString:@"application/json" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            NSDictionary *_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+            if(_json_ != nil) {
+                ReturnMessage *message = [[ReturnMessage alloc] initWithJson:_json_];
+                errorMessage = [NSString stringWithFormat:@"对不起,%@!", message.message];
+            }
+        }
+    } else if(403 == resp.statusCode) {
+        errorMessage = @"请重新登录后再尝试!";
+    } else {
+        errorMessage = @"出错啦!";
+    }
+    [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 340) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
+        [modal showInView:self.navigationController.view completion:nil];
+    }];
 }
 
 @end
