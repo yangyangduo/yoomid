@@ -265,8 +265,6 @@
 		6FECF3EB19BEA9AB00CAB301 /* button_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FECF3EA19BEA9AB00CAB301 /* button_up@2x.png */; };
 		6FECF3EE19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FECF3ED19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m */; };
 		6FF1BE04197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */; };
-		6FF1E6BD19C7D4F400D19AF7 /* information2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FF1E6BA19C7D4F400D19AF7 /* information2@2x.png */; };
-		6FF1E6BE19C7D4F400D19AF7 /* miku@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FF1E6BB19C7D4F400D19AF7 /* miku@2x.png */; };
 		6FF1E6BF19C7D4F400D19AF7 /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FF1E6BC19C7D4F400D19AF7 /* setting@2x.png */; };
 		6FF533271938512E001D607C /* DrawerViewControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF533261938512E001D607C /* DrawerViewControllerConfig.m */; };
 		6FF5332C19386185001D607C /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5332B19386185001D607C /* ActivityDetailViewController.m */; };
@@ -378,6 +376,7 @@
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
 		D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D64DEE9519C6B2BA00B14932 /* game@2x.png */; };
+		D650F14619C7DF68009A290A /* information2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D650F14519C7DF68009A290A /* information2@2x.png */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
@@ -857,8 +856,6 @@
 		6FECF3ED19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemConfirmFooterView.m; sourceTree = "<group>"; };
 		6FF1BE02197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemSelectPropertyChangedEvent.h; sourceTree = "<group>"; };
 		6FF1BE03197E5ED0008D991B /* ShoppingItemSelectPropertyChangedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemSelectPropertyChangedEvent.m; sourceTree = "<group>"; };
-		6FF1E6BA19C7D4F400D19AF7 /* information2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information2@2x.png"; sourceTree = "<group>"; };
-		6FF1E6BB19C7D4F400D19AF7 /* miku@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku@2x.png"; sourceTree = "<group>"; };
 		6FF1E6BC19C7D4F400D19AF7 /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
 		6FF533251938512E001D607C /* DrawerViewControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewControllerConfig.h; sourceTree = "<group>"; };
 		6FF533261938512E001D607C /* DrawerViewControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewControllerConfig.m; sourceTree = "<group>"; };
@@ -1000,6 +997,7 @@
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
 		D64DEE9519C6B2BA00B14932 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
+		D650F14519C7DF68009A290A /* information2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information2@2x.png"; sourceTree = "<group>"; };
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
@@ -2479,9 +2477,8 @@
 		D6A152C719A5F7120094B565 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				D650F14519C7DF68009A290A /* information2@2x.png */,
 				D62FBE0B19A620470041195B /* mm@2x.png */,
-				6FF1E6BA19C7D4F400D19AF7 /* information2@2x.png */,
-				6FF1E6BB19C7D4F400D19AF7 /* miku@2x.png */,
 				6FF1E6BC19C7D4F400D19AF7 /* setting@2x.png */,
 				D62FBE0519A61CC70041195B /* information@2x.png */,
 			);
@@ -2605,7 +2602,6 @@
 				6F27071D19C2D00500722C67 /* order@2x.png in Resources */,
 				6F2C52C019751D2C0045BFC1 /* guide1-568h@2x.png in Resources */,
 				D670D6C619B07E4600FB241D /* points_blue@2x.png in Resources */,
-				6FF1E6BD19C7D4F400D19AF7 /* information2@2x.png in Resources */,
 				6F76F7861964F56D00C2FD52 /* exellent@2x.png in Resources */,
 				6F970979193F4B5300EA5E3A /* icon_cancel@2x.png in Resources */,
 				D3644C0E197A171000B44785 /* dianru_green_left_cell.png in Resources */,
@@ -2648,7 +2644,6 @@
 				D3644C21197A171000B44785 /* dianru_purple_dianru_iphone_download.png in Resources */,
 				6F4FA07719A489460049C023 /* 4@2x.png in Resources */,
 				D3644C0D197A171000B44785 /* dianru_green_dianru_triangle.png in Resources */,
-				6FF1E6BE19C7D4F400D19AF7 /* miku@2x.png in Resources */,
 				D3644C16197A171000B44785 /* dianru_orange_dianru_iphone_download.png in Resources */,
 				6FF5334019387D26001D607C /* btn_menu@2x.png in Resources */,
 				6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */,
@@ -2711,6 +2706,7 @@
 				6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */,
 				D3644C1D197A171000B44785 /* dianru_purple_all_cell.png in Resources */,
 				6F726B50196D0F6300875B05 /* icon120@2x.png in Resources */,
+				D650F14619C7DF68009A290A /* information2@2x.png in Resources */,
 				D3644BEC197A171000B44785 /* dianru_blue_dianru_iphone_download.png in Resources */,
 				D3644C06197A171000B44785 /* dianru_yuanjiao_horizontal.png in Resources */,
 				D3644C2B197A171000B44785 /* dianru_red_dianru_download.png in Resources */,
