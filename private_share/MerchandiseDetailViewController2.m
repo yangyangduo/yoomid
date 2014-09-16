@@ -46,7 +46,8 @@
     [self.view addSubview:htmlView];
     
     UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
-    UIButton *addToShoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 0, 90, 30)];
+    
+    UIButton *addToShoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(120, 0, 90, 30)];
     addToShoppingCartButton.tag = 200;
     
     UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 0, 90, 30)];
