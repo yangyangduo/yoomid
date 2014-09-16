@@ -27,7 +27,7 @@
 
         self.backgroundColor = [UIColor clearColor];
 
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.bounds.size.width-20, [UIDevice is4InchDevice] ? 400 : 325)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.bounds.size.width-20,((self.bounds.size.width-20)/3)*4)];
 //        imageView.image = [UIImage imageNamed:@"xiaojibg"];
         [self addSubview:imageView];
 //        
