@@ -21,7 +21,6 @@
 		6F12F37D195020B600B47132 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37C195020B500B47132 /* ImageIO.framework */; };
 		6F12F38E195151CD00B47132 /* libPunchBoxAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F385195151CD00B47132 /* libPunchBoxAd.a */; };
 		6F12F38F195151CD00B47132 /* PunchBoxAdRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F12F38D195151CD00B47132 /* PunchBoxAdRes.bundle */; };
-		6F1344B919C804C700302315 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1344B819C804C700302315 /* settings@2x.png */; };
 		6F170349194EE3D9008C1C64 /* ShoppingCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F170348194EE3D9008C1C64 /* ShoppingCompleteViewController.m */; };
 		6F27071519C2A6F900722C67 /* anwo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071419C2A6F900722C67 /* anwo_icon@2x.png */; };
 		6F27071819C2B35D00722C67 /* guess_pic_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F27071619C2B35D00722C67 /* guess_pic_locked@2x.png */; };
@@ -456,7 +455,6 @@
 		6F12F38B195151CD00B47132 /* PBRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestError.h; sourceTree = "<group>"; };
 		6F12F38C195151CD00B47132 /* PunchBoxAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAd.h; sourceTree = "<group>"; };
 		6F12F38D195151CD00B47132 /* PunchBoxAdRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PunchBoxAdRes.bundle; sourceTree = "<group>"; };
-		6F1344B819C804C700302315 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		6F170347194EE3D9008C1C64 /* ShoppingCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCompleteViewController.h; sourceTree = "<group>"; };
 		6F170348194EE3D9008C1C64 /* ShoppingCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCompleteViewController.m; sourceTree = "<group>"; };
 		6F27071419C2A6F900722C67 /* anwo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anwo_icon@2x.png"; sourceTree = "<group>"; };
@@ -2447,7 +2445,6 @@
 		D6A152C719A5F7120094B565 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				6F1344B819C804C700302315 /* settings@2x.png */,
 				D62FBE0B19A620470041195B /* mm@2x.png */,
 				6FF1E6C019C8003F00D19AF7 /* mi_repository@2x.png */,
 				6FF1E6C119C8003F00D19AF7 /* notifications@2x.png */,
@@ -2577,7 +2574,6 @@
 				6F5B5E3D19B5B00E00495F0C /* login_background_image@2x.png in Resources */,
 				D676302719A7741C0015CADF /* level9@2x.png in Resources */,
 				D670D6C219B074A200FB241D /* miku2@2x.png in Resources */,
-				6F1344B919C804C700302315 /* settings@2x.png in Resources */,
 				6F27071819C2B35D00722C67 /* guess_pic_locked@2x.png in Resources */,
 				D3644C15197A171000B44785 /* dianru_orange_dianru_info.png in Resources */,
 				D3644C20197A171000B44785 /* dianru_purple_dianru_info.png in Resources */,
