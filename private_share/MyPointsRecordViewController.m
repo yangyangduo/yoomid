@@ -372,13 +372,13 @@ static CGRect oldframe;
     
     if(dateFormatter == nil) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"MM-dd HH:mm:ss";
+        dateFormatter.dateFormat = @"MM-dd HH:mm";
     }
     PointsOrder *order = nil;
 
 //    if (pointsOrderType == PointsOrderTypeIncome) {
         order = [pointsOrders objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%d %@ %@",order.points,order.taskName,[dateFormatter stringFromDate:order.createTime]];
+        cell.textLabel.text = [NSString stringWithFormat:@"[%@] %d米米 %@",[dateFormatter stringFromDate:order.createTime],order.points,order.taskName];
 //    }
 //    else
 //    {
