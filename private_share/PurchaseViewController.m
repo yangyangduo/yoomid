@@ -253,9 +253,16 @@
 }
 
 - (void)pushContactInfo:(id)sender {
-    SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
-    selectContactAddress.delegate = self;
-    [self.navigationController pushViewController:selectContactAddress animated:YES];
+    if (contacts == nil || contacts.count == 0) {
+        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
+        [self.navigationController pushViewController:add animated:YES];
+    }
+    else
+    {
+        SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
+        selectContactAddress.delegate = self;
+        [self.navigationController pushViewController:selectContactAddress animated:YES];
+    }
 }
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {

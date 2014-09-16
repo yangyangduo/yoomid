@@ -70,22 +70,22 @@
         self.navigationController.navigationBar.translucent = NO;
     }
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [backButton addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+//    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
 
--(void)actionBack
-{
-    if (fag) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-}
+//-(void)actionBack
+//{
+//    if (fag) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else
+//    {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//    }
+//}
 
 -(void)addContactAddress:(id)sender
 {
