@@ -203,6 +203,9 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if(PanAnimationControllerTypePresentation == self.animationType) {
+#ifdef DEBUG
+        NSLog(@"Will start present view controller [%@]", [[toViewController class] description]);
+#endif
         [fromViewController viewWillDisappear:YES];
         
         toViewController.view.center = CGPointMake((
