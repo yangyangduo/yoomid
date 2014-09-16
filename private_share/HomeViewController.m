@@ -75,7 +75,6 @@
     _collectionView.contentOffset = CGPointMake(0, -imagesViewHeight);
     imagesScrollView.delegate = self;
     
-    
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-40, imagesScrollView.bounds.size.height-30, 80, 30)];
     pageControl.currentPage = 0;
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
@@ -84,17 +83,17 @@
     [imagesScrollView addSubview:pageControl];
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [settingButton setImage:[UIImage imageNamed:@"settings"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
 
     UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 95, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [notificationsButton setImage:[UIImage imageNamed:@"information2"] forState:UIControlStateNormal];
+    [notificationsButton setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
     [notificationsButton addTarget:self action:@selector(showNotifications:) forControlEvents:UIControlEventTouchUpInside];
     //[self.view addSubview:notificationsButton];
  
     UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [miRepositoryButton setImage:[UIImage imageNamed:@"miku"] forState:UIControlStateNormal];
+    [miRepositoryButton setImage:[UIImage imageNamed:@"mi_repository"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
 }

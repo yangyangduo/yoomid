@@ -268,12 +268,6 @@
 #pragma mark Submit activity order
 
 - (void)participateButtonPressed:(id)sender {
-    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
-        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"contact_required", @"") forType:AlertViewTypeFailed];
-        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
-        return;
-    }
-    
     NSMutableArray *ordersToSubmit = [NSMutableArray array];
     NSMutableArray *shoppingItems = [NSMutableArray array];
     [shoppingItems addObject:@{
@@ -284,7 +278,8 @@
     
     NSDictionary *shopOrder = @{
                                 @"basicInfo" : @{
-                                        @"shopId" : self.merchandise.shopId
+                                        @"shopId" : self.merchandise.shopId,
+                                        @"shippingPaymentType" : [NSNumber numberWithInteger:PaymentTypePoints]
                                         },
                                 @"shoppingItems" : shoppingItems
                                 };
@@ -307,7 +302,7 @@
         if(_order_result_json_ != nil) {
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,已参加活动!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
-                [modal showInView:self.navigationController.view completion:nil];
+                [modal showInView:self.view completion:nil];
             }];
         }
         return;
@@ -334,7 +329,7 @@
     }
     [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
         YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 340) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
-        [modal showInView:self.navigationController.view completion:nil];
+        [modal showInView:self.view completion:nil];
     }];
 }
 
