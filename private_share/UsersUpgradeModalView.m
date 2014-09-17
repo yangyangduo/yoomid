@@ -11,14 +11,6 @@
 
 @implementation UsersUpgradeModalView
 
-- (instancetype) initWithSize:(CGSize)size 
-{
-    self = [super initWithSize:size];
-    if(self) {
-    }
-    return self;
-}
-
 - (instancetype) initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message
 {
     self = [super initWithSize:size];

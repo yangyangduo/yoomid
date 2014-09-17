@@ -410,6 +410,7 @@
 		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
 		D6A152C619A5D3300094B565 /* TaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskService.m */; };
 		D6A152C919A5F73B0094B565 /* guess_picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6A152C819A5F73B0094B565 /* guess_picture@2x.png */; };
+		D6A171FE19C9D35B00C89283 /* TaskLevelService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A171FD19C9D35B00C89283 /* TaskLevelService.m */; };
 		D6A7AD6919A1F271005E3312 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A7AD6819A1F271005E3312 /* HomeViewController.m */; };
 		D6B13F6919A43199007658CB /* HomePageItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B13F6819A43199007658CB /* HomePageItemCell.m */; };
 		D6B13F6C19A4861B007658CB /* CustomCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B13F6B19A4861B007658CB /* CustomCollectionView.m */; };
@@ -1036,6 +1037,8 @@
 		D6A152C419A5D3300094B565 /* TaskService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskService.h; sourceTree = "<group>"; };
 		D6A152C519A5D3300094B565 /* TaskService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskService.m; sourceTree = "<group>"; };
 		D6A152C819A5F73B0094B565 /* guess_picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guess_picture@2x.png"; sourceTree = "<group>"; };
+		D6A171FC19C9D35B00C89283 /* TaskLevelService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskLevelService.h; sourceTree = "<group>"; };
+		D6A171FD19C9D35B00C89283 /* TaskLevelService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskLevelService.m; sourceTree = "<group>"; };
 		D6A7AD6719A1F271005E3312 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		D6A7AD6819A1F271005E3312 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		D6B13F6719A43199007658CB /* HomePageItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageItemCell.h; sourceTree = "<group>"; };
@@ -1960,6 +1963,8 @@
 				D66A88FB19B997AC002CE48C /* UserInfoService.m */,
 				D65F9F6419C2E2F40012231C /* ActivitiesService.h */,
 				D65F9F6519C2E2F40012231C /* ActivitiesService.m */,
+				D6A171FC19C9D35B00C89283 /* TaskLevelService.h */,
+				D6A171FD19C9D35B00C89283 /* TaskLevelService.m */,
 			);
 			name = service;
 			sourceTree = "<group>";
@@ -2874,6 +2879,7 @@
 				6F8823EB1940BD9600757633 /* HtmlView.m in Sources */,
 				6F970973193F4AD500EA5E3A /* XXAlertView.m in Sources */,
 				6F3F65F71942146A007A41E0 /* ShoppingItem.m in Sources */,
+				D6A171FE19C9D35B00C89283 /* TaskLevelService.m in Sources */,
 				6FD163CF19795ED90076479D /* DeliveryPointViewController.m in Sources */,
 				D6C7CC8E199B99F300EC3061 /* SelectContactAddressTableViewCell.m in Sources */,
 				6F5061D4194883E5007163C2 /* TextViewController.m in Sources */,
