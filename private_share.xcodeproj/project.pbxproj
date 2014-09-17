@@ -366,6 +366,7 @@
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
+		D6492D6119C97C720092B893 /* UsersUpgradeModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */; };
 		D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D64DEE9519C6B2BA00B14932 /* game@2x.png */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
@@ -977,6 +978,8 @@
 		D641D906199C662F00CBB929 /* ContactService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactService.m; sourceTree = "<group>"; };
 		D641D908199C8CEE00CBB929 /* ManageContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
+		D6492D5F19C97C720092B893 /* UsersUpgradeModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersUpgradeModalView.h; sourceTree = "<group>"; };
+		D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersUpgradeModalView.m; sourceTree = "<group>"; };
 		D64DEE9519C6B2BA00B14932 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
@@ -2121,6 +2124,8 @@
 				6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */,
 				6F4E4F1419B971A7006E4E15 /* CashPaymentTypePicker.h */,
 				6F4E4F1519B971A7006E4E15 /* CashPaymentTypePicker.m */,
+				D6492D5F19C97C720092B893 /* UsersUpgradeModalView.h */,
+				D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -2505,7 +2510,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = JJH6E5JL26;
+						DevelopmentTeam = V59AQ53269;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -2847,6 +2852,7 @@
 				6F72C18D19762F6700100D12 /* NameValue.m in Sources */,
 				6F72C1961976831900100D12 /* PaymentButton.m in Sources */,
 				6F2C52B21974F6560045BFC1 /* MerchandiseProperty.m in Sources */,
+				D6492D6119C97C720092B893 /* UsersUpgradeModalView.m in Sources */,
 				6F72A3DD193DB54A001DAA3E /* DrawerItemView.m in Sources */,
 				6F41897C1948587B00F9DC2C /* CheckBox.m in Sources */,
 				6F8D84D819457F2100D1D123 /* Payment.m in Sources */,

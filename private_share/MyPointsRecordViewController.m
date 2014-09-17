@@ -17,6 +17,8 @@ static CGRect oldframe;
 #import "AccountInfoUpdatedEvent.h"
 #import "Account.h"
 
+NSString * const kLevelKey = @"levels.key";
+
 @interface MyPointsRecordViewController ()
 
 @end
@@ -166,11 +168,32 @@ static CGRect oldframe;
     XXEventSubscription *subscription = [[XXEventSubscription alloc] initWithSubscriber:self eventFilter:nameFilter];
     subscription.notifyMustInMainThread = YES;
     [[XXEventSubscriptionPublisher defaultPublisher] subscribeFor:subscription];
+    
+    [self UsersUpgrade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[XXEventSubscriptionPublisher defaultPublisher] unSubscribeForSubscriber:self];
+}
+
+- (void)UsersUpgrade
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+    
+    if (userLevel == nil) {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setInteger:[Account currentAccount].level forKey:kLevelKey];
+        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+        [defaults synchronize];
+    }
+    else{
+        NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
+        if (levels > [Account currentAccount].level) {
+            ;
+        }
+    }
 }
 
 #pragma mark -
@@ -183,7 +206,6 @@ static CGRect oldframe;
 - (void)xxEventPublisherNotifyWithEvent:(XXEvent *)event {
     if([event isKindOfClass:[AccountInfoUpdatedEvent class]]) {
         [self refreshAccountInfo];
-        
     }
 }
 
