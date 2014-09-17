@@ -150,13 +150,13 @@ static CGRect oldframe;
     pointsOrderTableView.backgroundColor = [UIColor clearColor];
 
     [self.view addSubview:pointsOrderTableView];
+    
+    [self refreshAccountInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refresh:YES];
-    [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
-    [self setLevelImage:[Account currentAccount].level];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -182,7 +182,8 @@ static CGRect oldframe;
 
 - (void)xxEventPublisherNotifyWithEvent:(XXEvent *)event {
     if([event isKindOfClass:[AccountInfoUpdatedEvent class]]) {
-        //[Account currentAccount].level;
+        [self refreshAccountInfo];
+        
     }
 }
 
@@ -232,6 +233,11 @@ static CGRect oldframe;
     pageIndex = 0;
     PointsOrderService *service = [[PointsOrderService alloc] init];
     [service getPointsOrdersByPageIndex:pageIndex orderType:pointsOrderType target:self success:@selector(getPointsOrdersSuccess:) failure:@selector(getPointsOrdersFailure:) userInfo:@{@"page" : [NSNumber numberWithInteger:pageIndex], @"orderType" : [NSNumber numberWithInt:pointsOrderType]}];
+}
+
+- (void)refreshAccountInfo {
+    [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
+    [self setLevelImage:[Account currentAccount].level];
 }
 
 - (void)loadMore {

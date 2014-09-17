@@ -13,6 +13,7 @@
 #import "GuideViewController.h"
 #import "ViewControllerAccessor.h"
 #import "UINavigationViewInitializer.h"
+#import "UMessage.h"
 
 #import "Account.h"
 #import "SecurityConfig.h"
@@ -61,6 +62,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
+//    [UMessage startWithAppkey:@"54052fe0fd98c5170d06988e" launchOptions:launchOptions];
+//    //(iOS 8.0以下)
+//    [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+//     |UIRemoteNotificationTypeSound
+//     |UIRemoteNotificationTypeAlert];
+//    
+//    [UMessage setLogEnabled:YES];
+    
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
@@ -80,6 +89,17 @@
     
     return YES;
 }
+
+//-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+//{
+//    [UMessage registerDeviceToken:deviceToken];
+//}
+//
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+//{
+//    [UMessage didReceiveRemoteNotification:userInfo];
+//    NSLog(@"userInfo:%@",userInfo);
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
