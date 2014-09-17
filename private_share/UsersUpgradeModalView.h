@@ -6,8 +6,9 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "YoomidBaseModalView.h"
+#import "YoomidSemicircleModalView.h"
 
-@interface UsersUpgradeModalView : YoomidBaseModalView
+@interface UsersUpgradeModalView : YoomidSemicircleModalView
 
+- (instancetype) initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message;
 @end

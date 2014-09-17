@@ -187,8 +187,7 @@ NSString * const kLevelKey = @"levels.key";
 
 -(void)actionUpgradeClick
 {
-    UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2)];
-    
+    UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"答对升级奖励任务,获额外米米!"];
     [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];
 }
 
