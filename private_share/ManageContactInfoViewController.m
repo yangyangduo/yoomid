@@ -61,7 +61,22 @@
     [addContact setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     [addContact addTarget:self action:@selector(pushAddContact) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:addContact];
+    
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [backButton addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+//    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//
 }
+
+//-(void)actionBack
+//{
+//    Contact *contact = [contactArray objectAtIndex:0];
+//    [contactArray removeObjectAtIndex:0];
+//
+//    ContactService *contactService = [[ContactService alloc]init];
+//    [contactService deleteContactInfo:contact.identifier target:self success:@selector(deleteSuccess:) failure:@selector(handleFailureHttpResponse:)];
+//}
 
 -(void)viewWillAppear:(BOOL)animated
 {

@@ -30,7 +30,7 @@ CGFloat const kContactDisplayViewHeight = 75.f;
         bgView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bgView];
         
-        _name = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 110, 36)];
+        _name = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 250, 36)];
         _name.font = [UIFont systemFontOfSize:15.f];
         
         _phoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(_name.frame.size.width+10, 8, 100, 36)];
@@ -79,15 +79,15 @@ CGFloat const kContactDisplayViewHeight = 75.f;
 //        intoIamgeview.image = nil;
     }
     else{
-        _name.text = [NSString stringWithFormat:@"收货人:%@",currentContact.name];
-        _phoneNumber.text = currentContact.phoneNumber;
+        _name.text = [NSString stringWithFormat:@"收货人:%@  %@",currentContact.name,currentContact.phoneNumber];
+//        _phoneNumber.text = currentContact.phoneNumber;
         NSString *contactAddress = [NSString stringWithFormat:@"收货地址:%@",currentContact.address];
         _address.text = contactAddress;
     
         NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:11.f]};
         CGSize addressLabelSize = [contactAddress boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-55, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         _address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
-        
+        contactIsNilLabel.text = @"";
     }
 }
 

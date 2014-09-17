@@ -11,7 +11,7 @@
 @implementation AccountService
 
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password target:(id)target success:(SEL)success failure:(SEL)failure {
-    NSData *body = [JsonUtil createJsonDataFromDictionary:@{ @"account" : userName, @"password" : password }];
+    NSData *body = [JsonUtil createJsonDataFromDictionary:@{ @"account" : userName, @"password" : password, @"clientPlatform" : [NSNumber numberWithInt:2] }];
     [self.httpClient post:@"/login" contentType:@"application/json" body:body target:target success:success failure:failure userInfo:nil];
 }
 

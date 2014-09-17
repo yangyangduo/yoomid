@@ -71,11 +71,11 @@
     BOOL changed = self.selected != selected;
     _selected_ = selected;
     if(_selected_) {
-        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"checkbox_selected"] forState:UIControlStateNormal];
-        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"checkbox_selected"] forState:UIControlStateHighlighted];
+        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateNormal];
+        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateHighlighted];
     } else {
-        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"checkbox_unselected"] forState:UIControlStateNormal];
-        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"checkbox_unselected"] forState:UIControlStateHighlighted];
+        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"cb_unselect"] forState:UIControlStateNormal];
+        [btnCheckBox setBackgroundImage:[UIImage imageNamed:@"cb_unselect"] forState:UIControlStateHighlighted];
     }
     if(changed && self.delegate != nil) {
         [self.delegate checkBoxValueDidChanged:self];

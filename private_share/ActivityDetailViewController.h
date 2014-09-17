@@ -10,6 +10,7 @@
 #import "TransitionViewController.h"
 #import "Merchandise.h"
 #import "PullScrollZoomImagesView.h"
+#import "YoomidRectModalView.h"
 
 @interface ActivityDetailViewController : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, PullScrollZoomImagesViewDelegate>
 

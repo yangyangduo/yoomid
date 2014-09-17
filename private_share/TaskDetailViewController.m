@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     NSInteger timeLeft;
     NSTimer *taskTimer;
     
+    BOOL isLoaded;
     BOOL isExpired;
     BOOL isSubmitting;
 }
@@ -202,7 +203,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 [modal showInView:self.navigationController.view completion:nil];
             } else if(TaskResultSuccess == taskResult) {
                 [self markTaskHistorical];
-                YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼答对了!" message:[NSString stringWithFormat:@"额外获得%d%@", self.task.points, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
+                YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼成功了!" message:[NSString stringWithFormat:@"额外获得%d%@", self.task.points, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
                 [modal showInView:self.navigationController.view completion:nil];
             }
@@ -269,15 +270,14 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self showRetryView];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-//    NSURL *requestURL = [request URL];
-//    if([[requestURL scheme] isEqualToString:@"yoomid"]) {
-//        [self findTaskResultAndSubmit];
-//        return NO;
-//    }
+    NSURL *requestURL = [request URL];
+    if([[requestURL scheme] isEqualToString:@"yoomid"]) {
+        [self findTaskResultAndSubmit];
+        return NO;
+    }
     return YES;
 }
 

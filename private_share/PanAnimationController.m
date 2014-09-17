@@ -9,8 +9,11 @@
 #import "PanAnimationController.h"
 #import "TransitionViewController.h"
 
+#define LOCK_VIEW_TAG 4288
+
 #define MASK_VIEW_TAG 8888
 #define MASK_VIEW_FINAL_ALPHA 0.75f
+
 #define SCREEN_CENTER_X [UIScreen mainScreen].bounds.size.width / 2
 
 @implementation PanAnimationController {
@@ -203,6 +206,14 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if(PanAnimationControllerTypePresentation == self.animationType) {
+#ifdef DEBUG
+        NSLog(@"Will start present view controller [%@]", [[toViewController class] description]);
+#endif
+        UIView *lockView = [[UIView alloc] initWithFrame:toViewController.view.bounds];
+        lockView.backgroundColor = [UIColor clearColor];
+        lockView.tag = LOCK_VIEW_TAG;
+        [toViewController.view addSubview:lockView];
+        
         [fromViewController viewWillDisappear:YES];
         
         toViewController.view.center = CGPointMake((
@@ -318,6 +329,13 @@
                 }
             }
             completion:^(BOOL finished){
+                if(PanAnimationControllerTypePresentation == animationType) {
+                    UIView *lockView = [toViewController.view viewWithTag:LOCK_VIEW_TAG];
+                    if(lockView != nil) {
+                        [lockView removeFromSuperview];
+                    }
+                }
+                
                 if(cancelled) {
                     [context cancelInteractiveTransition];
                     [context completeTransition:NO];

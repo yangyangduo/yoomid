@@ -118,7 +118,7 @@
 "points_not_enough"                    =     "积分不够";
 "points_exchange_total"                =     "积分兑换小计";
 "cash_exchange_total"                  =     "现金兑换小计";
-"added_to_shopping_cart"               =     "已加入购物车";
+"added_to_shopping_cart"               =     "已加入米库";
 "submit_order"                         =     "提交订单";
 "shopping_first"                       =     "请先选择商品";
 "order_being_submitted"                =     "正在提交订单";

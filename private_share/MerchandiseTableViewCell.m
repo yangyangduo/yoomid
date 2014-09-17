@@ -32,12 +32,13 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
         
-        UIView *bootomView = [[UIView alloc]initWithFrame:CGRectMake(10, 15, 320-20, 143-15)];
+        UIView *bootomView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, 320-20, 143-15)];
         bootomView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bootomView];
         
