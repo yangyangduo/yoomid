@@ -16,6 +16,7 @@ static CGRect oldframe;
 #import "XXEventNameFilter.h"
 #import "AccountInfoUpdatedEvent.h"
 #import "Account.h"
+#import "UsersUpgradeModalView.h"
 
 NSString * const kLevelKey = @"levels.key";
 
@@ -34,6 +35,7 @@ NSString * const kLevelKey = @"levels.key";
     
     UIButton *addBtn;
     UIButton *reduceBtn;
+    UIButton *UpgradeBtn;
     UIImageView *levelbgImage;
     
     PointsOrderType pointsOrderType;
@@ -143,6 +145,12 @@ NSString * const kLevelKey = @"levels.key";
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLevelImage:)];
     [levelImage addGestureRecognizer:tapGesture];
     
+    UpgradeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
+    [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
+    [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
+    [topView addSubview:UpgradeBtn];
+    
     pointsOrderType = PointsOrderTypeIncome;
     
     pointsOrderTableView = [[PullTableView alloc]initWithFrame:CGRectMake(0, topView.bounds.size.height, self.view.frame.size.width-44, self.view.bounds.size.height-topView.bounds.size.height) style:UITableViewStyleGrouped];
@@ -177,6 +185,11 @@ NSString * const kLevelKey = @"levels.key";
     [[XXEventSubscriptionPublisher defaultPublisher] unSubscribeForSubscriber:self];
 }
 
+-(void)actionUpgradeClick
+{
+    
+}
+
 - (void)UsersUpgrade
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -190,7 +203,7 @@ NSString * const kLevelKey = @"levels.key";
     }
     else{
         NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
-        if (levels > [Account currentAccount].level) {
+        if (levels < [Account currentAccount].level) {
             ;
         }
     }

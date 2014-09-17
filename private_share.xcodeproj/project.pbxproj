@@ -367,6 +367,8 @@
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
 		D6492D6119C97C720092B893 /* UsersUpgradeModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */; };
+		D6492D6319C9875E0092B893 /* bg5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6492D6219C9875E0092B893 /* bg5@2x.png */; };
+		D6492D6519C987670092B893 /* bg6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6492D6419C987670092B893 /* bg6@2x.png */; };
 		D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D64DEE9519C6B2BA00B14932 /* game@2x.png */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
@@ -980,6 +982,8 @@
 		D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageContactInfoViewController.m; sourceTree = "<group>"; };
 		D6492D5F19C97C720092B893 /* UsersUpgradeModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersUpgradeModalView.h; sourceTree = "<group>"; };
 		D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersUpgradeModalView.m; sourceTree = "<group>"; };
+		D6492D6219C9875E0092B893 /* bg5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg5@2x.png"; sourceTree = "<group>"; };
+		D6492D6419C987670092B893 /* bg6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg6@2x.png"; sourceTree = "<group>"; };
 		D64DEE9519C6B2BA00B14932 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
@@ -1385,6 +1389,8 @@
 		6F4FA06819A4892C0049C023 /* points_order */ = {
 			isa = PBXGroup;
 			children = (
+				D6492D6419C987670092B893 /* bg6@2x.png */,
+				D6492D6219C9875E0092B893 /* bg5@2x.png */,
 				D6684FF819B70C930064F9B1 /* levelbg@2x.png */,
 				6F4FA07D19A48A560049C023 /* add@2x.png */,
 				6F4FA07E19A48A560049C023 /* triangle@2x.png */,
@@ -2614,6 +2620,7 @@
 				D3644C11197A171000B44785 /* dianru_green_right_view.png in Resources */,
 				D3644BEE197A171000B44785 /* dianru_blue_dianru_triangle.png in Resources */,
 				D3644C21197A171000B44785 /* dianru_purple_dianru_iphone_download.png in Resources */,
+				D6492D6519C987670092B893 /* bg6@2x.png in Resources */,
 				D3644C0D197A171000B44785 /* dianru_green_dianru_triangle.png in Resources */,
 				D3644C16197A171000B44785 /* dianru_orange_dianru_iphone_download.png in Resources */,
 				6FF5334019387D26001D607C /* btn_menu@2x.png in Resources */,
@@ -2648,6 +2655,7 @@
 				D3644C1B197A171000B44785 /* dianru_orange_right_cell.png in Resources */,
 				D3644C28197A171000B44785 /* dianru_red_all_cell.png in Resources */,
 				6FBB6B8C1973B85600E6C7D2 /* mi_repo@2x.png in Resources */,
+				D6492D6319C9875E0092B893 /* bg5@2x.png in Resources */,
 				D66B498019B4539D002615CC /* edit@2x.png in Resources */,
 				D3644C54197A18BF00B44785 /* wall_template.zip in Resources */,
 				D3644C04197A171000B44785 /* dianru_titlebg.jpg in Resources */,
