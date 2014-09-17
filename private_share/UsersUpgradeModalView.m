@@ -10,11 +10,14 @@
 
 @implementation UsersUpgradeModalView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype) initWithSize:(CGSize)size
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    self = [super initWithSize:size];
+    if(self) {
+        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 500/2, 761/2)];
+        bgImageView.image = [UIImage imageNamed:@"bg5"];
+        [self addSubview:bgImageView];
+        [self setCloseButtonHidden:YES];
     }
     return self;
 }

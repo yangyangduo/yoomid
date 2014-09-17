@@ -187,7 +187,9 @@ NSString * const kLevelKey = @"levels.key";
 
 -(void)actionUpgradeClick
 {
+    UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2)];
     
+    [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];
 }
 
 - (void)UsersUpgrade
