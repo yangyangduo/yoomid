@@ -38,6 +38,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     CacheData *_income_points_orders_data_;
     CacheData *_pay_points_orders_data_;
     CacheData *_shopping_cart_data_;
+    CacheData *_account_info_data_;
 }
 
 + (DiskCacheManager *)manager {
@@ -63,6 +64,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     _contacts_data_ = nil;
     _income_points_orders_data_ = nil;
     _pay_points_orders_data_ = nil;
+    _account_info_data_ = nil;
     
     if(_serve_account_ != nil) {
         NSString *userDirectory = [[self class] YoomidUserDirectoryPathWithAccountId:_serve_account_];
@@ -288,7 +290,6 @@ NSString * const kFileNamePointsOrder = @"points-order";
     [self setCacheData:_completed_task_ids_data_ jsonEntities:taskIds entityIsBasicType:YES fileName:kFileNameCompletedTaskIds inUserDirectory:NO];
 }
 
-
 - (void)setCacheData:(CacheData *)cacheData jsonEntities:(NSArray *)jsonEntities
             entityIsBasicType:(BOOL)entityIsBasicType fileName:(NSString *)fileName inUserDirectory:(BOOL)inUserDirectory {
     if(cacheData == nil || fileName == nil) {
@@ -422,7 +423,6 @@ NSString * const kFileNamePointsOrder = @"points-order";
 }
 
 @end
-
 
 @implementation CacheData
 
