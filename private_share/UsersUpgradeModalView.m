@@ -78,13 +78,45 @@
     if (resp.statusCode == 200 && resp.body != nil) {
         NSDictionary *jsonD = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
 
-//        NSMutableArray *taskLevelArray = [NSMutableArray array];
         UpgradeTask *upgradeTask = nil;
         if (jsonD != nil) {
-//            [taskLevelArray addObject:[[UpgradeTask alloc]initWithJson:jsonD]];
             upgradeTask =[[UpgradeTask alloc]initWithJson:jsonD];
         }
+        
+        UILabel *answerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 250, 250, 30)];
+        answerLabel.font = [UIFont systemFontOfSize:20];
+        answerLabel.textAlignment = NSTextAlignmentCenter;
+        answerLabel.textColor = [UIColor appLightBlue];
+        answerLabel.text = upgradeTask.question;
+        [self addSubview:answerLabel];
+        
+        CGFloat x = 15;
+        for (int i = 0; i<upgradeTask.options.count; i++) {
+            UIButton *optionsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            optionsBtn.frame = CGRectMake(x, 285, 50, 35);
+            UpgradeTask *upgrade = [upgradeTask.options objectAtIndex:i];
+            [optionsBtn setTitle:upgrade.description forState:UIControlStateNormal];
+            optionsBtn.backgroundColor = [UIColor grayColor];
+            [optionsBtn.layer setMasksToBounds:YES];
+            [optionsBtn.layer setCornerRadius:4.0];
+            [optionsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self addSubview:optionsBtn];
+            x += 56;
+        }
+        
+        UIButton *OKBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        OKBtn.frame = CGRectMake(250/2 - 90/2, 330, 90, 40);
+        [OKBtn setBackgroundImage:[UIImage imageNamed:@"button_up"] forState:UIControlStateNormal];
+        [OKBtn setTitle:@"确   认" forState:UIControlStateNormal];
+        [OKBtn addTarget:self action:@selector(actionOKBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        OKBtn.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
+        [self addSubview:OKBtn];
     }
+}
+
+-(void)actionOKBtnClick:(id)send
+{
+    
 }
 
 - (void)handleFailureHttpResponse:(HttpResponse *)resp {

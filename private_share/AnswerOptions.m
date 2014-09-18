@@ -15,7 +15,16 @@
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self) {
+        self.description = [json noNilStringForKey:@"description"];
+        self.option = [json noNilStringForKey:@"option"];
     }
     return  self;
+}
+
+- (NSMutableDictionary *)toJson {
+    NSMutableDictionary *json = [super toJson];
+    [json setMayBlankString:self.description forKey:@"description"];
+    [json setMayBlankString:self.option forKey:@"option"];
+    return json;
 }
 @end
