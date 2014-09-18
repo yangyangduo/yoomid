@@ -21,6 +21,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self) {
+        _pageIndex_ = 0;
+        
         scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         scrollView.pagingEnabled = YES;
         scrollView.showsVerticalScrollIndicator = NO;
@@ -54,20 +56,59 @@
     } else {
         _imageItems_ = [NSArray array];
     }
+    
+    NSMutableArray *imagesView = [NSMutableArray array];
     for(int i=0; i<scrollView.subviews.count; i++) {
-        [[scrollView.subviews objectAtIndex:i] removeFromSuperview];
+        UIView *view = [scrollView.subviews objectAtIndex:i];
+        if(view.tag == 9021) {
+            [imagesView addObject:(UIImageView *)view];
+        }
     }
+    
+    BOOL needChangeFrame = _imageItems_.count != imagesView.count;
+    
     for(int i=0; i<_imageItems_.count; i++) {
         ImageItem *imageItem = [_imageItems_ objectAtIndex:i];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(scrollView.bounds.size.width * i, 0, scrollView.bounds.size.width, scrollView.bounds.size.height)];
-        imageView.userInteractionEnabled = YES;
+        UIImageView *imageView = nil;
+        
+        if(i >= imagesView.count) {
+            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(scrollView.bounds.size.width * i, 0, scrollView.bounds.size.width, scrollView.bounds.size.height)];
+            imageView.tag = 9021;
+            imageView.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+            [imageView addGestureRecognizer:tapGesture];
+            [scrollView addSubview:imageView];
+#ifdef DEBUG
+            NSLog(@"[Image Scroll View] Create image view at index [%d]", i);
+#endif
+        } else {
+            imageView = [imagesView objectAtIndex:i];
+        }
+        
+#ifdef DEBUG
+        if(imageView == nil) {
+            NSLog(@"[Image Scroll View] Image view in scroll view is nil at index [%d]", i);
+        }
+#endif
         [imageView setImageWithURL:[NSURL URLWithString:imageItem.url] placeholderImage:nil];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-        [imageView addGestureRecognizer:tapGesture];
-        [scrollView addSubview:imageView];
     }
-    scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * (_imageItems_.count == 0 ? 1 : _imageItems_.count), scrollView.bounds.size.height);
-    _pageIndex_ = 0;
+    
+    if(imagesView.count > _imageItems_.count) {
+        for(int i=0; i<imagesView.count; i++) {
+            if(i >= _imageItems_.count) {
+                [[imagesView objectAtIndex:i] removeFromSuperview];
+#ifdef DEBUG
+                NSLog(@"[Image Scroll View] Remove image view at index [%d]", i);
+#endif
+            }
+        }
+    }
+    [imagesView removeAllObjects];
+    
+    if(needChangeFrame) {
+        scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * (_imageItems_.count == 0 ? 1 : _imageItems_.count), scrollView.bounds.size.height);
+    }
+    
     [self recalculatedPageIndex];
 }
 
