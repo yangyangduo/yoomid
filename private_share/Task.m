@@ -42,4 +42,9 @@
     return [@"y:i:sv" isEqualToString:self.categoryId];
 }
 
+- (BOOL)isGameTask {
+    if(self.categoryId == nil) return NO;
+    return [@"y:i:gm" isEqualToString:self.categoryId];
+}
+
 @end

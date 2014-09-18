@@ -24,5 +24,6 @@
 
 - (BOOL)isSurveyTask;
 - (BOOL)isGuessPictureTask;
+- (BOOL)isGameTask;
 
 @end
