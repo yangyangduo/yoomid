@@ -35,9 +35,11 @@
 //        mikuImage.image = [UIImage imageNamed:@"miku3"];
 //        [imageView addSubview:mikuImage];
         
-        UIImageView *goodImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
-        goodImage.image = [UIImage imageNamed:@"good2"];
-        [imageView addSubview:goodImage];
+        UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
+        [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
+        [goodBtn addTarget:self action:@selector(actionGoodBtn) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:goodBtn];
         
         UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         exchangeBtn.frame = CGRectMake(imageView.bounds.size.width-94, imageView.bounds.size.height-35, 94, 35);
@@ -49,6 +51,11 @@
         [imageView addSubview:exchangeBtn];
     }
     return self;
+}
+
+- (void)actionGoodBtn
+{
+    NSLog(@"赞");
 }
 
 - (void)setMerchandise:(Merchandise *)merchandise

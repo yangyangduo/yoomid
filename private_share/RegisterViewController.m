@@ -28,6 +28,9 @@
     UITextField *invitationCodeTextField;
     
     UIButton *registerButton;
+    BOOL keyboardIsShow;
+    UIScrollView *scrollView;
+
 }
 
 - (void)viewDidLoad {
@@ -35,12 +38,19 @@
     
     self.title = NSLocalizedString(@"account_register", @"");
     
-//    self.view.backgroundColor = [UIColor clearColor];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    scrollView.scrollEnabled = NO;
+    scrollView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    [tapGesture addTarget:self action:@selector(resignKeyBoard:)];
+    [scrollView addGestureRecognizer:tapGesture];
+    [self.view addSubview:scrollView];
+
 
     UILabel *mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 50, 80, 36)];
     mobileLabel.text =@"手机号:";
     [mobileLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    [self.view addSubview:mobileLabel];
+    [scrollView addSubview:mobileLabel];
     mobileTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, 52, 155, 32)];
     mobileTextField.tag = 200;
     mobileTextField.delegate = self;
@@ -50,12 +60,12 @@
     mobileTextField.borderStyle = UITextBorderStyleRoundedRect;
     mobileTextField.keyboardType = UIKeyboardTypeNumberPad;
     mobileTextField.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:mobileTextField];
+    [scrollView addSubview:mobileTextField];
     
     UILabel *verifyCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, mobileLabel.frame.origin.y+mobileLabel.bounds.size.height+10, 80, 36)];
     verifyCodeLabel.text = @"短信验证:";
     [verifyCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    [self.view addSubview:verifyCodeLabel];
+    [scrollView addSubview:verifyCodeLabel];
     verifyCodeTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, verifyCodeLabel.frame.origin.y+2, 155, 32)];
     verifyCodeTextField.tag = 300;
     verifyCodeTextField.delegate = self;
@@ -66,19 +76,19 @@
     verifyCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     verifyCodeTextField.backgroundColor = [UIColor whiteColor];
     verifyCodeTextField.returnKeyType = UIReturnKeyNext;
-    [self.view addSubview:verifyCodeTextField];
+    [scrollView addSubview:verifyCodeTextField];
     UIButton *sendVerfyCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     sendVerfyCodeButton.frame = CGRectMake(verifyCodeTextField.frame.origin.x+verifyCodeTextField.bounds.size.width+2, verifyCodeTextField.frame.origin.y+2.5, 70, 30);
     [sendVerfyCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
     sendVerfyCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [sendVerfyCodeButton setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
     [sendVerfyCodeButton addTarget:self action:@selector(getVerifyCodeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:sendVerfyCodeButton];
+    [scrollView addSubview:sendVerfyCodeButton];
     
     UILabel *passwordCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, verifyCodeLabel.frame.origin.y+verifyCodeLabel.bounds.size.height+10, 80, 36)];
     passwordCodeLabel.text = @"密    码:";
     [passwordCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    [self.view addSubview:passwordCodeLabel];
+    [scrollView addSubview:passwordCodeLabel];
     passwordTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, passwordCodeLabel.frame.origin.y+2, 155, 32)];
     passwordTextField.tag = 400;
     passwordTextField.delegate = self;
@@ -90,20 +100,20 @@
     passwordTextField.backgroundColor = [UIColor whiteColor];
     passwordTextField.secureTextEntry = YES;
     passwordTextField.returnKeyType = UIReturnKeyNext;
-    [self.view addSubview:passwordTextField];
+    [scrollView addSubview:passwordTextField];
     UIButton *showPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     showPasswordButton.frame = CGRectMake(passwordTextField.frame.origin.x+passwordTextField.bounds.size.width+7, passwordTextField.frame.origin.y+2.5, 60, 30);
     [showPasswordButton setTitle:@"显示密码" forState:UIControlStateNormal];
     showPasswordButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [showPasswordButton setTitleColor:[UIColor appLightBlue] forState:UIControlStateNormal];
     [showPasswordButton addTarget: self action:@selector(showPassword:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:showPasswordButton];
+    [scrollView addSubview:showPasswordButton];
 
     
     UILabel *invitationCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, passwordCodeLabel.frame.origin.y+passwordCodeLabel.bounds.size.height+10, 80, 36)];
     invitationCodeLabel.text = @"邀请码:";
     [invitationCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    [self.view addSubview:invitationCodeLabel];
+    [scrollView addSubview:invitationCodeLabel];
     invitationCodeTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, invitationCodeLabel.frame.origin.y+2, 155, 32)];
     invitationCodeTextField.tag = 500;
     invitationCodeTextField.delegate = self;
@@ -114,7 +124,7 @@
     invitationCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     invitationCodeTextField.backgroundColor = [UIColor whiteColor];
     invitationCodeTextField.returnKeyType = UIReturnKeyDone;
-    [self.view addSubview:invitationCodeTextField];
+    [scrollView addSubview:invitationCodeTextField];
     
     registerButton = [[UIButton alloc]initWithFrame:CGRectMake(60, invitationCodeTextField.frame.origin.y+invitationCodeTextField.bounds.size.height+25, 200, 36)];
     
@@ -124,18 +134,18 @@
     [registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
     [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [registerButton addTarget:self action:@selector(submitNewPassword:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:registerButton];
+    [scrollView addSubview:registerButton];
 
     CheckBox *checkBox = [CheckBox checkBoxWithPoint:CGPointMake(45, registerButton.frame.origin.y + registerButton.bounds.size.height +15)];
     checkBox.selected = YES;
     checkBox.delegate = self;
-    [self.view addSubview:checkBox];
+    [scrollView addSubview:checkBox];
     
     UILabel *lblAgree = [[UILabel alloc] initWithFrame:CGRectMake(82, checkBox.frame.origin.y, 120, 44)];
     lblAgree.textColor = [UIColor darkGrayColor];
     lblAgree.font = [UIFont systemFontOfSize:15.f];
     lblAgree.text = NSLocalizedString(@"read_and_agree", @"");
-    [self.view addSubview:lblAgree];
+    [scrollView addSubview:lblAgree];
     
     UIButton *btnShowDisclaimer = [[UIButton alloc] initWithFrame:CGRectMake(190, checkBox.frame.origin.y, 80, 44)];
     btnShowDisclaimer.backgroundColor = [UIColor clearColor];
@@ -143,17 +153,66 @@
     btnShowDisclaimer.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [btnShowDisclaimer setTitle:NSLocalizedString(@"disclaimer", @"") forState:UIControlStateNormal];
     [btnShowDisclaimer addTarget:self action:@selector(btnShowDisclaimerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnShowDisclaimer];
+    [scrollView addSubview:btnShowDisclaimer];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [mobileTextField resignFirstResponder];
-    [verifyCodeTextField resignFirstResponder];
-    [passwordTextField resignFirstResponder];
-    [invitationCodeTextField resignFirstResponder];
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    if(keyboardIsShow) return;
+    keyboardIsShow = YES;
+    BOOL after4s = [UIScreen mainScreen].bounds.size.height > 480;
+    CGRect rect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width, scrollView.bounds.size.height + rect.size.height);
+    [UIView animateWithDuration:0.3f animations:^{
+        scrollView.contentOffset = CGPointMake(0, after4s ? 40 : 40);
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if(!keyboardIsShow) return;
+    keyboardIsShow = NO;
+//    CGRect rect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    [UIView animateWithDuration:0.3f animations:^{
+        scrollView.contentOffset = CGPointMake(0, -20);
+    } completion:^(BOOL finished) {
+//        scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width, scrollView.bounds.size.height - rect.size.height);
+    }];
+}
+
+- (void)resignKeyBoard:(UITapGestureRecognizer *)tapGestureRecognizer {
+    if(mobileTextField.isFirstResponder) {
+        [mobileTextField resignFirstResponder];
+    } else if(verifyCodeTextField.isFirstResponder) {
+        [verifyCodeTextField resignFirstResponder];
+    }
+    else if(passwordTextField.isFirstResponder) {
+        [passwordTextField resignFirstResponder];
+    }
+    else if(invitationCodeTextField.isFirstResponder) {
+        [invitationCodeTextField resignFirstResponder];
+    }
+}
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [mobileTextField resignFirstResponder];
+//    [verifyCodeTextField resignFirstResponder];
+//    [passwordTextField resignFirstResponder];
+//    [invitationCodeTextField resignFirstResponder];
+//
+//}
 
 - (void)submitNewPassword:(id)sender {
     if([XXStringUtils isBlank:mobileTextField.text]) {

@@ -17,6 +17,8 @@ static CGRect oldframe;
 #import "AccountInfoUpdatedEvent.h"
 #import "Account.h"
 #import "UsersUpgradeModalView.h"
+#import "TaskLevelService.h"
+#import "UpgradeTask.h"
 
 NSString * const kLevelKey = @"levels.key";
 
@@ -25,6 +27,7 @@ NSString * const kLevelKey = @"levels.key";
 @end
 
 @implementation MyPointsRecordViewController {
+
     NSMutableArray *pointsOrders;
     PullTableView *pointsOrderTableView;
     NSDateFormatter *dateFormatter;
@@ -149,6 +152,7 @@ NSString * const kLevelKey = @"levels.key";
     UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
     [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
     [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
+//    UpgradeBtn.hidden = YES;
     [topView addSubview:UpgradeBtn];
     
     pointsOrderType = PointsOrderTypeIncome;
@@ -187,8 +191,28 @@ NSString * const kLevelKey = @"levels.key";
 
 -(void)actionUpgradeClick
 {
-    UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"答对升级奖励任务,获额外米米!"];
-    [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
+    
+    TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
+    [taskLevelService getTasksLevelInfo:0 target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+- (void)getTaskLevelSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil) {
+        NSDictionary *jsonD = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        
+        if (jsonD != nil) {
+            UpgradeTask *upgradeTask =[[UpgradeTask alloc]initWithJson:jsonD];
+            UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"答对升级奖励任务,获额外米米!"  upgradeTask:upgradeTask];
+            [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];
+        }
+    }
+    else
+    {
+        [self handleFailureHttpResponse:resp];
+    }
 }
 
 - (void)UsersUpgrade
@@ -205,7 +229,7 @@ NSString * const kLevelKey = @"levels.key";
     else{
         NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
         if (levels < [Account currentAccount].level) {
-            ;
+            ;//显示升级按钮
         }
     }
 }
@@ -272,8 +296,12 @@ NSString * const kLevelKey = @"levels.key";
 }
 
 - (void)refreshAccountInfo {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
+
     [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
-    [self setLevelImage:[Account currentAccount].level];
+    [self setLevelImage:levels];
 }
 
 - (void)loadMore {

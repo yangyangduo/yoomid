@@ -34,10 +34,6 @@
             }
         }
         self.options = options_;
-        NSLog(@"answer:%@",self.answer);
-        NSLog(@"question:%@",self.question);
-        NSLog(@"question:%@",self.questionId);
-        NSLog(@"options:%@",self.options);
     }
     return self;
 }

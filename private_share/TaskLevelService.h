@@ -10,6 +10,6 @@
 
 @interface TaskLevelService : BaseService
 
--(void)getTasksLevelInfo:(id)target success:(SEL)success failure:(SEL)failure;
+-(void)getTasksLevelInfo:(NSInteger)level target:(id)target success:(SEL)success failure:(SEL)failure;
 
 @end

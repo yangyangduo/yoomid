@@ -47,4 +47,5 @@
     if(self.categoryId == nil) return NO;
     return [@"y:i:gm" isEqualToString:self.categoryId];
 }
+
 @end
