@@ -132,6 +132,42 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     }
 }
 
+- (NSDictionary*)dictionaryFromQuery:(NSString*)query usingEncoding:(NSStringEncoding)encoding {
+    NSCharacterSet* delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
+    NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
+    NSScanner* scanner = [[NSScanner alloc] initWithString:query];
+    while (![scanner isAtEnd]) {
+        NSString* pairString = nil;
+        [scanner scanUpToCharactersFromSet:delimiterSet intoString:&pairString];
+        [scanner scanCharactersFromSet:delimiterSet intoString:NULL];
+        NSArray* kvPair = [pairString componentsSeparatedByString:@"="];
+        if (kvPair.count == 2) {
+            NSString* key = [[kvPair objectAtIndex:0]
+                             stringByReplacingPercentEscapesUsingEncoding:encoding];
+            NSString* value = [[kvPair objectAtIndex:1]
+                               stringByReplacingPercentEscapesUsingEncoding:encoding];
+            [pairs setObject:value forKey:key];
+        }
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:pairs];
+}
+
+- (void) processGameResult: (NSString *)query{
+    NSMutableDictionary *content = [[NSMutableDictionary alloc] init];
+    NSDictionary *parameters = [self dictionaryFromQuery:query usingEncoding:NSUTF8StringEncoding];
+    [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
+    [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
+    [content setMayBlankString:[parameters objectForKey:@"categoryId"] forKey:@"categoryId"];
+    [content setMayBlankString:[parameters objectForKey:@"points"] forKey:@"points"];
+    [content setMayBlankString:[parameters objectForKey:@"taskId"] forKey:@"taskId"];
+    [content setMayBlankString:[parameters objectForKey:@"providerId"] forKey:@"providerId"];
+    [[XXAlertView currentAlertView] setMessage:@"正在提交" forType:AlertViewTypeWaitting];
+    [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+    TaskService *service = [[TaskService alloc] init];
+    [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(postAnswersFailure:) taskResult:TaskResultSuccess];
+}
+
 - (void)findTaskResultAndSubmit {
     if(isExpired) return;
     if(isSubmitting) return;
@@ -275,7 +311,11 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSURL *requestURL = [request URL];
     if([[requestURL scheme] isEqualToString:@"yoomid"]) {
-        [self findTaskResultAndSubmit];
+        if([[requestURL host] isEqualToString:@"game"]){
+            [self processGameResult:[requestURL query]];
+        }else{
+            [self findTaskResultAndSubmit];
+        }
         return NO;
     }
     return YES;
@@ -304,7 +344,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     _task_ = task;
     if(_task_ != nil) {
         if(_task_.isGameTask){
-            _url_ = [NSString stringWithFormat:@"%@?categoryId=%@&taskId=%@&points=%d", _task_.contentUrl, _task_.categoryId, _task_.identifier, _task_.points];
+            _url_ = [NSString stringWithFormat:@"%@?source=app&categoryId=%@&taskId=%@&points=%d&providerId=%@", _task_.contentUrl, _task_.categoryId, _task_.identifier, _task_.points,_task_.provider];
         }else{
             _url_ = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, _task_.categoryId, _task_.identifier, [BaseService authString]];
         }
