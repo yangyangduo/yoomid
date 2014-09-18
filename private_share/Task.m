@@ -28,6 +28,7 @@
         self.timeLimitInSeconds = (timeLimitNumber == nil ? 0 : timeLimitNumber.integerValue);
         
         self.taskDescriptionUrl = [json noNilStringForKey:@"taskDescriptionUrl"];
+        self.contentUrl = [json noNilStringForKey:@"contentUrl"];
     }
     return self;
 }
@@ -42,4 +43,8 @@
     return [@"y:i:sv" isEqualToString:self.categoryId];
 }
 
+- (BOOL)isGameTask {
+    if(self.categoryId == nil) return NO;
+    return [@"y:i:gm" isEqualToString:self.categoryId];
+}
 @end

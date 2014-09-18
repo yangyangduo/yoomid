@@ -19,10 +19,13 @@
 @property (nonatomic, strong) NSString *taskDescriptionUrl;
 @property (nonatomic, assign) BOOL locked;
 @property (nonatomic, strong) NSString *categoryId;
+@property (nonatomic, strong) NSString *contentUrl;
 
 //@property (nonatomic, strong) NSDate *deadLine;
 
 - (BOOL)isSurveyTask;
 - (BOOL)isGuessPictureTask;
+- (BOOL)isGameTask;
+
 
 @end

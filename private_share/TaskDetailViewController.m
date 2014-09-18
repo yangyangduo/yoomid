@@ -303,7 +303,11 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
 - (void)setTask:(Task *)task {
     _task_ = task;
     if(_task_ != nil) {
-        _url_ = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, _task_.categoryId, _task_.identifier, [BaseService authString]];
+        if(_task_.isGameTask){
+            _url_ = [NSString stringWithFormat:@"%@?categoryId=%@&taskId=%@&points=%d", _task_.contentUrl, _task_.categoryId, _task_.identifier, _task_.points];
+        }else{
+            _url_ = [NSString stringWithFormat:@"%@/yoomid/task?categoryId=%@&taskId=%@&%@", kBaseUrl, _task_.categoryId, _task_.identifier, [BaseService authString]];
+        }
 #ifdef DEBUG
         NSLog(@"Task url is [%@]", _url_);
 #endif
