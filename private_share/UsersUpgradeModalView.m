@@ -8,6 +8,10 @@
 
 #import "UsersUpgradeModalView.h"
 #import "UIColor+App.h"
+#import "TaskLevelService.h"
+#import "XXAlertView.h"
+#import "NSDictionary+Extension.h"
+#import "UpgradeTask.h"
 
 @implementation UsersUpgradeModalView
 
@@ -58,8 +62,47 @@
         }
         
         y += 15;
+        
+        [self getTaskLevel];
     }
     return self;
+}
+
+- (void)getTaskLevel
+{
+    TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
+    [taskLevelService getTasksLevelInfo:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+- (void)getTaskLevelSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil) {
+        NSDictionary *jsonD = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+
+//        NSMutableArray *taskLevelArray = [NSMutableArray array];
+        UpgradeTask *upgradeTask = nil;
+        if (jsonD != nil) {
+//            [taskLevelArray addObject:[[UpgradeTask alloc]initWithJson:jsonD]];
+            upgradeTask =[[UpgradeTask alloc]initWithJson:jsonD];
+        }
+    }
+}
+
+- (void)handleFailureHttpResponse:(HttpResponse *)resp {
+    if(1001 == resp.statusCode) {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"request_timeout", @"") forType:AlertViewTypeFailed];
+        return;
+    } else if(400 == resp.statusCode) {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"bad_request", @"") forType:AlertViewTypeFailed];
+        return;
+    } else if(403 == resp.statusCode) {
+    } else if(500 == resp.statusCode) {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"server_error", @"") forType:AlertViewTypeFailed];
+        return;
+    } else {
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"network_error", @"") forType:AlertViewTypeFailed];
+        return;
+    }
+
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface TaskLevelService : BaseService
 
+-(void)getTasksLevelInfo:(id)target success:(SEL)success failure:(SEL)failure;
+
 @end

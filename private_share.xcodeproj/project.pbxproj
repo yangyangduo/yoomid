@@ -400,6 +400,8 @@
 		D676302719A7741C0015CADF /* level9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301E19A7741B0015CADF /* level9@2x.png */; };
 		D676302819A7741C0015CADF /* level10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301F19A7741B0015CADF /* level10@2x.png */; };
 		D676302A19A774740015CADF /* level1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676302919A774740015CADF /* level1@2x.png */; };
+		D67913D419CA6F5200154C37 /* UpgradeTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D67913D319CA6F5200154C37 /* UpgradeTask.m */; };
+		D67913D719CA7D1500154C37 /* AnswerOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = D67913D619CA7D1500154C37 /* AnswerOptions.m */; };
 		D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */; };
 		D67ACA5719ACBB40005EF9E8 /* exchange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */; };
 		D67ACA5919ACBB4C005EF9E8 /* good2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */; };
@@ -1021,6 +1023,10 @@
 		D676301E19A7741B0015CADF /* level9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level9@2x.png"; sourceTree = "<group>"; };
 		D676301F19A7741B0015CADF /* level10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level10@2x.png"; sourceTree = "<group>"; };
 		D676302919A774740015CADF /* level1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level1@2x.png"; sourceTree = "<group>"; };
+		D67913D219CA6F5200154C37 /* UpgradeTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeTask.h; sourceTree = "<group>"; };
+		D67913D319CA6F5200154C37 /* UpgradeTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeTask.m; sourceTree = "<group>"; };
+		D67913D519CA7D1500154C37 /* AnswerOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerOptions.h; sourceTree = "<group>"; };
+		D67913D619CA7D1500154C37 /* AnswerOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerOptions.m; sourceTree = "<group>"; };
 		D67ACA4F19ACB157005EF9E8 /* XiaojiRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaojiRecommendTableViewCell.h; sourceTree = "<group>"; };
 		D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaojiRecommendTableViewCell.m; sourceTree = "<group>"; };
 		D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exchange@2x.png"; sourceTree = "<group>"; };
@@ -1319,6 +1325,10 @@
 				6F5B5E1919B41B3200495F0C /* TaskCategory.m */,
 				6FB0E1A419B6D898002F9A18 /* Task.h */,
 				6FB0E1A519B6D898002F9A18 /* Task.m */,
+				D67913D219CA6F5200154C37 /* UpgradeTask.h */,
+				D67913D319CA6F5200154C37 /* UpgradeTask.m */,
+				D67913D519CA7D1500154C37 /* AnswerOptions.h */,
+				D67913D619CA7D1500154C37 /* AnswerOptions.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -2952,6 +2962,7 @@
 				6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */,
 				6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */,
 				D698655C19B5B86700781F54 /* TextViewController2.m in Sources */,
+				D67913D719CA7D1500154C37 /* AnswerOptions.m in Sources */,
 				6DD563E113FFAD3D252A3F80 /* DrawerViewController.m in Sources */,
 				6F2816B2194980CB009B29DB /* ImageItem.m in Sources */,
 				6F2B51CF19553B740069798A /* ShoppingItemsChangedEvent.m in Sources */,
@@ -2972,6 +2983,7 @@
 				6DD5676E4C2E11196167B914 /* UIDevice+SystemVersion.m in Sources */,
 				6F97097F193F4E0000EA5E3A /* NSDictionary+Extension.m in Sources */,
 				6F72C18919762DD200100D12 /* DynamicGroupButtonView.m in Sources */,
+				D67913D419CA6F5200154C37 /* UpgradeTask.m in Sources */,
 				6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */,
 				6FECF3EE19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m in Sources */,
 				D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */,
