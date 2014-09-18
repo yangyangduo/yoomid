@@ -7,8 +7,11 @@
 //
 
 #import "YoomidSemicircleModalView.h"
+#import "UpgradeTask.h"
 
 @interface UsersUpgradeModalView : YoomidSemicircleModalView
 
-- (instancetype) initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message;
+- (instancetype) initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message upgradeTask:(UpgradeTask *)upgradeTasks;
+
+- (instancetype)initWithSize1:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSMutableAttributedString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex;
 @end

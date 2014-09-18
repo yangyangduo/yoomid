@@ -11,8 +11,8 @@
 
 @implementation TaskLevelService
 
--(void)getTasksLevelInfo:(id)target success:(SEL)success failure:(SEL)failure
+- (void)getTasksLevelInfo:(NSInteger)level target:(id)target success:(SEL)success failure:(SEL)failure
 {
-    [self.httpClient get:[NSString stringWithFormat:@"/tasks/level?level=%d&%@",0 ,self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/tasks/level?level=%d&%@",level ,self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 @end
