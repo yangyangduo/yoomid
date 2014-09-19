@@ -2536,7 +2536,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = V59AQ53269;
+						DevelopmentTeam = JJH6E5JL26;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -3137,7 +3137,7 @@
 					"\"${PODS_ROOT}/Headers/iOS-QR-Code-Encoder\"",
 				);
 				INFOPLIST_FILE = "private_share/private_share-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3183,7 +3183,7 @@
 					"\"${PODS_ROOT}/Headers/iOS-QR-Code-Encoder\"",
 				);
 				INFOPLIST_FILE = "private_share/private_share-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",

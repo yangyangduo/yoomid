@@ -39,3 +39,7 @@ private_share.xcworkspace/xcuserdata/young.xcuserdatad/UserInterfaceState.xcuser
 private_share/settings@2x.png
 
 *.pbxproj
+
+*.xccheckout
+
+*.pbxproj
