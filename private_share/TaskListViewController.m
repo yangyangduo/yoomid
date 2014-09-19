@@ -13,6 +13,7 @@
 #import "Task.h"
 #import "TaskDetailViewController.h"
 #import "MyPointsRecordViewController.h"
+#import "YoomidRectModalView1.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
@@ -112,12 +113,10 @@
         [self hideLoadingViewIfNeed];
         
         if (_tasks_.count == 0) {
-            YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad" ofType:@"png"]] message:@"抱歉,暂时没有任务!" buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
+            YoomidRectModalView1 *modalView = [[YoomidRectModalView1 alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"抱歉,暂时没有任务!" buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
             [modalView setCloseButtonHidden:YES];
-            [modalView showInView:self.navigationController.view completion:nil];
-//            UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 501/2, 501/2)];
-//            imageview.image = [UIImage imageNamed:@"modal_background"];
-//            [self.view addSubview:imageview];
+            modalView.taskListVC = self;
+            [modalView showInView1:self.navigationController.view completion:nil];
         }
         return;
     }

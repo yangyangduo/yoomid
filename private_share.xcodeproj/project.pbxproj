@@ -363,6 +363,7 @@
 		D62FBE0219A61B150041195B /* survey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0119A61B150041195B /* survey@2x.png */; };
 		D62FBE0419A61B280041195B /* product_experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0319A61B280041195B /* product_experience@2x.png */; };
 		D62FBE0C19A620470041195B /* mm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0B19A620470041195B /* mm@2x.png */; };
+		D6376C3D19CC8AA700C05CEE /* YoomidRectModalView1.m in Sources */ = {isa = PBXBuildFile; fileRef = D6376C3C19CC8AA700C05CEE /* YoomidRectModalView1.m */; };
 		D641D904199C50AE00CBB929 /* AddContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */; };
 		D641D907199C662F00CBB929 /* ContactService.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D906199C662F00CBB929 /* ContactService.m */; };
 		D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D641D909199C8CEE00CBB929 /* ManageContactInfoViewController.m */; };
@@ -978,6 +979,8 @@
 		D62FBE0119A61B150041195B /* survey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey@2x.png"; sourceTree = "<group>"; };
 		D62FBE0319A61B280041195B /* product_experience@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "product_experience@2x.png"; sourceTree = "<group>"; };
 		D62FBE0B19A620470041195B /* mm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mm@2x.png"; sourceTree = "<group>"; };
+		D6376C3B19CC8AA700C05CEE /* YoomidRectModalView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoomidRectModalView1.h; sourceTree = "<group>"; };
+		D6376C3C19CC8AA700C05CEE /* YoomidRectModalView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoomidRectModalView1.m; sourceTree = "<group>"; };
 		D641D902199C50AE00CBB929 /* AddContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactInfoViewController.h; sourceTree = "<group>"; };
 		D641D903199C50AE00CBB929 /* AddContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContactInfoViewController.m; sourceTree = "<group>"; };
 		D641D905199C662F00CBB929 /* ContactService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactService.h; sourceTree = "<group>"; };
@@ -1491,6 +1494,8 @@
 				6FB8073219B86903003ABF77 /* YoomidSemicircleModalView.m */,
 				6F4E4F0B19B9698C006E4E15 /* YoomidRectModalView.h */,
 				6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */,
+				D6376C3B19CC8AA700C05CEE /* YoomidRectModalView1.h */,
+				D6376C3C19CC8AA700C05CEE /* YoomidRectModalView1.m */,
 			);
 			name = yoomid_modal_view;
 			sourceTree = "<group>";
@@ -2892,6 +2897,7 @@
 				6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */,
 				6F8823B7193F5FA000757633 /* HttpClient.m in Sources */,
 				6F2C52AF1974D4780045BFC1 /* MerchandiseParametersPicker.m in Sources */,
+				D6376C3D19CC8AA700C05CEE /* YoomidRectModalView1.m in Sources */,
 				6F8823EB1940BD9600757633 /* HtmlView.m in Sources */,
 				6F970973193F4AD500EA5E3A /* XXAlertView.m in Sources */,
 				6F3F65F71942146A007A41E0 /* ShoppingItem.m in Sources */,

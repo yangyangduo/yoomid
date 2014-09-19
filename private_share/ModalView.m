@@ -72,6 +72,42 @@
      ];
 }
 
+- (void)showInView1:(UIView *)view completion:(void (^)(void))completion {
+    if(ModalViewStateClosed != self.modalViewState) return;
+    modalViewState = ModalViewStateOpening;
+    
+    if(maskView == nil) {
+        maskView = [[UIView alloc] initWithFrame:view.bounds];
+        maskView.backgroundColor = [UIColor blackColor];
+//        [maskView addGestureRecognizer:tapGesture];
+    }
+    
+    maskView.alpha = 0.f;
+    
+    [view addSubview:maskView];
+    [view addSubview:self];
+    
+    CGRect selfFrame = self.frame;
+    selfFrame.origin.y = view.bounds.size.height;
+    self.frame = selfFrame;
+    self.center = CGPointMake(view.center.x, self.center.y);
+    
+    /*
+     *  damping  类似于摩擦系数 越大摩擦越大 减震效果越好
+     *  velocity 代表速度
+     */
+    [UIView animateWithDuration:0.8f delay:0.f usingSpringWithDamping:0.5f initialSpringVelocity:2.f options:0
+                     animations:^ {
+                         self.center = CGPointMake(view.center.x, view.center.y);
+                         maskView.alpha = 0.5f;
+                     }
+                     completion:^(BOOL finished){
+                         modalViewState = ModalViewStateOpened;
+                         if(completion) completion();
+                     }
+     ];
+}
+
 - (void)closeViewAnimated:(BOOL)animated completion:(void (^)(void))completion {
     if(ModalViewStateOpened != self.modalViewState) return;
     modalViewState = ModalViewStateClosing;

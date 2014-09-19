@@ -68,6 +68,7 @@
 
 - (void)closeViewInternal {
     [self closeViewAnimated:YES completion:nil];
+    
 }
 
 @end
