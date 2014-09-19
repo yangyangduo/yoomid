@@ -8,6 +8,7 @@
 
 #import "XiaojiRecommendTableViewCell.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "MerchandiseService.h"
 
 #define DEFAULT_IMAGE [UIImage imageNamed:@"merchandise_placeholder"]
 
@@ -34,12 +35,16 @@
 //        UIImageView *mikuImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
 //        mikuImage.image = [UIImage imageNamed:@"miku3"];
 //        [imageView addSubview:mikuImage];
+        static int i = 1;
         
         UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
+        goodBtn.tag = i;
         [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
-        [goodBtn addTarget:self action:@selector(actionGoodBtn) forControlEvents:UIControlEventTouchUpInside];
+        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:goodBtn];
+        
+        i++;
         
         UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         exchangeBtn.frame = CGRectMake(imageView.bounds.size.width-94, imageView.bounds.size.height-35, 94, 35);
@@ -53,9 +58,27 @@
     return self;
 }
 
-- (void)actionGoodBtn
+- (void)actionGoodBtn:(id)sender
 {
-    NSLog(@"赞");
+    int s = [((UIButton*)sender) tag];
+    return;
+    MerchandiseService *service = [[MerchandiseService alloc]init];
+    [service sendGoodWithMerchandiseId:@"20ea2995513141b0b7978ab6acef25ad" target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+}
+
+- (void)sendGoodSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200) {
+        NSLog(@"赞成功");
+        MerchandiseService *service = [[MerchandiseService alloc]init];
+        [service getGoodWithMerchandiseId:@"20ea2995513141b0b7978ab6acef25ad" target:self success:@selector(getGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+    }
+}
+
+- (void)getGoodSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200) {
+        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSInteger number = jsonArray.integerValue;
+    }
 }
 
 - (void)setMerchandise:(Merchandise *)merchandise

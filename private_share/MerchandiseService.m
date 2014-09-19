@@ -49,4 +49,14 @@
     [self.httpClient get:[NSString stringWithFormat:@"merchandises/recommend?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
+- (void)sendGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient get:[NSString stringWithFormat:@"/adhoc/like?id=%@&action=true&%@",merchandiseId ,self.authenticationString] target:target success:success failure:failure userInfo:nil];
+}
+- (void)getGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient get:[NSString stringWithFormat:@"/adhoc/like?id=%@&action=false&%@",merchandiseId ,self.authenticationString] target:target success:success failure:failure userInfo:nil];
+}
+
+
 @end

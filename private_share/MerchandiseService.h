@@ -29,4 +29,7 @@
 
 - (void)submitActivityWithShopId:(NSString *)shopId activityId:(NSString *)activityId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
+- (void)sendGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+
+- (void)getGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 @end
