@@ -61,16 +61,16 @@
 - (void)actionGoodBtn:(id)sender
 {
     int s = [((UIButton*)sender) tag];
-    return;
+//    return;
     MerchandiseService *service = [[MerchandiseService alloc]init];
-    [service sendGoodWithMerchandiseId:@"20ea2995513141b0b7978ab6acef25ad" target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+    [service sendGoodWithMerchandiseId:@"94695736c0ee48e4ba48c55b157754e7" target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
 }
 
 - (void)sendGoodSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200) {
         NSLog(@"赞成功");
         MerchandiseService *service = [[MerchandiseService alloc]init];
-        [service getGoodWithMerchandiseId:@"20ea2995513141b0b7978ab6acef25ad" target:self success:@selector(getGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+        [service getGoodWithMerchandiseId:@"94695736c0ee48e4ba48c55b157754e7" target:self success:@selector(getGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
     }
 }
 
