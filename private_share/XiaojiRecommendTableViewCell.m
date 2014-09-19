@@ -9,6 +9,9 @@
 #import "XiaojiRecommendTableViewCell.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "MerchandiseService.h"
+#import "DiskCacheManager.h"
+#import "XXAlertView.h"
+#import "UIColor+App.h"
 
 #define DEFAULT_IMAGE [UIImage imageNamed:@"merchandise_placeholder"]
 
@@ -35,16 +38,16 @@
 //        UIImageView *mikuImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 31, 31)];
 //        mikuImage.image = [UIImage imageNamed:@"miku3"];
 //        [imageView addSubview:mikuImage];
-        static int i = 1;
         
-        UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
-        goodBtn.tag = i;
-        [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
-        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:goodBtn];
+//        UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
+//        [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
+//        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [self addSubview:goodBtn];
         
-        i++;
+        self.zanLabel = [[UILabel alloc]initWithFrame:CGRectMake(53, 10, 25, 25)];
+        [self.zanLabel setTextColor:[UIColor appLightBlue]];
+        [self addSubview:self.zanLabel];
         
         UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         exchangeBtn.frame = CGRectMake(imageView.bounds.size.width-94, imageView.bounds.size.height-35, 94, 35);
@@ -57,13 +60,50 @@
     }
     return self;
 }
-
+/*
 - (void)actionGoodBtn:(id)sender
 {
-    int s = [((UIButton*)sender) tag];
-//    return;
+    NSLog(@"赞按钮的tag值：%d", [((UIButton*)sender) tag]);
+    //
+    NSString *merchandisesStr = @"94695736c0ee48e4ba48c55b157754e7";
+
+    //从本地缓存中取出已点赞的商品id
+    NSMutableArray *merchandisesIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].merchandisesIds;
+    if (cacheData == nil) {
+        merchandisesIds = [NSMutableArray array];
+    }
+    else{
+        merchandisesIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    
+    if (merchandisesIds.count == 0) {
+        [merchandisesIds addObject:merchandisesStr];
+        [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
+    }
+    else{
+        BOOL isZan = NO;
+        for (int i = 0; i<merchandisesIds.count; i++) {
+            NSString *merchandisesIdStr = [merchandisesIds objectAtIndex:i];
+            if ([merchandisesStr isEqualToString:merchandisesIdStr]) {
+                isZan = YES;
+                break;
+            }
+        }
+        
+        if (isZan) {
+            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该商品了" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+            return;
+        }else{
+            //.....没赞过
+            
+        }
+        
+    }
+    return;
     MerchandiseService *service = [[MerchandiseService alloc]init];
-    [service sendGoodWithMerchandiseId:@"94695736c0ee48e4ba48c55b157754e7" target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+    [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
 }
 
 - (void)sendGoodSuccess:(HttpResponse *)resp {
@@ -83,16 +123,18 @@
         NSInteger number = jsonArray.integerValue;
     }
 }
-
+*/
 - (void)setMerchandise:(Merchandise *)merchandise
 {
     if(merchandise == nil) return;
     if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
         imageView.image = DEFAULT_IMAGE;
+        self.zanLabel.text = @"";
     } else {
 //        NSString *displayedImageUrl = [merchandise.imageUrls objectAtIndex:0];
         NSString *displayedImageUrl = [merchandise secondImageUrl];
         [imageView setImageWithURL:[NSURL URLWithString:displayedImageUrl] placeholderImage:DEFAULT_IMAGE];
+        self.zanLabel.text = [NSString stringWithFormat:@"%d",merchandise.follows];
     }
     
 }

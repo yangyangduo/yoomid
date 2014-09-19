@@ -110,6 +110,15 @@
         }
         [_collection_view_ reloadData];
         [self hideLoadingViewIfNeed];
+        
+        if (_tasks_.count == 0) {
+            YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad" ofType:@"png"]] message:@"抱歉,暂时没有任务!" buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
+            [modalView setCloseButtonHidden:YES];
+            [modalView showInView:self.navigationController.view completion:nil];
+//            UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 501/2, 501/2)];
+//            imageview.image = [UIImage imageNamed:@"modal_background"];
+//            [self.view addSubview:imageview];
+        }
         return;
     }
     [self showRetryView];

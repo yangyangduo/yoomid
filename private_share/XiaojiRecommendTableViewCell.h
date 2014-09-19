@@ -12,5 +12,5 @@
 
 @interface XiaojiRecommendTableViewCell : UITableViewCell
 @property (nonatomic, strong) Merchandise *merchandise;
-
+@property (nonatomic, strong) UILabel *zanLabel;
 @end

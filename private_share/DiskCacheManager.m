@@ -23,6 +23,8 @@ NSString * const kFileNameShoppingCart = @"shopping-cart";
 NSString * const kFileNameContacts = @"contacts";
 NSString * const kFileNamePointsOrder = @"points-order";
 
+NSString * const kFileNameMerchandisesIds = @"merchandises-ids";
+
 @implementation DiskCacheManager {
     NSString *_serve_account_;
     
@@ -33,6 +35,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
     CacheData *_recommended_merchandises_data_;
     CacheData *_completed_task_ids_data_;
     
+    CacheData *_merchandises_ids_data_;
     //
     CacheData *_contacts_data_;
     CacheData *_income_points_orders_data_;
@@ -226,8 +229,27 @@ NSString * const kFileNamePointsOrder = @"points-order";
     return dataArray.count == 0 ? nil : dataArray;
 }
 
+- (NSArray *)merchandisesIds{
+    NSArray *merchandisesIds = nil;
+    if (_merchandises_ids_data_ == nil) {
+        _merchandises_ids_data_ = [self cacheDataFromDisk:kFileNameMerchandisesIds inUserDirectory:YES];
+    }
+    
+    if (_merchandises_ids_data_ != nil && _merchandises_ids_data_.data != nil) {
+        merchandisesIds = [NSArray arrayWithArray:_merchandises_ids_data_.data];
+    }
+    return merchandisesIds;
+}
+
 #pragma mark -
 #pragma mark Cache data set and save
+
+- (void)setMerchandisesIds:(NSArray *)merchandisesIds {
+    if (_merchandises_ids_data_ == nil) {
+        _merchandises_ids_data_ = [[CacheData alloc]init];
+    }
+    [self setCacheData:_merchandises_ids_data_ jsonEntities:merchandisesIds entityIsBasicType:YES fileName:kFileNameMerchandisesIds inUserDirectory:YES];
+}
 
 - (void)setRecommendedMerchandises:(NSArray *)merchandises {
     if(_recommended_merchandises_data_ == nil) {

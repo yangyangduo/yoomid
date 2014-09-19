@@ -20,6 +20,9 @@
     UITextField *mobileTextField;
     UITextField *verifyCodeTextField;
     UITextField *passwordTextField;
+    UIButton *sendVerfyCodeButton;
+    
+    NSInteger time;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,7 +61,7 @@
     verifyCodeTextField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:verifyCodeTextField];
     
-    UIButton *sendVerfyCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendVerfyCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     sendVerfyCodeButton.frame = CGRectMake(verifyCodeTextField.frame.origin.x+verifyCodeTextField.bounds.size.width+10, 60, 150, 40);
     [sendVerfyCodeButton.layer setMasksToBounds:YES];
     [sendVerfyCodeButton.layer setCornerRadius:4.0];
@@ -118,9 +121,22 @@
     if(resp.statusCode == 200) {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"verify_code_send_success", @"") forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
+        
+        time = 60;
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
         return;
     }
     [self handleFailureHttpResponse:resp];
+}
+
+-(void)timerFired:(NSTimer *)timer{
+    time--;
+    [sendVerfyCodeButton setTitle:[NSString stringWithFormat:@"%d秒后重新发送",time] forState:UIControlStateNormal];
+    if (time == 0) {
+        [timer invalidate];
+        timer = nil;
+        [sendVerfyCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+    }
 }
 
 - (void)submitNewPassword:(id)sender

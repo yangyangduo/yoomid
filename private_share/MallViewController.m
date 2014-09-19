@@ -228,6 +228,65 @@
     else{}
 }
 
+- (void)actionGoodBtn:(UIButton *)sender
+{
+    UIView * v=[sender superview];
+    XiaojiRecommendTableViewCell *cell=(XiaojiRecommendTableViewCell *)[v superview];//找到cell
+    NSIndexPath *indexPath=[xiaoji indexPathForCell:cell];//找到cell所在的行
+    //
+    Merchandise *merchand = [recommendedMerchandises objectAtIndex:indexPath.row];
+    NSString *merchandisesStr = merchand.identifier ;
+    
+    //从本地缓存中取出已点赞的商品id
+    NSMutableArray *merchandisesIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].merchandisesIds;
+    if (cacheData == nil) {
+        merchandisesIds = [NSMutableArray array];
+    }
+    else{
+        merchandisesIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    
+    if (merchandisesIds.count == 0) {
+        MerchandiseService *service = [[MerchandiseService alloc]init];
+        [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+        [merchandisesIds addObject:merchandisesStr];
+        [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
+    }
+    else{
+        BOOL isZan = NO;
+        for (int i = 0; i<merchandisesIds.count; i++) {
+            NSString *merchandisesIdStr = [merchandisesIds objectAtIndex:i];
+            if ([merchandisesStr isEqualToString:merchandisesIdStr]) {
+                isZan = YES;
+                break;
+            }
+        }
+        
+        if (isZan) {
+            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该商品了" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+            return;
+        }else{
+            //.....没赞过
+            MerchandiseService *service = [[MerchandiseService alloc]init];
+            [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+            [merchandisesIds addObject:merchandisesStr];
+            [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
+        }
+    }
+}
+
+- (void)sendGoodSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200) {
+//        NSLog(@"赞成功");
+//        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+//        NSInteger number = jsonArray.integerValue;
+        [self refreshXiaoji];
+    }
+}
+
+
 #pragma mark -
 #pragma mark
 
@@ -255,6 +314,12 @@
         if(cell == nil)
         {
             cell = [[XiaojiRecommendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
+            [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
+            [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:goodBtn];
+
         }
         cell.merchandise = [recommendedMerchandises objectAtIndex:indexPath.row];
         idcell = cell;

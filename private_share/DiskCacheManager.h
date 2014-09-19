@@ -45,7 +45,6 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 - (void)setTaskCategories:(NSArray *)taskCategories;
 - (void)setCompletedTaskIds:(NSArray *)taskIds;
 
-
 /**
  * user data source
  * for current user
@@ -53,9 +52,11 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 
 - (NSArray *)contacts:(BOOL *)isExpired;
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired;
+- (NSArray *)merchandisesIds;
 
 - (void)setContacts:(NSArray *)contacts;
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType;
+- (void)setMerchandisesIds:(NSArray *)merchandisesIds;
 
 @end
 
