@@ -49,35 +49,40 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     [super viewDidLoad];
     
     self.animationController.leftPanAnimationType = PanAnimationControllerTypePresentation;
-    
-    _webView_ = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 - 49)];
+    int tabBarHeight = 49;
+    if(self.task.isGameTask){
+        tabBarHeight = 0;
+    }
+    _webView_ = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 - tabBarHeight)];
     _webView_.delegate = self;
     _webView_.backgroundColor = [UIColor clearColor];
     _webView_.opaque = NO;
     [self.view addSubview:_webView_];
     
-    tabBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 64 - 49, self.view.bounds.size.width, 49)];
-    tabBar.backgroundColor = [UIColor appColor];
-    UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(tabBar.bounds.size.width - 90, 0, 90, 35)];
-    [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button2"] forState:UIControlStateNormal];
-    [confirmButton addTarget:self action:@selector(findTaskResultAndSubmit) forControlEvents:UIControlEventTouchUpInside];
-    [confirmButton setTitle:@"确 定" forState:UIControlStateNormal];
-    confirmButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [tabBar addSubview:confirmButton];
-    [self.view addSubview:tabBar];
+    if(self.task.isGameTask == false){
+        tabBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 64 - 49, self.view.bounds.size.width, 49)];
+        tabBar.backgroundColor = [UIColor appColor];
+        UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(tabBar.bounds.size.width - 90, 0, 90, 35)];
+        [confirmButton setBackgroundImage:[UIImage imageNamed:@"bottom_button2"] forState:UIControlStateNormal];
+        [confirmButton addTarget:self action:@selector(findTaskResultAndSubmit) forControlEvents:UIControlEventTouchUpInside];
+        [confirmButton setTitle:@"确 定" forState:UIControlStateNormal];
+        confirmButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        [tabBar addSubview:confirmButton];
+        [self.view addSubview:tabBar];
     
-    UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -2, 133.f / 2, 133.f / 2)];
-    pointsImageView.image = [UIImage imageNamed:@"mm"];
-    pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2 + 15, pointsImageView.center.y);
-    [tabBar addSubview:pointsImageView];
+        UIImageView *pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -2, 133.f / 2, 133.f / 2)];
+        pointsImageView.image = [UIImage imageNamed:@"mm"];
+        pointsImageView.center = CGPointMake(tabBar.bounds.size.width / 2 + 15, pointsImageView.center.y);
+        [tabBar addSubview:pointsImageView];
     
-    UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsImageView.frame.origin.x - 60, 4, 50, 41)];
-    pointsLabel.backgroundColor = [UIColor clearColor];
-    pointsLabel.font = [UIFont boldSystemFontOfSize:22.f];
-    pointsLabel.textColor = [UIColor whiteColor];
-    pointsLabel.textAlignment = NSTextAlignmentRight;
-    pointsLabel.text = self.task == nil ? @"" : [NSString stringWithFormat:@"%d", self.task.points];
-    [tabBar addSubview:pointsLabel];
+        UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsImageView.frame.origin.x - 60, 4, 50, 41)];
+        pointsLabel.backgroundColor = [UIColor clearColor];
+        pointsLabel.font = [UIFont boldSystemFontOfSize:22.f];
+        pointsLabel.textColor = [UIColor whiteColor];
+        pointsLabel.textAlignment = NSTextAlignmentRight;
+        pointsLabel.text = self.task == nil ? @"" : [NSString stringWithFormat:@"%d", self.task.points];
+        [tabBar addSubview:pointsLabel];
+    }
     
     if(self.task.isGuessPictureTask) {
         UIImageView *taskTimerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, - (136.f / 4) - 6, 112.f / 2, 136.f / 2)];
