@@ -390,6 +390,7 @@
 		D670D6C619B07E4600FB241D /* points_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C519B07E4600FB241D /* points_blue@2x.png */; };
 		D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C719B07E6000FB241D /* newlogin@2x.png */; };
 		D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C919B07E7500FB241D /* shopping@2x.png */; };
+		D674C6CD19CBD48A0044B51B /* RetrievesPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D674C6CC19CBD48A0044B51B /* RetrievesPassWordViewController.m */; };
 		D676302019A7741B0015CADF /* level2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301719A7741B0015CADF /* level2@2x.png */; };
 		D676302119A7741C0015CADF /* level3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301819A7741B0015CADF /* level3@2x.png */; };
 		D676302219A7741C0015CADF /* level4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676301919A7741B0015CADF /* level4@2x.png */; };
@@ -1013,6 +1014,8 @@
 		D670D6C519B07E4600FB241D /* points_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "points_blue@2x.png"; sourceTree = "<group>"; };
 		D670D6C719B07E6000FB241D /* newlogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newlogin@2x.png"; sourceTree = "<group>"; };
 		D670D6C919B07E7500FB241D /* shopping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping@2x.png"; sourceTree = "<group>"; };
+		D674C6CB19CBD48A0044B51B /* RetrievesPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrievesPassWordViewController.h; sourceTree = "<group>"; };
+		D674C6CC19CBD48A0044B51B /* RetrievesPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievesPassWordViewController.m; sourceTree = "<group>"; };
 		D676301719A7741B0015CADF /* level2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level2@2x.png"; sourceTree = "<group>"; };
 		D676301819A7741B0015CADF /* level3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level3@2x.png"; sourceTree = "<group>"; };
 		D676301919A7741B0015CADF /* level4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level4@2x.png"; sourceTree = "<group>"; };
@@ -1797,6 +1800,8 @@
 				6F57538319B5DE52005A4605 /* TaskListViewController.m */,
 				D66D120619C0219C005BF0FA /* NotificationsViewController.h */,
 				D66D120719C0219C005BF0FA /* NotificationsViewController.m */,
+				D674C6CB19CBD48A0044B51B /* RetrievesPassWordViewController.h */,
+				D674C6CC19CBD48A0044B51B /* RetrievesPassWordViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2841,6 +2846,7 @@
 				6F72A3F0193DF7D2001DAA3E /* DrawerMenuViewController.m in Sources */,
 				6F4F234F195927040028EBD1 /* ActivitiesViewController.m in Sources */,
 				6F2816AB19495379009B29DB /* PullScrollZoomImageHtmlView.m in Sources */,
+				D674C6CD19CBD48A0044B51B /* RetrievesPassWordViewController.m in Sources */,
 				6F7261F3195A905E00BD17D8 /* ActivityCollectionViewCell.m in Sources */,
 				D641D907199C662F00CBB929 /* ContactService.m in Sources */,
 				D6B13F6919A43199007658CB /* HomePageItemCell.m in Sources */,

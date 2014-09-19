@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "ViewControllerAccessor.h"
 #import "UIDevice+ScreenSize.h"
+#import "RetrievesPassWordViewController.h"
 
 @interface LoginViewController ()
 
@@ -208,6 +209,7 @@
 }
 
 - (void)forgotPasswordButtonPressed:(id)sender {
+    [self.navigationController pushViewController:[[RetrievesPassWordViewController alloc] init] animated:YES];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

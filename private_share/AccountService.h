@@ -11,7 +11,8 @@
 
 typedef NS_ENUM(NSUInteger, VerifyCodeType) {
     VerifyCodeTypeRegister,
-    VerifyCodeTypeForgotPassword
+    VerifyCodeTypeForgotPassword,
+    reset_password
 };
 
 @interface AccountService : BaseService
@@ -27,5 +28,9 @@ typedef NS_ENUM(NSUInteger, VerifyCodeType) {
 - (void)getAccountPoints:(NSString *)accountId target:(id)target success:(SEL)success failure:(SEL)failure;
 
 - (void)updatePasswordWithUserName:(NSString *)userName oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword target:(id)target success:(SEL)success failure:(SEL)failure;
+
+- (void)getVerifyCodeWithResetPasswordPhoneNumber:(NSString *)phoneNumber target:(id)target success:(SEL)success failure:(SEL)failure;
+
+- (void)resetPasswordWithUserName:(NSString *)userName verifyCode:(NSString *)verifyCode password:(NSString *)password target:(id)target success:(SEL)success failure:(SEL)failure;
 
 @end

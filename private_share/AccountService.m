@@ -38,4 +38,15 @@
     [self.httpClient get:[NSString stringWithFormat:@"/account_points?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
+- (void)getVerifyCodeWithResetPasswordPhoneNumber:(NSString *)phoneNumber target:(id)target success:(SEL)success failure:(SEL)failure{
+        [self.httpClient get:[NSString stringWithFormat:@"mobile_code?mobile=%@&type=reset_password", phoneNumber] target:target success:success failure:failure userInfo:nil];
+}
+
+- (void)resetPasswordWithUserName:(NSString *)userName verifyCode:(NSString *)verifyCode password:(NSString *)password target:(id)target success:(SEL)success failure:(SEL)failure
+{
+    NSDictionary *body = @{ @"account" : userName, @"password" : password, @"mobileCode" : verifyCode };
+    NSData *bodyData = [JsonUtil createJsonDataFromDictionary:body];
+    [self.httpClient put:@"/account/password" contentType:@"application/json" body:bodyData target:target success:success failure:failure userInfo:nil];
+}
+
 @end

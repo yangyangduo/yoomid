@@ -69,8 +69,11 @@
 - (void)sendGoodSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200) {
         NSLog(@"赞成功");
-        MerchandiseService *service = [[MerchandiseService alloc]init];
-        [service getGoodWithMerchandiseId:@"94695736c0ee48e4ba48c55b157754e7" target:self success:@selector(getGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
+        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSInteger number = jsonArray.integerValue;
+
+//        MerchandiseService *service = [[MerchandiseService alloc]init];
+//        [service getGoodWithMerchandiseId:@"94695736c0ee48e4ba48c55b157754e7" target:self success:@selector(getGoodSuccess:) failure:@selector(handleFailure:) userInfo:nil];
     }
 }
 
