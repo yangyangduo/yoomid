@@ -29,6 +29,7 @@
         
         self.taskDescriptionUrl = [json noNilStringForKey:@"taskDescriptionUrl"];
         self.contentUrl = [json noNilStringForKey:@"contentUrl"];
+
     }
     return self;
 }

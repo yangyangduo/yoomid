@@ -18,6 +18,8 @@
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self) {
+        self.categoryId = [json noNilStringForKey:@"categoryId"];
+
         NSArray *questions = [json arrayForKey:@"questions"];
         NSDictionary *questionsD = [questions objectAtIndex:0];
         self.answer = [questionsD objectForKey:@"answer"];
