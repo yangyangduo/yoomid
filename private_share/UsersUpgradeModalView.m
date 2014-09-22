@@ -215,11 +215,11 @@
             [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 米米" attributes:@{ NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
             
             //将等级写入缓存...
-//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-//            [dictionary setInteger:[Account currentAccount].level+1 forKey:kLevelKey];
-//            [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
-//            [defaults synchronize];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            [dictionary setInteger:[Account currentAccount].level forKey:@"levels.key"];
+            [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+            [defaults synchronize];
             
             UsersUpgradeModalView *successModal = [[UsersUpgradeModalView alloc]initWithSize1:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg5"] titleMessage:@"恭喜哈尼答对了!" message:pointsString buttonTitles:@[@"确   定",@"分享好友"] cancelButtonIndex:0];
             [successModal showInView:[UIApplication sharedApplication].keyWindow completion:nil];
@@ -236,8 +236,7 @@
 
 - (void)postAnswersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
-        NSInteger stat = resp.statusCode;
-        
+//        NSInteger stat = resp.statusCode;
     }
 }
 
@@ -266,8 +265,8 @@
 -(void)Share
 {
     [self closeViewInternal];
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    UIViewController *topVC = [app topViewController];
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    UIViewController *topVC = [app topViewController];
 }
 
 

@@ -152,7 +152,7 @@ NSString * const kLevelKey = @"levels.key";
     UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
     [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
     [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
-//    UpgradeBtn.hidden = YES;
+    UpgradeBtn.hidden = YES;
     [topView addSubview:UpgradeBtn];
     
     pointsOrderType = PointsOrderTypeIncome;
@@ -196,7 +196,7 @@ NSString * const kLevelKey = @"levels.key";
     NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
     
     TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
-    [taskLevelService getTasksLevelInfo:0 target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
+    [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 - (void)getTaskLevelSuccess:(HttpResponse *)resp {
@@ -229,7 +229,7 @@ NSString * const kLevelKey = @"levels.key";
     else{
         NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
         if (levels < [Account currentAccount].level) {
-            ;//显示升级按钮
+            UpgradeBtn.hidden = NO;//显示升级按钮
         }
     }
 }
