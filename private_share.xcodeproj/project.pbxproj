@@ -1531,10 +1531,10 @@
 		6F66B59E194AC26F008A948C /* system_ui_extension */ = {
 			isa = PBXGroup;
 			children = (
-				6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */,
-				6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */,
 				6F2BD0C7194ECFAE0092BA23 /* UIParameterButton.h */,
 				6F2BD0C8194ECFAE0092BA23 /* UIParameterButton.m */,
+				6F66B59F194AC2CC008A948C /* UIParameterAlertView.h */,
+				6F66B5A0194AC2CC008A948C /* UIParameterAlertView.m */,
 			);
 			name = system_ui_extension;
 			sourceTree = "<group>";
@@ -1934,14 +1934,14 @@
 		6F8D84D519457F0B00D1D123 /* shopping */ = {
 			isa = PBXGroup;
 			children = (
+				6F8D84D619457F2100D1D123 /* Payment.h */,
+				6F8D84D719457F2100D1D123 /* Payment.m */,
 				6F8823ED1940C45E00757633 /* ShoppingCart.h */,
 				6F8823EE1940C45E00757633 /* ShoppingCart.m */,
 				6F3F65F51942146A007A41E0 /* ShoppingItem.h */,
 				6F3F65F61942146A007A41E0 /* ShoppingItem.m */,
 				6F53EFE9194B55050080B4DD /* ShopShoppingItems.h */,
 				6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */,
-				6F8D84D619457F2100D1D123 /* Payment.h */,
-				6F8D84D719457F2100D1D123 /* Payment.m */,
 			);
 			name = shopping;
 			sourceTree = "<group>";

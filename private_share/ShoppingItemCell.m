@@ -39,16 +39,15 @@ CGFloat const ImageViewHeight = 60.f;
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(44, TopInset, ImageViewHeight, ImageViewHeight)];
-        [self addSubview:imageView];
-        
         selectButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         selectButton.center = CGPointMake(selectButton.center.x, imageView.center.y);
         [selectButton setImage:[UIImage imageNamed:@"cb_unselect"] forState:UIControlStateNormal];
-//        [selectButton setImage:[UIImage imageNamed:@"cb_unselect"] forState:UIControlStateHighlighted];
         [selectButton setImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateSelected];
         [selectButton addTarget:self action:@selector(selectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:selectButton];
+        
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(44, TopInset, ImageViewHeight, ImageViewHeight)];
+        [self addSubview:imageView];
         
         nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 10, TopInset, NameWidth, 0)];
         nameLabel.numberOfLines = 0;
