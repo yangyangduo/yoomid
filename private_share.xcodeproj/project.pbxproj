@@ -408,6 +408,8 @@
 		D67ACA5719ACBB40005EF9E8 /* exchange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */; };
 		D67ACA5919ACBB4C005EF9E8 /* good2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */; };
 		D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */; };
+		D67CAFBD19CFB6CA002B503B /* good3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67CAFBB19CFB6CA002B503B /* good3@2x.png */; };
+		D67CAFBE19CFB6CA002B503B /* good4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67CAFBC19CFB6CA002B503B /* good4@2x.png */; };
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
@@ -1038,6 +1040,8 @@
 		D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exchange@2x.png"; sourceTree = "<group>"; };
 		D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good2@2x.png"; sourceTree = "<group>"; };
 		D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku3@2x.png"; sourceTree = "<group>"; };
+		D67CAFBB19CFB6CA002B503B /* good3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good3@2x.png"; sourceTree = "<group>"; };
+		D67CAFBC19CFB6CA002B503B /* good4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good4@2x.png"; sourceTree = "<group>"; };
 		D683A049199D987B001E3DA9 /* UpdateContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateContactInfoViewController.h; sourceTree = "<group>"; };
 		D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateContactInfoViewController.m; sourceTree = "<group>"; };
 		D690352119A4C0D30059C08C /* MyPointsRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsRecordViewController.h; sourceTree = "<group>"; };
@@ -2035,6 +2039,8 @@
 		6FB0E19719B6A247002F9A18 /* merchandise */ = {
 			isa = PBXGroup;
 			children = (
+				D67CAFBB19CFB6CA002B503B /* good3@2x.png */,
+				D67CAFBC19CFB6CA002B503B /* good4@2x.png */,
 				6FB8072B19B7FF24003ABF77 /* shipping@2x.png */,
 				6FB8072919B7FEDB003ABF77 /* rmb_blue@2x.png */,
 				D670D6C519B07E4600FB241D /* points_blue@2x.png */,
@@ -2541,7 +2547,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = JJH6E5JL26;
+						DevelopmentTeam = V59AQ53269;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -2598,6 +2604,7 @@
 				D3644BFF197A171000B44785 /* dianru_msg.png in Resources */,
 				6FBE928D194167DD00B94195 /* merchandise_placeholder@2x.png in Resources */,
 				6FECF3E919BE9ADC00CAB301 /* button_down@2x.png in Resources */,
+				D67CAFBE19CFB6CA002B503B /* good4@2x.png in Resources */,
 				6F970977193F4B5300EA5E3A /* alert_failed@2x.png in Resources */,
 				6F7261FA195AAFCA00BD17D8 /* black_bottom@2x.png in Resources */,
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
@@ -2669,6 +2676,7 @@
 				D66D120A19C02271005BF0FA /* setup@2x.png in Resources */,
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
 				D3644C13197A171000B44785 /* dianru_orange_dianru_bottom.png in Resources */,
+				D67CAFBD19CFB6CA002B503B /* good3@2x.png in Resources */,
 				D676302419A7741C0015CADF /* level6@2x.png in Resources */,
 				D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */,
 				D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */,
@@ -3128,7 +3136,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 阳 赵 (7BGAE3L9Q9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3159,7 +3167,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06f8d45f-e8bd-4df2-8c71-83e9de2732fc";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -3174,7 +3182,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 阳 赵 (7BGAE3L9Q9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3205,7 +3213,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06f8d45f-e8bd-4df2-8c71-83e9de2732fc";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

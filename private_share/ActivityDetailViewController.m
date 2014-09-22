@@ -77,9 +77,15 @@
     pageControl.currentPageIndicatorTintColor = [UIColor appBlue];
     [descriptionView addSubview:pageControl];
     
-    UIImageView *goodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(180, 15, 20.5f, 20.5f)];
-    goodImageView.image = [UIImage imageNamed:@"likes"];
-    [descriptionView addSubview:goodImageView];
+//    UIImageView *goodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(180, 15, 20.5f, 20.5f)];
+//    goodImageView.image = [UIImage imageNamed:@"likes"];
+//    [descriptionView addSubview:goodImageView];
+    UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    goodBtn.frame = CGRectMake(190, 15, 20.5f, 20.5f);
+    [goodBtn setImage:[UIImage imageNamed:@"good4"] forState:UIControlStateNormal];
+    [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [descriptionView addSubview:goodBtn];
+
     UILabel *thinksGoodLabel = [[UILabel alloc] initWithFrame:CGRectMake(206, 10, 100, 30)];
     thinksGoodLabel.text = [NSString stringWithFormat:@"%d%@", _merchandise_.follows, NSLocalizedString(@"thinks_good", @"")];
     thinksGoodLabel.font = [UIFont systemFontOfSize:15.f];
@@ -168,6 +174,11 @@
     
     // load request
     [htmlView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/merchandises/%@", kBaseUrl, _merchandise_.identifier]] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:15.f]];
+}
+
+- (void)actionGoodBtn:(UIButton *)sender
+{
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

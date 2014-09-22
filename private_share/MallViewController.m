@@ -316,7 +316,7 @@
             cell = [[XiaojiRecommendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
-            [goodBtn setImage:[UIImage imageNamed:@"good2"] forState:UIControlStateNormal];
+            [goodBtn setImage:[UIImage imageNamed:@"good3"] forState:UIControlStateNormal];
             [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:goodBtn];
 
