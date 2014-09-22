@@ -40,7 +40,7 @@ CGFloat const ImageViewHeight = 60.f;
         self.backgroundColor = [UIColor whiteColor];
         
         selectButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        selectButton.center = CGPointMake(selectButton.center.x, imageView.center.y);
+        selectButton.center = CGPointMake(selectButton.center.x, imageView.center.y+10);
         [selectButton setImage:[UIImage imageNamed:@"cb_unselect"] forState:UIControlStateNormal];
         [selectButton setImage:[UIImage imageNamed:@"cb_select"] forState:UIControlStateSelected];
         [selectButton addTarget:self action:@selector(selectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

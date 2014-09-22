@@ -59,14 +59,25 @@
         merchandiseName.textAlignment = NSTextAlignmentLeft;
         [bottomView addSubview:merchandiseName];
         
-        UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exchangeBtn.frame = CGRectMake(bottomView.bounds.size.width-94, -13, 94, 48);
-        [exchangeBtn setTitle:@"我要兑换" forState:UIControlStateNormal];
-        [exchangeBtn setTintColor:[UIColor whiteColor]];
-        exchangeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
-        [exchangeBtn setBackgroundImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
-        [exchangeBtn setTitleEdgeInsets:UIEdgeInsetsMake(7, 15, 0, 0)];
-        [bottomView addSubview:exchangeBtn];
+        UIImageView *exchangeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomView.bounds.size.width-94, -13, 94, 48)];
+        exchangeImageView.image = [UIImage imageNamed:@"exchange"];
+        [bottomView addSubview:exchangeImageView];
+        
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(8, 13.5, 95, 35)];
+        lable.text = @"我要兑";
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.textColor = [UIColor whiteColor];
+        lable.font = [UIFont systemFontOfSize:14.f];
+        [exchangeImageView addSubview:lable];
+        
+//        UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        exchangeBtn.frame = CGRectMake(bottomView.bounds.size.width-94, -13, 94, 48);
+//        [exchangeBtn setTitle:@"我要兑换" forState:UIControlStateNormal];
+//        [exchangeBtn setTintColor:[UIColor whiteColor]];
+//        exchangeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
+//        [exchangeBtn setBackgroundImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
+//        [exchangeBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
+//        [bottomView addSubview:exchangeBtn];
     }
     return self;
 }
