@@ -14,6 +14,7 @@
 #import "ViewControllerAccessor.h"
 #import "UINavigationViewInitializer.h"
 #import "UMessage.h"
+#import "UMSocial_Sdk_4.1/Header/UMSocial.h"
 
 #import "Account.h"
 #import "SecurityConfig.h"
@@ -69,6 +70,8 @@
 //     |UIRemoteNotificationTypeAlert];
 //    
 //    [UMessage setLogEnabled:YES];
+    
+    [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
     
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
