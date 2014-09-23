@@ -13,4 +13,5 @@
 
 -(void)getUserInfo:(id)target success:(SEL)success failure:(SEL)failure;
 -(void)modifyUserInfoData:(NSData*)data target:(id)target success:(SEL)success failure:(SEL)failure;
+-(void)getSettingPointsTarget:(id)target success:(SEL)success failure:(SEL)failure;
 @end

@@ -209,7 +209,7 @@
         }
         
         if (isZan) {
-            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该商品了" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该活动了" forType:AlertViewTypeSuccess];
             [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
             return;
         }else{

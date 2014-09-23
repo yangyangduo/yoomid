@@ -18,6 +18,7 @@
 #import "DiskCacheManager.h"
 #import "ContactService.h"
 #import "ManageContactInfoViewController.h"
+#import "YoomidSemicircleModalView.h"
 
 @interface SettingViewController ()
 
@@ -205,9 +206,52 @@
     if (resp.statusCode == 200) {
         [[XXAlertView currentAlertView] setMessage:@"保存成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
+
+        BOOL isEmpty = NO;
+        NSString *birthdayStr = [userInfoDictionary objectForKey:@"birthday"];
+        NSString *companyStr = [userInfoDictionary objectForKey:@"company"];
+        NSString *nickNameStr = [userInfoDictionary objectForKey:@"nickName"];
+        NSString *positionStr = [userInfoDictionary objectForKey:@"position"];
+        NSString *realNameStr = [userInfoDictionary objectForKey:@"realName"];
+        NSString *sexStr = [userInfoDictionary objectForKey:@"sex"];
+        if ([birthdayStr isEqualToString:@""] || [companyStr isEqualToString:@""] || [nickNameStr isEqualToString:@""] || [positionStr isEqualToString:@""] || [realNameStr isEqualToString:@""] || [sexStr isEqualToString:@""]) {
+            isEmpty = YES;
+        }
+       
+        if (isEmpty == NO) {//没有空
+            NSArray *cacheData = [DiskCacheManager manager].userInfo;
+            
+            if (cacheData != nil) {  //判断是否已经获得设置完全部信息的 奖励积分了没有 ，yes 获得过了 ，
+            }
+            else{
+                
+                UserInfoService *service = [[UserInfoService alloc]init];
+                [service getSettingPointsTarget:self success:@selector(getSettingPointsSuccess:) failure:@selector(handleFailureHttpResponse:)];
+            }
+
+        }
+        else{
+        }
+        
     }else
     {
         [self handleFailureHttpResponse:resp];
+    }
+}
+
+-(void)getSettingPointsSuccess:(HttpResponse *)resp
+{
+    if (resp.statusCode == 200) {
+        NSMutableDictionary *tempD = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"yes",@"isEmpty", nil];
+        NSArray *array = [[NSArray alloc]initWithObjects:tempD, nil];
+        [[DiskCacheManager manager] setUserInfo:array];
+        
+        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSInteger number = jsonArray.integerValue;
+
+        YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼百分百完成信息!" message:[NSString stringWithFormat:@"额外获得%d%@", number, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
+//        modal.modalViewDelegate = self;
+        [modal showInView:self.navigationController.view completion:nil];
     }
 }
 

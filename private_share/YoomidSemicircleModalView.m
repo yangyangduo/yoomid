@@ -26,7 +26,7 @@
         CGFloat y = 170.f;
         
         if(titleMessage) {
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, 160, 30)];
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, size.width, 30)];
             titleLabel.font = [UIFont systemFontOfSize:22];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.center = CGPointMake(centerX, titleLabel.center.y);
