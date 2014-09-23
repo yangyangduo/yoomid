@@ -236,13 +236,13 @@
 //
 //    AppDelegate *app = [UIApplication sharedApplication].delegate;
 //    UIViewController *topVC = [app topViewController];
-    [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:@"54052fe0fd98c5170d06988e"
-                                      shareText:@"你要分享的文字"
-                                     shareImage:[UIImage imageNamed:@"icon.png"]
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
-                                       delegate:nil];
-    return;
+//    [UMSocialSnsService presentSnsIconSheetView:self
+//                                         appKey:@"54052fe0fd98c5170d06988e"
+//                                      shareText:@"你要分享的文字"
+//                                     shareImage:[UIImage imageNamed:@"icon.png"]
+//                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
+//                                       delegate:nil];
+//    return;
 
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
