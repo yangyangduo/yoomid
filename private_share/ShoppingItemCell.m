@@ -29,6 +29,7 @@ CGFloat const ImageViewHeight = 60.f;
     // payment element
     UILabel *paymentLabel;
     NumberPicker *numberPicker;
+    UILongPressGestureRecognizer *longPressGR;
 }
 
 @synthesize shoppingItem = _shoppingItem_;
@@ -77,6 +78,13 @@ CGFloat const ImageViewHeight = 60.f;
         lineView = [[UIView alloc] initWithFrame:CGRectMake(10, numberPicker.bounds.size.height + numberPicker.frame.origin.y + 10, frame.size.width - 20, 0.5f)];
         lineView.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView];
+        
+        longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress2:)];
+        //    longPressGR.allowableMovement=NO;
+        longPressGR.minimumPressDuration = 0.2;
+        [self addGestureRecognizer:longPressGR];
+
+        
     }
     return self;
 }
@@ -121,6 +129,7 @@ image height px
 }
 
 - (void)setShoppingItem:(ShoppingItem *)shoppingItem {
+
     _shoppingItem_ = shoppingItem;
     if(_shoppingItem_ != nil) {
         selectButton.selected = shoppingItem.selected;
@@ -196,6 +205,20 @@ image height px
 - (void)refreshShoppingItemSelectProperty {
     selectButton.selected = self.shoppingItem.selected;
 }
+
+#pragma mark - 
+#pragma mark UILongPressGestureRecognizer Event
+//响应的事件
+-(IBAction)handleLongPress2:(UILongPressGestureRecognizer *)gesture{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        UIParameterAlertView *confirmAlertView = [[UIParameterAlertView alloc] initWithTitle:NSLocalizedString(@"tips", @"") message:NSLocalizedString(@"merchandise_delete_tips", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"") otherButtonTitles:NSLocalizedString(@"determine", @""), nil];
+        [confirmAlertView setParameter:_shoppingItem_ forKey:@"shoppingItem"];
+        confirmAlertView.delegate = self.shoppingCartViewController;
+        [confirmAlertView show];
+    }
+    
+}
+
 
 #pragma mark -
 #pragma mark Number picker delegate

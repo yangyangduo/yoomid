@@ -140,6 +140,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     ShopShoppingItems *ssi = [[ShoppingCart myShoppingCart].shopShoppingItemss objectAtIndex:indexPath.section];
     ShoppingItem *si = [ssi.shoppingItems objectAtIndex:indexPath.row];
     ShoppingItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShoppingItemCellIdentifier forIndexPath:indexPath];
+
     cell.shoppingCartViewController = self;
     cell.shoppingItem = si;
     return cell;

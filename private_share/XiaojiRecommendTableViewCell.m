@@ -32,7 +32,7 @@
 
         self.backgroundColor = [UIColor clearColor];
 
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20,400-35)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20,400)];
 //        imageView.image = [UIImage imageNamed:@"xiaojibg"];
         [self addSubview:imageView];
 //        
@@ -46,8 +46,9 @@
 //        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
 //        [self addSubview:goodBtn];
         
-        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(10, imageView.bounds.size.height, imageView.bounds.size.width, 35)];
-        bottomView.backgroundColor = [UIColor grayColor];
+        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(10, imageView.bounds.size.height-35, imageView.bounds.size.width, 35)];
+        bottomView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_gray_transport_big"]];
+//        bottomView.alpha = 0.6f;
         [self addSubview:bottomView];
         
         self.zanLabel = [[UILabel alloc]initWithFrame:CGRectMake(53, 10, 25, 25)];
@@ -55,12 +56,13 @@
         [self addSubview:self.zanLabel];
         
         merchandiseName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 300 - 104, 35)];
-        merchandiseName.textColor = [UIColor blackColor];
-        merchandiseName.textAlignment = NSTextAlignmentLeft;
+        merchandiseName.textColor = [UIColor whiteColor];
+        merchandiseName.textAlignment = NSTextAlignmentCenter;
         [bottomView addSubview:merchandiseName];
         
-        UIImageView *exchangeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomView.bounds.size.width-94, -13, 94, 48)];
+        UIImageView *exchangeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomView.bounds.size.width-94, -13.5, 94, 48)];
         exchangeImageView.image = [UIImage imageNamed:@"exchange"];
+//        exchangeImageView.layer.
         [bottomView addSubview:exchangeImageView];
         
         UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(8, 13.5, 95, 35)];
