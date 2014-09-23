@@ -425,6 +425,7 @@
 		D6BD165F19D17664006AE1C1 /* daohang1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6BD165E19D17664006AE1C1 /* daohang1@2x.jpg */; };
 		D6BD166219D17688006AE1C1 /* logo960@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6BD166019D17688006AE1C1 /* logo960@2x.png */; };
 		D6BD166319D17688006AE1C1 /* logo1136@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6BD166119D17688006AE1C1 /* logo1136@2x.png */; };
+		D6BD166519D1A620006AE1C1 /* daohang1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6BD166419D1A620006AE1C1 /* daohang1@2x.png */; };
 		D6C7CC8B199B910D00EC3061 /* SelectContactAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C7CC8A199B910D00EC3061 /* SelectContactAddressViewController.m */; };
 		D6C7CC8E199B99F300EC3061 /* SelectContactAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C7CC8D199B99F300EC3061 /* SelectContactAddressTableViewCell.m */; };
 		D6C7CC90199BA91000EC3061 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C7CC8F199BA91000EC3061 /* line.png */; };
@@ -1097,6 +1098,7 @@
 		D6BD165E19D17664006AE1C1 /* daohang1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "daohang1@2x.jpg"; sourceTree = "<group>"; };
 		D6BD166019D17688006AE1C1 /* logo960@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo960@2x.png"; sourceTree = "<group>"; };
 		D6BD166119D17688006AE1C1 /* logo1136@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo1136@2x.png"; sourceTree = "<group>"; };
+		D6BD166419D1A620006AE1C1 /* daohang1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daohang1@2x.png"; sourceTree = "<group>"; };
 		D6C7CC89199B910D00EC3061 /* SelectContactAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactAddressViewController.h; sourceTree = "<group>"; };
 		D6C7CC8A199B910D00EC3061 /* SelectContactAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactAddressViewController.m; sourceTree = "<group>"; };
 		D6C7CC8C199B99F300EC3061 /* SelectContactAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactAddressTableViewCell.h; sourceTree = "<group>"; };
@@ -2338,6 +2340,7 @@
 				D670D6BF19B0749000FB241D /* into@2x.png */,
 				D66D120919C02271005BF0FA /* setup@2x.png */,
 				D6BD165E19D17664006AE1C1 /* daohang1@2x.jpg */,
+				D6BD166419D1A620006AE1C1 /* daohang1@2x.png */,
 				D6BD166019D17688006AE1C1 /* logo960@2x.png */,
 				D6BD166119D17688006AE1C1 /* logo1136@2x.png */,
 			);
@@ -2770,7 +2773,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = JJH6E5JL26;
+						DevelopmentTeam = V59AQ53269;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -2880,6 +2883,7 @@
 				D676302619A7741C0015CADF /* level8@2x.png in Resources */,
 				6F86B6851977776600B4FCDE /* close@2x.png in Resources */,
 				D3644C11197A171000B44785 /* dianru_green_right_view.png in Resources */,
+				D6BD166519D1A620006AE1C1 /* daohang1@2x.png in Resources */,
 				D3644BEE197A171000B44785 /* dianru_blue_dianru_triangle.png in Resources */,
 				D3644C21197A171000B44785 /* dianru_purple_dianru_iphone_download.png in Resources */,
 				D6492D6519C987670092B893 /* bg6@2x.png in Resources */,
