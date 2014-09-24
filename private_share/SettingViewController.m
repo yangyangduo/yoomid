@@ -308,6 +308,7 @@
     
     UIImage *bgImage = [UIImage imageNamed:@"setupbg"];
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 20, 0, 20);
+
     CGRect rect;
     UIImage *image;
 

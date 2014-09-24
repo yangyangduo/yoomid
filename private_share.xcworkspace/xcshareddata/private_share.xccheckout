@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>7AEB15F9-2539-4E34-8355-E991AD477631</string>
+	<string>8F6F7999-5CDA-470F-B1B1-BBD6E04D640F</string>
 	<key>IDESourceControlProjectName</key>
 	<string>private_share</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F9B79B32-1DCE-467C-B056-A0E64209C160</key>
+		<key>8953D98C68AF5E0C0DC96707BCF41F34154F88E8</key>
 		<string>https://github.com/yangyangduo/yoomid.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>private_share.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F9B79B32-1DCE-467C-B056-A0E64209C160</key>
+		<key>8953D98C68AF5E0C0DC96707BCF41F34154F88E8</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/yangyangduo/yoomid.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F9B79B32-1DCE-467C-B056-A0E64209C160</string>
+	<string>8953D98C68AF5E0C0DC96707BCF41F34154F88E8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F9B79B32-1DCE-467C-B056-A0E64209C160</string>
+			<string>8953D98C68AF5E0C0DC96707BCF41F34154F88E8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>yoomid</string>
 		</dict>
