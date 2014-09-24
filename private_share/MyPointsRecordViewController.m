@@ -254,18 +254,6 @@ NSString * const kLevelKey = @"levels.key";
 
 - (void)setPoints:(NSString*)numberStr {
     numberLabel.text = numberStr;
-/*    for (UIView *v in [numberView subviews]) {
-        [v removeFromSuperview];
-    }
-    for (int i = 0; i<numberStr.length; i++) {
-        NSRange range = NSMakeRange(i, 1);
-        NSString *num = [numberStr substringWithRange:range];
-        
-        UIImageView *numberimage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:num]];
-        numberimage.frame = CGRectMake(i*30 + 4*i, 0, 30, 50);
-        [numberView addSubview:numberimage];
-    }
-    numberView.frame = CGRectMake((self.view.bounds.size.width/2 - (numberStr.length*30)/2) - 44, (topView.bounds.size.height-addBtn.bounds.size.height)/2-25, numberStr.length * 30, 50);*/
 }
 
 - (void)showLevelImage:(id)sender {
@@ -393,6 +381,7 @@ NSString * const kLevelKey = @"levels.key";
 
 -(void)reducePoints:(id)sender
 {
+//    [self rightDismissViewControllerAnimated:YES];
     if (pointsOrderType == PointsOrderTypePay) return;
     
     pointsOrderType = PointsOrderTypePay;

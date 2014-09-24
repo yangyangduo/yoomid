@@ -17,7 +17,12 @@
 #import "HttpResponse.h"
 #import "Constants.h"
 
-@interface BaseViewController : UIViewController
+#import "UMSocialControllerService.h"
+#import "UMSocialSnsService.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+
+@interface BaseViewController : UIViewController<UMSocialUIDelegate>
 
 - (void)resignFirstResponderFor:(UIView *)view;
 - (void)triggerTapGestureEventForResignKeyboard:(UIGestureRecognizer *)gesture;
@@ -31,4 +36,5 @@
 - (void)retryLoading;
 - (CGFloat)contentViewCenterY;
 
+- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName;
 @end

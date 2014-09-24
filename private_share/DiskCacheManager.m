@@ -25,6 +25,7 @@ NSString * const kFileNamePointsOrder = @"points-order";
 
 NSString * const kFileNameMerchandisesIds = @"merchandises-ids";
 NSString * const kUserInfos = @"userInfos";
+NSString * const kFileNameActivitieIds = @"activitiesids";
 
 @implementation DiskCacheManager {
     NSString *_serve_account_;
@@ -38,6 +39,7 @@ NSString * const kUserInfos = @"userInfos";
     
     CacheData *_merchandises_ids_data_;
     CacheData *_userInfos_data_;
+    CacheData *_activities_ids_data;
     //
     CacheData *_contacts_data_;
     CacheData *_income_points_orders_data_;
@@ -256,8 +258,28 @@ NSString * const kUserInfos = @"userInfos";
     return userInfos;
 }
 
+- (NSArray *)activitiesIds
+{
+    NSArray *activities = nil;
+    if (_activities_ids_data == nil) {
+        _activities_ids_data = [self cacheDataFromDisk:kFileNameActivitieIds inUserDirectory:YES];
+    }
+    if (_activities_ids_data != nil && _activities_ids_data.data != nil) {
+        activities = [NSArray arrayWithArray:_activities_ids_data.data];
+    }
+    return activities;
+}
+
 #pragma mark -
 #pragma mark Cache data set and save
+- (void)setActivitiesIds:(NSArray *)activitieIds
+{
+    if (_activities_ids_data == nil) {
+        _activities_ids_data = [[CacheData alloc]init];
+    }
+    [self setCacheData:_activities_ids_data jsonEntities:activitieIds entityIsBasicType:YES fileName:kFileNameActivitieIds inUserDirectory:YES];
+}
+
 - (void)setUserInfo:(NSArray *)userInfo
 {
     if (_userInfos_data_ == nil) {

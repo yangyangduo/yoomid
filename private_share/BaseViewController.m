@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "ReturnMessage.h"
 #import "AppDelegate.h"
+#import "ViewControllerAccessor.h"
 
 @interface BaseViewController ()
 
@@ -180,5 +181,48 @@
     UIViewController *topViewController = app.topViewController;
     NSLog(@"Top view controller is [%@].", [[topViewController class] description]);
 }
+
+- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName
+{
+//    NSString * tempClassName = @"HomeViewController";
+//    Class tempClass =  NSClassFromString(tempClassName);
+//    UIViewController * tempObj = [[tempClass alloc] init];
+//    UIWindow *app = [UIApplication sharedApplication].keyWindow;
+//    UIViewController *topViewController = [ViewControllerAccessor defaultAccessor].homeViewController;
+//
+////    UIViewController *topViewController = self.navigationController.topViewController;
+//    if (tempObj) {
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:@"54052fe0fd98c5170d06988e"
+                                          shareText:text
+                                         shareImage:[UIImage imageNamed:imageName]
+                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
+                                           delegate:self];
+//    [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:@"有米得标题"];  //设置微信好友分享标题
+//    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:@"有米得分享的标题"];  //设置微信朋友圈分享标题
+
+
+        //    [UMSocialData defaultData].extConfig.sinaData.shareText = @"有米得分享到新浪微博";
+//    [[UMSocialData defaultData].extConfig.wechatSessionData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];  //设置微信好友分享url图片
+//    [[UMSocialData defaultData].extConfig.wechatTimelineData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];  //设置微信朋友圈分享url图片
+//    [[UMSocialData defaultData].extConfig.qzoneData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];
+
+//    }
+}
+
+#pragma mrak- share delegate
+//下面得到分享完成的回调
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    NSLog(@"didFinishGetUMSocialDataInViewController with response is %@",response);
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        //        response.viewControllerType
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
+
 
 @end

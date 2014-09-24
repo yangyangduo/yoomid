@@ -178,11 +178,39 @@
     [htmlView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/merchandises/%@", kBaseUrl, _merchandise_.identifier]] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:15.f]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSString *merchandisesStr = _merchandise_.identifier ;
+    
+    NSMutableArray *activityIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].activitiesIds;
+    if (cacheData == nil) {
+        activityIds = [NSMutableArray array];
+    }
+    else{
+        activityIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    
+    if (activityIds.count != 0) {
+        for (int i = 0; i<activityIds.count; i++) {
+            NSString *merchandisesIdStr = [activityIds objectAtIndex:i];
+            if ([merchandisesStr isEqualToString:merchandisesIdStr]) {
+                //参加过该活动了.....
+                participateButton.enabled = NO;
+                [participateButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                [participateButton setTitle:@"已参加" forState:UIControlStateNormal];
+                break;
+            }
+        }
+    }
+
+}
+
 - (void)actionGoodBtn:(UIButton *)sender
 {
     NSString *merchandisesStr = _merchandise_.identifier ;
     
-    //从本地缓存中取出已点赞的商品id
     NSMutableArray *merchandisesIds = nil;
     NSArray *cacheData = [DiskCacheManager manager].merchandisesIds;
     if (cacheData == nil) {
@@ -366,6 +394,23 @@
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,已参加活动!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
                 [modal showInView:self.view completion:nil];
+                
+                //把参加的活动id写入缓存，不能重复参加
+                NSString *merchandisesStr = _merchandise_.identifier ;
+                NSMutableArray *activityIds = nil;
+                NSArray *cacheData = [DiskCacheManager manager].activitiesIds;
+
+                if (cacheData == nil) {
+                    activityIds = [NSMutableArray array];
+                }
+                else{
+                    activityIds = [NSMutableArray arrayWithArray:cacheData];
+                }
+                [activityIds addObject:merchandisesStr];
+                [[DiskCacheManager manager] setActivitiesIds:activityIds];
+                participateButton.enabled = NO;
+                [participateButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                [participateButton setTitle:@"已参加" forState:UIControlStateNormal];
             }];
         }
         

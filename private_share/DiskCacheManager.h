@@ -54,11 +54,13 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 - (NSArray *)pointsOrdersWithPointsOrderType:(PointsOrderType)pointsOrderType isExpired:(BOOL *)isExpired;
 - (NSArray *)merchandisesIds;
 - (NSArray *)userInfo;
+- (NSArray *)activitiesIds;
 
 - (void)setContacts:(NSArray *)contacts;
 - (void)setPointsOrders:(NSArray *)pointsOrders pointsOrderType:(PointsOrderType)pointsOrderType;
 - (void)setMerchandisesIds:(NSArray *)merchandisesIds;
 - (void)setUserInfo:(NSArray *)userInfo;
+- (void)setActivitiesIds:(NSArray *)activitieIds;
 
 @end
 

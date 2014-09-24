@@ -29,12 +29,11 @@
 
 #import "MobClick.h"
 
-#import "UMSocial_Sdk_Extra_Frameworks/Wechat/UMSocialWechatHandler.h"
-#import "UMSocialSnsService.h"
-#import "UMSocialSnsData.h"
+#import "UMSocialWechatHandler.h"
 #import "UMSocialData.h"
 #import "UMSocialQQHandler.h"
 #import "UMSocialInstagramHandler.h"
+#import "UMSocialSnsService.h"
 
 @implementation AppDelegate
 
@@ -76,13 +75,14 @@
 //     |UIRemoteNotificationTypeAlert];
 //    
 //    [UMessage setLogEnabled:YES];
-    
+    [UMSocialData openLog:YES];
+
     [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
     
     [UMSocialWechatHandler setWXAppId:@"wxb3bc53583590b23f" appSecret:@"a39d046b07684bab942b68e709ae137b" url:@"http://yoomid.com"];
     [UMSocialQQHandler setQQWithAppId:@"1102346164" appKey:@"T4tsAiwGE3oZNBVf" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setSupportWebView:YES];
-    [UMSocialInstagramHandler openInstagramWithScale:NO paddingColor:[UIColor blackColor]];
+//    [UMSocialInstagramHandler openInstagramWithScale:NO paddingColor:[UIColor blackColor]];
 
     
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
@@ -104,6 +104,7 @@
     
     return YES;
 }
+
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return  [UMSocialSnsService handleOpenURL:url];

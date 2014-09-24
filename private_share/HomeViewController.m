@@ -25,14 +25,6 @@
 #import "CashPaymentTypePicker.h"
 #import "YoomidRectModalView.h"
 
-#import "UMSocialSnsService.h"
-#import "UMSocialSnsData.h"
-#import "UMSocial.h"
-#import "UMSocial_Sdk_Extra_Frameworks/Wechat/UMSocialWechatHandler.h"
-#import "UMSocialSnsService.h"
-#import "UMSocialSnsData.h"
-#import "UMSocialData.h"
-
 @interface HomeViewController ()
 
 @end
@@ -272,22 +264,15 @@
     }
 }
 
+
 #pragma mark -
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
 //    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
 //    [picker showInView:self.view completion:nil];
-//
-//    AppDelegate *app = [UIApplication sharedApplication].delegate;
-//    UIViewController *topVC = [app topViewController];
-//    [UMSocialSnsService presentSnsIconSheetView:self
-//                                         appKey:@"54052fe0fd98c5170d06988e"
-//                                      shareText:@"你要分享的文字"
-//                                     shareImage:[UIImage imageNamed:@"icon.png"]
-//                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
-//                                       delegate:nil];
 
+//    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
 //    return;
 
     SettingViewController *settingVC = [[SettingViewController alloc] init];
