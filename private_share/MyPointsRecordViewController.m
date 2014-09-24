@@ -16,7 +16,6 @@ static CGRect oldframe;
 #import "XXEventNameFilter.h"
 #import "AccountInfoUpdatedEvent.h"
 #import "Account.h"
-#import "UsersUpgradeModalView.h"
 #import "TaskLevelService.h"
 #import "UpgradeTask.h"
 
@@ -202,10 +201,12 @@ NSString * const kLevelKey = @"levels.key";
 - (void)getTaskLevelSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
         NSDictionary *jsonD = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        
+        UpgradeBtn.enabled = NO;
         if (jsonD != nil) {
             UpgradeTask *upgradeTask =[[UpgradeTask alloc]initWithJson:jsonD];
             UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"答对升级奖励任务,获额外米米!"  upgradeTask:upgradeTask];
+            upgrade.deletage = self;
+            upgrade.shareType = ShareTypeUser;
             [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];
         }
     }
@@ -226,12 +227,24 @@ NSString * const kLevelKey = @"levels.key";
         [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
         [defaults synchronize];
     }
-    else{
+    else{//13873783349
         NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
+//        levels = 0;
         if (levels < [Account currentAccount].level) {
             UpgradeBtn.hidden = NO;//显示升级按钮
         }
     }
+}
+
+#pragma mark - ShareDeletage
+- (void)showShare
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        BaseViewController *baseVC = [ViewControllerAccessor defaultAccessor].homeViewController;
+        if (baseVC != nil) {
+            [baseVC showShareTitle:@"用户升级" text:@"测试zhong....." imageName:@"icon80"];
+        }
+    }];
 }
 
 #pragma mark -
@@ -405,6 +418,10 @@ NSString * const kLevelKey = @"levels.key";
     }
     [self cancelRefresh];
     [self cancelLoadMore];
+}
+
+- (void)dismissViewController {
+    [self rightDismissViewControllerAnimated:YES];
 }
 
 

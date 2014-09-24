@@ -7,7 +7,6 @@
 //
 
 #import "ModalView.h"
-#import "BaseViewController.h"
 
 typedef NS_ENUM(NSUInteger, ShareType) {
     ShareTypeNone           =   0,
@@ -15,11 +14,17 @@ typedef NS_ENUM(NSUInteger, ShareType) {
     ShareTypeUser           =   2
 };
 
+@protocol ShareDeletage <NSObject>
+
+- (void)showShare;
+
+@end
+
 @interface YoomidSemicircleModalView : ModalView
 
 - (instancetype)initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex;
 
-@property (nonatomic ,strong) BaseViewController *topViewController;
 @property (nonatomic ,assign) ShareType shareType;
+@property (nonatomic ,assign) id<ShareDeletage>deletage;
 
 @end

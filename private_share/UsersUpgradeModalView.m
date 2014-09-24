@@ -17,6 +17,8 @@
 #import "UIDevice+Identifier.h"
 #import "TaskService.h"
 #import "Account.h"
+#import "MyPointsRecordViewController.h"
+#import "AppDelegate.h"
 
 @implementation UsersUpgradeModalView
 {
@@ -101,7 +103,7 @@
     self = [super initWithSize:size];
     if(self) {
         upgradeTask = upgradeTasks;
-        
+
         self.backgroundColor = [UIColor clearColor];
         UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 500/2, 761/2)];
         bgImageView.image = [UIImage imageNamed:@"bg6"];
@@ -222,6 +224,8 @@
             [defaults synchronize];
             
             UsersUpgradeModalView *successModal = [[UsersUpgradeModalView alloc]initWithSize1:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg5"] titleMessage:@"恭喜哈尼答对了!" message:pointsString buttonTitles:@[@"确   定",@"分享好友"] cancelButtonIndex:0];
+//            successModal.topViewController = self.topViewController;
+            successModal.deletage = self.deletage;
             [successModal showInView:[UIApplication sharedApplication].keyWindow completion:nil];
          
         }];
@@ -265,8 +269,9 @@
 -(void)Share
 {
     [self closeViewInternal];
-//    AppDelegate *app = [UIApplication sharedApplication].delegate;
-//    UIViewController *topVC = [app topViewController];
+    if ([self.deletage performSelector:@selector(showShare)]) {
+        [self.deletage showShare];
+    }
 }
 
 

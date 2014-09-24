@@ -11,8 +11,6 @@
 
 @implementation YoomidSemicircleModalView
 
-@synthesize topViewController = _topViewController;
-
 - (instancetype)initWithSize:(CGSize)size backgroundImage:(UIImage *)backgroundImage titleMessage:(NSString *)titleMessage message:(NSString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex {
     self = [super initWithSize:size];
     if(self) {
@@ -90,9 +88,6 @@
 }
 
 - (void)shwoShare{
-    if (self.topViewController != nil) {
-        [self.topViewController showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
-    }
 }
 
 - (void)closeViewInternal {

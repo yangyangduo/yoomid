@@ -10,7 +10,8 @@
 #import "PullTableView.h"
 #import "TransitionViewController.h"
 #import "XXEventSubscriptionPublisher.h"
+#import "UsersUpgradeModalView.h"
 
-@interface MyPointsRecordViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate, XXEventSubscriber>
-
+@interface MyPointsRecordViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate, XXEventSubscriber,ShareDeletage>
+- (void)dismissViewController;
 @end

@@ -198,6 +198,7 @@
                                          shareImage:[UIImage imageNamed:imageName]
                                     shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
                                            delegate:self];
+    [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
 //    [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:@"有米得标题"];  //设置微信好友分享标题
 //    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:@"有米得分享的标题"];  //设置微信朋友圈分享标题
 
