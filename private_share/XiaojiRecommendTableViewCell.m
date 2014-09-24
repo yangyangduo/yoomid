@@ -18,6 +18,7 @@
 @implementation XiaojiRecommendTableViewCell
 {
     UIImageView *imageView;
+    UILabel *merchandiseName;
 }
 
 @synthesize merchandise = _merchandise;
@@ -31,7 +32,7 @@
 
         self.backgroundColor = [UIColor clearColor];
 
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20,((self.bounds.size.width-20)/3)*4)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20,400)];
 //        imageView.image = [UIImage imageNamed:@"xiaojibg"];
         [self addSubview:imageView];
 //        
@@ -45,18 +46,40 @@
 //        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
 //        [self addSubview:goodBtn];
         
+        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(10, imageView.bounds.size.height-35, imageView.bounds.size.width, 35)];
+        bottomView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_gray_transport_big"]];
+//        bottomView.alpha = 0.6f;
+        [self addSubview:bottomView];
+        
         self.zanLabel = [[UILabel alloc]initWithFrame:CGRectMake(53, 10, 25, 25)];
         [self.zanLabel setTextColor:[UIColor appLightBlue]];
         [self addSubview:self.zanLabel];
         
-        UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exchangeBtn.frame = CGRectMake(imageView.bounds.size.width-94, imageView.bounds.size.height-35, 94, 35);
-        [exchangeBtn setTitle:@"我要兑换" forState:UIControlStateNormal];
-        [exchangeBtn setTintColor:[UIColor whiteColor]];
-        exchangeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
-        [exchangeBtn setBackgroundImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
-        [exchangeBtn setTitleEdgeInsets:UIEdgeInsetsMake(7, 15, 0, 0)];
-        [imageView addSubview:exchangeBtn];
+        merchandiseName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 300 - 104, 35)];
+        merchandiseName.textColor = [UIColor whiteColor];
+        merchandiseName.textAlignment = NSTextAlignmentCenter;
+        [bottomView addSubview:merchandiseName];
+        
+        UIImageView *exchangeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(bottomView.bounds.size.width-94, -13.5, 94, 48)];
+        exchangeImageView.image = [UIImage imageNamed:@"exchange"];
+//        exchangeImageView.layer.
+        [bottomView addSubview:exchangeImageView];
+        
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(8, 13.5, 95, 35)];
+        lable.text = @"我要兑";
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.textColor = [UIColor whiteColor];
+        lable.font = [UIFont systemFontOfSize:14.f];
+        [exchangeImageView addSubview:lable];
+        
+//        UIButton *exchangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        exchangeBtn.frame = CGRectMake(bottomView.bounds.size.width-94, -13, 94, 48);
+//        [exchangeBtn setTitle:@"我要兑换" forState:UIControlStateNormal];
+//        [exchangeBtn setTintColor:[UIColor whiteColor]];
+//        exchangeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
+//        [exchangeBtn setBackgroundImage:[UIImage imageNamed:@"exchange"] forState:UIControlStateNormal];
+//        [exchangeBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
+//        [bottomView addSubview:exchangeBtn];
     }
     return self;
 }
@@ -130,11 +153,13 @@
     if(merchandise.imageUrls == nil || merchandise.imageUrls.count == 0) {
         imageView.image = DEFAULT_IMAGE;
         self.zanLabel.text = @"";
+        merchandiseName.text = @"";
     } else {
 //        NSString *displayedImageUrl = [merchandise.imageUrls objectAtIndex:0];
         NSString *displayedImageUrl = [merchandise secondImageUrl];
         [imageView setImageWithURL:[NSURL URLWithString:displayedImageUrl] placeholderImage:DEFAULT_IMAGE];
         self.zanLabel.text = [NSString stringWithFormat:@"%d",merchandise.follows];
+        merchandiseName.text = merchandise.name;
     }
     
 }

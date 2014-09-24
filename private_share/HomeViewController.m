@@ -25,6 +25,14 @@
 #import "CashPaymentTypePicker.h"
 #import "YoomidRectModalView.h"
 
+#import "UMSocialSnsService.h"
+#import "UMSocialSnsData.h"
+#import "UMSocial.h"
+#import "UMSocial_Sdk_Extra_Frameworks/Wechat/UMSocialWechatHandler.h"
+#import "UMSocialSnsService.h"
+#import "UMSocialSnsData.h"
+#import "UMSocialData.h"
+
 @interface HomeViewController ()
 
 @end
@@ -44,6 +52,45 @@
 
 @synthesize allCategories = _allCategories_;
 @synthesize rootCategories = _rootCategories;
+
+- (void)showGuidanceImage
+{
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+
+    UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    backgroundView.backgroundColor=[UIColor blackColor];
+//    backgroundView.alpha=0;
+    
+    UIImageView *imageView=[[UIImageView alloc]initWithFrame:backgroundView.frame];
+    imageView.image=[UIImage imageNamed:@"daohang1"];
+    imageView.tag=1;
+    [backgroundView addSubview:imageView];
+    [window addSubview:backgroundView];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
+    [backgroundView addGestureRecognizer: tap];
+}
+
+- (void)hideImage:(UITapGestureRecognizer*)tap {
+    static int i = 1;
+    UIView *backgroundView=tap.view;
+
+    if (i == 2) {
+        [UIView animateWithDuration:0.3 animations:^{
+            backgroundView.alpha=0;
+        } completion:^(BOOL finished) {
+            [backgroundView removeFromSuperview];
+        }];
+        [SecurityConfig defaultConfig].isFirstLogin = NO;
+        [[SecurityConfig defaultConfig] saveConfig];
+    }
+    else
+    {
+        UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
+        imageView.image = [UIImage imageNamed:@"logo1136"];
+    }
+    i++;
+}
 
 - (void)viewDidLoad
 {
@@ -97,6 +144,7 @@
     [miRepositoryButton setImage:[UIImage imageNamed:@"mi_repository"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
+    
 }
 
 //                            _ooOoo_
@@ -127,6 +175,11 @@
     [self mayRefreshActivities];
     [self mayRefreshTaskCategories];
     [[Account currentAccount] mayRefresh];
+
+    //新手导航页判断
+    if ([SecurityConfig defaultConfig].isFirstLogin) {
+        [self showGuidanceImage];
+    }
 }
 
 - (void)mayRefreshTaskCategories {
@@ -226,7 +279,17 @@
 //    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
 //    [picker showInView:self.view completion:nil];
 //
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    UIViewController *topVC = [app topViewController];
+//    [UMSocialSnsService presentSnsIconSheetView:self
+//                                         appKey:@"54052fe0fd98c5170d06988e"
+//                                      shareText:@"你要分享的文字"
+//                                     shareImage:[UIImage imageNamed:@"icon.png"]
+//                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
+//                                       delegate:nil];
+
 //    return;
+
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];

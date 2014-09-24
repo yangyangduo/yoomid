@@ -13,6 +13,10 @@
 #import "NSDictionary+Extension.h"
 #import "AnswerOptions.h"
 #import "YoomidRectModalView.h"
+#import "AppDelegate.h"
+#import "UIDevice+Identifier.h"
+#import "TaskService.h"
+#import "Account.h"
 
 @implementation UsersUpgradeModalView
 {
@@ -76,7 +80,12 @@
                     button.titleEdgeInsets = UIEdgeInsetsMake(-6, 2, 0, 0);
                 }
                 if(cancelButtonIndex == i) {
-                    [button addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];                }
+                    [button addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
+                }else
+                {
+                    [button addTarget:self action:@selector(Share) forControlEvents:UIControlEventTouchUpInside];
+                }
+                
                 [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
                 [self addSubview:button];
                 y += button.bounds.size.height + 20;
@@ -186,6 +195,18 @@
     if ([answers isEqualToString:upgradeTask.answer]) {
         [self closeViewAnimated:YES completion:^{
             
+            NSMutableDictionary *content = [[NSMutableDictionary alloc] init];
+            [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
+            [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
+            [content setMayBlankString:upgradeTask.categoryId forKey:@"categoryId"];
+            [content setInteger:upgradeTask.points forKey:@"points"];
+            [content setMayBlankString:upgradeTask.name forKey:@"name"];
+            [content setMayBlankString:upgradeTask.identifier forKey:@"taskId"];
+            [content setMayBlankString:upgradeTask.provider forKey:@"providerId"];
+
+            TaskService *service = [[TaskService alloc] init];
+            [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(handleFailureHttpResponse:) taskResult:1];
+            
             NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
             [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"额外获得 " attributes:@{ NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
             
@@ -194,9 +215,15 @@
             [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 米米" attributes:@{ NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
             
             //将等级写入缓存...
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            [dictionary setInteger:[Account currentAccount].level forKey:@"levels.key"];
+            [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+            [defaults synchronize];
             
             UsersUpgradeModalView *successModal = [[UsersUpgradeModalView alloc]initWithSize1:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg5"] titleMessage:@"恭喜哈尼答对了!" message:pointsString buttonTitles:@[@"确   定",@"分享好友"] cancelButtonIndex:0];
             [successModal showInView:[UIApplication sharedApplication].keyWindow completion:nil];
+         
         }];
     }
     else
@@ -204,6 +231,12 @@
         YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 330) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sad@2x" ofType:@"png"]] message:@"很遗憾!回答错误!" buttonTitles:@[ @"确  定" ] cancelButtonIndex:0];
         [modal showInView:[UIApplication sharedApplication].keyWindow completion:nil];
 
+    }
+}
+
+- (void)postAnswersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
+//        NSInteger stat = resp.statusCode;
     }
 }
 
@@ -227,6 +260,13 @@
     answers = upgrade.option;
 //    NSLog(@"点击的答案:%@",upgrade.option);
 
+}
+
+-(void)Share
+{
+    [self closeViewInternal];
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    UIViewController *topVC = [app topViewController];
 }
 
 

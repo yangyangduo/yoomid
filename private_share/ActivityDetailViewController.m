@@ -21,6 +21,7 @@
 #import "ShopShoppingItems.h"
 #import "ReturnMessage.h"
 #import "Account.h"
+#import "DiskCacheManager.h"
 
 @interface ActivityDetailViewController ()
 
@@ -38,6 +39,7 @@
     UIActivityIndicatorView *indicatorView;
     
     UIButton *participateButton;
+    UILabel *thinksGoodLabel;
 }
 
 @synthesize merchandise = _merchandise_;
@@ -86,7 +88,7 @@
     [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
     [descriptionView addSubview:goodBtn];
 
-    UILabel *thinksGoodLabel = [[UILabel alloc] initWithFrame:CGRectMake(206, 10, 100, 30)];
+    thinksGoodLabel = [[UILabel alloc] initWithFrame:CGRectMake(206, 10, 100, 30)];
     thinksGoodLabel.text = [NSString stringWithFormat:@"%d%@", _merchandise_.follows, NSLocalizedString(@"thinks_good", @"")];
     thinksGoodLabel.font = [UIFont systemFontOfSize:15.f];
     thinksGoodLabel.textAlignment = NSTextAlignmentCenter;
@@ -178,8 +180,57 @@
 
 - (void)actionGoodBtn:(UIButton *)sender
 {
+    NSString *merchandisesStr = _merchandise_.identifier ;
     
+    //从本地缓存中取出已点赞的商品id
+    NSMutableArray *merchandisesIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].merchandisesIds;
+    if (cacheData == nil) {
+        merchandisesIds = [NSMutableArray array];
+    }
+    else{
+        merchandisesIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    
+    if (merchandisesIds.count == 0) {
+        MerchandiseService *service = [[MerchandiseService alloc]init];
+        [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+        [merchandisesIds addObject:merchandisesStr];
+        [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
+    }
+    else{
+        BOOL isZan = NO;
+        for (int i = 0; i<merchandisesIds.count; i++) {
+            NSString *merchandisesIdStr = [merchandisesIds objectAtIndex:i];
+            if ([merchandisesStr isEqualToString:merchandisesIdStr]) {
+                isZan = YES;
+                break;
+            }
+        }
+        
+        if (isZan) {
+            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该活动了" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+            return;
+        }else{
+            //.....没赞过
+            MerchandiseService *service = [[MerchandiseService alloc]init];
+            [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+            [merchandisesIds addObject:merchandisesStr];
+            [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
+        }
+    }
 }
+
+- (void)sendGoodSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200) {
+        //        NSLog(@"赞成功");
+        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSInteger number = jsonArray.integerValue;
+        thinksGoodLabel.text = [NSString stringWithFormat:@"%d%@", number, NSLocalizedString(@"thinks_good", @"")];
+    }
+}
+
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     pullImagesView.scrollViewLocked = YES;

@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, TaskCategoryType) {
 @property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *parentCategory;
 @property (nonatomic, strong) NSString *description;
+
 @property (nonatomic, assign) NSInteger requiredUserLevel;
 @property (nonatomic, assign) BOOL isActive;
 @property (nonatomic, assign) BOOL hasParent;
