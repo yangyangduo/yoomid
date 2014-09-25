@@ -18,7 +18,6 @@
 #import "DiskCacheManager.h"
 #import "ContactService.h"
 #import "ManageContactInfoViewController.h"
-#import "YoomidSemicircleModalView.h"
 
 @interface SettingViewController ()
 
@@ -250,7 +249,7 @@
         NSInteger number = jsonArray.integerValue;
 
         YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼百分百完成信息!" message:[NSString stringWithFormat:@"额外获得%d%@", number, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
-//        modal.modalViewDelegate = self;
+        modal.deletage = self;
         [modal showInView:self.navigationController.view completion:nil];
     }
 }
@@ -275,6 +274,12 @@
         [[XXAlertView currentAlertView] setMessage:@"已退出" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
     }];
+}
+
+#pragma mark- shareView delegate
+- (void)showShare
+{
+    [self showShareTitle:@"分享" text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
 }
 
 #pragma mark -

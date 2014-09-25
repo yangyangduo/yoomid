@@ -268,10 +268,11 @@
 
 -(void)Share
 {
-    [self closeViewInternal];
-    if ([self.deletage performSelector:@selector(showShare)]) {
-        [self.deletage showShare];
-    }
+    [self closeViewAnimated:YES completion:^{
+        if (self.deletage != nil && [self.deletage respondsToSelector:@selector(showShare)]) {
+            [self.deletage showShare];
+        }
+    }];
 }
 
 

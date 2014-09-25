@@ -412,6 +412,9 @@
 		D67CAFBE19CFB6CA002B503B /* good4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67CAFBC19CFB6CA002B503B /* good4@2x.png */; };
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
+		D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */; };
+		D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B519D3F0340012DC84 /* setup5@2x.png */; };
+		D69612B819D3F0430012DC84 /* like5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B719D3F0430012DC84 /* like5@2x.png */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
 		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
 		D6A152C619A5D3300094B565 /* TaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskService.m */; };
@@ -1077,6 +1080,10 @@
 		D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateContactInfoViewController.m; sourceTree = "<group>"; };
 		D690352119A4C0D30059C08C /* MyPointsRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsRecordViewController.h; sourceTree = "<group>"; };
 		D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsRecordViewController.m; sourceTree = "<group>"; };
+		D69612B219D3B7B60012DC84 /* ShareTaskModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTaskModalView.h; sourceTree = "<group>"; };
+		D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTaskModalView.m; sourceTree = "<group>"; };
+		D69612B519D3F0340012DC84 /* setup5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setup5@2x.png"; sourceTree = "<group>"; };
+		D69612B719D3F0430012DC84 /* like5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like5@2x.png"; sourceTree = "<group>"; };
 		D698655119B58EDE00781F54 /* AgePickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgePickerPopupView.h; sourceTree = "<group>"; };
 		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
 		D698655A19B5B86700781F54 /* TextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController2.h; sourceTree = "<group>"; };
@@ -1598,6 +1605,8 @@
 				6F4E4F0C19B9698C006E4E15 /* YoomidRectModalView.m */,
 				D6376C3B19CC8AA700C05CEE /* YoomidRectModalView1.h */,
 				D6376C3C19CC8AA700C05CEE /* YoomidRectModalView1.m */,
+				D69612B219D3B7B60012DC84 /* ShareTaskModalView.h */,
+				D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */,
 			);
 			name = yoomid_modal_view;
 			sourceTree = "<group>";
@@ -2595,10 +2604,12 @@
 		D6A152C719A5F7120094B565 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				D69612B719D3F0430012DC84 /* like5@2x.png */,
 				D62FBE0B19A620470041195B /* mm@2x.png */,
 				6FF1E6C019C8003F00D19AF7 /* mi_repository@2x.png */,
 				6F1344BA19C8058D00302315 /* settings_copy@2x.png */,
 				6FF1E6C119C8003F00D19AF7 /* notifications@2x.png */,
+				D69612B519D3F0340012DC84 /* setup5@2x.png */,
 			);
 			name = home;
 			sourceTree = "<group>";
@@ -2839,6 +2850,7 @@
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
 				6F970978193F4B5300EA5E3A /* alert_success@2x.png in Resources */,
 				6F5B5E3A19B5AFA800495F0C /* categoryLeft@2x.png in Resources */,
+				D69612B819D3F0430012DC84 /* like5@2x.png in Resources */,
 				6FC2E87619B04F0300AA78A9 /* new_back@2x.png in Resources */,
 				6F7BD32E1953F8E60031D2DD /* btn_flash_light@2x.png in Resources */,
 				6F27071D19C2D00500722C67 /* order@2x.png in Resources */,
@@ -2985,6 +2997,7 @@
 				D3644BE8197A171000B44785 /* dianru_blue_all_cell.png in Resources */,
 				D3644C00197A171000B44785 /* dianru_point.png in Resources */,
 				D3644C10197A171000B44785 /* dianru_green_right_cell.png in Resources */,
+				D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */,
 				D3644C0A197A171000B44785 /* dianru_green_dianru_info.png in Resources */,
 				D3644BF6197A171000B44785 /* dianru_banner.png in Resources */,
 				6F5B5E4119B5C2C100495F0C /* youmi_icon@2x.png in Resources */,
@@ -3120,6 +3133,7 @@
 				6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */,
 				6F8823D21940531F00757633 /* MessageInterceptor.m in Sources */,
 				6FF5333D19387206001D607C /* ButtonUtil.m in Sources */,
+				D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */,
 				6F8823BA193FFDBD00757633 /* HttpResponse.m in Sources */,
 				6F53EFE5194B3E6D0080B4DD /* AdPlatform.m in Sources */,
 				6F76F7971966880A00C2FD52 /* MerchandiseView.m in Sources */,

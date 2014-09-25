@@ -7,9 +7,10 @@
 //
 
 #import "YoomidBaseModalView.h"
+#import "YoomidSemicircleModalView.h"
 
 @interface YoomidRectModalView : YoomidBaseModalView
 
 - (instancetype)initWithSize:(CGSize)size image:(UIImage *)image message:(NSString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex;
-
+@property (nonatomic ,assign) id<ShareDeletage> shareDeletage;
 @end

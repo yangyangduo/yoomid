@@ -9,11 +9,12 @@
 #import "TransitionViewController.h"
 #import "TaskCategory.h"
 #import "PullCollectionView.h"
+#import "ShareTaskModalView.h"
+#import "BaseModel.h"
 
-@interface TaskListViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TaskListViewController : TransitionViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,ShareDeletage>
 
 @property (nonatomic, strong) TaskCategory *taskCategory;
-
 
 - (instancetype)initWithTaskCategory:(TaskCategory *)taskCategory;
 

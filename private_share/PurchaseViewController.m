@@ -416,8 +416,8 @@
             }
             
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
-                modal.modalViewDelegate = self;
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                modal.shareDeletage = self;
                 [modal showInView:self.navigationController.view completion:nil];
             }];
             
@@ -454,6 +454,12 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
+}
+
+#pragma mark- shareView deletage
+-(void)showShare
+{
+    [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80"];
 }
 
 @end

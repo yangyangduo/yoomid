@@ -392,7 +392,8 @@
         NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_order_result_json_ != nil) {
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,已参加活动!" buttonTitles:@[ @"支付成功" ] cancelButtonIndex:0];
+                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜哈尼,报名成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                modal.shareDeletage = self;
                 [modal showInView:self.view completion:nil];
                 
                 //把参加的活动id写入缓存，不能重复参加
@@ -442,6 +443,12 @@
         YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 340) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cry@2x" ofType:@"png"]] message:errorMessage buttonTitles:@[ @"支付失败" ] cancelButtonIndex:0];
         [modal showInView:self.view completion:nil];
     }];
+}
+
+#pragma mark- shareView delegate
+-(void)showShare
+{
+    [self showShareTitle:nil text:@"耶，哈尼的米米消费成功了哦~继续加油赚米米吧！" imageName:@"icon80"];
 }
 
 @end

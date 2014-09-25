@@ -123,7 +123,7 @@
     [imagesScrollView addSubview:pageControl];
     
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [settingButton setImage:[UIImage imageNamed:@"settings_copy"] forState:UIControlStateNormal];
+    [settingButton setImage:[UIImage imageNamed:@"setup5"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
 
@@ -133,7 +133,7 @@
     //[self.view addSubview:notificationsButton];
  
     UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 5 : 0), 55, 55)];
-    [miRepositoryButton setImage:[UIImage imageNamed:@"mi_repository"] forState:UIControlStateNormal];
+    [miRepositoryButton setImage:[UIImage imageNamed:@"like5"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
     

@@ -12,7 +12,7 @@
 #import "YoomidSemicircleModalView.h"
 #import "Task.h"
 
-@interface TaskDetailViewController : BackViewController<UIWebViewDelegate, ModalViewDelegate>
+@interface TaskDetailViewController : BackViewController<UIWebViewDelegate, ModalViewDelegate,ShareDeletage>
 
 - (instancetype)initWithTask:(Task *)task;
 

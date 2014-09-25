@@ -1,21 +1,23 @@
 //
-//  YoomidRectModalView.m
+//  ShareTaskModalView.m
 //  private_share
 //
-//  Created by Zhao yang on 9/5/14.
-//  Copyright (c) 2014 hentre. All rights reserved.
+//  Created by 曹大为 on 14/9/25.
+//  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "YoomidRectModalView.h"
+#import "ShareTaskModalView.h"
 #import "UIColor+App.h"
 
-@implementation YoomidRectModalView
+@implementation ShareTaskModalView
 
-- (instancetype)initWithSize:(CGSize)size image:(UIImage *)image message:(NSString *)message buttonTitles:(NSArray *)buttonTitles cancelButtonIndex:(NSInteger)cancelButtonIndex {
+- (instancetype) initWithSize:(CGSize)size image:(UIImage *)image message:(NSString *)message
+{
     self = [super initWithSize:size];
     if(self) {
         CGFloat centerX = size.width / 2.f;
         CGFloat y = 40.f;
+
         if(image) {
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             imageView.center = CGPointMake(centerX, 0);
@@ -42,37 +44,23 @@
             
             y += messageLabel.bounds.size.height + 30.f;
         }
-        
-        if(buttonTitles != nil && buttonTitles.count > 0) {
-            for(int i=0; i<buttonTitles.count; i++) {
-                UIButton *button = nil;
-                if(buttonTitles.count == 1) {
-                    button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 142, 40)];
-                    button.center = CGPointMake(centerX, button.center.y);
-                } else {
-                    button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 96, 40)];
-                    button.center = CGPointMake(centerX + (i == 0 ? -55 : 55), button.center.y);
-                }
-                [button setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
-                button.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
-                if(cancelButtonIndex == i) {
-                    [button addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
-                }
-                [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
-                [self addSubview:button];
-            }
-        }
+
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 142, 40)];
+        button.center = CGPointMake(centerX, button.center.y);
+        [button setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+        button.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
+        [button addTarget:self action:@selector(actionShowShare) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:@"立刻分享" forState:UIControlStateNormal];
+        [self addSubview:button];
     }
     return self;
 }
-
-- (void)closeViewInternal {
+- (void)actionShowShare
+{
     [self closeViewAnimated:YES completion:^{
         if (self.shareDeletage != nil && [self.shareDeletage respondsToSelector:@selector(showShare)]) {
             [self.shareDeletage showShare];
         }
     }];
-    
 }
-
 @end

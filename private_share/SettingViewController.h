@@ -9,7 +9,8 @@
 #import "TransitionViewController.h"
 #import "TextViewController2.h"
 #import "PickerPopupView.h"
+#import "YoomidSemicircleModalView.h"
 
-@interface SettingViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,TextViewController2Delegate,PickerPopupViewDelegate>
+@interface SettingViewController : TransitionViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,TextViewController2Delegate,PickerPopupViewDelegate,ShareDeletage>
 
 @end

@@ -12,7 +12,7 @@
 #import "PullScrollZoomImagesView.h"
 #import "YoomidRectModalView.h"
 
-@interface ActivityDetailViewController : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, PullScrollZoomImagesViewDelegate>
+@interface ActivityDetailViewController : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, PullScrollZoomImagesViewDelegate,ShareDeletage>
 
 @property (nonatomic, strong) Merchandise *merchandise;
 

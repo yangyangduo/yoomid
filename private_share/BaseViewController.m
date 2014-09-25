@@ -198,7 +198,7 @@
                                          shareImage:[UIImage imageNamed:imageName]
                                     shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
                                            delegate:self];
-    [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
+    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
 //    [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:@"有米得标题"];  //设置微信好友分享标题
 //    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:@"有米得分享的标题"];  //设置微信朋友圈分享标题
 
@@ -221,6 +221,8 @@
     {
         //得到分享到的微博平台名
         //        response.viewControllerType
+        [[XXAlertView currentAlertView] setMessage:@"分享成功!" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
     }
 }

@@ -88,6 +88,11 @@
 }
 
 - (void)shwoShare{
+    [self closeViewAnimated:YES completion:^{
+        if (self.deletage != nil && [self.deletage respondsToSelector:@selector(showShare)]) {
+            [self.deletage showShare];
+        }
+    }];
 }
 
 - (void)closeViewInternal {

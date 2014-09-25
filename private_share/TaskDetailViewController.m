@@ -246,6 +246,7 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
                 [self markTaskHistorical];
                 YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼成功了!" message:[NSString stringWithFormat:@"额外获得%d%@", self.task.points, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
                 modal.modalViewDelegate = self;
+                modal.deletage = self;
                 [modal showInView:self.navigationController.view completion:nil];
             }
         }];
@@ -357,6 +358,22 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
         NSLog(@"Task url is [%@]", _url_);
 #endif
     }
+}
+
+#pragma  mark- shareView delegate
+-(void)showShare
+{
+    NSString *message = nil;
+    if ([_task_.categoryId isEqualToString:@"y:i:gu"]) {
+        message = @"这个超难的耶，哈尼太棒啦，么么哒~";
+    }
+    else if ([_task_.categoryId isEqualToString:@"y:i:sv"]){
+        message = @"阿西吧，这么艰巨的任务哈尼完成居然完成啦！";
+    }
+    else if ([_task_.categoryId isEqualToString:@"y:i:gm"]){
+        message = @"玩到又赚到，哈尼要不要去买彩票？";
+    }
+    [self showShareTitle:nil text:message imageName:@"icon80"];
 }
 
 @end
