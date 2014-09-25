@@ -192,8 +192,9 @@
         [modalView showInView:self.navigationController.view completion:nil];
         return;
     }
+    
     if ([task.categoryId isEqualToString:@"y:i:sc"]) {
-        ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"guess_pic_locked@2x" ofType:@"png"]] message:[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points]];
+        ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageNamed:@"fengxiang2"] message:[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points]];
         shareTaskMV.shareDeletage = self;
         [shareTaskMV setCloseButtonHidden:YES];
         [shareTaskMV showInView1:self.navigationController.view completion:nil];
@@ -235,7 +236,7 @@
     {
         //得到分享到的微博平台名
         //        response.viewControllerType
-        YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"guess_pic_locked@2x" ofType:@"png"]] message:@"就是爱哈尼这种爱分享的人!" buttonTitles:@[ @"确  认" ] cancelButtonIndex:0];
+        YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageNamed:@"images4"] message:@"就是爱哈尼这种爱分享的人!" buttonTitles:@[ @"确  认" ] cancelButtonIndex:0];
         [modalView setCloseButtonHidden:YES];
         [modalView showInView:self.navigationController.view completion:nil];
 

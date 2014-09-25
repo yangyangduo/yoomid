@@ -415,6 +415,10 @@
 		D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */; };
 		D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B519D3F0340012DC84 /* setup5@2x.png */; };
 		D69612B819D3F0430012DC84 /* like5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B719D3F0430012DC84 /* like5@2x.png */; };
+		D69612BA19D3FA810012DC84 /* fengxiang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B919D3FA810012DC84 /* fengxiang@2x.png */; };
+		D69612BC19D3FB740012DC84 /* fengxiang2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BB19D3FB740012DC84 /* fengxiang2@2x.png */; };
+		D69612BE19D3FBC00012DC84 /* images4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BD19D3FBC00012DC84 /* images4@2x.png */; };
+		D69612C019D3FC300012DC84 /* images3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BF19D3FC300012DC84 /* images3@2x.png */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
 		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
 		D6A152C619A5D3300094B565 /* TaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskService.m */; };
@@ -1084,6 +1088,10 @@
 		D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTaskModalView.m; sourceTree = "<group>"; };
 		D69612B519D3F0340012DC84 /* setup5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setup5@2x.png"; sourceTree = "<group>"; };
 		D69612B719D3F0430012DC84 /* like5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like5@2x.png"; sourceTree = "<group>"; };
+		D69612B919D3FA810012DC84 /* fengxiang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fengxiang@2x.png"; sourceTree = "<group>"; };
+		D69612BB19D3FB740012DC84 /* fengxiang2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fengxiang2@2x.png"; sourceTree = "<group>"; };
+		D69612BD19D3FBC00012DC84 /* images4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "images4@2x.png"; sourceTree = "<group>"; };
+		D69612BF19D3FC300012DC84 /* images3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "images3@2x.png"; sourceTree = "<group>"; };
 		D698655119B58EDE00781F54 /* AgePickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgePickerPopupView.h; sourceTree = "<group>"; };
 		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
 		D698655A19B5B86700781F54 /* TextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController2.h; sourceTree = "<group>"; };
@@ -1607,6 +1615,8 @@
 				D6376C3C19CC8AA700C05CEE /* YoomidRectModalView1.m */,
 				D69612B219D3B7B60012DC84 /* ShareTaskModalView.h */,
 				D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */,
+				D6492D5F19C97C720092B893 /* UsersUpgradeModalView.h */,
+				D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */,
 			);
 			name = yoomid_modal_view;
 			sourceTree = "<group>";
@@ -2272,8 +2282,6 @@
 				6FB0E19E19B6B591002F9A18 /* TaskItemCell.m */,
 				6F4E4F1419B971A7006E4E15 /* CashPaymentTypePicker.h */,
 				6F4E4F1519B971A7006E4E15 /* CashPaymentTypePicker.m */,
-				D6492D5F19C97C720092B893 /* UsersUpgradeModalView.h */,
-				D6492D6019C97C720092B893 /* UsersUpgradeModalView.m */,
 			);
 			name = component;
 			sourceTree = "<group>";
@@ -2352,6 +2360,10 @@
 				D6BD166419D1A620006AE1C1 /* daohang1@2x.png */,
 				D6BD166019D17688006AE1C1 /* logo960@2x.png */,
 				D6BD166119D17688006AE1C1 /* logo1136@2x.png */,
+				D69612B919D3FA810012DC84 /* fengxiang@2x.png */,
+				D69612BB19D3FB740012DC84 /* fengxiang2@2x.png */,
+				D69612BD19D3FBC00012DC84 /* images4@2x.png */,
+				D69612BF19D3FC300012DC84 /* images3@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -2902,6 +2914,7 @@
 				D6DD76AD19D0798B00133CD1 /* ios-social-sdk-shake.html in Resources */,
 				D3644C0D197A171000B44785 /* dianru_green_dianru_triangle.png in Resources */,
 				D3644C16197A171000B44785 /* dianru_orange_dianru_iphone_download.png in Resources */,
+				D69612BA19D3FA810012DC84 /* fengxiang@2x.png in Resources */,
 				6FF5334019387D26001D607C /* btn_menu@2x.png in Resources */,
 				6FB0E19C19B6AD93002F9A18 /* bottom_button@2x.png in Resources */,
 				6F4E4F0819B95049006E4E15 /* task_timer@2x.png in Resources */,
@@ -2910,6 +2923,7 @@
 				D3644C19197A171000B44785 /* dianru_orange_left_cell.png in Resources */,
 				6F4FA08219A48A560049C023 /* reduce@2x.png in Resources */,
 				D3644C12197A171000B44785 /* dianru_orange_all_cell.png in Resources */,
+				D69612C019D3FC300012DC84 /* images3@2x.png in Resources */,
 				D3644C2C197A171000B44785 /* dianru_red_dianru_info.png in Resources */,
 				6FE79C59197CE5CE005B11E1 /* cb_unselect@2x.png in Resources */,
 				6F75A541195800EA00E4FE52 /* DomobOfferWallBundle.bundle in Resources */,
@@ -2963,6 +2977,7 @@
 				6F12F38F195151CD00B47132 /* PunchBoxAdRes.bundle in Resources */,
 				D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */,
 				D3644C1C197A171000B44785 /* dianru_orange_right_view.png in Resources */,
+				D69612BC19D3FB740012DC84 /* fengxiang2@2x.png in Resources */,
 				6F8823DC1940531F00757633 /* whiteArrow@2x.png in Resources */,
 				6FBB6B841973ACCB00E6C7D2 /* icon57.png in Resources */,
 				D3644C1D197A171000B44785 /* dianru_purple_all_cell.png in Resources */,
@@ -3031,6 +3046,7 @@
 				D66B498619B458A1002615CC /* setup2@2x.png in Resources */,
 				D3644C33197A171000B44785 /* dianru_red_right_view.png in Resources */,
 				D3644BF1197A171000B44785 /* dianru_blue_right_cell.png in Resources */,
+				D69612BE19D3FBC00012DC84 /* images4@2x.png in Resources */,
 				D3644BFC197A171000B44785 /* dianru_DRDefaultIcon.png in Resources */,
 				D3644C22197A171000B44785 /* dianru_purple_dianru_titlebg.jpg in Resources */,
 				D3644C14197A171000B44785 /* dianru_orange_dianru_download.png in Resources */,
