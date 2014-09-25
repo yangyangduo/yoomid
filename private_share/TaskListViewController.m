@@ -14,6 +14,8 @@
 #import "TaskDetailViewController.h"
 #import "MyPointsRecordViewController.h"
 #import "YoomidRectModalView1.h"
+#import "UpgradeTask.h"
+#import "AnswerOptions.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
@@ -24,6 +26,9 @@
     BOOL needReloading;
     
     NSString *taskIds;
+    NSMutableArray *_shareTasks_;
+    NSString *shareTitle;
+    NSString *shareMessage;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -34,6 +39,9 @@
         _cell_identifier_ = @"cellIdentifier";
         _taskCategory_ = taskCategory;
         _tasks_ = [NSMutableArray array];
+        _shareTasks_ = [NSMutableArray array];
+        shareMessage = [NSString string];
+        shareTitle = [NSString string];
     }
     return self;
 }
@@ -101,13 +109,22 @@
 - (void)getTasksSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200 && resp.body) {
         [_tasks_ removeAllObjects];
+        if (_shareTasks_.count > 0 && _shareTasks_ != nil) {
+            [_shareTasks_ removeAllObjects];
+        }
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
                 Task *task = [[Task alloc] initWithJson:[jsonArray objectAtIndex:i]];
                 task.categoryId = self.taskCategory.identifier;
-                if(![self isCompletedTask:task]) {
+                if(![self isCompletedTask:task])//做过的任务不显示到列表中去。
+                {
                     [_tasks_ addObject:task];
+                }
+                
+                if ([task.categoryId isEqualToString:@"y:i:sc"]) {
+                    UpgradeTask *shareTask_ = [[UpgradeTask alloc]initWithJson:[jsonArray objectAtIndex:i]];
+                    [_shareTasks_ addObject:shareTask_];
                 }
             }
         }
@@ -139,6 +156,39 @@
 - (void)getTasksFailure:(HttpResponse *)resp {
     [self handleFailureHttpResponse:resp];
     [self showRetryView];
+}
+
+- (BOOL)shareTashIsDone:(NSString *)ids
+{
+    BOOL isDone = YES;
+    NSMutableArray *completedTaskIds = nil;
+    NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
+    if (cacheData == nil) {
+        completedTaskIds = [NSMutableArray array];
+    }
+    else{
+        completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+    }
+    
+    if (completedTaskIds.count != 0) {
+        for (int i = 0; i<completedTaskIds.count; i++) {
+            NSString *completedTaskIdsStr = [completedTaskIds objectAtIndex:i];
+            if ([taskIds isEqualToString:completedTaskIdsStr]) {
+                isDone = YES;
+                //分享的内容,第二次分享，没有米米
+                break;
+            }else
+            {
+                isDone = NO;
+            }
+        }
+    }
+    else
+    {
+        isDone = NO;
+    }
+
+    return isDone;
 }
 
 #pragma mark -
@@ -198,32 +248,22 @@
     if ([task.categoryId isEqualToString:@"y:i:sc"]) {
         taskIds = task.identifier;
         NSString *message = nil;
-        NSMutableArray *completedTaskIds = nil;
         
-        NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
-        if (cacheData == nil) {
-            completedTaskIds = [NSMutableArray array];
+        UpgradeTask *_upgrade = [_shareTasks_ objectAtIndex:indexPath.row];
+        shareTitle = _upgrade.question;//分享标题
+
+        AnswerOptions *answerOptions = [_upgrade.options objectAtIndex:0];  //第一次分享的内容
+        AnswerOptions *answerOptions1 = [_upgrade.options objectAtIndex:1]; //第二次以后分享的内容
+
+        if ([self shareTashIsDone:taskIds]) {//该分享任务已经做过了
+            message = @"分享是种美德,立即分享!";
+            shareMessage = answerOptions1.description;  //分享的内容,第二次分享，没有米米
         }
         else{
-            completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+            message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
+            shareMessage = answerOptions.description;
         }
         
-        if (completedTaskIds.count != 0) {
-            for (int i = 0; i<completedTaskIds.count; i++) {
-                NSString *completedTaskIdsStr = [completedTaskIds objectAtIndex:i];
-                if ([taskIds isEqualToString:completedTaskIdsStr]) {
-                    message = @"分享是种美德,立即分享!";
-                    break;
-                }else
-                {
-                    message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
-                }
-            }
-        }
-        else
-        {
-            message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
-        }
         ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageNamed:@"fengxiang2"] message:message];
         shareTaskMV.shareDeletage = self;
         [shareTaskMV setCloseButtonHidden:YES];
@@ -253,7 +293,9 @@
 #pragma mrak- share delegate
 - (void)showShare
 {
-    [self showShareTitle:@"分享" text:@"分享一下就能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
+    if (shareTitle != nil && shareMessage != nil) {
+        [self showShareTitle:shareTitle text:shareMessage imageName:@"icon80"];
+    }
 }
 
 //下面得到分享完成的回调
@@ -265,17 +307,18 @@
     {
         //得到分享到的微博平台名
         //        response.viewControllerType
-        NSMutableArray *completedTaskIds = nil;
-        
-        NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
-        if (cacheData == nil) {
-            completedTaskIds = [NSMutableArray array];
+        if (![self shareTashIsDone:taskIds]) {//没做过才写入缓存
+            NSMutableArray *completedTaskIds = nil;
+            NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
+            if (cacheData == nil) {
+                completedTaskIds = [NSMutableArray array];
+            }
+            else{
+                completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+            }
+            [completedTaskIds addObject:taskIds];
+            [[DiskCacheManager manager] setCompletedTaskIds:completedTaskIds];
         }
-        else{
-            completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
-        }
-        [completedTaskIds addObject:taskIds];
-        [[DiskCacheManager manager] setCompletedTaskIds:completedTaskIds];
         
         YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageNamed:@"images4"] message:@"就是爱哈尼这种爱分享的人!" buttonTitles:@[ @"确  认" ] cancelButtonIndex:0];
         [modalView setCloseButtonHidden:YES];
