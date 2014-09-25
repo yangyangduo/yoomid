@@ -419,6 +419,7 @@
 		D69612BC19D3FB740012DC84 /* fengxiang2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BB19D3FB740012DC84 /* fengxiang2@2x.png */; };
 		D69612BE19D3FBC00012DC84 /* images4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BD19D3FBC00012DC84 /* images4@2x.png */; };
 		D69612C019D3FC300012DC84 /* images3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612BF19D3FC300012DC84 /* images3@2x.png */; };
+		D69612C219D415E20012DC84 /* shuixing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612C119D415E20012DC84 /* shuixing@2x.png */; };
 		D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655219B58EDE00781F54 /* AgePickerPopupView.m */; };
 		D698655C19B5B86700781F54 /* TextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D698655B19B5B86700781F54 /* TextViewController2.m */; };
 		D6A152C619A5D3300094B565 /* TaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A152C519A5D3300094B565 /* TaskService.m */; };
@@ -1092,6 +1093,7 @@
 		D69612BB19D3FB740012DC84 /* fengxiang2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fengxiang2@2x.png"; sourceTree = "<group>"; };
 		D69612BD19D3FBC00012DC84 /* images4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "images4@2x.png"; sourceTree = "<group>"; };
 		D69612BF19D3FC300012DC84 /* images3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "images3@2x.png"; sourceTree = "<group>"; };
+		D69612C119D415E20012DC84 /* shuixing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuixing@2x.png"; sourceTree = "<group>"; };
 		D698655119B58EDE00781F54 /* AgePickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgePickerPopupView.h; sourceTree = "<group>"; };
 		D698655219B58EDE00781F54 /* AgePickerPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgePickerPopupView.m; sourceTree = "<group>"; };
 		D698655A19B5B86700781F54 /* TextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController2.h; sourceTree = "<group>"; };
@@ -1525,6 +1527,7 @@
 		6F4FA06819A4892C0049C023 /* points_order */ = {
 			isa = PBXGroup;
 			children = (
+				D69612C119D415E20012DC84 /* shuixing@2x.png */,
 				D6492D6419C987670092B893 /* bg6@2x.png */,
 				D6492D6219C9875E0092B893 /* bg5@2x.png */,
 				D6684FF819B70C930064F9B1 /* levelbg@2x.png */,
@@ -2931,6 +2934,7 @@
 				D3644C0B197A171000B44785 /* dianru_green_dianru_iphone_download.png in Resources */,
 				D670D6C419B0770800FB241D /* button@2x.png in Resources */,
 				D6DD76CD19D079CF00133CD1 /* UMSocialLocalizable.strings in Resources */,
+				D69612C219D415E20012DC84 /* shuixing@2x.png in Resources */,
 				D6A152C919A5F73B0094B565 /* guess_picture@2x.png in Resources */,
 				6FB8073019B80D6D003ABF77 /* default_task@2x.png in Resources */,
 				6FB0E1A319B6C2D4002F9A18 /* modal_background@2x.png in Resources */,

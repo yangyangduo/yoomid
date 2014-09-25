@@ -32,12 +32,12 @@ NSString * const kLevelKey = @"levels.key";
     NSDateFormatter *dateFormatter;
 
     UIView *topView;
-//    UIView *numberView;
     UILabel *numberLabel;
     
     UIButton *addBtn;
     UIButton *reduceBtn;
     UIButton *UpgradeBtn;
+    UIButton *levelBtn;
     UIImageView *levelbgImage;
     
     PointsOrderType pointsOrderType;
@@ -123,7 +123,13 @@ NSString * const kLevelKey = @"levels.key";
     
     UIImageView *triangleImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 55, 19, 16)];
     triangleImage.image = [UIImage imageNamed:@"triangle"];
-    [topView addSubview:triangleImage];
+//    [topView addSubview:triangleImage];
+
+    levelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    levelBtn.frame = CGRectMake(self.view.frame.size.width/2-115, (topView.bounds.size.height - addBtn.bounds.size.height)/2-80, 150, 57);
+    [levelBtn setImage:[UIImage imageNamed:@"shuixing"] forState:UIControlStateNormal];
+    [levelBtn setTitle:@"水星x级" forState:UIControlStateNormal];
+    [topView addSubview:levelBtn];
     
     numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(-8, triangleImage.frame.origin.y + triangleImage.bounds.size.height+13, 250, 65)];
     numberLabel.textColor = [UIColor whiteColor];

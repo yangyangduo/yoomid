@@ -22,6 +22,8 @@
     NSMutableArray *_tasks_;
     NSString *_cell_identifier_;
     BOOL needReloading;
+    
+    NSString *taskIds;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -194,7 +196,35 @@
     }
     
     if ([task.categoryId isEqualToString:@"y:i:sc"]) {
-        ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageNamed:@"fengxiang2"] message:[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points]];
+        taskIds = task.identifier;
+        NSString *message = nil;
+        NSMutableArray *completedTaskIds = nil;
+        
+        NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
+        if (cacheData == nil) {
+            completedTaskIds = [NSMutableArray array];
+        }
+        else{
+            completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+        }
+        
+        if (completedTaskIds.count != 0) {
+            for (int i = 0; i<completedTaskIds.count; i++) {
+                NSString *completedTaskIdsStr = [completedTaskIds objectAtIndex:i];
+                if ([taskIds isEqualToString:completedTaskIdsStr]) {
+                    message = @"分享是种美德,立即分享!";
+                    break;
+                }else
+                {
+                    message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
+                }
+            }
+        }
+        else
+        {
+            message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
+        }
+        ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageNamed:@"fengxiang2"] message:message];
         shareTaskMV.shareDeletage = self;
         [shareTaskMV setCloseButtonHidden:YES];
         [shareTaskMV showInView1:self.navigationController.view completion:nil];
@@ -224,7 +254,6 @@
 - (void)showShare
 {
     [self showShareTitle:@"分享" text:@"分享一下就能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
-//    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
 }
 
 //下面得到分享完成的回调
@@ -236,6 +265,18 @@
     {
         //得到分享到的微博平台名
         //        response.viewControllerType
+        NSMutableArray *completedTaskIds = nil;
+        
+        NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
+        if (cacheData == nil) {
+            completedTaskIds = [NSMutableArray array];
+        }
+        else{
+            completedTaskIds = [NSMutableArray arrayWithArray:cacheData];
+        }
+        [completedTaskIds addObject:taskIds];
+        [[DiskCacheManager manager] setCompletedTaskIds:completedTaskIds];
+        
         YoomidRectModalView *modalView = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageNamed:@"images4"] message:@"就是爱哈尼这种爱分享的人!" buttonTitles:@[ @"确  认" ] cancelButtonIndex:0];
         [modalView setCloseButtonHidden:YES];
         [modalView showInView:self.navigationController.view completion:nil];
