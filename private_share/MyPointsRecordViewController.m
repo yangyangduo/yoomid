@@ -188,10 +188,13 @@ NSString * const kLevelKey = @"levels.key";
     NSInteger levels = 0;
     
     if (userLevel == nil) {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setInteger:levels forKey:kLevelKey];
-        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
-        [defaults synchronize];
+//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//        [dictionary setInteger:levels forKey:kLevelKey];
+//        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+//        [defaults synchronize];
+        if ([Account currentAccount].level != 0) {
+            levels = [Account currentAccount].level - 1;
+        }
     }
     else{
         levels = [userLevel numberForKey:kLevelKey].integerValue;
