@@ -2823,7 +2823,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = V59AQ53269;
+						DevelopmentTeam = JJH6E5JL26;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
