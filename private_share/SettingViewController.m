@@ -279,7 +279,9 @@
 #pragma mark- shareView delegate
 - (void)showShare
 {
-    [self showShareTitle:@"分享" text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
+//    [self showShareTitle:@"分享" text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
+    [self showShareTitle:nil text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80" imageUrl:nil contentUrl:nil];
+
 }
 
 #pragma mark -

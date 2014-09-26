@@ -182,7 +182,7 @@
     NSLog(@"Top view controller is [%@].", [[topViewController class] description]);
 }
 
-- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName
+- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName imageUrl:(NSString *)imageurl contentUrl:(NSString *)contentUrl
 {
 //    NSString * tempClassName = @"HomeViewController";
 //    Class tempClass =  NSClassFromString(tempClassName);
@@ -192,21 +192,32 @@
 //
 ////    UIViewController *topViewController = self.navigationController.topViewController;
 //    if (tempObj) {
+    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
+    [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:title];  //设置微信好友分享标题
+    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:title];  //设置微信朋友圈分享标题
+    [[UMSocialData defaultData].extConfig.qqData setTitle:title];  //设置QQ好友分享标题
+    [[UMSocialData defaultData].extConfig.qzoneData setTitle:title];  //设置QQ空间好友分享标题
+    [UMSocialData defaultData].extConfig.sinaData.shareText = title;
+    
+    if (imageurl != nil) {
+        [[UMSocialData defaultData].extConfig.wechatSessionData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:imageurl];  //设置微信好友分享url图片
+        [[UMSocialData defaultData].extConfig.wechatTimelineData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:imageurl];  //设置微信朋友圈分享url图片
+        [[UMSocialData defaultData].extConfig.qzoneData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:imageurl]; //qq空间
+        [[UMSocialData defaultData].extConfig.qqData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:imageurl]; //qq
+    }
+    if (contentUrl != nil) {
+        [[UMSocialData defaultData].extConfig.wechatSessionData setUrl:contentUrl];  //设置微信好友分享连接url
+        [[UMSocialData defaultData].extConfig.wechatTimelineData setUrl:contentUrl];  //
+        [[UMSocialData defaultData].extConfig.qzoneData setUrl:contentUrl]; //qq空间
+        [[UMSocialData defaultData].extConfig.qqData setUrl:contentUrl]; //qq
+    }
+
     [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:@"54052fe0fd98c5170d06988e"
                                           shareText:text
                                          shareImage:[UIImage imageNamed:imageName]
                                     shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQzone,UMShareToQQ,nil]
                                            delegate:self];
-    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
-//    [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:@"有米得标题"];  //设置微信好友分享标题
-//    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:@"有米得分享的标题"];  //设置微信朋友圈分享标题
-
-
-        //    [UMSocialData defaultData].extConfig.sinaData.shareText = @"有米得分享到新浪微博";
-//    [[UMSocialData defaultData].extConfig.wechatSessionData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];  //设置微信好友分享url图片
-//    [[UMSocialData defaultData].extConfig.wechatTimelineData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];  //设置微信朋友圈分享url图片
-//    [[UMSocialData defaultData].extConfig.qzoneData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:url];
 
 //    }
 }

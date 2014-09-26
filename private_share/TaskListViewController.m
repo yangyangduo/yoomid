@@ -30,6 +30,8 @@
     NSMutableArray *_shareTasks_;
     NSString *shareTitle;
     NSString *shareMessage;
+    NSString *shareImageUrl;
+    NSString *shareContentUrl;
     UpgradeTask *_upgrade;
 }
 
@@ -44,6 +46,9 @@
         _shareTasks_ = [NSMutableArray array];
         shareMessage = [NSString string];
         shareTitle = [NSString string];
+        shareContentUrl = [NSString string];
+        shareImageUrl = [NSString string];
+
     }
     return self;
 }
@@ -258,7 +263,9 @@
         
         _upgrade = [_shareTasks_ objectAtIndex:indexPath.row];
         shareTitle = _upgrade.question;//分享标题
-
+        shareImageUrl = task.taskDescriptionUrl;//分享图标
+        shareContentUrl = task.contentUrl;//连接
+        
         AnswerOptions *answerOptions = [_upgrade.options objectAtIndex:0];  //第一次分享的内容
         AnswerOptions *answerOptions1 = [_upgrade.options objectAtIndex:1]; //第二次以后分享的内容
 
@@ -301,7 +308,7 @@
 - (void)showShare
 {
     if (shareTitle != nil && shareMessage != nil) {
-        [self showShareTitle:shareTitle text:shareMessage imageName:@"icon80"];
+        [self showShareTitle:shareTitle text:shareMessage imageName:@"icon80" imageUrl:shareImageUrl contentUrl:shareContentUrl];
     }
 }
 

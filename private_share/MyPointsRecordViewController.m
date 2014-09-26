@@ -208,6 +208,10 @@ NSString * const kLevelKey = @"levels.key";
         return;
     }
     
+    if (([Account currentAccount].level - levels) >= 2) {
+        levels = [Account currentAccount].level - 1;
+    }
+    
     TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
     [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
@@ -281,7 +285,9 @@ NSString * const kLevelKey = @"levels.key";
     [self dismissViewControllerAnimated:YES completion:^{
         BaseViewController *baseVC = [ViewControllerAccessor defaultAccessor].homeViewController;
         if (baseVC != nil) {
-            [baseVC showShareTitle:@"升级新生活，尽在有米得" text:@"哈尼棒棒哒~升级任务神马的都不在话下哦！" imageName:@"icon80"];
+//            [baseVC showShareTitle:@"升级新生活，尽在有米得" text:@"哈尼棒棒哒~升级任务神马的都不在话下哦！" imageName:@"icon80"];
+            [baseVC showShareTitle:@"升级新生活，尽在有米得" text:@"哈尼棒棒哒~升级任务神马的都不在话下哦！" imageName:@"icon80" imageUrl:nil contentUrl:nil];
+
         }
     }];
 }

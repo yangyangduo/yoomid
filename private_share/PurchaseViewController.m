@@ -459,7 +459,9 @@
 #pragma mark- shareView deletage
 -(void)showShare
 {
-    [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80"];
+//    [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80"];
+    [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80" imageUrl:nil contentUrl:nil];
+
 }
 
 @end

@@ -80,7 +80,7 @@
     [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
     
     [UMSocialWechatHandler setWXAppId:@"wxb3bc53583590b23f" appSecret:@"a39d046b07684bab942b68e709ae137b" url:@"http://yoomid.com"];
-    [UMSocialQQHandler setQQWithAppId:@"1102346164" appKey:@"T4tsAiwGE3oZNBVf" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler setQQWithAppId:@"1102346164" appKey:@"T4tsAiwGE3oZNBVf" url:@"http://yoomid.com"];
     [UMSocialQQHandler setSupportWebView:YES];
 //    [UMSocialInstagramHandler openInstagramWithScale:NO paddingColor:[UIColor blackColor]];
 
@@ -97,7 +97,9 @@
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
         [homeViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
-        //[loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
+        if ([SecurityConfig defaultConfig].isFirstLogin) {
+                    [loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
+        }
     } else {
         [self doAfterLogin];
     }

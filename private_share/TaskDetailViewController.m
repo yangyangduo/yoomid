@@ -373,7 +373,10 @@ typedef NS_ENUM(NSUInteger, TaskResult) {
     else if ([_task_.categoryId isEqualToString:@"y:i:gm"]){
         message = @"玩到又赚到，哈尼要不要去买彩票？";
     }
-    [self showShareTitle:nil text:message imageName:@"icon80"];
+//    [self showShareTitle:nil text:message imageName:@"icon80"];
+    [self showShareTitle:nil text:message imageName:@"icon80" imageUrl:nil contentUrl:nil];
+
+    
 }
 
 @end

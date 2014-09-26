@@ -36,5 +36,5 @@
 - (void)retryLoading;
 - (CGFloat)contentViewCenterY;
 
-- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName;
+- (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName imageUrl:(NSString *)imageurl contentUrl:(NSString *)contentUrl;
 @end
