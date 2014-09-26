@@ -218,8 +218,12 @@
             
             //将等级写入缓存...
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+            NSInteger levels = [userLevel numberForKey:@"levels.key"].integerValue;
+            levels++;
+            
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            [dictionary setInteger:[Account currentAccount].level forKey:@"levels.key"];
+            [dictionary setInteger:levels forKey:@"levels.key"];
             [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
             [defaults synchronize];
             

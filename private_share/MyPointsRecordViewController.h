@@ -11,6 +11,7 @@
 #import "TransitionViewController.h"
 #import "XXEventSubscriptionPublisher.h"
 #import "UsersUpgradeModalView.h"
+#import "YoomidRectModalView.h"
 
 @interface MyPointsRecordViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate, XXEventSubscriber,ShareDeletage>
 - (void)dismissViewController;

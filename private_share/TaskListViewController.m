@@ -117,8 +117,13 @@
             for(int i=0; i<jsonArray.count; i++) {
                 Task *task = [[Task alloc] initWithJson:[jsonArray objectAtIndex:i]];
                 task.categoryId = self.taskCategory.identifier;
-                if(![self isCompletedTask:task])//做过的任务不显示到列表中去。
-                {
+                if ([task.categoryId isEqualToString:@"y:i:gu"] || [task.categoryId isEqualToString:@"y:i:sv"]) {
+                    if(![self isCompletedTask:task])//做过的任务不显示到列表中去。  看图猜图、市场调研做过了，就不显示了，
+                    {
+                        [_tasks_ addObject:task];
+                    }
+                }
+                else{
                     [_tasks_ addObject:task];
                 }
                 

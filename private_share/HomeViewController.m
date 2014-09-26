@@ -272,8 +272,8 @@
 //    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
 //    [picker showInView:self.view completion:nil];
 
-//    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
-//    return;
+    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
+    return;
 
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];

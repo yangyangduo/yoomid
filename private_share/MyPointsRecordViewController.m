@@ -127,8 +127,7 @@ NSString * const kLevelKey = @"levels.key";
 
     levelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     levelBtn.frame = CGRectMake(self.view.frame.size.width/2-115, (topView.bounds.size.height - addBtn.bounds.size.height)/2-80, 150, 57);
-    [levelBtn setImage:[UIImage imageNamed:@"shuixing"] forState:UIControlStateNormal];
-    [levelBtn setTitle:@"水星x级" forState:UIControlStateNormal];
+    [levelBtn addTarget:self action:@selector(actionLevelBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:levelBtn];
     
     numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(-8, triangleImage.frame.origin.y + triangleImage.bounds.size.height+13, 250, 65)];
@@ -153,12 +152,12 @@ NSString * const kLevelKey = @"levels.key";
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLevelImage:)];
     [levelImage addGestureRecognizer:tapGesture];
     
-    UpgradeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
-    [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
-    [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
-    UpgradeBtn.hidden = YES;
-    [topView addSubview:UpgradeBtn];
+//    UpgradeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
+//    [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
+//    [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
+//    UpgradeBtn.hidden = YES;
+//    [topView addSubview:UpgradeBtn];
     
     pointsOrderType = PointsOrderTypeIncome;
     
@@ -176,6 +175,7 @@ NSString * const kLevelKey = @"levels.key";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refresh:YES];
+    [self UsersUpgrade];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -186,7 +186,6 @@ NSString * const kLevelKey = @"levels.key";
     subscription.notifyMustInMainThread = YES;
     [[XXEventSubscriptionPublisher defaultPublisher] subscribeFor:subscription];
     
-    [self UsersUpgrade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -194,15 +193,43 @@ NSString * const kLevelKey = @"levels.key";
     [[XXEventSubscriptionPublisher defaultPublisher] unSubscribeForSubscriber:self];
 }
 
--(void)actionUpgradeClick
+- (void)actionLevelBtnClick
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
-    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
+    NSInteger levels = 0;
+    
+    if (userLevel == nil) {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setInteger:levels forKey:kLevelKey];
+        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+        [defaults synchronize];
+    }
+    else{
+        levels = [userLevel numberForKey:kLevelKey].integerValue;
+//                levels = 0;
+    }
+    
+    if (levels == [Account currentAccount].level) {
+        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageNamed:@"images3"] message:@"哈尼,这一等级的题已经答过了哦!" buttonTitles:@[ @"确 认" ] cancelButtonIndex:0];
+        [modal setCloseButtonHidden:YES];
+        [modal showInView:[UIApplication sharedApplication].keyWindow completion:nil];
+        return;
+    }
     
     TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
     [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
+
+//-(void)actionUpgradeClick
+//{
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+//    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
+//    
+//    TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
+//    [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
+//}
 
 - (void)getTaskLevelSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
@@ -224,22 +251,65 @@ NSString * const kLevelKey = @"levels.key";
 
 - (void)UsersUpgrade
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
-    
-    if (userLevel == nil) {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setInteger:[Account currentAccount].level forKey:kLevelKey];
-        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
-        [defaults synchronize];
+    NSString *levelStr = nil;
+    if ([Account currentAccount].level < 10) { //水星 0-9
+        [levelBtn setImage:[UIImage imageNamed:@"shuixing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"水星%d级",[Account currentAccount].level + 1];
     }
-    else{//13873783349
-        NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
-//        levels = 0;
-        if (levels < [Account currentAccount].level) {
-            UpgradeBtn.hidden = NO;//显示升级按钮
-        }
+    else if ([Account currentAccount].level < 20 && [Account currentAccount].level > 9) //火星 10-19
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"huoxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"火星%d级",[Account currentAccount].level + 1];
     }
+    else if ([Account currentAccount].level < 30) //金星
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"jingxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"金星%d级",[Account currentAccount].level + 1];
+    }
+    else if ([Account currentAccount].level < 40) //地球
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"diqiu"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"地球%d级",[Account currentAccount].level + 1];
+    }
+    else if ([Account currentAccount].level < 50) //海王星
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"haiwangxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"海王星%d级",[Account currentAccount].level + 1];
+    }
+    else if ([Account currentAccount].level < 60) //天王星
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"tianwangxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"天王星%d级",[Account currentAccount].level + 1];
+    }
+    else if ([Account currentAccount].level < 70) //土星
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"tuxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"土星%d级",[Account currentAccount].level + 1];
+    }
+    else if ([Account currentAccount].level < 80) //木星
+    {
+        [levelBtn setImage:[UIImage imageNamed:@"muxing"] forState:UIControlStateNormal];
+        levelStr = [NSString stringWithFormat:@"木星%d级",[Account currentAccount].level + 1];
+    }
+    [levelBtn setTitle:levelStr forState:UIControlStateNormal];
+
+    return;
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+//    
+//    if (userLevel == nil) {
+//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//        [dictionary setInteger:[Account currentAccount].level forKey:kLevelKey];
+//        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
+//        [defaults synchronize];
+//    }
+//    else{//13873783349
+//        NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
+////        levels = 0;
+//        if (levels < [Account currentAccount].level) {
+//            UpgradeBtn.hidden = NO;//显示升级按钮
+//        }
+//    }
 }
 
 #pragma mark - ShareDeletage
