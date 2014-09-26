@@ -16,6 +16,7 @@
 #import "YoomidRectModalView1.h"
 #import "UpgradeTask.h"
 #import "AnswerOptions.h"
+#import "UIDevice+Identifier.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
@@ -29,6 +30,7 @@
     NSMutableArray *_shareTasks_;
     NSString *shareTitle;
     NSString *shareMessage;
+    UpgradeTask *_upgrade;
 }
 
 @synthesize taskCategory = _taskCategory_;
@@ -254,7 +256,7 @@
         taskIds = task.identifier;
         NSString *message = nil;
         
-        UpgradeTask *_upgrade = [_shareTasks_ objectAtIndex:indexPath.row];
+        _upgrade = [_shareTasks_ objectAtIndex:indexPath.row];
         shareTitle = _upgrade.question;//分享标题
 
         AnswerOptions *answerOptions = [_upgrade.options objectAtIndex:0];  //第一次分享的内容
@@ -313,6 +315,18 @@
         //得到分享到的微博平台名
         //        response.viewControllerType
         if (![self shareTashIsDone:taskIds]) {//没做过才写入缓存
+            NSMutableDictionary *content = [[NSMutableDictionary alloc] init];
+            [content setMayBlankString:[SecurityConfig defaultConfig].userName forKey:@"userId"];
+            [content setMayBlankString:[UIDevice idfaString] forKey:@"deviceId"];
+            [content setMayBlankString:_upgrade.categoryId forKey:@"categoryId"];
+            [content setInteger:_upgrade.points forKey:@"points"];
+            [content setMayBlankString:_upgrade.name forKey:@"name"];
+            [content setMayBlankString:_upgrade.identifier forKey:@"taskId"];
+            [content setMayBlankString:_upgrade.provider forKey:@"providerId"];
+            
+            TaskService *service = [[TaskService alloc] init];
+            [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(handleFailureHttpResponse:) taskResult:1];
+            
             NSMutableArray *completedTaskIds = nil;
             NSArray *cacheData = [DiskCacheManager manager].completedTaskIds;
             if (cacheData == nil) {
@@ -330,6 +344,12 @@
         [modalView showInView:self.navigationController.view completion:nil];
 
         NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
+
+- (void)postAnswersSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
+        //        NSInteger stat = resp.statusCode;
     }
 }
 

@@ -393,6 +393,7 @@
         if(_order_result_json_ != nil) {
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                 YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageNamed:@"images3"] message:@"恭喜哈尼,报名成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                [modal setCloseButtonHidden:YES];
                 modal.shareDeletage = self;
                 [modal showInView:self.view completion:nil];
                 

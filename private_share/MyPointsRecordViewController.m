@@ -92,7 +92,6 @@ NSString * const kLevelKey = @"levels.key";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
     
@@ -116,10 +115,6 @@ NSString * const kLevelKey = @"levels.key";
     [reduceBtn setTitle:@"  支出" forState:UIControlStateNormal];
     [topView addSubview:addBtn];
     [topView addSubview:reduceBtn];
-    
-//    numberView = [[UIView alloc]init];
-//    numberView.backgroundColor = [UIColor clearColor];
-//    [topView addSubview:numberView];
     
     UIImageView *triangleImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, (topView.bounds.size.height - addBtn.bounds.size.height)/2 - 55, 19, 16)];
     triangleImage.image = [UIImage imageNamed:@"triangle"];
@@ -151,13 +146,6 @@ NSString * const kLevelKey = @"levels.key";
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLevelImage:)];
     [levelImage addGestureRecognizer:tapGesture];
-    
-//    UpgradeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    UpgradeBtn.frame = CGRectMake(levelImage.frame.origin.x,levelImage.frame.origin.y-80, 55, 55);
-//    [UpgradeBtn addTarget:self action:@selector(actionUpgradeClick) forControlEvents:UIControlEventTouchUpInside];
-//    [UpgradeBtn setImage:[UIImage imageNamed:@"notifications"] forState:UIControlStateNormal];
-//    UpgradeBtn.hidden = YES;
-//    [topView addSubview:UpgradeBtn];
     
     pointsOrderType = PointsOrderTypeIncome;
     
@@ -207,7 +195,7 @@ NSString * const kLevelKey = @"levels.key";
     }
     else{
         levels = [userLevel numberForKey:kLevelKey].integerValue;
-//                levels = 0;
+//        levels = 3;
     }
     
     if (levels == [Account currentAccount].level) {
@@ -220,16 +208,6 @@ NSString * const kLevelKey = @"levels.key";
     TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
     [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
-
-//-(void)actionUpgradeClick
-//{
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
-//    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
-//    
-//    TaskLevelService *taskLevelService = [[TaskLevelService alloc]init];
-//    [taskLevelService getTasksLevelInfo:levels target:self success:@selector(getTaskLevelSuccess:) failure:@selector(handleFailureHttpResponse:)];
-//}
 
 - (void)getTaskLevelSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil) {
@@ -292,24 +270,6 @@ NSString * const kLevelKey = @"levels.key";
         levelStr = [NSString stringWithFormat:@"木星%d级",[Account currentAccount].level + 1];
     }
     [levelBtn setTitle:levelStr forState:UIControlStateNormal];
-
-    return;
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
-//    
-//    if (userLevel == nil) {
-//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-//        [dictionary setInteger:[Account currentAccount].level forKey:kLevelKey];
-//        [defaults setObject:dictionary forKey:[Account currentAccount].accountId];
-//        [defaults synchronize];
-//    }
-//    else{//13873783349
-//        NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;
-////        levels = 0;
-//        if (levels < [Account currentAccount].level) {
-//            UpgradeBtn.hidden = NO;//显示升级按钮
-//        }
-//    }
 }
 
 #pragma mark - ShareDeletage
@@ -373,12 +333,12 @@ NSString * const kLevelKey = @"levels.key";
 }
 
 - (void)refreshAccountInfo {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
-    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *userLevel = [defaults objectForKey:[Account currentAccount].accountId];
+//    NSInteger levels = [userLevel numberForKey:kLevelKey].integerValue;//获得缓存的等级
 
     [self setPoints:[NSString stringWithFormat:@"%d",  [Account currentAccount].points]];
-    [self setLevelImage:levels];
+    [self setLevelImage:[Account currentAccount].level];
 }
 
 - (void)loadMore {

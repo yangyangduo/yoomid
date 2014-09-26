@@ -17,7 +17,7 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if(self) {
-        NSMutableAttributedString *contentMessage = [[NSMutableAttributedString alloc] initWithString:@"请按应用要求安装并试玩一段时间后(部分要求注册),返回有米得即可领取米米。部分时间由于网络延迟,米米不能立即到账,请耐心等待。注意:相同的应用只能领取一次奖励,且再接受任务前已安装的应用不能领取米米。" attributes : @{ NSFontAttributeName : [UIFont systemFontOfSize:16.f] }];
+        NSMutableAttributedString *contentMessage = [[NSMutableAttributedString alloc] initWithString:@"请按应用要求安装并试玩一段时间后(部分要求注册),返回有米得即可领取米米。部分时间由于网络延迟,米米不能立即到账,请耐心等待。注意:相同的应用只能领取一次奖励,且在接受任务前已安装的应用不能领取米米。" attributes : @{ NSFontAttributeName : [UIFont systemFontOfSize:16.f] }];
         [contentMessage addAttribute:NSForegroundColorAttributeName value:[UIColor appLightBlue] range:NSMakeRange(66, 13)];
         CGSize contentMessageSize = [contentMessage boundingRectWithSize:CGSizeMake(self.contentView.bounds.size.width - 30, 300) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
         
@@ -29,8 +29,8 @@
         
         NSMutableArray *categories = [NSMutableArray array];
         [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"domob" title:@"多盟专区" imageName:@"domob_icon"]];
-        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"youmi" title:@"有米专区" imageName:@"youmi_icon"]];
-        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"anwo" title:@"安沃专区" imageName:@"anwo_icon"]];
+//        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"youmi" title:@"有米专区" imageName:@"youmi_icon"]];
+//        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"anwo" title:@"安沃专区" imageName:@"anwo_icon"]];
         for(CategoryButtonItem *buttonItem in categories) {
             buttonItem.delegate = self;
             [self addSubviewInScrollView:buttonItem];

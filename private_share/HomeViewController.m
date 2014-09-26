@@ -272,8 +272,8 @@
 //    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
 //    [picker showInView:self.view completion:nil];
 
-    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
-    return;
+//    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
+//    return;
 
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
@@ -381,8 +381,8 @@
     TaskCategory *rootCategory = [self.rootCategories objectAtIndex:indexPath.row];
     NSString *rootCategoryId = rootCategory.identifier;
     
-    if(TaskCategoryTypeProductExperience == rootCategory.taskCategoryType) {
-        AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 415)];
+    if(TaskCategoryTypeProductExperience == rootCategory.taskCategoryType) {//415
+        AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 320)];
         modalView.delegate = self;
         modalView.modalViewDelegate = self;
         currentModalView = modalView;
