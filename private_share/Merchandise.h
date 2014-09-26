@@ -33,6 +33,8 @@
 
 @property (nonatomic, strong) NSDate *createTime;
 
+@property (nonatomic, assign) double price;
+
 // 1 : 1 其他
 - (NSString *)firstImageUrl;
 // 3 : 4 小吉推荐

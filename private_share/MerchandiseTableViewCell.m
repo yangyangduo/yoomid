@@ -145,7 +145,7 @@
         bao.frame = CGRectMake(125, pointsLabel.frame.origin.y + 10,32/2, 32/2);
         
         NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
-        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.1f", (float)merchandise.points / 100.f] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.1f", merchandise.price/*(float)merchandise.points / 100.f*/] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
         
         [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"yuan", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
         rmbLabel.attributedText = rmbString;

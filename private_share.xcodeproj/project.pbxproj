@@ -469,6 +469,7 @@
 		D6DD76D819D079CF00133CD1 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6DD76CB19D079CF00133CD1 /* UMSocialSDKResourcesNew.bundle */; };
 		D6DD76DA19D07DD500133CD1 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD76D919D07DD500133CD1 /* libiconv.dylib */; };
 		D6DD76DC19D07E6F00133CD1 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD76DB19D07E6E00133CD1 /* libstdc++.dylib */; };
+		D6DF203E19D56B0D00297BA4 /* game_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6DF203D19D56B0D00297BA4 /* game_locked@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1180,6 +1181,7 @@
 		D6DD76CC19D079CF00133CD1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		D6DD76D919D07DD500133CD1 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D6DD76DB19D07E6E00133CD1 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		D6DF203D19D56B0D00297BA4 /* game_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game_locked@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2381,6 +2383,7 @@
 				D670D6BF19B0749000FB241D /* into@2x.png */,
 				D66D120919C02271005BF0FA /* setup@2x.png */,
 				D6BD165E19D17664006AE1C1 /* daohang1@2x.jpg */,
+				D6DF203D19D56B0D00297BA4 /* game_locked@2x.png */,
 				D6BD166419D1A620006AE1C1 /* daohang1@2x.png */,
 				D6BD166019D17688006AE1C1 /* logo960@2x.png */,
 				D6BD166119D17688006AE1C1 /* logo1136@2x.png */,
@@ -2882,6 +2885,7 @@
 				6FECF3E919BE9ADC00CAB301 /* button_down@2x.png in Resources */,
 				D67CAFBE19CFB6CA002B503B /* good4@2x.png in Resources */,
 				6F970977193F4B5300EA5E3A /* alert_failed@2x.png in Resources */,
+				D6DF203E19D56B0D00297BA4 /* game_locked@2x.png in Resources */,
 				6F7261FA195AAFCA00BD17D8 /* black_bottom@2x.png in Resources */,
 				6F8823D51940531F00757633 /* blackArrow.png in Resources */,
 				6F970978193F4B5300EA5E3A /* alert_success@2x.png in Resources */,
@@ -3512,7 +3516,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -3586,7 +3590,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

@@ -17,6 +17,7 @@
 #import "UpgradeTask.h"
 #import "AnswerOptions.h"
 #import "UIDevice+Identifier.h"
+#import "Account.h"
 
 @implementation TaskListViewController {
     UICollectionView *_collection_view_;
@@ -83,6 +84,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     if(needReloading) {
         needReloading = NO;
         if(_tasks_ != nil && _tasks_.count > 0) {
@@ -102,10 +104,35 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    
     needReloading = YES;
 }
 
 - (void)refresh {
+    if (self.taskCategory.requiredUserLevel > [Account currentAccount].level) {
+        NSMutableString *message = [NSMutableString stringWithFormat:@"哈尼\r\n要到LV%d才能解锁\r\n哦!", self.taskCategory.requiredUserLevel];
+        NSString *imagename = nil;
+        if ([self.taskCategory.identifier isEqualToString:@"y:i:gp"]) {
+            imagename = @"guess_pic_locked@2x";
+        }
+        else if ([self.taskCategory.identifier isEqualToString:@"y:i:sv"])
+        {
+            imagename = @"survey_locked@2x";
+
+        }
+        else
+        {
+            imagename = @"game_locked@2x";
+
+        }
+//        NSString *imageName = task.isGuessPictureTask ? @"guess_pic_locked@2x" : @"survey_locked@2x";
+        YoomidRectModalView1 *modalView = [[YoomidRectModalView1 alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagename ofType:@"png"]] message:message buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
+        [modalView setCloseButtonHidden:YES];
+        modalView.taskListVC = self;
+        [modalView showInView1:self.navigationController.view completion:nil];
+        return;
+    }
+
     _completed_task_ids_ = [DiskCacheManager manager].completedTaskIds;
     
     [self showLoadingViewIfNeed];
