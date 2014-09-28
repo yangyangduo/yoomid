@@ -25,6 +25,7 @@
         self.answer = [questionsD objectForKey:@"answer"];
         self.question = [questionsD objectForKey:@"question"];
         self.questionId = [questionsD objectForKey:@"questionId"];
+        self.contentUrl = [questionsD objectForKey:@"contentUrl"];
 
         NSMutableArray *options_ = [NSMutableArray array];
         NSArray *_options_ = [questionsD arrayForKey:@"options"];

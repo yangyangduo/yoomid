@@ -291,7 +291,7 @@
         _upgrade = [_shareTasks_ objectAtIndex:indexPath.row];
         shareTitle = _upgrade.question;//分享标题
         shareImageUrl = task.taskDescriptionUrl;//分享图标
-        shareContentUrl = task.contentUrl;//连接
+        shareContentUrl = _upgrade.contentUrl;//连接
         
         AnswerOptions *answerOptions = [_upgrade.options objectAtIndex:0];  //第一次分享的内容
         AnswerOptions *answerOptions1 = [_upgrade.options objectAtIndex:1]; //第二次以后分享的内容

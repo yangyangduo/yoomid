@@ -194,7 +194,7 @@
 //    if (tempObj) {
     [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
     [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:title];  //设置微信好友分享标题
-    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:title];  //设置微信朋友圈分享标题
+//    [[UMSocialData defaultData].extConfig.wechatTimelineData setTitle:title];  //设置微信朋友圈分享标题
     [[UMSocialData defaultData].extConfig.qqData setTitle:title];  //设置QQ好友分享标题
     [[UMSocialData defaultData].extConfig.qzoneData setTitle:title];  //设置QQ空间好友分享标题
     [UMSocialData defaultData].extConfig.sinaData.shareText = title;
