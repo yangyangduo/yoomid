@@ -91,8 +91,10 @@
             _completed_task_ids_ = [DiskCacheManager manager].completedTaskIds;
             NSMutableArray *removeableTasks = [NSMutableArray array];
             for(Task *task in _tasks_) {
-                if([self isCompletedTask:task]) {
-                    [removeableTasks addObject:task];
+                if ([task.categoryId isEqualToString:@"y:i:gu"] || [task.categoryId isEqualToString:@"y:i:sv"]) {
+                    if([self isCompletedTask:task]) {
+                        [removeableTasks addObject:task];
+                    }
                 }
             }
             if(removeableTasks.count > 0) {
@@ -109,7 +111,7 @@
 }
 
 - (void)refresh {
-    if (self.taskCategory.requiredUserLevel > [Account currentAccount].level) {
+    if (self.taskCategory.requiredUserLevel > [Account currentAccount].level+1) {
         NSMutableString *message = [NSMutableString stringWithFormat:@"哈尼\r\n要到LV%d才能解锁\r\n哦!", self.taskCategory.requiredUserLevel];
         NSString *imagename = nil;
         if ([self.taskCategory.identifier isEqualToString:@"y:i:gp"]) {
@@ -123,9 +125,7 @@
         else
         {
             imagename = @"game_locked@2x";
-
         }
-//        NSString *imageName = task.isGuessPictureTask ? @"guess_pic_locked@2x" : @"survey_locked@2x";
         YoomidRectModalView1 *modalView = [[YoomidRectModalView1 alloc] initWithSize:CGSizeMake(300, 360) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imagename ofType:@"png"]] message:message buttonTitles:@[ @"好  的" ] cancelButtonIndex:0];
         [modalView setCloseButtonHidden:YES];
         modalView.taskListVC = self;
