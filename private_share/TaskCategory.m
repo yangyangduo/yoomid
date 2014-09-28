@@ -18,7 +18,7 @@
         self.identifier = [json noNilStringForKey:@"id"];
         self.parentCategory = [json noNilStringForKey:@"parentCategory"];
         self.displayName = [json noNilStringForKey:@"displayName"];
-        self.description = [json noNilStringForKey:@"description"];
+        self.instruction = [json noNilStringForKey:@"description"];
         
         NSNumber *_required_user_level_ = [json numberForKey:@"requiredUserLevel"];
         self.requiredUserLevel = _required_user_level_ == nil ? 0 : _required_user_level_.integerValue;
@@ -36,7 +36,7 @@
     [json setMayBlankString:self.identifier forKey:@"id"];
     [json setMayBlankString:self.parentCategory forKey:@"parentCategory"];
     [json setMayBlankString:self.displayName forKey:@"displayName"];
-    [json setMayBlankString:self.description forKey:@"description"];
+    [json setMayBlankString:self.instruction forKey:@"description"];
     [json setInteger:self.requiredUserLevel forKey:@"requiredUserLevel"];
     [json setBoolean:self.isActive forKey:@"active"];
     [json setBoolean:self.hasParent forKey:@"parent"];

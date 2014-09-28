@@ -9,13 +9,13 @@
 #import "AnswerOptions.h"
 
 @implementation AnswerOptions
-@synthesize description;
+@synthesize instruction;
 @synthesize option;
 
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self) {
-        self.description = [json noNilStringForKey:@"description"];
+        self.instruction = [json noNilStringForKey:@"description"];
         self.option = [json noNilStringForKey:@"option"];
     }
     return  self;
@@ -23,7 +23,7 @@
 
 - (NSMutableDictionary *)toJson {
     NSMutableDictionary *json = [super toJson];
-    [json setMayBlankString:self.description forKey:@"description"];
+    [json setMayBlankString:self.instruction forKey:@"description"];
     [json setMayBlankString:self.option forKey:@"option"];
     return json;
 }

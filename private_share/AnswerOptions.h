@@ -10,6 +10,6 @@
 
 @interface AnswerOptions : BaseModel
 
-@property (nonatomic ,strong) NSString *description;
+@property (nonatomic ,strong) NSString *instruction;
 @property (nonatomic ,strong) NSString *option;
 @end

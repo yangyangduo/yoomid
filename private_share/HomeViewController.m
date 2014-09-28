@@ -52,9 +52,9 @@
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     backgroundView.backgroundColor=[UIColor blackColor];
 //    backgroundView.alpha=0;
-    
+    [UIDevice is4InchDevice];
     UIImageView *imageView=[[UIImageView alloc]initWithFrame:backgroundView.frame];
-    imageView.image=[UIImage imageNamed:@"daohang1"];
+    imageView.image=[UIImage imageNamed:[UIDevice is4InchDevice] ? @"daohang1" : @"daohang1_4"];
     imageView.tag=1;
     [backgroundView addSubview:imageView];
     [window addSubview:backgroundView];
@@ -64,10 +64,10 @@
 }
 
 - (void)hideImage:(UITapGestureRecognizer*)tap {
-    static int i = 1;
+//    static int i = 1;
     UIView *backgroundView=tap.view;
 
-    if (i == 2) {
+//    if (i == 2) {
         [UIView animateWithDuration:0.3 animations:^{
             backgroundView.alpha=0;
         } completion:^(BOOL finished) {
@@ -75,13 +75,13 @@
         }];
         [SecurityConfig defaultConfig].isFirstLogin = NO;
         [[SecurityConfig defaultConfig] saveConfig];
-    }
-    else
-    {
-        UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
-        imageView.image = [UIImage imageNamed:@"logo1136"];
-    }
-    i++;
+//    }
+//    else
+//    {
+//        UIImageView *imageView=(UIImageView*)[tap.view viewWithTag:1];
+//        imageView.image = [UIImage imageNamed:@"logo1136"];
+//    }
+//    i++;
 }
 
 - (void)viewDidLoad
@@ -350,7 +350,7 @@
     
     TaskCategory *taskCategory = [self.rootCategories objectAtIndex:indexPath.row];
     cell.title_lable.text = taskCategory.displayName;
-    cell.context.text = taskCategory.description;
+    cell.context.text = taskCategory.instruction;
     
     NSString *iconName = taskCategory.iconName;
     if(iconName != nil && ![@"" isEqualToString:iconName]) {

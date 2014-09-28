@@ -298,11 +298,11 @@
 
         if ([self shareTashIsDone:taskIds]) {//该分享任务已经做过了
             message = @"分享是种美德,立即分享!";
-            shareMessage = answerOptions1.description;  //分享的内容,第二次分享，没有米米
+            shareMessage = answerOptions1.instruction;  //分享的内容,第二次分享，没有米米
         }
         else{
             message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
-            shareMessage = answerOptions.description;
+            shareMessage = answerOptions.instruction;
         }
         
         ShareTaskModalView *shareTaskMV = [[ShareTaskModalView alloc]initWithSize:CGSizeMake(300, 300) image:[UIImage imageNamed:@"fengxiang2"] message:message];

@@ -164,7 +164,7 @@
             optionsBtn.tag = i;
             optionsBtn.frame = CGRectMake(x, 285, 50, 35);
             AnswerOptions *upgrade = [upgradeTask.options objectAtIndex:i];
-            [optionsBtn setTitle:upgrade.description forState:UIControlStateNormal];
+            [optionsBtn setTitle:upgrade.instruction forState:UIControlStateNormal];
             optionsBtn.backgroundColor = [UIColor grayColor];
             [optionsBtn.layer setMasksToBounds:YES];
             [optionsBtn.layer setCornerRadius:4.0];

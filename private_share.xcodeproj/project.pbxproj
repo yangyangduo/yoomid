@@ -470,6 +470,7 @@
 		D6DD76DA19D07DD500133CD1 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD76D919D07DD500133CD1 /* libiconv.dylib */; };
 		D6DD76DC19D07E6F00133CD1 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD76DB19D07E6E00133CD1 /* libstdc++.dylib */; };
 		D6DF203E19D56B0D00297BA4 /* game_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6DF203D19D56B0D00297BA4 /* game_locked@2x.png */; };
+		D6DF204019D7A7BD00297BA4 /* daohang1_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6DF203F19D7A7BD00297BA4 /* daohang1_4@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1182,6 +1183,7 @@
 		D6DD76D919D07DD500133CD1 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D6DD76DB19D07E6E00133CD1 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D6DF203D19D56B0D00297BA4 /* game_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game_locked@2x.png"; sourceTree = "<group>"; };
+		D6DF203F19D7A7BD00297BA4 /* daohang1_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daohang1_4@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2371,6 +2373,7 @@
 				6F4FA06819A4892C0049C023 /* points_order */,
 				6F3D22DD1963EC4A00F52F18 /* activities */,
 				D6C7CC8F199BA91000EC3061 /* line.png */,
+				D6DF203F19D7A7BD00297BA4 /* daohang1_4@2x.png */,
 				6FBB6B8B1973B85600E6C7D2 /* mi_repo@2x.png */,
 				6FE0094A1953E177002A675D /* icon_disclosure@2x.png */,
 				6FFB8D9519790567008F0BBB /* top10@2x.png */,
@@ -2992,6 +2995,7 @@
 				D670D6C019B0749000FB241D /* into@2x.png in Resources */,
 				6FF1E6C419C8003F00D19AF7 /* notifications@2x.png in Resources */,
 				D3644C1A197A171000B44785 /* dianru_orange_left_view.png in Resources */,
+				D6DF204019D7A7BD00297BA4 /* daohang1_4@2x.png in Resources */,
 				6F5B5E3B19B5AFA800495F0C /* categoryRight@2x.png in Resources */,
 				D3644C0C197A171000B44785 /* dianru_green_dianru_titlebg.jpg in Resources */,
 				6F27071919C2B35D00722C67 /* survey_locked@2x.png in Resources */,
