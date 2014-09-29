@@ -169,8 +169,11 @@
     [[Account currentAccount] mayRefresh];
 
     //新手导航页判断
-    if ([SecurityConfig defaultConfig].isFirstLogin) {
+    if ([SecurityConfig defaultConfig].isFirstLogin && ![[SecurityConfig defaultConfig].userName isEqualToString:@"1111"]) {
         [self showGuidanceImage];
+    }else if ([[SecurityConfig defaultConfig].userName isEqualToString:@"1111"] && [SecurityConfig defaultConfig].isFirstLogin){
+        [SecurityConfig defaultConfig].isFirstLogin = NO;
+        [[SecurityConfig defaultConfig] saveConfig];
     }
 }
 
