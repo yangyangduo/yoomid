@@ -26,7 +26,7 @@ const CGFloat ImageWidth = 90;
         [self addSubview:_bg_lable];
         
         _bg_image = [[UIImageView alloc]initWithFrame:CGRectMake(_bg_lable.bounds.size.width/2-17, _bg_lable.bounds.size.height/2-17, 33, 33)];
-        [_bg_lable addSubview:_bg_image];
+        [self addSubview:_bg_image];
         
         UIView *rightLineView = [[UIView alloc]initWithFrame:CGRectMake(ImageWidth, self.bounds.size.height, self.bounds.size.width-ImageWidth, 1.5)];
         rightLineView.backgroundColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];

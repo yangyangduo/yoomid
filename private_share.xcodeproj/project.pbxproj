@@ -2826,7 +2826,7 @@
 				ORGANIZATIONNAME = hentre;
 				TargetAttributes = {
 					6F7657DE19345C7C003BF61C = {
-						DevelopmentTeam = JJH6E5JL26;
+						DevelopmentTeam = V59AQ53269;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -3390,8 +3390,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3410,7 +3410,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
+				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -3432,8 +3432,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3446,7 +3446,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
+				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
@@ -3460,8 +3460,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3520,7 +3520,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
+				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -3534,8 +3534,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3594,7 +3594,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a67e482e-334f-4536-ac8a-9a59ee719422";
+				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
