@@ -84,7 +84,7 @@
         
         [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        postCashPaymentButton.hidden = YES;
+//        postCashPaymentButton.hidden = YES;
         
         [self addSubview:postPointsPaymentButton];
         [self addSubview:postCashPaymentButton];

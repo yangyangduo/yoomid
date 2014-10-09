@@ -80,7 +80,8 @@
     if(PaymentTypePoints == self.paymentType) {
         return [[Payment alloc] initWithPoints:self.merchandise.points cash:0];
     } else if(PaymentTypeCash == self.paymentType) {
-        float cash = ((float)self.merchandise.points) / 100.f;
+//        float cash = ((float)self.merchandise.points) / 100.f;
+        float cash = (float)self.merchandise.price;
         return [[Payment alloc] initWithPoints:0 cash:cash];
     }
     return [[Payment alloc] initWithPoints:0 cash:0];
@@ -93,7 +94,8 @@
     if(PaymentTypePoints == self.paymentType) {
         return [[Payment alloc] initWithPoints:(self.merchandise.points * self.number) cash:0];
     } else if(PaymentTypeCash == self.paymentType) {
-        float cash = (((float)self.merchandise.points) / 100.f) * self.number;
+//        float cash = (((float)self.merchandise.points) / 100.f) * self.number;
+        float cash = (float)self.merchandise.price * self.number;
         return [[Payment alloc] initWithPoints:0 cash:cash];
     }
     return [[Payment alloc] initWithPoints:0 cash:0];

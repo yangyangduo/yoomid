@@ -19,7 +19,8 @@
     if(PaymentTypePoints == paymentType) {
         titleString = [NSString stringWithFormat:@"%ld ", (long)points];
     } else {
-        titleString = [NSString stringWithFormat:@"%.1f ", ((float)points) / 100.f];
+//        titleString = [NSString stringWithFormat:@"%.1f ", ((float)points) / 100.f];
+        titleString = [NSString stringWithFormat:@"%.1f ", (float)points];
     }
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:titleString attributes:@{

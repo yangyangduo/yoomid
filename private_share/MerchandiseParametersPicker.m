@@ -130,8 +130,8 @@
         pointsPaymentButton.selected = YES;
         [scrollView addSubview:pointsPaymentButton];
         
-        cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + 10, lastY) paymentType:PaymentTypeCash points:_merchandise_.points returnPoints:_merchandise_.returnPoints];
-        cashPaymentButton.hidden = YES;
+        cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + 10, lastY) paymentType:PaymentTypeCash points:_merchandise_.price returnPoints:_merchandise_.returnPoints];
+//        cashPaymentButton.hidden = YES;
         [scrollView addSubview:cashPaymentButton];
         
         [pointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -219,7 +219,7 @@
     } else {
         pointsPaymentButton.selected = !paymentButton.selected;
         pointsImageView.image = [UIImage imageNamed:@"rmb_blue"];
-        pointsLabel.text = [NSString stringWithFormat:@"%.1f%@", ((float)(_merchandise_.points) / 100.f), NSLocalizedString(@"yuan", @"")];
+        pointsLabel.text = [NSString stringWithFormat:@"%.1f%@", _merchandise_.price/*((float)(_merchandise_.points) / 100.f)*/, NSLocalizedString(@"yuan", @"")];
     }
 }
 

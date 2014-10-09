@@ -410,6 +410,8 @@
 		D67ACA5B19ACBB57005EF9E8 /* miku3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */; };
 		D67CAFBD19CFB6CA002B503B /* good3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67CAFBB19CFB6CA002B503B /* good3@2x.png */; };
 		D67CAFBE19CFB6CA002B503B /* good4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67CAFBC19CFB6CA002B503B /* good4@2x.png */; };
+		D67EAC3719E67470008EFC85 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D67EAC3319E67470008EFC85 /* libWeChatSDK.a */; };
+		D67EAC3819E67470008EFC85 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = D67EAC3419E67470008EFC85 /* readme.txt */; };
 		D681286319D4FCCA00751784 /* huoxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286219D4FCCA00751784 /* huoxing@2x.png */; };
 		D681286519D4FCD400751784 /* jingxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286419D4FCD400751784 /* jingxing@2x.png */; };
 		D681286719D4FCDC00751784 /* diqiu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286619D4FCDC00751784 /* diqiu@2x.png */; };
@@ -1090,6 +1092,10 @@
 		D67ACA5A19ACBB57005EF9E8 /* miku3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miku3@2x.png"; sourceTree = "<group>"; };
 		D67CAFBB19CFB6CA002B503B /* good3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good3@2x.png"; sourceTree = "<group>"; };
 		D67CAFBC19CFB6CA002B503B /* good4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "good4@2x.png"; sourceTree = "<group>"; };
+		D67EAC3319E67470008EFC85 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		D67EAC3419E67470008EFC85 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		D67EAC3519E67470008EFC85 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		D67EAC3619E67470008EFC85 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		D681286219D4FCCA00751784 /* huoxing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "huoxing@2x.png"; sourceTree = "<group>"; };
 		D681286419D4FCD400751784 /* jingxing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jingxing@2x.png"; sourceTree = "<group>"; };
 		D681286619D4FCDC00751784 /* diqiu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diqiu@2x.png"; sourceTree = "<group>"; };
@@ -1219,6 +1225,7 @@
 				D3644C5C197A1D5300B44785 /* AudioToolbox.framework in Frameworks */,
 				D6DD76AC19D0798B00133CD1 /* libUMSocial_Sdk_ScreenShot_1.0.a in Frameworks */,
 				6F75A5441958012B00E4FE52 /* AVFoundation.framework in Frameworks */,
+				D67EAC3719E67470008EFC85 /* libWeChatSDK.a in Frameworks */,
 				6F75A5431958011C00E4FE52 /* CoreMedia.framework in Frameworks */,
 				6F12F37D195020B600B47132 /* ImageIO.framework in Frameworks */,
 				D3644C3E197A171000B44785 /* libTalkingDataSDK.a in Frameworks */,
@@ -2096,6 +2103,7 @@
 		6F97096F193F4A6B00EA5E3A /* third */ = {
 			isa = PBXGroup;
 			children = (
+				D67EAC3219E67470008EFC85 /* WeChatSDK_1.4.1 */,
 				D6DD76B119D079CF00133CD1 /* UMSocial_Sdk_4.1 */,
 				D6DD768C19D0798B00133CD1 /* UMSocial_Sdk_Extra_Frameworks */,
 				6F5B5E2019B56BE200495F0C /* UMessage_Sdk_1.1.0 */,
@@ -2632,6 +2640,17 @@
 			name = settings;
 			sourceTree = "<group>";
 		};
+		D67EAC3219E67470008EFC85 /* WeChatSDK_1.4.1 */ = {
+			isa = PBXGroup;
+			children = (
+				D67EAC3319E67470008EFC85 /* libWeChatSDK.a */,
+				D67EAC3419E67470008EFC85 /* readme.txt */,
+				D67EAC3519E67470008EFC85 /* WXApi.h */,
+				D67EAC3619E67470008EFC85 /* WXApiObject.h */,
+			);
+			path = WeChatSDK_1.4.1;
+			sourceTree = "<group>";
+		};
 		D698655019B58E3300781F54 /* picker_popupview */ = {
 			isa = PBXGroup;
 			children = (
@@ -3012,6 +3031,7 @@
 				D66B498819B45C53002615CC /* setupbg@2x.png in Resources */,
 				D3644BEF197A171000B44785 /* dianru_blue_left_cell.png in Resources */,
 				6F12F38F195151CD00B47132 /* PunchBoxAdRes.bundle in Resources */,
+				D67EAC3819E67470008EFC85 /* readme.txt in Resources */,
 				D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */,
 				D3644C1C197A171000B44785 /* dianru_orange_right_view.png in Resources */,
 				D69612BC19D3FB740012DC84 /* fengxiang2@2x.png in Resources */,
@@ -3390,8 +3410,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3410,7 +3430,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
+				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -3432,8 +3452,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3446,7 +3466,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
+				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
@@ -3460,8 +3480,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3497,6 +3517,7 @@
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/UMSocial_ScreenShot_Sdk",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/UMSocial_Shake_Sdk",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/private_share/WeChatSDK_1.4.1",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -3520,7 +3541,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
+				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -3534,8 +3555,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xingchen Chu (PXM3L5WK5S)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
@@ -3571,6 +3592,7 @@
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/UMSocial_ScreenShot_Sdk",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/UMSocial_Shake_Sdk",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/private_share/WeChatSDK_1.4.1",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -3594,7 +3616,7 @@
 					SystemConfiguration,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "df355b5b-70ff-4b3e-8c8d-a720ae65f344";
+				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

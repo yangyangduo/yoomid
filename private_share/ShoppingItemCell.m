@@ -66,7 +66,7 @@ CGFloat const ImageViewHeight = 60.f;
         propertiesLabel.textColor = [UIColor colorWithRed:137.f / 255 green:137.f / 255 blue:137.f / 255 alpha:1];
         [self addSubview:propertiesLabel];
         
-        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width, nameLabel.frame.origin.y - 2, 75, 20)];
+        paymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width, nameLabel.frame.origin.y -2 , 75, 20)];
         paymentLabel.backgroundColor = [UIColor clearColor];
         paymentLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:paymentLabel];
