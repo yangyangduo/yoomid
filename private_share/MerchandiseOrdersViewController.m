@@ -84,15 +84,15 @@
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    if(segmentedControl.selectedSegmentIndex == 0) {
+    if(segmentedControl.selectedSegmentIndex == 0) {//未支付
         orderState = MerchandiseOrderStateUnCashPayment;
         merchandiseOrders = [NSMutableArray arrayWithArray:submittedOrders];
         _collectionView_.pullLastRefreshDate = submittedOrdersRefreshDate;
-    } else if(segmentedControl.selectedSegmentIndex == 1) {
+    } else if(segmentedControl.selectedSegmentIndex == 1) { //处理中
         orderState = (MerchandiseOrderStateSubmitted | MerchandiseOrderStateUnConfirmed);
         merchandiseOrders = [NSMutableArray arrayWithArray:transactionOrders];
         _collectionView_.pullLastRefreshDate = transactionOrdersRefreshDate;
-    } else {
+    } else {//已完成
         orderState = MerchandiseOrderStateConfirmed;
         merchandiseOrders = [NSMutableArray arrayWithArray:cancelledOrders];
         _collectionView_.pullLastRefreshDate = cancelledOrdersRefreshDate;
@@ -296,6 +296,13 @@
         ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
         [headerView setSelectButtonHidden];
         [headerView setOrderId:merchandiseOrder.orderId];
+        if (orderState == MerchandiseOrderStateUnCashPayment) {
+            [headerView setMoreButtonShow];
+        }
+        else
+        {
+            [headerView setMoreButtonHidden];
+        }
         return headerView;
     }
     return nil;

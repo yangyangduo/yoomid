@@ -22,6 +22,7 @@
 #import "DiskCacheManager.h"
 #import "OrderResult.h"
 #import "ReturnMessage.h"
+#import "CashPaymentTypePicker.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -399,7 +400,7 @@
     MerchandiseService *service =  [[MerchandiseService alloc] init];
     [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
 }
-
+//
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
 
@@ -407,7 +408,16 @@
         if(_order_result_json_ != nil) {
             OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
             if(orderResult.cashNeedToPay > 0) {
+                NSMutableArray *categories = [NSMutableArray array];
+                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
+                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
                 
+                CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 415)message:[NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要现金支付,请选择支付方式。您也可以点击右上角进入我的商品页面'未支付'进行支付",orderResult.pointsPaid] buttonItems:categories];
+                modalView.delegate = self;
+                modalView.modalViewDelegate = self;
+                [modalView showInView:self.navigationController.view completion:nil];
+
             }
 #ifdef DEBUG
 #endif
@@ -416,9 +426,9 @@
             }
             
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
-                modal.shareDeletage = self;
-                [modal showInView:self.navigationController.view completion:nil];
+//                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+//                modal.shareDeletage = self;
+//                [modal showInView:self.navigationController.view completion:nil];
             }];
             
             [[Account currentAccount] refresh];
@@ -459,9 +469,21 @@
 #pragma mark- shareView deletage
 -(void)showShare
 {
-//    [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80"];
     [self showShareTitle:nil text:@"居然是这个东东，好炫酷的样子~" imageName:@"icon80" imageUrl:nil contentUrl:nil];
-
 }
+
+#pragma mark - PayButton
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:@"weixinPay"]) {
+        
+    }else if ([identifier isEqualToString:@"taobaoPay"])
+    {
+    
+    }else if ([identifier isEqualToString:@"alterPay"])
+    {
+        
+    }
+}
+
 
 @end

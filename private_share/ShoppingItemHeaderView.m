@@ -13,6 +13,8 @@
     UIButton *selectButton;
     UILabel *titleLabel;
     BOOL hideSelectButton;
+    
+    UIButton *moreButton;
 }
 
 @synthesize shopId = _shopId_;
@@ -39,6 +41,12 @@
         titleLabel.text = @"";
         titleLabel.font = [UIFont systemFontOfSize:17.f];
         [backgroundView addSubview:titleLabel];
+        
+        moreButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 40, 10, 23, 23)];
+        [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [moreButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+        moreButton.hidden = YES;
+        [backgroundView addSubview:moreButton];
     }
     return self;
 }
@@ -71,4 +79,16 @@
     [super prepareForReuse];
 }
 
+- (void)setMoreButtonShow
+{
+    moreButton.hidden = NO;
+}
+
+- (void)setMoreButtonHidden
+{
+    moreButton.hidden = YES;
+}
+
+- (void)moreButtonPressed:(id)sender {
+}
 @end

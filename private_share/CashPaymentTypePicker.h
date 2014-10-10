@@ -8,17 +8,13 @@
 
 #import "YoomidBaseModalView.h"
 #import "ShoppingCart.h"
+#import "CategoryButtonItem.h"
 
-@protocol CashPaymentTypePickerDelegate;
+@interface CashPaymentTypePicker : YoomidBaseModalView<CategoryButtonItemDelegate>
 
-@interface CashPaymentTypePicker : YoomidBaseModalView<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, weak) id<CategoryButtonItemDelegate> delegate;
+@property (nonatomic, strong, readonly) UIScrollView *scrollView;
 
-@property (nonatomic, weak) id<CashPaymentTypePickerDelegate> delegate;
-
+- (instancetype)initWithSize:(CGSize)size message:(NSString *)message buttonItems:(NSArray *)buttonItems;
 @end
 
-@protocol CashPaymentTypePickerDelegate <NSObject>
-
-- (void)cashPaymentTypePicker:(CashPaymentTypePicker *)cashPaymentTypePicker didSelectCashPaymentType:(CashPaymentType)cashPaymentType;
-
-@end

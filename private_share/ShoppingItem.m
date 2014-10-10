@@ -46,6 +46,7 @@
                 NSNumber *cashNumber = [json numberForKey:@"totalCash"];
                 if(cashNumber != nil) {
                     self.merchandise.points = cashNumber.floatValue * 100 / self.number;
+                    self.merchandise.price = cashNumber.floatValue;
                 }
             }
         }

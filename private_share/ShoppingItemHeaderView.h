@@ -15,4 +15,6 @@
 - (void)setSelectButtonHidden;
 - (void)setOrderId:(NSString *)orderId;
 
+- (void)setMoreButtonShow;
+- (void)setMoreButtonHidden;
 @end

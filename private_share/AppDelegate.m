@@ -75,7 +75,7 @@
 //     |UIRemoteNotificationTypeAlert];
 //    
 //    [UMessage setLogEnabled:YES];
-    [UMSocialData openLog:YES];
+//    [UMSocialData openLog:YES];
 
     [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
     

@@ -11,18 +11,18 @@
 
 @implementation CashPaymentTypePicker
 {
-    UITableView *tableview;
     NSArray *paymentTypeArray;
-    NSInteger selectInt;
+    NSArray *paymentTypeImageArray;
 }
 
 @synthesize delegate;
+@synthesize scrollView = _scrollView_;
 
-- (instancetype)initWithSize:(CGSize)size {
+- (instancetype)initWithSize:(CGSize)size message:(NSString *)message buttonItems:(NSArray *)buttonItems{
     self = [super initWithSize:size];
     if(self) {
-        paymentTypeArray = [[NSArray alloc]initWithObjects:@"支付宝支付",@"微信安全支付",@"银联在线支付", nil];
-        selectInt = 0;
+        paymentTypeArray = [[NSArray alloc]initWithObjects:@"微信安全支付",@"支付宝支付", nil];
+        paymentTypeImageArray = [[NSArray alloc]initWithObjects:@"wxpay",@"taobaopay", nil];
         
         UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 44)];
         titleView.backgroundColor = [UIColor appColor];
@@ -34,91 +34,46 @@
         [titleView addSubview:titleLabel];
         [self.contentView addSubview:titleView];
         
-        tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.contentView.bounds.size.width, 159) style:UITableViewStyleGrouped];
-        tableview.delegate = self;
-        tableview.dataSource = self;
-        tableview.scrollEnabled = NO;
-        tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.contentView addSubview:tableview];
+        _scrollView_ = [[UIScrollView alloc] initWithFrame:CGRectMake(0, titleView.bounds.size.height + 15, titleView.bounds.size.width, self.contentView.bounds.size.height - titleView.bounds.size.height - 30)];
+        _scrollView_.alwaysBounceVertical = YES;
         
-        UIButton *OkPaymentBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 223, self.contentView.bounds.size.width-40, 40)];
-        [OkPaymentBtn setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
-        [OkPaymentBtn setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
-        OkPaymentBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-        [OkPaymentBtn setTitle:@"确认支付" forState:UIControlStateNormal];
-        [OkPaymentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [OkPaymentBtn addTarget:self action:@selector(actionPaymentClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:OkPaymentBtn];
+        _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, 0);
+        _scrollView_.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_scrollView_];
+        NSMutableAttributedString *contentMessage = [[NSMutableAttributedString alloc] initWithString:message attributes : @{ NSFontAttributeName : [UIFont systemFontOfSize:16.f] }];
+//        [contentMessage addAttribute:NSForegroundColorAttributeName value:[UIColor appLightBlue] range:NSMakeRange(66, 13)];
+        CGSize contentMessageSize = [contentMessage boundingRectWithSize:CGSizeMake(self.contentView.bounds.size.width - 30, 300) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
+        
+        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width - 30, contentMessageSize.height)];
+        contentLabel.attributedText = contentMessage;
+        contentLabel.numberOfLines = 0;
+        contentLabel.font = [UIFont systemFontOfSize:16.f];
+        [self addSubviewInScrollView:contentLabel];
+        
+        for(CategoryButtonItem *buttonItem in buttonItems) {
+            buttonItem.delegate = self;
+            [self addSubviewInScrollView:buttonItem];
+        }
     }
     return self;
 }
 
--(void)actionPaymentClick
-{
+- (void)addSubviewInScrollView:(UIView *)view {
+    CGFloat y = _scrollView_.contentSize.height + 15;
+    if(y == 15) y = 0;
+    CGRect frame = view.frame;
+    frame.origin.y = y;
+    view.frame = frame;
+    view.center = CGPointMake(_scrollView_.center.x, view.center.y);
     
+    [_scrollView_ addSubview:view];
+    _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, y + view.bounds.size.height);
 }
 
-#pragma mark- uitableview delegeta
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return paymentTypeArray.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath]; //根据indexPath准确地取出一行，而不是从cell重用队列中取出
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(categoryButtonItemDidSelectedWithIdentifier:)]) {
+        [self.delegate categoryButtonItemDidSelectedWithIdentifier:identifier];
     }
-    
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(20, 9, 33, 33)];
-    imageview.image = [UIImage imageNamed:@"social_sharing"];
-    [cell addSubview:imageview];
-    
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 13, 100, 25)];
-    textLabel.font = [UIFont systemFontOfSize:15];
-    textLabel.text = [paymentTypeArray objectAtIndex:indexPath.row];
-    [cell addSubview:textLabel];
-    
-    UIImageView *selectImageView = [[UIImageView alloc]initWithFrame:CGRectMake(194, 3, 44, 44)];
-    selectImageView.tag = 100;
-    if (selectInt == indexPath.row) {
-        selectImageView.image = [UIImage imageNamed:@"cb_select"];
-    }
-    else
-    {
-        selectImageView.image = [UIImage imageNamed:@"cb_unselect"];
-    }
-    
-    [cell addSubview:selectImageView];
-    
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0,51.5, cell.bounds.size.width, 1.5)];
-    line.backgroundColor = [UIColor colorWithRed:228.f/255.f green:230.f/255.f blue:230/255.f alpha:1];//228 230  230
-    [cell addSubview:line];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 53.f;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0.1f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    selectInt = indexPath.row;
-    [tableview reloadData];
 }
 
 @end

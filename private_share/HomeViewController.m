@@ -272,12 +272,6 @@
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
-//    CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
-//    [picker showInView:self.view completion:nil];
-
-//    [self showShareTitle:@"title" text:@"测试中....." imageName:@"icon80"];
-//    return;
-
     SettingViewController *settingVC = [[SettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
@@ -285,12 +279,6 @@
 }
 
 - (void)showNotifications:(id)sender {
-//    NotificationsViewController *notificationsVC = [[NotificationsViewController alloc]init];
-//    UINavigationController *navigationControllers = [[UINavigationController alloc] initWithRootViewController:notificationsVC];
-//    [UINavigationViewInitializer initialWithDefaultStyle:navigationControllers];
-//    [self rightPresentViewController:navigationControllers animated:YES];
-//
-//    return;
     return;
     CashPaymentTypePicker *picker = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 330)];
     [picker showInView:self.view completion:nil];

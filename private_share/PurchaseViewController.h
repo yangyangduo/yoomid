@@ -11,8 +11,9 @@
 #import "SelectContactAddressViewController.h"
 #import "TransitionViewController.h"
 #import "YoomidRectModalView.h"
+#import "CategoryButtonItem.h"
 
-@interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage>
+@interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage,CategoryButtonItemDelegate>
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart;
 - (void)refreshSettlementView;
