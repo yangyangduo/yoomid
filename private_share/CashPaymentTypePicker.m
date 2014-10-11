@@ -73,6 +73,7 @@
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if(self.delegate != nil && [self.delegate respondsToSelector:@selector(categoryButtonItemDidSelectedWithIdentifier:)]) {
         [self.delegate categoryButtonItemDidSelectedWithIdentifier:identifier];
+        [self closeViewAnimated:YES completion:nil];
     }
 }
 

@@ -13,4 +13,5 @@
 @property (nonatomic, assign) NSInteger pointsPaid;
 @property (nonatomic, assign) float cashNeedToPay;
 
+@property (nonatomic, strong) NSString *orderIds;
 @end

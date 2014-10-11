@@ -83,6 +83,8 @@
     [UMSocialQQHandler setQQWithAppId:@"1102346164" appKey:@"T4tsAiwGE3oZNBVf" url:@"http://yoomid.com"];
     [UMSocialQQHandler setSupportWebView:YES];
 //    [UMSocialInstagramHandler openInstagramWithScale:NO paddingColor:[UIColor blackColor]];
+    
+//    [WXApi registerApp:@"wxb3bc53583590b23f"];
 
     
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
@@ -111,6 +113,7 @@
 {
     return  [UMSocialSnsService handleOpenURL:url];
 }
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication

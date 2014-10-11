@@ -23,6 +23,7 @@
 #import "OrderResult.h"
 #import "ReturnMessage.h"
 #import "CashPaymentTypePicker.h"
+#import "WXPayRequest.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -40,6 +41,8 @@
     
     __weak UITextField *lastActiveTextFiled;
     UITapGestureRecognizer *resignKeyboardGesture;
+    
+    WXPayRequest *wxPayRequest;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
@@ -57,6 +60,8 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"confirm_order", @"");
+    
+    wxPayRequest = [[WXPayRequest alloc]init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
@@ -407,29 +412,50 @@
         NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_order_result_json_ != nil) {
             OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
-            if(orderResult.cashNeedToPay > 0) {
-                NSMutableArray *categories = [NSMutableArray array];
-                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
-                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
-                [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
-                
-                CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 415)message:[NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要现金支付,请选择支付方式。您也可以点击右上角进入我的商品页面'未支付'进行支付",orderResult.pointsPaid] buttonItems:categories];
-                modalView.delegate = self;
-                modalView.modalViewDelegate = self;
-                [modalView showInView:self.navigationController.view completion:nil];
+            [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+                if(orderResult.cashNeedToPay > 0) {
+                    NSString *ordId = orderResult.orderIds;
+                    NSInteger totalCash = orderResult.cashNeedToPay *100;
+                    NSString *totalCashStr = [NSString stringWithFormat:@"%d",totalCash];
+//                    NSString *totalCashStr = @"300";
+                    NSString *name = @"小吉商城:男士周抛袜套装";
+                    
 
-            }
+                    NSMutableDictionary *param = [[NSMutableDictionary alloc] init];//WithObjectsAndKeys:@"小吉商城:男士周抛袜套装",@"body",ordId,@"out_trade_no",totalCashStr,@"total_fee", nil];
+                    [param setObject:(NSString *)ordId forKey:@"out_trade_no"];
+                    [param setObject:name forKey:@"body"];
+                    [param setObject:totalCashStr forKey:@"total_fee"];
+                    
+                    NSDictionary *tempDs = @{@"body": name, @"out_trade_no": ordId, @"total_fee" : totalCashStr};
+                    
+//                    NSString *str = [NSString stringWithFormat:@"%d",1234];
+//                    NSDictionary *ddd = [[NSDictionary alloc]initWithObjectsAndKeys:str,@"aa", nil];
+                    
+                    WXPayRequest *wxPay = [[WXPayRequest alloc]initWithJson:tempDs];
+                    wxPayRequest = wxPay;
+                    
+                    NSMutableArray *categories = [NSMutableArray array];
+                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
+                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
+                    
+                    CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 415)message:[NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.1f元,请选择支付方式。您也可以点击右上角进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay] buttonItems:categories];
+                    modalView.delegate = self;
+//                    modalView.modalViewDelegate = self;
+                    [modalView showInView:self.navigationController.view completion:nil];
+                }
+                else{
+                    YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                    modal.shareDeletage = self;
+                    [modal showInView:self.navigationController.view completion:nil];
+                }
+            }];
+
 #ifdef DEBUG
 #endif
             if(_is_from_shopping_cart_) {
                 [[ShoppingCart myShoppingCart] clearAllSelectShoppingItems];
             }
-            
-            [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-//                YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
-//                modal.shareDeletage = self;
-//                [modal showInView:self.navigationController.view completion:nil];
-            }];
             
             [[Account currentAccount] refresh];
         }
@@ -475,7 +501,20 @@
 #pragma mark - PayButton
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:@"weixinPay"]) {
+//        NSMutableDictionary *tempD = [NSMutableDictionary dictionary];
+//        tempD = [wxPayRequest toJson];
         
+        NSDictionary *tempD = @{@"body": wxPayRequest.bodys,
+                                @"input_charset": wxPayRequest.input_charset,
+                                @"out_trade_no": wxPayRequest.out_trade_no,
+                                @"spbill_create_ip": wxPayRequest.spbill_create_ip,
+                                @"total_fee": wxPayRequest.total_fee,
+                                @"traceid": wxPayRequest.traceid,
+                                @"noncestr": wxPayRequest.noncestr,
+                                @"timestamp": wxPayRequest.timestamp};
+        
+        MerchandiseService *service = [[MerchandiseService alloc] init];
+        [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
     
@@ -485,5 +524,11 @@
     }
 }
 
+//
+- (void)submitPayRequestSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 201) {
+        NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+    }
 
+}
 @end

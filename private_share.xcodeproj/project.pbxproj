@@ -420,6 +420,7 @@
 		D681286D19D4FCFF00751784 /* tuxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286C19D4FCFF00751784 /* tuxing@2x.png */; };
 		D681286F19D4FD0600751784 /* muxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286E19D4FD0600751784 /* muxing@2x.png */; };
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
+		D685BEF219E90724003BE462 /* WXPayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D685BEF119E90724003BE462 /* WXPayRequest.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */; };
 		D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B519D3F0340012DC84 /* setup5@2x.png */; };
@@ -1110,6 +1111,8 @@
 		D681286E19D4FD0600751784 /* muxing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "muxing@2x.png"; sourceTree = "<group>"; };
 		D683A049199D987B001E3DA9 /* UpdateContactInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateContactInfoViewController.h; sourceTree = "<group>"; };
 		D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateContactInfoViewController.m; sourceTree = "<group>"; };
+		D685BEF019E90724003BE462 /* WXPayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPayRequest.h; sourceTree = "<group>"; };
+		D685BEF119E90724003BE462 /* WXPayRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPayRequest.m; sourceTree = "<group>"; };
 		D690352119A4C0D30059C08C /* MyPointsRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsRecordViewController.h; sourceTree = "<group>"; };
 		D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsRecordViewController.m; sourceTree = "<group>"; };
 		D69612B219D3B7B60012DC84 /* ShareTaskModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTaskModalView.h; sourceTree = "<group>"; };
@@ -1488,6 +1491,8 @@
 				D67913D619CA7D1500154C37 /* AnswerOptions.m */,
 				D6BD165B19D14B6E006AE1C1 /* UserInfo.h */,
 				D6BD165C19D14B6E006AE1C1 /* UserInfo.m */,
+				D685BEF019E90724003BE462 /* WXPayRequest.h */,
+				D685BEF119E90724003BE462 /* WXPayRequest.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -3253,6 +3258,7 @@
 				6F72A3DD193DB54A001DAA3E /* DrawerItemView.m in Sources */,
 				6F41897C1948587B00F9DC2C /* CheckBox.m in Sources */,
 				6F8D84D819457F2100D1D123 /* Payment.m in Sources */,
+				D685BEF219E90724003BE462 /* WXPayRequest.m in Sources */,
 				6F76F7841964EB6300C2FD52 /* UIDevice+ScreenSize.m in Sources */,
 				6F970982193F4E2600EA5E3A /* NSMutableDictionary+Extension.m in Sources */,
 				6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */,

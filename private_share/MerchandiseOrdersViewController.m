@@ -256,6 +256,7 @@
     MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:indexPath.section];
     ShoppingItem *shoppingItem = [merchandiseOrder.merchandiseLists objectAtIndex:indexPath.row];
     cell.shoppingItem = shoppingItem;
+
     return cell;
 }
 

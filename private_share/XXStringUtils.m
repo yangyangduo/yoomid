@@ -23,9 +23,7 @@
 
 + (BOOL)isBlank:(NSString *)str {
     if([XXStringUtils isEmpty:str]) return YES;
-    if([@"" isEqualToString:
-        [str stringByTrimmingCharactersInSet:
-         [NSCharacterSet whitespaceAndNewlineCharacterSet]]]) {
+    if([@"" isEqualToString:[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]) {
             return YES;
         }
     return NO;

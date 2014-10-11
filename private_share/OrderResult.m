@@ -18,6 +18,8 @@
     if(self) {
         self.pointsPaid = [json numberForKey:@"pointsPaid"].integerValue;
         self.cashNeedToPay = [json numberForKey:@"cashNeedToPay"].floatValue;
+        NSArray *array = [json objectForKey:@"orderIds"];
+        self.orderIds = [array objectAtIndex:0];
     }
     return self;
 }
@@ -26,6 +28,7 @@
     NSMutableDictionary *json = [super toJson];
     [json setInteger:self.pointsPaid forKey:@"pointsPaid"];
     [json setNoNilObject:[NSNumber numberWithFloat:self.cashNeedToPay] forKey:@"cashNeedToPay"];
+    [json setNoNilObject:self.orderIds forKey:@"orderIds"];
     return json;
 }
 

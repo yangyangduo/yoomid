@@ -58,5 +58,8 @@
     [self.httpClient get:[NSString stringWithFormat:@"/adhoc/like?id=%@&action=false&%@",merchandiseId ,self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 
-
+- (void)submitPayRequestBody:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient post:[NSString stringWithFormat:@"/wxpay/pay_request?%@", self.authenticationString] contentType:@"application/json" body:body target:target success:success failure:failure userInfo:userInfo];
+}
 @end

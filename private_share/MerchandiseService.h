@@ -32,4 +32,6 @@
 - (void)sendGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
 - (void)getGoodWithMerchandiseId:(NSString *)merchandiseId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+
+- (void)submitPayRequestBody:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 @end
