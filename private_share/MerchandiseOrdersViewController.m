@@ -8,10 +8,6 @@
 
 #import "MerchandiseOrdersViewController.h"
 
-#import "ShoppingItemConfirmCell.h"
-#import "ShoppingItemHeaderView.h"
-#import "ShoppingItemFooterView.h"
-
 #import "DateTimeUtil.h"
 #import "MerchandiseService.h"
 
@@ -298,7 +294,24 @@
         [headerView setSelectButtonHidden];
         [headerView setOrderId:merchandiseOrder.orderId];
         if (orderState == MerchandiseOrderStateUnCashPayment) {
+            headerView.delegate = self;
             [headerView setMoreButtonShow];
+            WXPayRequest *wxPay = [[WXPayRequest alloc] init];
+            wxPay.out_trade_no = merchandiseOrder.orderId;
+            wxPay.traceid = merchandiseOrder.orderId;
+            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
+
+            NSMutableString *shopBodys = [[NSMutableString alloc] init];
+            if ([merchandiseOrder.shopId isEqualToString:@"0000"]) {
+                [shopBodys appendString:@"小吉商城:"];
+            }
+            
+            for (ShoppingItem *si in merchandiseOrder.merchandiseLists) {
+                [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
+            }
+            wxPay.bodys = shopBodys;
+            headerView.total_points = merchandiseOrder.totalPoints;
+            headerView.wxPay = wxPay;
         }
         else
         {
@@ -307,6 +320,11 @@
         return headerView;
     }
     return nil;
+}
+
+- (void)deleteOrdersRefresh
+{
+    [self refresh:YES];
 }
 
 @end

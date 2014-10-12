@@ -8,7 +8,11 @@
 
 #import "PullCollectionView.h"
 #import "BackViewController.h"
+#import "WXPayRequest.h"
+#import "ShoppingItemConfirmCell.h"
+#import "ShoppingItemHeaderView.h"
+#import "ShoppingItemFooterView.h"
 
-@interface MerchandiseOrdersViewController : BackViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate>
+@interface MerchandiseOrdersViewController : BackViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate, deleteOrdersRefreshDelegate>
 
 @end

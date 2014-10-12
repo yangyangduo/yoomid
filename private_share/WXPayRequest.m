@@ -12,6 +12,8 @@
 
 
 @implementation WXPayRequest
+@synthesize wxAppId = _wxAppId;
+
 @synthesize bodys = _bodys;  //
 @synthesize input_charset = _input_charset;
 @synthesize out_trade_no = _out_trade_no;
@@ -20,6 +22,24 @@
 @synthesize traceid = _traceid;
 @synthesize noncestr = _noncestr;
 @synthesize timestamp = _timestamp;
+
+@synthesize access_token = _access_token;
+@synthesize app_signature = _app_signature;
+@synthesize package_content = _package_content;
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.wxAppId = @"wxb3bc53583590b23f";
+        self.input_charset = @"UTF-8";
+        self.spbill_create_ip = [self getIPAddress];
+        double curTime = [self getCurrentDate];
+        
+        self.noncestr = [NSString stringWithFormat:@"%.0f",curTime];
+        self.timestamp = [NSString stringWithFormat:@"%.0f",curTime/1000];
+    }
+    return self;
+}
 
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
@@ -42,15 +62,20 @@
     NSMutableDictionary *json = [super toJson];
     [json setMayBlankString:self.bodys forKey:@"body"];
     [json setMayBlankString:self.input_charset forKey:@"input_charset"];
-//    [json setMayBlankString:self.out_trade_no forKey:@"out_trade_no"];
-    [json setObject:self.out_trade_no forKey:@"out_trade_no"];
+    [json setMayBlankString:self.out_trade_no forKey:@"out_trade_no"];
     [json setMayBlankString:self.spbill_create_ip forKey:@"spbill_create_ip"];
     [json setMayBlankString:self.total_fee forKey:@"total_fee"];
-//    [json setMayBlankString:self.traceid forKey:@"traceid"];
-    [json setObject:self.traceid forKey:@"traceid"];
+    [json setMayBlankString:self.traceid forKey:@"traceid"];
     [json setMayBlankString:self.noncestr forKey:@"noncestr"];
     [json setMayBlankString:self.timestamp forKey:@"timestamp"];
     return json;
+}
+
+- (void)setAccess_tokens:(NSDictionary *)access_tokens
+{
+    self.access_token = [access_tokens noNilStringForKey:@"access_token"];
+    self.app_signature = [access_tokens noNilStringForKey:@"app_signature"];
+    self.package_content = [access_tokens noNilStringForKey:@"package_content"];
 }
 
 - (double) getCurrentDate

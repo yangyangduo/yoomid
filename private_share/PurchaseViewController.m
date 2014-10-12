@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 hentre. All rights reserved.
 //
 
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
+
 #import "PurchaseViewController.h"
 #import "HomeViewController.h"
 #import "AddContactInfoViewController.h"
@@ -373,9 +375,15 @@
     }
     
     NSMutableArray *ordersToSubmit = [NSMutableArray array];
+    NSMutableString *shopBodys = [[NSMutableString alloc] init];
     for(ShopShoppingItems *ssi in _shopShoppingItemss_) {
+        if ([ssi.shopID isEqualToString:@"0000"]) {
+            [shopBodys appendString:@"小吉商城:"];
+        }
+        
         NSMutableArray *shoppingItems = [NSMutableArray array];
         for(ShoppingItem *si in ssi.selectShoppingItems) {
+            [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
             [shoppingItems addObject:@{
                                        @"merchandiseId" : si.merchandise.identifier,
                                        @"number" : [NSNumber numberWithInteger:si.number],
@@ -394,6 +402,7 @@
         };
         [ordersToSubmit addObject:shopOrder];
     }
+    wxPayRequest.bodys = shopBodys;
     
 #ifdef DEBUG
     [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
@@ -414,25 +423,10 @@
             OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                 if(orderResult.cashNeedToPay > 0) {
-                    NSString *ordId = orderResult.orderIds;
-                    NSInteger totalCash = orderResult.cashNeedToPay *100;
-                    NSString *totalCashStr = [NSString stringWithFormat:@"%d",totalCash];
-//                    NSString *totalCashStr = @"300";
-                    NSString *name = @"小吉商城:男士周抛袜套装";
-                    
 
-                    NSMutableDictionary *param = [[NSMutableDictionary alloc] init];//WithObjectsAndKeys:@"小吉商城:男士周抛袜套装",@"body",ordId,@"out_trade_no",totalCashStr,@"total_fee", nil];
-                    [param setObject:(NSString *)ordId forKey:@"out_trade_no"];
-                    [param setObject:name forKey:@"body"];
-                    [param setObject:totalCashStr forKey:@"total_fee"];
-                    
-                    NSDictionary *tempDs = @{@"body": name, @"out_trade_no": ordId, @"total_fee" : totalCashStr};
-                    
-//                    NSString *str = [NSString stringWithFormat:@"%d",1234];
-//                    NSDictionary *ddd = [[NSDictionary alloc]initWithObjectsAndKeys:str,@"aa", nil];
-                    
-                    WXPayRequest *wxPay = [[WXPayRequest alloc]initWithJson:tempDs];
-                    wxPayRequest = wxPay;
+                    wxPayRequest.out_trade_no = orderResult.orderIds;
+                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
+                    wxPayRequest.traceid = orderResult.orderIds;
                     
                     NSMutableArray *categories = [NSMutableArray array];
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
@@ -501,17 +495,7 @@
 #pragma mark - PayButton
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:@"weixinPay"]) {
-//        NSMutableDictionary *tempD = [NSMutableDictionary dictionary];
-//        tempD = [wxPayRequest toJson];
-        
-        NSDictionary *tempD = @{@"body": wxPayRequest.bodys,
-                                @"input_charset": wxPayRequest.input_charset,
-                                @"out_trade_no": wxPayRequest.out_trade_no,
-                                @"spbill_create_ip": wxPayRequest.spbill_create_ip,
-                                @"total_fee": wxPayRequest.total_fee,
-                                @"traceid": wxPayRequest.traceid,
-                                @"noncestr": wxPayRequest.noncestr,
-                                @"timestamp": wxPayRequest.timestamp};
+        NSMutableDictionary *tempD = [[NSMutableDictionary alloc] initWithDictionary:[wxPayRequest toJson]];
         
         MerchandiseService *service = [[MerchandiseService alloc] init];
         [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
@@ -527,8 +511,49 @@
 //
 - (void)submitPayRequestSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
-        NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-    }
+        NSDictionary *access_token_json = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if (access_token_json != nil) {
+            [wxPayRequest setAccess_tokens:access_token_json];
+        }
+        
+        NSDictionary *access_tokenD = @{@"appid": wxPayRequest.wxAppId,
+                                        @"traceid": wxPayRequest.traceid,
+                                        @"noncestr": wxPayRequest.noncestr,
+                                        @"package": wxPayRequest.package_content,
+                                        @"timestamp": wxPayRequest.timestamp,
+                                        @"app_signature": wxPayRequest.app_signature,
+                                        @"sign_method": @"sha1"};
+        
+//        HttpClient *httpClient = [[HttpClient alloc] initWithBaseUrl:@"https://api.weixin.qq.com/pay/genprepay"];
+//        [httpClient post:[NSString stringWithFormat:@"?access_token=%@",wxPayRequest.access_token] contentType:@"application/json" body:[JsonUtil createJsonDataFromDictionary:access_tokenD] target:self success:@selector(access_tokenSuccess:) failure:@selector(access_tokenFailure:) userInfo:nil];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
 
+        [manager POST:[NSString stringWithFormat:@"https://api.weixin.qq.com/pay/genprepay?access_token=%@",wxPayRequest.access_token] parameters:access_tokenD success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            NSDictionary *prepay_json = [[NSDictionary alloc]initWithDictionary:responseObject];
+            NSString *errcode = [prepay_json objectForKey:@"errcode"];
+            if ([errcode isEqualToString:@"0"]) {
+                
+            }else{
+                
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+        
+        return;
+    }
+    [self submitOrdersFailure:resp];
+}
+
+- (void)access_tokenSuccess:(HttpResponse *)resp {
+//    NSDictionary *access_token_json = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+    
+}
+
+- (void)access_tokenFailure:(HttpResponse *)resp {
+    
 }
 @end

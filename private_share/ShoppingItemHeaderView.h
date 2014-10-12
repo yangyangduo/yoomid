@@ -7,10 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WXPayRequest.h"
 
-@interface ShoppingItemHeaderView : UICollectionReusableView
+#import "CategoryButtonItem.h"
+#import "CashPaymentTypePicker.h"
+
+@protocol deleteOrdersRefreshDelegate <NSObject>
+
+- (void)deleteOrdersRefresh;
+
+@end
+
+@interface ShoppingItemHeaderView : UICollectionReusableView<CategoryButtonItemDelegate>
 
 @property (nonatomic, strong) NSString *shopId;
+@property (nonatomic, assign) float total_points;
+@property (nonatomic, strong) WXPayRequest *wxPay;
+
+@property (nonatomic, assign) id<deleteOrdersRefreshDelegate> delegate;
 
 - (void)setSelectButtonHidden;
 - (void)setOrderId:(NSString *)orderId;

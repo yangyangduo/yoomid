@@ -14,6 +14,7 @@
  *
  */
 @interface WXPayRequest : BaseModel
+@property (nonatomic ,strong) NSString *wxAppId;
 
 @property (nonatomic ,strong) NSString *bodys;
 @property (nonatomic ,strong) NSString *input_charset;
@@ -24,4 +25,9 @@
 @property (nonatomic ,strong) NSString *noncestr;
 @property (nonatomic ,strong) NSString *timestamp;
 
+@property (nonatomic ,strong) NSString *access_token;
+@property (nonatomic ,strong) NSString *app_signature;
+@property (nonatomic ,strong) NSString *package_content;
+
+- (void) setAccess_tokens:(NSDictionary *)access_tokens;
 @end

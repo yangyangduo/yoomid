@@ -8,6 +8,10 @@
 
 #import "ShoppingItemHeaderView.h"
 #import "ShoppingCart.h"
+#import "AppDelegate.h"
+#import "MerchandiseService.h"
+#import "XXAlertView.h"
+#import "BaseViewController.h"
 
 @implementation ShoppingItemHeaderView {
     UIButton *selectButton;
@@ -18,6 +22,9 @@
 }
 
 @synthesize shopId = _shopId_;
+
+@synthesize wxPay = _wxPay;
+@synthesize total_points = _total_points;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -90,6 +97,61 @@
 }
 
 - (void)moreButtonPressed:(id)sender {
+    NSMutableArray *categories = [NSMutableArray array];
+    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
+    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"deleteOrders" title:@"删除订单" imageName:@"order_delete"]];
     
+    NSString *message = nil;
+    float pickerHeight = 0.f;
+    if (self.total_points > 0) {
+        message = [NSString stringWithFormat:@"请选择支付方式.您已经支付%.0f米米,删除订单将返回已支付的米米!",self.total_points];
+        pickerHeight = 340;
+    }else{
+        message = @"请选择支付方式或删除订单!";
+        pickerHeight = 310;
+    }
+    CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, pickerHeight)message:message buttonItems:categories];
+    modalView.delegate = self;
+//    modalView.modalViewDelegate = self;
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+
+//    NSDictionary *d = [self.wxPay toJson];
+//    NSLog(@"%@",d);
+    [modalView showInView:app.window completion:nil];
+}
+
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:@"weixinPay"]) {
+        
+    }else if ([identifier isEqualToString:@"taobaoPay"]){
+        
+    }else if ([identifier isEqualToString:@"deleteOrders"]){
+        [[XXAlertView currentAlertView] setMessage:@"正在删除订单..." forType:AlertViewTypeWaitting];
+        [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+
+        MerchandiseService *service = [[MerchandiseService alloc] init];
+        [service deleteOrders:self.wxPay.out_trade_no target:self success:@selector(Success:) failure:@selector(Failure:) userInfo:nil];
+    }
+}
+
+- (void)Success:(HttpResponse *)resp {
+    if (resp.statusCode == 202) {
+        [[XXAlertView currentAlertView] setMessage:@"订单删除成功!" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] delayDismissAlertView];
+        
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(deleteOrdersRefresh)]) {
+            [self.delegate deleteOrdersRefresh];
+        }
+        return;
+    }
+    
+    [self Failure:resp];
+}
+
+- (void)Failure:(HttpResponse *)resp {
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    BaseViewController *topVC = (BaseViewController *)[app topViewController];
+    [topVC handleFailureHttpResponse:resp];
 }
 @end
