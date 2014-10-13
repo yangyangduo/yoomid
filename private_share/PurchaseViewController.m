@@ -16,6 +16,7 @@
 #import "ShoppingItemTableViewCell.h"
 #import "ShoppingItemTableHeaderView.h"
 #import "ShoppingItemTableFooterView.h"
+#import "MerchandiseOrdersViewController.h"
 
 #import "ShoppingCart.h"
 #import "Account.h"
@@ -69,6 +70,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"order"] style:UIBarButtonItemStylePlain target:self action:@selector(showMerchandiseOrderViewController)];
 
     settlementView = [[SettlementView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 60, self.view.bounds.size.width, 60)];
     settlementView.delegate = self;
@@ -282,6 +285,9 @@
 
 #pragma mark -
 #pragma mark 
+- (void)showMerchandiseOrderViewController {
+    [self.navigationController pushViewController:[[MerchandiseOrdersViewController alloc] init] animated:YES];
+}
 
 - (void)popViewController {
     if(_is_from_shopping_cart_) {
