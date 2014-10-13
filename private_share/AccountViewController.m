@@ -79,7 +79,7 @@
 }
 
 - (void)delayLogout {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app doAfterLogout];
     [[XXAlertView currentAlertView] dismissAlertView];
     [self.navigationController popToRootViewControllerAnimated:NO];

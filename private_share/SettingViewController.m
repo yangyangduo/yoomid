@@ -263,7 +263,7 @@
 - (void)delayLogout {
 
     [self dismissViewControllerAnimated:NO completion:^{
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app doAfterLogout];
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];

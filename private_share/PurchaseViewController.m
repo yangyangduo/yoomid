@@ -414,7 +414,7 @@
     MerchandiseService *service =  [[MerchandiseService alloc] init];
     [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
 }
-//
+//提交订单成功,返回 订单号、需要支付的现金、积分
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
 
@@ -422,10 +422,20 @@
         if(_order_result_json_ != nil) {
             OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
             [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                if(orderResult.cashNeedToPay > 0) {
-
+                if(orderResult.cashNeedToPay > 0) {//需要支付现金
+                    NSString *message = nil;
+                    float prickHeight = 0.f;
+                    if (orderResult.pointsPaid > 0) {
+                        prickHeight = 385;
+                        message = [NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.1f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay];
+                    }else{
+                        prickHeight = 360;
+                        message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.1f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
+                    }
+                    
                     wxPayRequest.out_trade_no = orderResult.orderIds;
-                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
+//                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
+                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
                     wxPayRequest.traceid = orderResult.orderIds;
                     
                     NSMutableArray *categories = [NSMutableArray array];
@@ -433,12 +443,12 @@
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
                     
-                    CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, 415)message:[NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.1f元,请选择支付方式。您也可以点击右上角进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay] buttonItems:categories];
+                    CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, prickHeight)message:message buttonItems:categories];
                     modalView.delegate = self;
 //                    modalView.modalViewDelegate = self;
                     [modalView showInView:self.navigationController.view completion:nil];
                 }
-                else{
+                else{  //不需要支付现金,购买成功！
                     YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
                     modal.shareDeletage = self;
                     [modal showInView:self.navigationController.view completion:nil];
@@ -457,7 +467,7 @@
     }
     [self submitOrdersFailure:resp];
 }
-
+//提交订单失败
 - (void)submitOrdersFailure:(HttpResponse *)resp {
     NSString *errorMessage = @"出错啦!";
     if(1001 == resp.statusCode) {
@@ -495,10 +505,13 @@
 #pragma mark - PayButton
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:@"weixinPay"]) {
-        NSMutableDictionary *tempD = [[NSMutableDictionary alloc] initWithDictionary:[wxPayRequest toJson]];
-        
-        MerchandiseService *service = [[MerchandiseService alloc] init];
-        [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+        [wxPayRequest payCash];
+//        NSMutableDictionary *tempD = [[NSMutableDictionary alloc] initWithDictionary:[wxPayRequest toJson]];
+//        [[XXAlertView currentAlertView] setMessage:@"正在打开微信支付..." forType:AlertViewTypeWaitting];
+//        [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
+//
+//        MerchandiseService *service = [[MerchandiseService alloc] init];
+//        [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
     
@@ -506,8 +519,10 @@
     {
         
     }
+    
 }
 
+/*
 //
 - (void)submitPayRequestSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
@@ -516,44 +531,90 @@
             [wxPayRequest setAccess_tokens:access_token_json];
         }
         
-        NSDictionary *access_tokenD = @{@"appid": wxPayRequest.wxAppId,
-                                        @"traceid": wxPayRequest.traceid,
-                                        @"noncestr": wxPayRequest.noncestr,
-                                        @"package": wxPayRequest.package_content,
-                                        @"timestamp": wxPayRequest.timestamp,
-                                        @"app_signature": wxPayRequest.app_signature,
-                                        @"sign_method": @"sha1"};
+        NSMutableDictionary *paramsD = [NSMutableDictionary dictionary];
+        [paramsD setObject:wxPayRequest.wxAppId forKey:@"appid"];
+        [paramsD setObject:wxPayRequest.noncestr forKey:@"noncestr"];
+        [paramsD setObject:wxPayRequest.timestamp forKey:@"timestamp"];
+        [paramsD setObject:wxPayRequest.traceid forKey:@"traceid"];
+        [paramsD setObject:wxPayRequest.package_content forKey:@"package"];
+        [paramsD setObject:wxPayRequest.app_signature forKey:@"app_signature"];
+        [paramsD setObject:@"sha1" forKey:@"sign_method"];
+//        NSLog(@"%@",paramsD);
         
-//        HttpClient *httpClient = [[HttpClient alloc] initWithBaseUrl:@"https://api.weixin.qq.com/pay/genprepay"];
-//        [httpClient post:[NSString stringWithFormat:@"?access_token=%@",wxPayRequest.access_token] contentType:@"application/json" body:[JsonUtil createJsonDataFromDictionary:access_tokenD] target:self success:@selector(access_tokenSuccess:) failure:@selector(access_tokenFailure:) userInfo:nil];
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:paramsD options:NSJSONWritingPrettyPrinted error: &error];
+        NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
-
-        [manager POST:[NSString stringWithFormat:@"https://api.weixin.qq.com/pay/genprepay?access_token=%@",wxPayRequest.access_token] parameters:access_tokenD success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"JSON: %@", responseObject);
-            NSDictionary *prepay_json = [[NSDictionary alloc]initWithDictionary:responseObject];
-            NSString *errcode = [prepay_json objectForKey:@"errcode"];
-            if ([errcode isEqualToString:@"0"]) {
+        NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/pay/genprepay?access_token=%@",wxPayRequest.access_token];
+        
+        NSMutableURLRequest *mrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:5];
+        
+        //设置提交方式
+        [mrequest setHTTPMethod:@"POST"];
+        //设置数据类型
+        [mrequest addValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
+        //设置编码
+        [mrequest setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+        
+        [mrequest setHTTPBody:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:mrequest];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *prepayid_json = [JsonUtil createDictionaryOrArrayFromJsonData:responseObject];
+            long errCode = [[prepayid_json objectForKey:@"errcode"] longValue];
+            if (errCode == 0) {
+                NSLog(@"JSON: %@", prepayid_json);
+                wxPayRequest.prepayid = [prepayid_json objectForKey:@"prepayid"];
+                NSLog(@"prepay ID:%@",wxPayRequest.prepayid);
                 
+                NSDictionary *paySignDict = @{@"prepayid": wxPayRequest.prepayid,
+                                              @"package": @"Sign=WXPay",
+                                              @"noncestr": wxPayRequest.noncestr,
+                                              @"timestamp": wxPayRequest.timestamp};
+                
+                MerchandiseService *service = [[MerchandiseService alloc] init];
+                [service submitWXPaySign:[JsonUtil createJsonDataFromDictionary:paySignDict] target:self success:@selector(submitWXPaySignSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
             }else{
-                
+                [[XXAlertView currentAlertView] setMessage:@"打开微信支付失败!" forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[XXAlertView currentAlertView] setMessage:@"打开微信支付错误!" forType:AlertViewTypeFailed];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
             NSLog(@"Error: %@", error);
         }];
+        [operation start];
         
         return;
     }
     [self submitOrdersFailure:resp];
 }
 
-- (void)access_tokenSuccess:(HttpResponse *)resp {
-//    NSDictionary *access_token_json = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-    
+- (void)submitWXPaySignSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 201) {
+        [[XXAlertView currentAlertView] dismissAlertView];
+        NSDictionary *sign_json = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSLog(@"JSON: %@", sign_json);
+        
+        wxPayRequest.sign = [sign_json objectForKey:@"sign"];
+        
+        PayReq *payRequest = [[PayReq alloc] init];
+        payRequest.partnerId = @"1220874801";
+        payRequest.prepayId = wxPayRequest.prepayid;
+        payRequest.package = @"Sign=WXPay";
+        payRequest.nonceStr = wxPayRequest.noncestr;
+        payRequest.timeStamp = (UInt32)[wxPayRequest.timestamp longLongValue];
+        payRequest.sign = wxPayRequest.sign;
+        
+        [WXApi safeSendReq:payRequest];
+        return;
+    }
+    [self submitOrdersFailure:resp];
 }
 
 - (void)access_tokenFailure:(HttpResponse *)resp {
     
 }
+ */
+
 @end

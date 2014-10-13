@@ -76,7 +76,8 @@
 //    
 //    [UMessage setLogEnabled:YES];
 //    [UMSocialData openLog:YES];
-
+    [WXApi registerApp:@"wxb3bc53583590b23f"];
+    
     [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
     
     [UMSocialWechatHandler setWXAppId:@"wxb3bc53583590b23f" appSecret:@"a39d046b07684bab942b68e709ae137b" url:@"http://yoomid.com"];
@@ -111,16 +112,42 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return  [UMSocialSnsService handleOpenURL:url];
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    return result;
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return  [UMSocialSnsService handleOpenURL:url];
+    BOOL result = [UMSocialSnsService handleOpenURL:url];//友盟分享
+    if (result == FALSE) {
+        return [WXApi handleOpenURL:url delegate:self];//微信支付
+    }
+    return result;
 }
+
+- (void)onResp:(BaseResp *)resp
+{
+    if ([resp isKindOfClass:[PayResp class]]) {
+        switch (resp.errCode) {
+            case WXSuccess:
+                [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                break;
+                case WXErrCodeUserCancel:
+                [[XXAlertView currentAlertView] setMessage:@"支付取消!" forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                break;
+            default:
+                [[XXAlertView currentAlertView] setMessage:resp.errStr forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                break;
+        }
+    }
+}
+
 
 //-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 //{

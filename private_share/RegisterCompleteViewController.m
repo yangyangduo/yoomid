@@ -78,7 +78,7 @@
     if(resp.statusCode == 201) {
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app doAfterLoginWithUserName:_userName_ securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
         
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"register_success", @"") forType:AlertViewTypeSuccess];

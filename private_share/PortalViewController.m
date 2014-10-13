@@ -254,7 +254,7 @@
 
 - (void)bottomButtonPressed:(UIView *)sender {
     if(sender.tag != 3) {
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         if(![app checkLogin]) return;
     }
     

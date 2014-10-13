@@ -26,7 +26,7 @@
         NSLog(@"Filter: status code is 403, need refresh access token now.");
 #endif
         
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app clearUserInfoButShoppingCart];
         
         dispatch_async(dispatch_get_main_queue(), ^{

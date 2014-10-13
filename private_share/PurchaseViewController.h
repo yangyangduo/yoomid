@@ -16,6 +16,7 @@
 @interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage,CategoryButtonItemDelegate>
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart;
+
 - (void)refreshSettlementView;
 
 @end

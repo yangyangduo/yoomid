@@ -67,4 +67,9 @@
 {
     [self.httpClient put:[NSString stringWithFormat:@"/orders_cancel/%@?%@",orders,self.authenticationString] contentType:@"application/json" body:nil target:target success:success failure:failure userInfo:nil];
 }
+
+- (void)submitWXPaySign:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient post:[NSString stringWithFormat:@"/wxpay/pay_sign_request?%@",self.authenticationString] contentType:@"application/json" body:body target:target success:success failure:failure userInfo:nil];
+}
 @end

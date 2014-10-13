@@ -421,6 +421,7 @@
 		D681286F19D4FD0600751784 /* muxing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D681286E19D4FD0600751784 /* muxing@2x.png */; };
 		D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */; };
 		D685BEF219E90724003BE462 /* WXPayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D685BEF119E90724003BE462 /* WXPayRequest.m */; };
+		D68ECF9319EBA6F400D77895 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D68ECF9219EBA6F400D77895 /* CommonUtil.m */; };
 		D690352319A4C0D30059C08C /* MyPointsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */; };
 		D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D69612B319D3B7B60012DC84 /* ShareTaskModalView.m */; };
 		D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D69612B519D3F0340012DC84 /* setup5@2x.png */; };
@@ -1113,6 +1114,8 @@
 		D683A04A199D987B001E3DA9 /* UpdateContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateContactInfoViewController.m; sourceTree = "<group>"; };
 		D685BEF019E90724003BE462 /* WXPayRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPayRequest.h; sourceTree = "<group>"; };
 		D685BEF119E90724003BE462 /* WXPayRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPayRequest.m; sourceTree = "<group>"; };
+		D68ECF9119EBA6F400D77895 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		D68ECF9219EBA6F400D77895 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
 		D690352119A4C0D30059C08C /* MyPointsRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointsRecordViewController.h; sourceTree = "<group>"; };
 		D690352219A4C0D30059C08C /* MyPointsRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointsRecordViewController.m; sourceTree = "<group>"; };
 		D69612B219D3B7B60012DC84 /* ShareTaskModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTaskModalView.h; sourceTree = "<group>"; };
@@ -2379,6 +2382,8 @@
 				6F12F35C194FE08200B47132 /* UIImage+Color.m */,
 				6FE605F219591372009C623D /* UIDevice+Identifier.h */,
 				6FE605F319591372009C623D /* UIDevice+Identifier.m */,
+				D68ECF9119EBA6F400D77895 /* CommonUtil.h */,
+				D68ECF9219EBA6F400D77895 /* CommonUtil.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -3273,6 +3278,7 @@
 				D6A171FE19C9D35B00C89283 /* TaskLevelService.m in Sources */,
 				6FD163CF19795ED90076479D /* DeliveryPointViewController.m in Sources */,
 				D6C7CC8E199B99F300EC3061 /* SelectContactAddressTableViewCell.m in Sources */,
+				D68ECF9319EBA6F400D77895 /* CommonUtil.m in Sources */,
 				6F5061D4194883E5007163C2 /* TextViewController.m in Sources */,
 				6F5B5E3619B5AF9600495F0C /* CategoryButtonItem.m in Sources */,
 				6F2B51C7195538570069798A /* XXEventFilterChain.m in Sources */,

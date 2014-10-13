@@ -114,7 +114,7 @@
     CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, pickerHeight)message:message buttonItems:categories];
     modalView.delegate = self;
 //    modalView.modalViewDelegate = self;
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
 //    NSDictionary *d = [self.wxPay toJson];
 //    NSLog(@"%@",d);
@@ -123,7 +123,7 @@
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:@"weixinPay"]) {
-        
+        [self.wxPay payCash];
     }else if ([identifier isEqualToString:@"taobaoPay"]){
         
     }else if ([identifier isEqualToString:@"deleteOrders"]){
@@ -150,7 +150,7 @@
 }
 
 - (void)Failure:(HttpResponse *)resp {
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     BaseViewController *topVC = (BaseViewController *)[app topViewController];
     [topVC handleFailureHttpResponse:resp];
 }

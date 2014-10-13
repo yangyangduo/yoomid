@@ -177,7 +177,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIViewController *topViewController = app.topViewController;
     NSLog(@"Top view controller is [%@].", [[topViewController class] description]);
 }

@@ -299,7 +299,9 @@
             WXPayRequest *wxPay = [[WXPayRequest alloc] init];
             wxPay.out_trade_no = merchandiseOrder.orderId;
             wxPay.traceid = merchandiseOrder.orderId;
-            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
+//            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
+            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", 1.f];
+
 
             NSMutableString *shopBodys = [[NSMutableString alloc] init];
             if ([merchandiseOrder.shopId isEqualToString:@"0000"]) {

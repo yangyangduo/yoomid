@@ -7,6 +7,8 @@
 //
 
 #import "BaseModel.h"
+#import "CommonUtil.h"
+#import "WeChatSDK_1.4.1/WXApi.h"
 
 /*
  *
@@ -29,5 +31,9 @@
 @property (nonatomic ,strong) NSString *app_signature;
 @property (nonatomic ,strong) NSString *package_content;
 
+@property (nonatomic ,strong) NSString *prepayid;
+@property (nonatomic ,strong) NSString *sign;
 - (void) setAccess_tokens:(NSDictionary *)access_tokens;
+
+- (void) payCash;
 @end

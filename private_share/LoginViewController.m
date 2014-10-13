@@ -191,7 +191,7 @@
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         
         // do after login
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app doAfterLoginWithUserName:userNameTextField.text securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
         
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
