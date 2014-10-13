@@ -135,6 +135,8 @@
             case WXSuccess:
                 [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                
+                [[self topViewController] viewWillAppear:YES];
                 break;
                 case WXErrCodeUserCancel:
                 [[XXAlertView currentAlertView] setMessage:@"支付取消!" forType:AlertViewTypeFailed];

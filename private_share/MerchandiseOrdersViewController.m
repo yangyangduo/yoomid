@@ -102,6 +102,12 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refresh:YES];
+}
+
 - (void)refresh:(BOOL)animated {
     if(animated) {
         _collectionView_.pullTableIsRefreshing = YES;
