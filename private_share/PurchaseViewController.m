@@ -27,6 +27,8 @@
 #import "ReturnMessage.h"
 #import "CashPaymentTypePicker.h"
 #import "WXPayRequest.h"
+#import "AliPaymentModal.h"
+#import "alipay/AlixLibService.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -46,6 +48,7 @@
     UITapGestureRecognizer *resignKeyboardGesture;
     
     WXPayRequest *wxPayRequest;
+    AliPaymentModal *aliPay;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
@@ -65,6 +68,7 @@
     self.title = NSLocalizedString(@"confirm_order", @"");
     
     wxPayRequest = [[WXPayRequest alloc]init];
+    aliPay = [[AliPaymentModal alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
@@ -382,14 +386,18 @@
     
     NSMutableArray *ordersToSubmit = [NSMutableArray array];
     NSMutableString *shopBodys = [[NSMutableString alloc] init];
+    NSMutableString *aliShopBodys = [[NSMutableString alloc] init];
+
     for(ShopShoppingItems *ssi in _shopShoppingItemss_) {
         if ([ssi.shopID isEqualToString:@"0000"]) {
-            [shopBodys appendString:@"小吉商城:"];
+            [shopBodys appendString:@"有米得商城:"];
+            aliPay.subject = @"有米得商城";
         }
         
         NSMutableArray *shoppingItems = [NSMutableArray array];
         for(ShoppingItem *si in ssi.selectShoppingItems) {
             [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
+            [aliShopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
             [shoppingItems addObject:@{
                                        @"merchandiseId" : si.merchandise.identifier,
                                        @"number" : [NSNumber numberWithInteger:si.number],
@@ -409,6 +417,7 @@
         [ordersToSubmit addObject:shopOrder];
     }
     wxPayRequest.bodys = shopBodys;
+    aliPay.body = aliShopBodys;
     
 #ifdef DEBUG
     [JsonUtil printArrayAsJsonFormat:ordersToSubmit];
@@ -438,11 +447,16 @@
                         prickHeight = 360;
                         message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.1f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
                     }
-                    
+                    //微信支付
                     wxPayRequest.out_trade_no = orderResult.orderIds;
 //                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
                     wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
                     wxPayRequest.traceid = orderResult.orderIds;
+                    
+                    //支付宝支付
+                    aliPay.out_trade_no = orderResult.orderIds;
+//                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",orderResult.cashNeedToPay];
+                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
                     
                     NSMutableArray *categories = [NSMutableArray array];
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
@@ -520,12 +534,34 @@
 //        [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
-    
+        NSDictionary *tempD = @{@"info": [aliPay toStrings]};
+        
+        MerchandiseService *service = [[MerchandiseService alloc] init];
+        [service submitAliPaySign:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitAliPaySignSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+        
     }else if ([identifier isEqualToString:@"alterPay"])
     {
         
     }
-    
+}
+
+- (void)submitAliPaySignSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 201) {
+        NSDictionary *sign_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        aliPay.sign = [sign_json_ objectForKey:@"sign"];
+        
+        NSMutableString * signStr = [NSMutableString string];
+        [signStr appendString:[aliPay toStrings]];
+        [signStr appendFormat:@"&sign=\"%@\"", aliPay.sign ? aliPay.sign : @""];
+        [signStr appendFormat:@"&sign_type=\"%@\"", @"RSA"];
+
+        [AlixLibService payOrder:signStr AndScheme:@"YoomidAliPay" seletor:@selector(paymentResult:) target:self];
+        return;
+    }
+    [self submitOrdersFailure:resp];
+}
+
+-(void)paymentResult:(NSString *)resultd{
 }
 
 /*

@@ -38,4 +38,7 @@
 - (void)deleteOrders:(NSString *)orders target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
 - (void)submitWXPaySign:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+
+- (void)submitAliPaySign:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+
 @end
