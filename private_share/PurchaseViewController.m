@@ -29,6 +29,7 @@
 #import "WXPayRequest.h"
 #import "AliPaymentModal.h"
 #import "alipay/AlixLibService.h"
+#import "PayOrderViewController.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -392,12 +393,18 @@
         if ([ssi.shopID isEqualToString:@"0000"]) {
             [shopBodys appendString:@"有米得商城:"];
             aliPay.subject = @"有米得商城";
+            wxPayRequest.mallName = @"有米得商城";
         }
         
         NSMutableArray *shoppingItems = [NSMutableArray array];
-        for(ShoppingItem *si in ssi.selectShoppingItems) {
+        NSMutableString *merchandiseName = [[NSMutableString alloc] init];
+
+        for(ShoppingItem *si in ssi.selectShoppingItems)
+        {
             [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
             [aliShopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
+            [merchandiseName appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
+
             [shoppingItems addObject:@{
                                        @"merchandiseId" : si.merchandise.identifier,
                                        @"number" : [NSNumber numberWithInteger:si.number],
@@ -415,6 +422,8 @@
                                     @"shoppingItems" : shoppingItems
         };
         [ordersToSubmit addObject:shopOrder];
+        
+        wxPayRequest.merchandiseName = merchandiseName;
     }
     wxPayRequest.bodys = shopBodys;
     aliPay.body = aliShopBodys;
@@ -524,16 +533,23 @@
 
 #pragma mark - PayButton
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    PayOrderViewController *payOrderVC = nil;
     if ([identifier isEqualToString:@"weixinPay"]) {
+        payOrderVC = [[PayOrderViewController alloc] init];
+        payOrderVC.paymentMode = PaymentModeWXPay;
+        payOrderVC.wxPayment = wxPayRequest;
+        [self.navigationController pushViewController:payOrderVC animated:YES];
+        return;
         [wxPayRequest payCash];
-//        NSMutableDictionary *tempD = [[NSMutableDictionary alloc] initWithDictionary:[wxPayRequest toJson]];
-//        [[XXAlertView currentAlertView] setMessage:@"正在打开微信支付..." forType:AlertViewTypeWaitting];
-//        [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
-//
-//        MerchandiseService *service = [[MerchandiseService alloc] init];
-//        [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitPayRequestSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+        
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
+        payOrderVC = [[PayOrderViewController alloc] init];
+        payOrderVC.paymentMode = PaymentModeAliPay;
+        payOrderVC.aliPayment = aliPay;
+        [self.navigationController pushViewController:payOrderVC animated:YES];
+        return;
+        
         NSDictionary *tempD = @{@"info": [aliPay toStrings]};
         
         MerchandiseService *service = [[MerchandiseService alloc] init];

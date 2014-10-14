@@ -33,6 +33,9 @@
 
 @property (nonatomic ,strong) NSString *prepayid;
 @property (nonatomic ,strong) NSString *sign;
+
+@property (nonatomic ,strong) NSString *mallName;
+@property (nonatomic ,strong) NSString *merchandiseName;
 - (void) setAccess_tokens:(NSDictionary *)access_tokens;
 
 - (void) payCash;

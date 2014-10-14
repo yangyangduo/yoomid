@@ -371,6 +371,7 @@
 		D6492D6319C9875E0092B893 /* bg5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6492D6219C9875E0092B893 /* bg5@2x.png */; };
 		D6492D6519C987670092B893 /* bg6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6492D6419C987670092B893 /* bg6@2x.png */; };
 		D64DEE9619C6B2BA00B14932 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D64DEE9519C6B2BA00B14932 /* game@2x.png */; };
+		D65B712A19ED4E0700803BFD /* PayOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B712919ED4E0700803BFD /* PayOrderViewController.m */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
@@ -1064,6 +1065,8 @@
 		D6492D6219C9875E0092B893 /* bg5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg5@2x.png"; sourceTree = "<group>"; };
 		D6492D6419C987670092B893 /* bg6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg6@2x.png"; sourceTree = "<group>"; };
 		D64DEE9519C6B2BA00B14932 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
+		D65B712819ED4E0700803BFD /* PayOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayOrderViewController.h; sourceTree = "<group>"; };
+		D65B712919ED4E0700803BFD /* PayOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayOrderViewController.m; sourceTree = "<group>"; };
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
@@ -2029,6 +2032,8 @@
 				D66D120719C0219C005BF0FA /* NotificationsViewController.m */,
 				D674C6CB19CBD48A0044B51B /* RetrievesPassWordViewController.h */,
 				D674C6CC19CBD48A0044B51B /* RetrievesPassWordViewController.m */,
+				D65B712819ED4E0700803BFD /* PayOrderViewController.h */,
+				D65B712919ED4E0700803BFD /* PayOrderViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -3367,6 +3372,7 @@
 				6F8823B7193F5FA000757633 /* HttpClient.m in Sources */,
 				6F2C52AF1974D4780045BFC1 /* MerchandiseParametersPicker.m in Sources */,
 				D6376C3D19CC8AA700C05CEE /* YoomidRectModalView1.m in Sources */,
+				D65B712A19ED4E0700803BFD /* PayOrderViewController.m in Sources */,
 				6F8823EB1940BD9600757633 /* HtmlView.m in Sources */,
 				6F970973193F4AD500EA5E3A /* XXAlertView.m in Sources */,
 				6F3F65F71942146A007A41E0 /* ShoppingItem.m in Sources */,

@@ -303,23 +303,35 @@
             headerView.delegate = self;
             [headerView setMoreButtonShow];
             WXPayRequest *wxPay = [[WXPayRequest alloc] init];
+            AliPaymentModal *aliPay = [[AliPaymentModal alloc] init];
+            
             wxPay.out_trade_no = merchandiseOrder.orderId;
             wxPay.traceid = merchandiseOrder.orderId;
 //            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
             wxPay.total_fee = [NSString stringWithFormat:@"%.0f", 1.f];
 
+            aliPay.out_trade_no = merchandiseOrder.orderId;
+//            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",merchandiseOrder.totalCash];
+            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
 
             NSMutableString *shopBodys = [[NSMutableString alloc] init];
             if ([merchandiseOrder.shopId isEqualToString:@"0000"]) {
-                [shopBodys appendString:@"小吉商城:"];
+                [shopBodys appendString:@"有米得商城:"];
+                wxPay.mallName = @"有米得商城";
+                aliPay.subject = @"有米得商城";
             }
             
+            NSMutableString *merchandiseStr = [NSMutableString string];
             for (ShoppingItem *si in merchandiseOrder.merchandiseLists) {
                 [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
+                [merchandiseStr appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];
             }
+            wxPay.merchandiseName = merchandiseStr;
             wxPay.bodys = shopBodys;
+            aliPay.body = merchandiseStr;
             headerView.total_points = merchandiseOrder.totalPoints;
             headerView.wxPay = wxPay;
+            headerView.aliPay = aliPay;
         }
         else
         {

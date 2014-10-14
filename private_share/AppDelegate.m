@@ -121,6 +121,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    [self parse:url application:application];
     BOOL result = [UMSocialSnsService handleOpenURL:url];//友盟分享
     if (result == FALSE) {
         return [WXApi handleOpenURL:url delegate:self];//微信支付
@@ -128,6 +129,44 @@
     return result;
 }
 
+- (void)parse:(NSURL *)url application:(UIApplication *)application {
+    
+    //结果处理
+//    AlixPayResult* result = [self handleOpenURL:url];
+    
+//	if (result)
+//    {
+//		
+//		if (result.statusCode == 9000)
+//        {
+//			/*
+//			 *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+//			 */
+//            
+//            //交易成功
+//            //            NSString* key = @"签约帐户后获取到的支付宝公钥";
+//            //			id<DataVerifier> verifier;
+//            //            verifier = CreateRSADataVerifier(key);
+//            //
+//            //			if ([verifier verifyString:result.resultString withSign:result.signString])
+//            //            {
+//            //                //验证签名成功，交易结果无篡改
+//            //			}
+//            
+//        }
+//        else
+//        {
+//            //交易失败
+//        }
+//    }
+//    else
+//    {
+//        //失败
+//    }
+    
+}
+
+//微信支付回调
 - (void)onResp:(BaseResp *)resp
 {
     if ([resp isKindOfClass:[PayResp class]]) {

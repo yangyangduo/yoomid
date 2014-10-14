@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WXPayRequest.h"
-
+#import "AliPaymentModal.h"
 #import "CategoryButtonItem.h"
 #import "CashPaymentTypePicker.h"
 
@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSString *shopId;
 @property (nonatomic, assign) float total_points;
 @property (nonatomic, strong) WXPayRequest *wxPay;
+@property (nonatomic, strong) AliPaymentModal *aliPay;
 
 @property (nonatomic, assign) id<deleteOrdersRefreshDelegate> delegate;
 

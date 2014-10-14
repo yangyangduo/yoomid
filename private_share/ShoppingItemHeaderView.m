@@ -12,6 +12,7 @@
 #import "MerchandiseService.h"
 #import "XXAlertView.h"
 #import "BaseViewController.h"
+#import "PayOrderViewController.h"
 
 @implementation ShoppingItemHeaderView {
     UIButton *selectButton;
@@ -122,10 +123,23 @@
 }
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    PayOrderViewController *payOrderVC = nil;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
     if ([identifier isEqualToString:@"weixinPay"]) {
-        [self.wxPay payCash];
-    }else if ([identifier isEqualToString:@"taobaoPay"]){
+        payOrderVC = [[PayOrderViewController alloc] init];
+        payOrderVC.paymentMode = PaymentModeWXPay;
+        payOrderVC.wxPayment = self.wxPay;
+        [[app topViewController].navigationController pushViewController:payOrderVC animated:YES];
+//        return;
         
+//        [self.wxPay payCash];
+    }else if ([identifier isEqualToString:@"taobaoPay"]){
+        payOrderVC = [[PayOrderViewController alloc] init];
+        payOrderVC.paymentMode = PaymentModeAliPay;
+        payOrderVC.aliPayment = self.aliPay;
+        [[app topViewController].navigationController pushViewController:payOrderVC animated:YES];
+//        return;
     }else if ([identifier isEqualToString:@"deleteOrders"]){
         [[XXAlertView currentAlertView] setMessage:@"正在删除订单..." forType:AlertViewTypeWaitting];
         [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
