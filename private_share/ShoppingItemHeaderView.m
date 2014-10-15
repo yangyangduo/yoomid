@@ -13,6 +13,7 @@
 #import "XXAlertView.h"
 #import "BaseViewController.h"
 #import "PayOrderViewController.h"
+#import "UINavigationViewInitializer.h"
 
 @implementation ShoppingItemHeaderView {
     UIButton *selectButton;
@@ -113,7 +114,7 @@
         pickerHeight = 310;
     }
     CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, pickerHeight)message:message buttonItems:categories];
-    modalView.delegate = self;
+    modalView.btnItemDelegate = self;
 //    modalView.modalViewDelegate = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -123,23 +124,21 @@
 }
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    PayOrderViewController *payOrderVC = nil;
+    PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:payOrderVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
 
     if ([identifier isEqualToString:@"weixinPay"]) {
-        payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.paymentMode = PaymentModeWXPay;
         payOrderVC.wxPayment = self.wxPay;
-        [[app topViewController].navigationController pushViewController:payOrderVC animated:YES];
-//        return;
-        
-//        [self.wxPay payCash];
+        [[app topViewController] presentViewController:navigationController animated:YES completion:^{
+        }];
     }else if ([identifier isEqualToString:@"taobaoPay"]){
-        payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.paymentMode = PaymentModeAliPay;
         payOrderVC.aliPayment = self.aliPay;
-        [[app topViewController].navigationController pushViewController:payOrderVC animated:YES];
-//        return;
+        [[app topViewController] presentViewController:navigationController animated:YES completion:^{
+        }];
     }else if ([identifier isEqualToString:@"deleteOrders"]){
         [[XXAlertView currentAlertView] setMessage:@"正在删除订单..." forType:AlertViewTypeWaitting];
         [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
@@ -152,7 +151,7 @@
 - (void)Success:(HttpResponse *)resp {
     if (resp.statusCode == 202) {
         [[XXAlertView currentAlertView] setMessage:@"订单删除成功!" forType:AlertViewTypeSuccess];
-        [[XXAlertView currentAlertView] delayDismissAlertView];
+        [[XXAlertView currentAlertView] delayDismissAlertView]; 
         
         if (self.delegate != nil && [self.delegate respondsToSelector:@selector(deleteOrdersRefresh)]) {
             [self.delegate deleteOrdersRefresh];

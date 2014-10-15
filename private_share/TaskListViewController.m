@@ -301,7 +301,7 @@
             shareMessage = answerOptions1.instruction;  //分享的内容,第二次分享，没有米米
         }
         else{
-            message =[NSString stringWithFormat:@"分享给朋友立得%d米米",task.points];
+            message = @"分享给朋友!";
             shareMessage = answerOptions.instruction;
         }
         

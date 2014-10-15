@@ -17,6 +17,7 @@
 #import "ShoppingItemTableHeaderView.h"
 #import "ShoppingItemTableFooterView.h"
 #import "MerchandiseOrdersViewController.h"
+#import "UINavigationViewInitializer.h"
 
 #import "ShoppingCart.h"
 #import "Account.h"
@@ -473,7 +474,7 @@
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
                     
                     CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, prickHeight)message:message buttonItems:categories];
-                    modalView.delegate = self;
+                    modalView.btnItemDelegate = self;
 //                    modalView.modalViewDelegate = self;
                     [modalView showInView:self.navigationController.view completion:nil];
                 }
@@ -533,27 +534,31 @@
 
 #pragma mark - PayButton
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    PayOrderViewController *payOrderVC = nil;
+    PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:payOrderVC];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     if ([identifier isEqualToString:@"weixinPay"]) {
-        payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.paymentMode = PaymentModeWXPay;
         payOrderVC.wxPayment = wxPayRequest;
-        [self.navigationController pushViewController:payOrderVC animated:YES];
-        return;
-        [wxPayRequest payCash];
+//        [self.navigationController pushViewController:payOrderVC animated:YES];
+        [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        }];
+//        return;
+//        [wxPayRequest payCash];
         
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
-        payOrderVC = [[PayOrderViewController alloc] init];
         payOrderVC.paymentMode = PaymentModeAliPay;
         payOrderVC.aliPayment = aliPay;
-        [self.navigationController pushViewController:payOrderVC animated:YES];
-        return;
+        [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        }];
+//        [self.navigationController pushViewController:payOrderVC animated:YES];
+//        return;
         
-        NSDictionary *tempD = @{@"info": [aliPay toStrings]};
-        
-        MerchandiseService *service = [[MerchandiseService alloc] init];
-        [service submitAliPaySign:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitAliPaySignSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+//        NSDictionary *tempD = @{@"info": [aliPay toStrings]};
+//        
+//        MerchandiseService *service = [[MerchandiseService alloc] init];
+//        [service submitAliPaySign:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitAliPaySignSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
         
     }else if ([identifier isEqualToString:@"alterPay"])
     {
@@ -561,21 +566,21 @@
     }
 }
 
-- (void)submitAliPaySignSuccess:(HttpResponse *)resp {
-    if (resp.statusCode == 201) {
-        NSDictionary *sign_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        aliPay.sign = [sign_json_ objectForKey:@"sign"];
-        
-        NSMutableString * signStr = [NSMutableString string];
-        [signStr appendString:[aliPay toStrings]];
-        [signStr appendFormat:@"&sign=\"%@\"", aliPay.sign ? aliPay.sign : @""];
-        [signStr appendFormat:@"&sign_type=\"%@\"", @"RSA"];
-
-        [AlixLibService payOrder:signStr AndScheme:@"YoomidAliPay" seletor:@selector(paymentResult:) target:self];
-        return;
-    }
-    [self submitOrdersFailure:resp];
-}
+//- (void)submitAliPaySignSuccess:(HttpResponse *)resp {
+//    if (resp.statusCode == 201) {
+//        NSDictionary *sign_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+//        aliPay.sign = [sign_json_ objectForKey:@"sign"];
+//        
+//        NSMutableString * signStr = [NSMutableString string];
+//        [signStr appendString:[aliPay toStrings]];
+//        [signStr appendFormat:@"&sign=\"%@\"", aliPay.sign ? aliPay.sign : @""];
+//        [signStr appendFormat:@"&sign_type=\"%@\"", @"RSA"];
+//
+//        [AlixLibService payOrder:signStr AndScheme:@"YoomidAliPay" seletor:@selector(paymentResult:) target:self];
+//        return;
+//    }
+//    [self submitOrdersFailure:resp];
+//}
 
 -(void)paymentResult:(NSString *)resultd{
 }

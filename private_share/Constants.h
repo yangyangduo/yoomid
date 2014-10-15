@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const AlipayPubKey;
+
 extern NSString * const kUMengAppKey;
 
 // ad-platforms

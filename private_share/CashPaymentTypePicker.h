@@ -12,7 +12,7 @@
 
 @interface CashPaymentTypePicker : YoomidBaseModalView<CategoryButtonItemDelegate>
 
-@property (nonatomic, weak) id<CategoryButtonItemDelegate> delegate;
+@property (nonatomic, assign) id<CategoryButtonItemDelegate> btnItemDelegate;
 @property (nonatomic, strong, readonly) UIScrollView *scrollView;
 
 - (instancetype)initWithSize:(CGSize)size message:(NSString *)message buttonItems:(NSArray *)buttonItems;

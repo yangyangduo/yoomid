@@ -392,6 +392,7 @@
 		D670D6C619B07E4600FB241D /* points_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C519B07E4600FB241D /* points_blue@2x.png */; };
 		D670D6C819B07E6100FB241D /* newlogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C719B07E6000FB241D /* newlogin@2x.png */; };
 		D670D6CA19B07E7500FB241D /* shopping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D670D6C919B07E7500FB241D /* shopping@2x.png */; };
+		D6726C3419EE26F900D22A5A /* AlixPayResult.m in Sources */ = {isa = PBXBuildFile; fileRef = D6726C3319EE26F900D22A5A /* AlixPayResult.m */; };
 		D673E5AA19ECD5AF008568E9 /* AlipayRsaLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D673E59219ECD5AF008568E9 /* AlipayRsaLib.a */; };
 		D673E5AB19ECD5B0008568E9 /* Alixpay.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D673E59419ECD5AF008568E9 /* Alixpay.bundle */; };
 		D673E5AC19ECD5B0008568E9 /* AlixPaylib_arc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D673E59519ECD5AF008568E9 /* AlixPaylib_arc.a */; };
@@ -1092,6 +1093,8 @@
 		D670D6C519B07E4600FB241D /* points_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "points_blue@2x.png"; sourceTree = "<group>"; };
 		D670D6C719B07E6000FB241D /* newlogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newlogin@2x.png"; sourceTree = "<group>"; };
 		D670D6C919B07E7500FB241D /* shopping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping@2x.png"; sourceTree = "<group>"; };
+		D6726C3219EE26F900D22A5A /* AlixPayResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixPayResult.h; sourceTree = "<group>"; };
+		D6726C3319EE26F900D22A5A /* AlixPayResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlixPayResult.m; sourceTree = "<group>"; };
 		D673E59219ECD5AF008568E9 /* AlipayRsaLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AlipayRsaLib.a; sourceTree = "<group>"; };
 		D673E59319ECD5AF008568E9 /* AlixLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixLibService.h; sourceTree = "<group>"; };
 		D673E59419ECD5AF008568E9 /* Alixpay.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Alixpay.bundle; sourceTree = "<group>"; };
@@ -2720,6 +2723,8 @@
 		D673E59119ECD5AF008568E9 /* alipay */ = {
 			isa = PBXGroup;
 			children = (
+				D6726C3219EE26F900D22A5A /* AlixPayResult.h */,
+				D6726C3319EE26F900D22A5A /* AlixPayResult.m */,
 				D673E59219ECD5AF008568E9 /* AlipayRsaLib.a */,
 				D673E59319ECD5AF008568E9 /* AlixLibService.h */,
 				D673E59419ECD5AF008568E9 /* Alixpay.bundle */,
@@ -3408,6 +3413,7 @@
 				6FE605F419591372009C623D /* UIDevice+Identifier.m in Sources */,
 				D6BD165D19D14B6E006AE1C1 /* UserInfo.m in Sources */,
 				6F2B51D2195565F20069798A /* EventNameConstants.m in Sources */,
+				D6726C3419EE26F900D22A5A /* AlixPayResult.m in Sources */,
 				6F2BFDF9198241F300426757 /* ShoppingItemConfirmCell.m in Sources */,
 				6F72C1901976312800100D12 /* DynamicButton.m in Sources */,
 				6F97098A193F529A00EA5E3A /* AccountService.m in Sources */,

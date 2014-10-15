@@ -34,6 +34,8 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialInstagramHandler.h"
 #import "UMSocialSnsService.h"
+#import "alipay/AlixPayResult.h"
+#import "alipay/RSA/DataVerifier.h"
 
 @implementation AppDelegate
 
@@ -129,63 +131,76 @@
     return result;
 }
 
+//有支付宝客户端 的回调
 - (void)parse:(NSURL *)url application:(UIApplication *)application {
     
     //结果处理
-//    AlixPayResult* result = [self handleOpenURL:url];
-    
-//	if (result)
-//    {
-//		
-//		if (result.statusCode == 9000)
-//        {
-//			/*
-//			 *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
-//			 */
-//            
-//            //交易成功
-//            //            NSString* key = @"签约帐户后获取到的支付宝公钥";
-//            //			id<DataVerifier> verifier;
-//            //            verifier = CreateRSADataVerifier(key);
-//            //
-//            //			if ([verifier verifyString:result.resultString withSign:result.signString])
-//            //            {
-//            //                //验证签名成功，交易结果无篡改
-//            //			}
-//            
-//        }
-//        else
-//        {
-//            //交易失败
-//        }
-//    }
-//    else
-//    {
-//        //失败
-//    }
-    
+    AlixPayResult* result = [self handleOpenURL:url];
+	if (result)
+    {
+		if (result.statusCode == 9000)
+        {
+			/*
+			 *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+			 */
+            
+            //交易成功
+            NSString* key = AlipayPubKey;
+            id<DataVerifier> verifier;
+            verifier = CreateRSADataVerifier(key);
+        
+            if ([verifier verifyString:result.resultString withSign:result.signString])
+            {
+                        //验证签名成功，交易结果无篡改
+                [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+            }
+        }
+        else if (result.statusCode == 6001)
+        {
+            //交易失败
+            [[XXAlertView currentAlertView] setMessage:@"支付被取消!" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        }
+        else{
+            //交易失败
+            [[XXAlertView currentAlertView] setMessage:@"支付失败!" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        }
+    }
+    else
+    {
+        //失败
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AliPaymentResult" object:result];
+
 }
+- (AlixPayResult *)resultFromURL:(NSURL *)url {
+	NSString * query = [[url query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+#if ! __has_feature(objc_arc)
+    return [[[AlixPayResult alloc] initWithString:query] autorelease];
+#else
+	return [[AlixPayResult alloc] initWithString:query];
+#endif
+}
+
+- (AlixPayResult *)handleOpenURL:(NSURL *)url {
+	AlixPayResult * result = nil;
+	
+	if (url != nil && [[url host] compare:@"safepay"] == 0) {
+		result = [self resultFromURL:url];
+	}
+    
+	return result;
+}
+
+
 
 //微信支付回调
 - (void)onResp:(BaseResp *)resp
 {
     if ([resp isKindOfClass:[PayResp class]]) {
-        switch (resp.errCode) {
-            case WXSuccess:
-                [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
-                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-                
-                [[self topViewController] viewWillAppear:YES];
-                break;
-                case WXErrCodeUserCancel:
-                [[XXAlertView currentAlertView] setMessage:@"支付取消!" forType:AlertViewTypeFailed];
-                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-                break;
-            default:
-                [[XXAlertView currentAlertView] setMessage:resp.errStr forType:AlertViewTypeFailed];
-                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-                break;
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WXPaymentResult" object:resp];
     }
 }
 

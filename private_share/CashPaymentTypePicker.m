@@ -8,21 +8,17 @@
 
 #import "CashPaymentTypePicker.h"
 #import "UIColor+App.h"
+//#import "PayOrderViewController.h"
+//#import "AppDelegate.h"
 
 @implementation CashPaymentTypePicker
-{
-    NSArray *paymentTypeArray;
-    NSArray *paymentTypeImageArray;
-}
 
-@synthesize delegate;
+@synthesize btnItemDelegate = _btnItemDelegate;
 @synthesize scrollView = _scrollView_;
 
 - (instancetype)initWithSize:(CGSize)size message:(NSString *)message buttonItems:(NSArray *)buttonItems{
     self = [super initWithSize:size];
     if(self) {
-        paymentTypeArray = [[NSArray alloc]initWithObjects:@"微信安全支付",@"支付宝支付", nil];
-        paymentTypeImageArray = [[NSArray alloc]initWithObjects:@"wxpay",@"taobaopay", nil];
         
         UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 44)];
         titleView.backgroundColor = [UIColor appColor];
@@ -41,7 +37,7 @@
         _scrollView_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_scrollView_];
         NSMutableAttributedString *contentMessage = [[NSMutableAttributedString alloc] initWithString:message attributes : @{ NSFontAttributeName : [UIFont systemFontOfSize:16.f] }];
-//        [contentMessage addAttribute:NSForegroundColorAttributeName value:[UIColor appLightBlue] range:NSMakeRange(66, 13)];
+
         CGSize contentMessageSize = [contentMessage boundingRectWithSize:CGSizeMake(self.contentView.bounds.size.width - 30, 300) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
         
         UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width - 30, contentMessageSize.height)];
@@ -69,12 +65,16 @@
     [_scrollView_ addSubview:view];
     _scrollView_.contentSize = CGSizeMake(_scrollView_.bounds.size.width, y + view.bounds.size.height);
 }
-
+//点击按钮 代理
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    if(self.delegate != nil && [self.delegate respondsToSelector:@selector(categoryButtonItemDidSelectedWithIdentifier:)]) {
-        [self.delegate categoryButtonItemDidSelectedWithIdentifier:identifier];
-        [self closeViewAnimated:YES completion:nil];
-    }
+    [self closeViewAnimated:YES completion:^{
+//        PayOrderViewController *payOrderVC = nil;
+//        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [[app topViewController].navigationController pushViewController:[[PayOrderViewController alloc] init] animated:YES];
+        if(self.btnItemDelegate != nil && [self.btnItemDelegate respondsToSelector:@selector(categoryButtonItemDidSelectedWithIdentifier:)]) {
+            [self.btnItemDelegate categoryButtonItemDidSelectedWithIdentifier:identifier];
+        }
+    }];
 }
 
 @end

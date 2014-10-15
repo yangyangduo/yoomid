@@ -14,6 +14,8 @@
 #import "MerchandiseService.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "alipay/AlixLibService.h"
+#import "alipay/AlixPayResult.h"
+#import "alipay/RSA/DataVerifier.h"
 
 @interface PayOrderViewController ()
 
@@ -32,14 +34,6 @@
 @synthesize aliPayment = _aliPayment;
 @synthesize wxPayment = _wxPayment;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -47,8 +41,9 @@
     
     self.title = @"支付订单";
     
-    self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXPaymentResult:) name:@"WXPaymentResult" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AliPaymentResult:) name:@"AliPaymentResult" object:nil];
+
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [backButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
@@ -60,13 +55,13 @@
     scrollView_.backgroundColor = [UIColor clearColor];
     [self.view addSubview:scrollView_];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, 180, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 25, 180, 40)];
     label.textAlignment = NSTextAlignmentLeft;
-    label.font = [UIFont systemFontOfSize:16];
-    label.text = @"以下是支付的详细信息:";
+    label.font = [UIFont systemFontOfSize:20];
+    label.text = @"支付信息如下:";
     [scrollView_ addSubview:label];
 
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(180, 3, 200/2, 162/2)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(190, 3, 200/2, 162/2)];
     imageView.image = [UIImage imageNamed:@"perfectinformation2"];
     [scrollView_ addSubview:imageView];
     
@@ -117,7 +112,6 @@
     [scrollView_ addSubview:payBtn];
     
     [self setPaymen];
-
 }
 
 - (void)setPaymen
@@ -131,7 +125,6 @@
         merchandiseLabel.text = [NSString stringWithFormat:@"商品: %@",_wxPayment.merchandiseName];
         float cashF = [_wxPayment.total_fee floatValue];
         cashLabel.text = [NSString stringWithFormat:@"现金: %.2f元",cashF /= 100];
-
     }else if (self.paymentMode == PaymentModeAliPay){
         if (_aliPayment == nil) {
             return;
@@ -142,7 +135,7 @@
         cashLabel.text = [NSString stringWithFormat:@"现金: %@元",_aliPayment.total_fee];
     }
 }
-
+//确定支付  按钮
 - (void)payBtnClick{
     if (self.paymentMode == PaymentModeWXPay) {
         
@@ -179,7 +172,56 @@
     [self submitFailure:resp];
 }
 
+//支付宝支付 结果 通知函数
+-(void)AliPaymentResult:(NSNotification*)notif
+{
+    AlixPayResult* result = notif.object;
+    if (result.statusCode == 9000) {
+        [self dismissViewController];
+    }
+}
+
+//支付宝支付 wap没有支付宝客户端() 方式 回调函数
 -(void)paymentResult:(NSString *)resultd{
+    AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
+    if (result)
+    {
+		if (result.statusCode == 9000)
+        {
+			/*
+			 *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+			 */
+            
+            //交易成功
+            NSString* key = AlipayPubKey;//签约帐户后获取到的支付宝公钥
+			id<DataVerifier> verifier;
+            verifier = CreateRSADataVerifier(key);
+            
+			if ([verifier verifyString:result.resultString withSign:result.signString])
+            {
+                //验证签名成功，交易结果无篡改
+                [[XXAlertView currentAlertView] setMessage:@"payOrderVC支付宝支付成功!" forType:AlertViewTypeSuccess];
+                [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                [self dismissViewController];
+			}
+        }
+        else if (result.statusCode == 6001)
+        {
+            //交易失败
+            [[XXAlertView currentAlertView] setMessage:@"支付被取消!" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        }
+        else{
+            //交易失败
+            [[XXAlertView currentAlertView] setMessage:@"支付失败!" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        }
+    }
+    else
+    {
+        //失败
+    }
+
 }
 //-----------------------------------------------------
 
@@ -300,9 +342,30 @@
     }];
 }
 
+//微信支付 结果 通知函数
+-(void)WXPaymentResult:(NSNotification*)notif
+{
+    BaseResp *resp = notif.object;
+    switch (resp.errCode) {
+        case WXSuccess:
+            [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+            [self dismissViewController];
+            break;
+        case WXErrCodeUserCancel:
+            [[XXAlertView currentAlertView] setMessage:@"支付取消!" forType:AlertViewTypeFailed];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+            break;
+        default:
+            [[XXAlertView currentAlertView] setMessage:resp.errStr forType:AlertViewTypeFailed];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+            break;
+    }
+}
+
 
 - (void)dismissViewController {
-    [self rightDismissViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end

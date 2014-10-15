@@ -6,10 +6,10 @@
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "TransitionViewController.h"
 #import "WXPayRequest.h"
 #import "AliPaymentModal.h"
 #import "WeChatSDK_1.4.1/WXApi.h"
+#import "BaseViewController.h"
 
 typedef NS_ENUM (NSUInteger, PaymentMode){
     PaymentModeNone,
@@ -18,7 +18,7 @@ typedef NS_ENUM (NSUInteger, PaymentMode){
 };
 
 
-@interface PayOrderViewController : TransitionViewController<WXApiDelegate>
+@interface PayOrderViewController : BaseViewController<WXApiDelegate>
 
 @property (nonatomic, assign) PaymentMode paymentMode;
 @property (nonatomic, strong) WXPayRequest *wxPayment;
