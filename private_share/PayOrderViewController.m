@@ -309,7 +309,12 @@
         payRequest.timeStamp = (UInt32)[_wxPayment.timestamp longLongValue];
         payRequest.sign = _wxPayment.sign;
         
-        [WXApi safeSendReq:payRequest];
+        if ([WXApi isWXAppInstalled]) {
+            [WXApi safeSendReq:payRequest];
+        }else{
+            [[XXAlertView currentAlertView] setMessage:@"您没有安装微信客户端,请安装后在支付!" forType:AlertViewTypeFailed];
+            [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        }
         return;
     }
     [self submitFailure:resp];

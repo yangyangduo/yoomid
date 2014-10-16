@@ -18,8 +18,6 @@
 #import "UIDevice+ScreenSize.h"
 #import "Account.h"
 
-#import "AdwoOfferWall.h"
-#import "YouMiWall.h"
 #import "DMOfferWallManager.h"
 
 #import "CashPaymentTypePicker.h"
@@ -170,7 +168,7 @@
 
     //新手导航页判断
     if ([SecurityConfig defaultConfig].isFirstLogin && ![[SecurityConfig defaultConfig].userName isEqualToString:@"1111"]) {
-        [self showGuidanceImage];
+       // [self showGuidanceImage];
     }else if ([[SecurityConfig defaultConfig].userName isEqualToString:@"1111"] && [SecurityConfig defaultConfig].isFirstLogin){
         [SecurityConfig defaultConfig].isFirstLogin = NO;
         [[SecurityConfig defaultConfig] saveConfig];
@@ -299,21 +297,8 @@
         DMOfferWallManager *domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
         domobOfferWall.disableStoreKit = YES;
         [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
-    } else if([@"youmi" isEqualToString:identifier]) {
-        [YouMiWall showOffers:YES didShowBlock:^{
-        } didDismissBlock:^{
-        }];
-    } else if([@"anwo" isEqualToString:identifier]) {
-        NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
-        AdwoOWSetKeywords(arr);
-        BOOL result = AdwoOWPresentOfferWall(kAdwoAppKey, self);
-        if(!result) {
-            //enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
-#ifdef DEBUG
-            NSLog(@"[Home] Inital Adwo failure.");
-#endif
-        }
     }
+    
     [currentModalView closeViewAnimated:NO completion:nil];
 }
 

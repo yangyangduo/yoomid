@@ -21,12 +21,6 @@
 #import "ShoppingCart.h"
 #import "DiskCacheManager.h"
 
-#import "YouMiConfig.h"
-#import "YouMiWall.h"
-#import "MiidiManager.h"
-#import "MiidiAdWall.h"
-#import "PunchBoxAd.h"
-
 #import "MobClick.h"
 
 #import "UMSocialWechatHandler.h"
@@ -293,9 +287,9 @@
 
 - (void)initAdPlatforms {
     // init youmi platform
-    [YouMiConfig setUserID:[SecurityConfig defaultConfig].userName];
-    [YouMiConfig launchWithAppID:kYoumiAppID appSecret:kYoumiSecretKey];
-    [YouMiWall enable];
+//    [YouMiConfig setUserID:[SecurityConfig defaultConfig].userName];
+//    [YouMiConfig launchWithAppID:kYoumiAppID appSecret:kYoumiSecretKey];
+//    [YouMiWall enable];
     
     /*
     // init cocounion platform

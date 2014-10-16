@@ -307,12 +307,12 @@
             
             wxPay.out_trade_no = merchandiseOrder.orderId;
             wxPay.traceid = merchandiseOrder.orderId;
-//            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
-            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", 1.f];
+            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", merchandiseOrder.totalCash * 100];
+//            wxPay.total_fee = [NSString stringWithFormat:@"%.0f", 1.f];
 
             aliPay.out_trade_no = merchandiseOrder.orderId;
-//            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",merchandiseOrder.totalCash];
-            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
+            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",merchandiseOrder.totalCash];
+//            aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
 
             NSMutableString *shopBodys = [[NSMutableString alloc] init];
             if ([merchandiseOrder.shopId isEqualToString:@"0000"]) {

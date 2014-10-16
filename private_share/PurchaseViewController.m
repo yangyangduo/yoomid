@@ -459,14 +459,14 @@
                     }
                     //微信支付
                     wxPayRequest.out_trade_no = orderResult.orderIds;
-//                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
-                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
+                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
+                  //  wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
                     wxPayRequest.traceid = orderResult.orderIds;
                     
                     //支付宝支付
                     aliPay.out_trade_no = orderResult.orderIds;
-//                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",orderResult.cashNeedToPay];
-                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
+                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",orderResult.cashNeedToPay];
+//                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
                     
                     NSMutableArray *categories = [NSMutableArray array];
                     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];

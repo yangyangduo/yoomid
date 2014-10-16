@@ -7,8 +7,8 @@
 //
 
 #import "BaseViewController.h"
-#import "DianRuLib/DianRuAdWall.h"
+//#import "DianRuLib/DianRuAdWall.h"
 
-@interface ExperienceTasksViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource,DianRuAdWallDelegate>
+@interface ExperienceTasksViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
 
 @end

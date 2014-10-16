@@ -7,15 +7,11 @@
 //
 
 #import "ExperienceTasksViewController.h"
-#import "YouMiWall.h"
-#import "PBOfferWall.h"
+
 #import "DMOfferWallManager.h"
 #import "SecurityConfig.h"
-#import "DianRuAdWall.h"
-#import "AdwoOfferWall.h"
 #import "Constants.h"
 #import <immobSDK/immobView.h>
-#import "MiidiAdWall.h"
 
 @implementation ExperienceTasksViewController {
     UITableView *taskTableView;
@@ -64,7 +60,7 @@ static NSString* const errCodeList[] = {
     [self.view addSubview:taskTableView];
     
     //init dianru
-    [DianRuAdWall initAdWallWithDianRuAdWallDelegate:self];
+//    [DianRuAdWall initAdWallWithDianRuAdWallDelegate:self];
 }
 
 #pragma mark -
@@ -123,45 +119,46 @@ static NSString* const errCodeList[] = {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0) {
-        [YouMiWall showOffers:YES didShowBlock:^{
-        } didDismissBlock:^{
-        }];
+//        [YouMiWall showOffers:YES didShowBlock:^{
+//        } didDismissBlock:^{
+//        }];
     } else if(indexPath.row == 1) {
         if(domobOfferWall == nil) {
             domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
             domobOfferWall.disableStoreKit = YES;
         }
         [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
-    } else if(indexPath.row == 2) {
-        [[PBOfferWall sharedOfferWall] loadOfferWall:[PBADRequest request]];
-        [[PBOfferWall sharedOfferWall] showOfferWallWithScale:0.9f];
-    } else if(indexPath.row == 3) {
-        [DianRuAdWall showAdWall:self];
-    } else if(indexPath.row == 4) {
-        if(limeiAdWall == nil){
-            limeiAdWall=[[immobView alloc] initWithAdUnitId:kLimeiAppKey adUnitType:offerWall rootViewController:self userInfo:nil];
-            [limeiAdWall.UserAttribute setObject:[SecurityConfig defaultConfig].userName forKey:accountname];
-        }
-        [limeiAdWall immobViewRequest];
-        [self.parentViewController.view addSubview:limeiAdWall];
-    } else if(indexPath.row == 5){
-        //set keywords to be the username
-        NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
-        AdwoOWSetKeywords(arr);
-        
-        // 初始化并登录积分墙
-        BOOL result = AdwoOWPresentOfferWall(kAdwoAppKey, self);
-        if(!result)
-        {
-            enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
-            NSLog(@"Initialization error, because %@", errCodeList[errCode]);
-        }
-        else{
-            NSLog(@"Initialization successfully!");
-        }
-    } else if(indexPath.row == 6){
-        [MiidiAdWall showAppOffers:self withDelegate:nil];
     }
+//    else if(indexPath.row == 2) {
+//        [[PBOfferWall sharedOfferWall] loadOfferWall:[PBADRequest request]];
+//        [[PBOfferWall sharedOfferWall] showOfferWallWithScale:0.9f];
+//    } else if(indexPath.row == 3) {
+//        [DianRuAdWall showAdWall:self];
+//    } else if(indexPath.row == 4) {
+//        if(limeiAdWall == nil){
+//            limeiAdWall=[[immobView alloc] initWithAdUnitId:kLimeiAppKey adUnitType:offerWall rootViewController:self userInfo:nil];
+//            [limeiAdWall.UserAttribute setObject:[SecurityConfig defaultConfig].userName forKey:accountname];
+//        }
+//        [limeiAdWall immobViewRequest];
+//        [self.parentViewController.view addSubview:limeiAdWall];
+//    } else if(indexPath.row == 5){
+//        //set keywords to be the username
+//        NSArray *arr = [NSArray arrayWithObjects:[SecurityConfig defaultConfig].userName, nil];
+//        AdwoOWSetKeywords(arr);
+//        
+//        // 初始化并登录积分墙
+//        BOOL result = AdwoOWPresentOfferWall(kAdwoAppKey, self);
+//        if(!result)
+//        {
+//            enum ADWO_OFFER_WALL_ERRORCODE errCode = AdwoOWFetchLatestErrorCode();
+//            NSLog(@"Initialization error, because %@", errCodeList[errCode]);
+//        }
+//        else{
+//            NSLog(@"Initialization successfully!");
+//        }
+//    } else if(indexPath.row == 6){
+//        [MiidiAdWall showAppOffers:self withDelegate:nil];
+//    }
     
     /* disable yjf
      YJFIntegralWall *integralWall = [[YJFIntegralWall alloc]init]; if([integralWall isScoreShow]){
