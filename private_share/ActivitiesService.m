@@ -12,6 +12,6 @@
 
 -(void)getActivitiesInfo:(id)target success:(SEL)success failure:(SEL)failure
 {
-    [self.httpClient get:[NSString stringWithFormat:@"/activities?%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
+    [self.httpClient get:[NSString stringWithFormat:@"/activities?shopId=0000&%@", self.authenticationString] target:target success:success failure:failure userInfo:nil];
 }
 @end

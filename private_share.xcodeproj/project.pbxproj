@@ -2496,6 +2496,7 @@
 						};
 					};
 					6F7657F919345C7C003BF61C = {
+						DevelopmentTeam = V59AQ53269;
 						TestTargetID = 6F7657DE19345C7C003BF61C;
 					};
 				};
@@ -3012,7 +3013,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
+				PROVISIONING_PROFILE = "241c6d02-e183-468b-be77-27ad6e2b6aa3";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -3048,7 +3049,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "a3664546-ef23-4da9-81f9-4be878d35680";
+				PROVISIONING_PROFILE = "241c6d02-e183-468b-be77-27ad6e2b6aa3";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
@@ -3213,6 +3214,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/private_share.app/private_share";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3226,6 +3229,7 @@
 				);
 				INFOPLIST_FILE = "private_shareTests/private_shareTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -3235,6 +3239,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/private_share.app/private_share";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3244,6 +3250,7 @@
 				GCC_PREFIX_HEADER = "private_share/private_share-Prefix.pch";
 				INFOPLIST_FILE = "private_shareTests/private_shareTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
