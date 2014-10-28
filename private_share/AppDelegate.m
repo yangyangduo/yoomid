@@ -123,6 +123,8 @@
         return [WXApi handleOpenURL:url delegate:self];//微信支付
     }
     return result;
+    
+    
 }
 
 //有支付宝客户端 的回调
