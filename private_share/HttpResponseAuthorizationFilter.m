@@ -52,7 +52,8 @@
                 UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
                 [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
                 
-                if([topViewController isKindOfClass:[HomeViewController class]]) {
+                //HomeViewController
+                if([topViewController isKindOfClass:[HomePageViewController class]]) {
                     [topViewController presentViewController:loginNavigationViewController animated:YES completion:nil];
                 }
                 

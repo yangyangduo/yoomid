@@ -31,6 +31,7 @@
 #import "alipay/AlixPayResult.h"
 #import "alipay/RSA/DataVerifier.h"
 
+#import "HomePageViewController.h"
 @implementation AppDelegate
 
 
@@ -84,18 +85,23 @@
 //    [WXApi registerApp:@"wxb3bc53583590b23f"];
 
     
-    HomeViewController *homeViewController = [[HomeViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+//    HomeViewController *homeViewController = [[HomeViewController alloc] init];
+    HomePageViewController *homePageViewController = [[HomePageViewController alloc] init];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homePageViewController];
+
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
-    [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
+//    [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
+    [ViewControllerAccessor defaultAccessor].homePageViewController = homePageViewController;
 
+    
     if(![SecurityConfig defaultConfig].isLogin) {
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        [homeViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
+        [homePageViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
         if ([SecurityConfig defaultConfig].isFirstLogin) {
                     [loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
         }
@@ -318,7 +324,8 @@
 #pragma mark Top view controller
 
 - (UIViewController *)topViewController {
-    return [self topViewController:[ViewControllerAccessor defaultAccessor].homeViewController];
+//    return [self topViewController:[ViewControllerAccessor defaultAccessor].homeViewController];
+    return [self topViewController:[ViewControllerAccessor defaultAccessor].homePageViewController];
 }
 
 - (UIViewController *)topViewController:(UIViewController *)rootViewController {

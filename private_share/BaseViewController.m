@@ -184,13 +184,6 @@
 
 - (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName imageUrl:(NSString *)imageurl contentUrl:(NSString *)contentUrl
 {
-//    NSString * tempClassName = @"HomeViewController";
-//    Class tempClass =  NSClassFromString(tempClassName);
-//    UIViewController * tempObj = [[tempClass alloc] init];
-//    UIWindow *app = [UIApplication sharedApplication].keyWindow;
-//    UIViewController *topViewController = [ViewControllerAccessor defaultAccessor].homeViewController;
-//
-////    UIViewController *topViewController = self.navigationController.topViewController;
 //    if (tempObj) {
     [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
     [[UMSocialData defaultData].extConfig.wechatSessionData setTitle:title];  //设置微信好友分享标题

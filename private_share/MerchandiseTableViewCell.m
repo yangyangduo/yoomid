@@ -12,7 +12,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "Account.h"
 
-#define DEFAULT_IMAGE [UIImage imageNamed:@"merchandise_placeholder"]
+#define DEFAULT_IMAGE [UIImage imageNamed:@"image_loading_gray"]
 
 @implementation MerchandiseTableViewCell {
     UIImageView *imageView;

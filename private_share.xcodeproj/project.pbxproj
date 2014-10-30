@@ -272,6 +272,14 @@
 		D3644C64197A1D7D00B44785 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3644C63197A1D7D00B44785 /* MessageUI.framework */; };
 		D3644C66197A1D8200B44785 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3644C65197A1D8200B44785 /* MobileCoreServices.framework */; };
 		D3644C68197A1DAA00B44785 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3644C67197A1DAA00B44785 /* libz.1.2.5.dylib */; };
+		D612A2571A01EBB600A3E93A /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2561A01EBB600A3E93A /* HomePageViewController.m */; };
+		D612A25B1A02079E00A3E93A /* ActiveDisplayScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A25A1A02079E00A3E93A /* ActiveDisplayScrollView.m */; };
+		D612A25E1A02193100A3E93A /* 11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D612A25C1A02193100A3E93A /* 11@2x.png */; };
+		D612A25F1A02193100A3E93A /* 12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D612A25D1A02193100A3E93A /* 12@2x.png */; };
+		D612A2621A02249000A3E93A /* XiaoJiRecommendView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2611A02249000A3E93A /* XiaoJiRecommendView.m */; };
+		D612A2651A022E6300A3E93A /* XiaoJiRecommendMallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */; };
+		D612A2681A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */; };
+		D612A26A1A027D4800A3E93A /* image_loading_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D612A2691A027D4800A3E93A /* image_loading_gray@2x.png */; };
 		D62FBE0019A61B0A0041195B /* social_sharing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */; };
 		D62FBE0219A61B150041195B /* survey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0119A61B150041195B /* survey@2x.png */; };
 		D62FBE0419A61B280041195B /* product_experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0319A61B280041195B /* product_experience@2x.png */; };
@@ -844,6 +852,19 @@
 		D3644C63197A1D7D00B44785 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D3644C65197A1D8200B44785 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D3644C67197A1DAA00B44785 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		D612A2551A01EBB600A3E93A /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
+		D612A2561A01EBB600A3E93A /* HomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
+		D612A2591A02079E00A3E93A /* ActiveDisplayScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveDisplayScrollView.h; sourceTree = "<group>"; };
+		D612A25A1A02079E00A3E93A /* ActiveDisplayScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveDisplayScrollView.m; sourceTree = "<group>"; };
+		D612A25C1A02193100A3E93A /* 11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "11@2x.png"; sourceTree = "<group>"; };
+		D612A25D1A02193100A3E93A /* 12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "12@2x.png"; sourceTree = "<group>"; };
+		D612A2601A02249000A3E93A /* XiaoJiRecommendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoJiRecommendView.h; sourceTree = "<group>"; };
+		D612A2611A02249000A3E93A /* XiaoJiRecommendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoJiRecommendView.m; sourceTree = "<group>"; };
+		D612A2631A022E6300A3E93A /* XiaoJiRecommendMallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoJiRecommendMallViewController.h; sourceTree = "<group>"; };
+		D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoJiRecommendMallViewController.m; sourceTree = "<group>"; };
+		D612A2661A02785500A3E93A /* XiaoJiMerchandisesDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoJiMerchandisesDetailsView.h; sourceTree = "<group>"; };
+		D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoJiMerchandisesDetailsView.m; sourceTree = "<group>"; };
+		D612A2691A027D4800A3E93A /* image_loading_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_loading_gray@2x.png"; sourceTree = "<group>"; };
 		D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social_sharing@2x.png"; sourceTree = "<group>"; };
 		D62FBE0119A61B150041195B /* survey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey@2x.png"; sourceTree = "<group>"; };
 		D62FBE0319A61B280041195B /* product_experience@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "product_experience@2x.png"; sourceTree = "<group>"; };
@@ -1698,6 +1719,7 @@
 		6F7658111934632A003BF61C /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				D612A2541A01EB6000A3E93A /* new_common */,
 				6DD565D0EB8CC937D438E546 /* common */,
 				6F288011193819DD00197C83 /* LeftDrawerViewController.h */,
 				6F288012193819DD00197C83 /* LeftDrawerViewController.m */,
@@ -1999,6 +2021,7 @@
 		6FB0E19719B6A247002F9A18 /* merchandise */ = {
 			isa = PBXGroup;
 			children = (
+				D612A2691A027D4800A3E93A /* image_loading_gray@2x.png */,
 				D67CAFBB19CFB6CA002B503B /* good3@2x.png */,
 				D67CAFBC19CFB6CA002B503B /* good4@2x.png */,
 				6FB8072B19B7FF24003ABF77 /* shipping@2x.png */,
@@ -2223,6 +2246,33 @@
 				6FE79C58197CE5CE005B11E1 /* cb_select@2x.png */,
 			);
 			name = checkbox;
+			sourceTree = "<group>";
+		};
+		D612A2541A01EB6000A3E93A /* new_common */ = {
+			isa = PBXGroup;
+			children = (
+				D612A2581A02073F00A3E93A /* view */,
+				D612A2551A01EBB600A3E93A /* HomePageViewController.h */,
+				D612A2561A01EBB600A3E93A /* HomePageViewController.m */,
+				D612A2631A022E6300A3E93A /* XiaoJiRecommendMallViewController.h */,
+				D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */,
+			);
+			name = new_common;
+			sourceTree = "<group>";
+		};
+		D612A2581A02073F00A3E93A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				D612A25C1A02193100A3E93A /* 11@2x.png */,
+				D612A25D1A02193100A3E93A /* 12@2x.png */,
+				D612A2591A02079E00A3E93A /* ActiveDisplayScrollView.h */,
+				D612A25A1A02079E00A3E93A /* ActiveDisplayScrollView.m */,
+				D612A2601A02249000A3E93A /* XiaoJiRecommendView.h */,
+				D612A2611A02249000A3E93A /* XiaoJiRecommendView.m */,
+				D612A2661A02785500A3E93A /* XiaoJiMerchandisesDetailsView.h */,
+				D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 		D66B497E19B45392002615CC /* settings */ = {
@@ -2612,6 +2662,7 @@
 				D676302519A7741C0015CADF /* level7@2x.png in Resources */,
 				D66D120A19C02271005BF0FA /* setup@2x.png in Resources */,
 				6F4FA08019A48A560049C023 /* add@2x.png in Resources */,
+				D612A25F1A02193100A3E93A /* 12@2x.png in Resources */,
 				D6DD76D619D079CF00133CD1 /* UMSnsAccountViewController.xib in Resources */,
 				D67CAFBD19CFB6CA002B503B /* good3@2x.png in Resources */,
 				D676302419A7741C0015CADF /* level6@2x.png in Resources */,
@@ -2633,6 +2684,7 @@
 				D6B3382E19E7D87400851535 /* order_delete@2x.png in Resources */,
 				D681286F19D4FD0600751784 /* muxing@2x.png in Resources */,
 				6F27071B19C2CC2300722C67 /* miku_blue@2x.png in Resources */,
+				D612A25E1A02193100A3E93A /* 11@2x.png in Resources */,
 				6FECF3EB19BEA9AB00CAB301 /* button_up@2x.png in Resources */,
 				6F7657ED19345C7C003BF61C /* InfoPlist.strings in Resources */,
 				6F27071519C2A6F900722C67 /* anwo_icon@2x.png in Resources */,
@@ -2670,6 +2722,7 @@
 				6FC2E87419B048FC00AA78A9 /* background_image@2x.png in Resources */,
 				6F8823D71940531F00757633 /* blueArrow.png in Resources */,
 				6F2C52C719751D2C0045BFC1 /* guide4@2x.png in Resources */,
+				D612A26A1A027D4800A3E93A /* image_loading_gray@2x.png in Resources */,
 				D6DD76D219D079CF00133CD1 /* UMSCommentInputControlleriPad.xib in Resources */,
 				D6DD76D819D079CF00133CD1 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				D62FBE0419A61B280041195B /* product_experience@2x.png in Resources */,
@@ -2767,6 +2820,7 @@
 				6F2816AB19495379009B29DB /* PullScrollZoomImageHtmlView.m in Sources */,
 				D674C6CD19CBD48A0044B51B /* RetrievesPassWordViewController.m in Sources */,
 				6F7261F3195A905E00BD17D8 /* ActivityCollectionViewCell.m in Sources */,
+				D612A2651A022E6300A3E93A /* XiaoJiRecommendMallViewController.m in Sources */,
 				D641D907199C662F00CBB929 /* ContactService.m in Sources */,
 				D6B13F6919A43199007658CB /* HomePageItemCell.m in Sources */,
 				6F363306193EF31700340645 /* Merchandise.m in Sources */,
@@ -2800,6 +2854,7 @@
 				6FF5333A1938657A001D607C /* UIColor+App.m in Sources */,
 				6F72C18D19762F6700100D12 /* NameValue.m in Sources */,
 				6F72C1961976831900100D12 /* PaymentButton.m in Sources */,
+				D612A2681A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m in Sources */,
 				6F2C52B21974F6560045BFC1 /* MerchandiseProperty.m in Sources */,
 				D6492D6119C97C720092B893 /* UsersUpgradeModalView.m in Sources */,
 				6F72A3DD193DB54A001DAA3E /* DrawerItemView.m in Sources */,
@@ -2863,6 +2918,7 @@
 				6F970999193F542500EA5E3A /* BaseService.m in Sources */,
 				6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */,
 				6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */,
+				D612A2621A02249000A3E93A /* XiaoJiRecommendView.m in Sources */,
 				6F72A3F3193DFF17001DAA3E /* ViewControllerAccessor.m in Sources */,
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */,
@@ -2886,6 +2942,7 @@
 				6F06D5DE19591ACF007195A2 /* PullScrollZoomImagesView.m in Sources */,
 				D673E5B119ECD5B0008568E9 /* SBJsonParser.m in Sources */,
 				6F2B51C5195538570069798A /* XXEventClassFilter.m in Sources */,
+				D612A25B1A02079E00A3E93A /* ActiveDisplayScrollView.m in Sources */,
 				6F7657F319345C7C003BF61C /* AppDelegate.m in Sources */,
 				6F97099C193F55D000EA5E3A /* JsonUtil.m in Sources */,
 				6F3F65F1194203CB007A41E0 /* RadioListView.m in Sources */,
@@ -2896,6 +2953,7 @@
 				6F2BD0C0194EBEF70092BA23 /* MerchandiseOrder.m in Sources */,
 				6F7657EF19345C7C003BF61C /* main.m in Sources */,
 				6F2B51C9195538570069798A /* XXEvent.m in Sources */,
+				D612A2571A01EBB600A3E93A /* HomePageViewController.m in Sources */,
 				6F8F2E8919569D5700E8B274 /* FixedTextField.m in Sources */,
 				6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */,
 				6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */,

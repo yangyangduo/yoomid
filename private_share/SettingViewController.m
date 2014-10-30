@@ -267,7 +267,8 @@
         [app doAfterLogout];
         UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        [[ViewControllerAccessor defaultAccessor].homeViewController presentViewController:loginNavigationViewController animated:YES completion:^{
+        //.homeViewController
+        [[ViewControllerAccessor defaultAccessor].homePageViewController presentViewController:loginNavigationViewController animated:YES completion:^{
             [self dismissViewController];
 
         }];
