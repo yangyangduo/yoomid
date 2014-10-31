@@ -18,6 +18,8 @@
 @implementation XiaoJiRecommendMallViewController
 {
     PullTableView *tblXiaoJi;
+    NSInteger pageIndex;
+
 }
 
 @synthesize column;
@@ -40,9 +42,10 @@
     tblXiaoJi.pullDelegate = self;
     tblXiaoJi.separatorStyle = NO;
     tblXiaoJi.backgroundColor = [UIColor clearColor];
+    [tblXiaoJi setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     tblXiaoJi.tableHeaderView = xiaojiHeaderView;
     [self.view addSubview:tblXiaoJi];
-    tblXiaoJi.pullTableIsLoadingMore = NO;
+    
 }
 
 - (void)dismissViewController {
@@ -53,12 +56,83 @@
 {
     [super viewWillAppear:animated];
     
-    [self refreshXiaoji];
+    if (column.names == nil) {
+        [self refreshXiaoji];
+    }else{
+        [self refresh];
+    }
 }
 
+- (void)refresh {
+    pageIndex = 0;
+    MerchandiseService *service = [[MerchandiseService alloc] init];
+    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex target:self success:@selector(getMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)  userInfo:[NSNumber numberWithInteger:pageIndex]];
+}
+
+- (void)loadMore {
+    MerchandiseService *service = [[MerchandiseService alloc] init];
+    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex + 1 target:self success:@selector(getMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)  userInfo:[NSNumber numberWithInteger:pageIndex + 1]];
+}
+
+- (void)getMerchandisesSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 200) {
+        NSInteger page = ((NSNumber *)resp.userInfo).integerValue;
+        if(_recommendedMerchandises == nil) {
+            _recommendedMerchandises = [NSMutableArray array];
+        } else {
+            if(page == 0) {
+                [_recommendedMerchandises removeAllObjects];
+            }
+        }
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        NSUInteger lastIndex = _recommendedMerchandises.count;
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(jsonArray != nil) {
+            for(int i=0; i<jsonArray.count; i++) {
+                NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+                [_recommendedMerchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
+                if(page > 0) {
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:lastIndex + i inSection:0]];
+                }
+            }
+        }
+        
+        if(page > 0) {
+            if(jsonArray != nil && jsonArray.count > 0) {
+                pageIndex++;
+                [tblXiaoJi beginUpdates];
+                [tblXiaoJi insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [tblXiaoJi endUpdates];
+            } else {
+                [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"no_more", @"") forType:AlertViewTypeFailed];
+                [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+            }
+        } else {
+            tblXiaoJi.pullLastRefreshDate = [NSDate date];
+            [tblXiaoJi reloadData];
+            
+            // if page index is 0, need save to disk cache
+            //            [[DiskCacheManager manager] setMerchandises:merchandises];
+        }
+        
+        [self cancelRefresh];
+        [self cancelLoadMore];
+        
+        return;
+    }
+    
+    [self handleFailureHttpResponse:resp];
+}
+
+
+
+//小吉推荐模式没有商铺id
 -(void)refreshXiaoji
 {
     MerchandiseService *service = [[MerchandiseService alloc] init];
+    
     [service getEcommendedMerchandisesTarget:self success:@selector(getEcommendedMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
@@ -196,13 +270,21 @@
         [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
         return;
     }
-    [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.3f];
+    if (column.names == nil) {
+        [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.3f];
+    }else{
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
+    }
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView {
-//    [self cancelLoadMore];
-//    [self cancelRefresh];
-    return;
+    if(tblXiaoJi.pullTableIsRefreshing) {
+        [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
+        return;
+    }
+    if (column.names != nil) {
+        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
+    }
 }
 
 - (void)cancelRefresh {

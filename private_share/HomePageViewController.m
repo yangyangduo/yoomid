@@ -62,7 +62,7 @@
     
     [self.view addSubview:_collectionView];
 
-    CGFloat viewHeight = 180;//_xiaojiView height = 170   商品图片1：1
+    CGFloat viewHeight = 170;//_xiaojiView height = 170   商品图片1：1
     xiaoJiView = [[XiaoJiRecommendView alloc] initWithFrame:CGRectMake(0, -viewHeight, self.view.bounds.size.width, viewHeight)];
     xiaoJiView.delegate = self;
     [_collectionView insertSubview:xiaoJiView atIndex:0];
@@ -73,11 +73,6 @@
     activeDisplaySV.delegate = self;
     [_collectionView insertSubview:activeDisplaySV atIndex:0];
     _collectionView.contentInset = UIEdgeInsetsMake(viewHeight-20, 0, 0, 0);
-    
-//    UIImage *image1 = [UIImage imageNamed:@"11"];
-//    UIImage *image2 = [UIImage imageNamed:@"12"];
-//
-//    activeDisplaySV.imageItems = [[NSArray alloc] initWithObjects:image1,image2, nil];
 
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 10 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setup5"] forState:UIControlStateNormal];
@@ -362,13 +357,12 @@
 #pragma mark -
 #pragma mark Animation controller delegate
 
-//- (UIViewController *)leftPresentationViewController {
-//    MallViewController *mallViewController = [[MallViewController alloc] init];
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
-//    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-//    return navigationController;
-//}
-
+- (UIViewController *)leftPresentationViewController {
+    MallViewController *mallViewController = [[MallViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    return navigationController;
+}
 
 - (UIViewController *)rightPresentationViewController {
     return [[MyPointsRecordViewController alloc] init];

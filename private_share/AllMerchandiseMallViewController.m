@@ -9,6 +9,7 @@
 #import "AllMerchandiseMallViewController.h"
 #import "MerchandiseService.h"
 #import "MerchandiseTableViewCell.h"
+#import "MerchandiseDetailViewController2.h"
 
 @implementation AllMerchandiseMallViewController
 {
@@ -35,7 +36,6 @@
     tblMerchandises.dataSource = self;
     tblMerchandises.pullDelegate = self;
     tblMerchandises.backgroundColor = [UIColor clearColor];
-    tblMerchandises.tag = 1;
     [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     tblMerchandises.tableHeaderView = merchandisesHeaderView;
     [self.view addSubview:tblMerchandises];
@@ -150,6 +150,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Merchandise *merchandise = [merchandises objectAtIndex:indexPath.row];
+    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
+    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+
 }
 
 #pragma mark -
