@@ -9,8 +9,8 @@
 #import "XiaoJiMerchandisesDetailsView.h"
 #import "UIColor+App.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "Constants.h"
 
-#define DEFAULT_IMAGES [UIImage imageNamed:@"image_loading_gray"]
 
 @implementation XiaoJiMerchandisesDetailsView
 {

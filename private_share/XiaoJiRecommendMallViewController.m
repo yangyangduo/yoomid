@@ -20,13 +20,15 @@
     PullTableView *tblXiaoJi;
 }
 
+@synthesize column;
+
 @synthesize recommendedMerchandises = _recommendedMerchandises;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
 
-    self.title = @"小吉推荐";
+    self.title = column.names == nil ? @"小吉推荐" : column.names;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController)];
     
@@ -148,7 +150,7 @@
 
 
 #pragma mark -
-#pragma mark
+#pragma mark tableview delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

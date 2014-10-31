@@ -14,6 +14,7 @@ const CGFloat ImageWidth = 90;
     UIView *bg_view;
 }
 
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

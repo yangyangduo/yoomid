@@ -31,6 +31,7 @@
 @synthesize buyEndTime;
 
 @synthesize price;
+@synthesize originalPrice;
 
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
@@ -46,6 +47,7 @@
         self.merchandiseType = [json numberForKey:@"merchandiseType"].integerValue;
         
         self.price = [json numberForKey:@"price"].doubleValue;
+        self.originalPrice = [json numberForKey:@"originalPrice"].doubleValue;
         
         NSMutableArray *propers = [NSMutableArray array];
         NSArray *_properties_ = [json arrayForKey:@"properties"];
@@ -100,6 +102,7 @@
     [json setNoNilObject:self.imageUrls forKey:@"imageUrls"];
     
     [json setDouble:self.price forKey:@"price"];
+    [json setDouble:self.originalPrice forKey:@"originalPrice"];
     
     NSMutableArray *propertiesJsonArray = [NSMutableArray array];
     if(self.properties != nil) {

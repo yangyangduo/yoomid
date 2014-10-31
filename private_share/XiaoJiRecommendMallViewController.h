@@ -10,9 +10,12 @@
 #import "PullTableView.h"
 #import "MerchandiseDetailViewController2.h"
 #import "Merchandise.h"
+#import "ColumnView.h"
 
 @interface XiaoJiRecommendMallViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 
 @property (nonatomic ,strong) NSMutableArray *recommendedMerchandises;
 //- (instancetype) initWithXiaoJiRecommend:(NSMutableArray *)recommendedMerchandises;
+@property (nonatomic, strong) ColumnView *column;
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#define DEFAULT_IMAGES [UIImage imageNamed:@"image_loading_gray"]
 
 extern NSString * const AlipayPubKey;
 

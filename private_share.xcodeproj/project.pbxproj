@@ -280,6 +280,12 @@
 		D612A2651A022E6300A3E93A /* XiaoJiRecommendMallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */; };
 		D612A2681A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */; };
 		D612A26A1A027D4800A3E93A /* image_loading_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D612A2691A027D4800A3E93A /* image_loading_gray@2x.png */; };
+		D612A2731A0336A700A3E93A /* UnderlinedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2721A0336A700A3E93A /* UnderlinedLabel.m */; };
+		D612A2761A0357E800A3E93A /* ColumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2751A0357E800A3E93A /* ColumnView.m */; };
+		D612A2791A0358B600A3E93A /* RowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2781A0358B600A3E93A /* RowView.m */; };
+		D612A27C1A035B9600A3E93A /* HomePageTemplateService.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A27B1A035B9600A3E93A /* HomePageTemplateService.m */; };
+		D612A2801A03768100A3E93A /* NewHomePageItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A27F1A03768100A3E93A /* NewHomePageItemCell.m */; };
+		D612A2861A038F6C00A3E93A /* AllMerchandiseMallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D612A2851A038F6C00A3E93A /* AllMerchandiseMallViewController.m */; };
 		D62FBE0019A61B0A0041195B /* social_sharing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */; };
 		D62FBE0219A61B150041195B /* survey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0119A61B150041195B /* survey@2x.png */; };
 		D62FBE0419A61B280041195B /* product_experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D62FBE0319A61B280041195B /* product_experience@2x.png */; };
@@ -865,6 +871,18 @@
 		D612A2661A02785500A3E93A /* XiaoJiMerchandisesDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoJiMerchandisesDetailsView.h; sourceTree = "<group>"; };
 		D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoJiMerchandisesDetailsView.m; sourceTree = "<group>"; };
 		D612A2691A027D4800A3E93A /* image_loading_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_loading_gray@2x.png"; sourceTree = "<group>"; };
+		D612A2711A0336A700A3E93A /* UnderlinedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnderlinedLabel.h; sourceTree = "<group>"; };
+		D612A2721A0336A700A3E93A /* UnderlinedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnderlinedLabel.m; sourceTree = "<group>"; };
+		D612A2741A0357E800A3E93A /* ColumnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColumnView.h; sourceTree = "<group>"; };
+		D612A2751A0357E800A3E93A /* ColumnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColumnView.m; sourceTree = "<group>"; };
+		D612A2771A0358B600A3E93A /* RowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowView.h; sourceTree = "<group>"; };
+		D612A2781A0358B600A3E93A /* RowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowView.m; sourceTree = "<group>"; };
+		D612A27A1A035B9600A3E93A /* HomePageTemplateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageTemplateService.h; sourceTree = "<group>"; };
+		D612A27B1A035B9600A3E93A /* HomePageTemplateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageTemplateService.m; sourceTree = "<group>"; };
+		D612A27E1A03768100A3E93A /* NewHomePageItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewHomePageItemCell.h; sourceTree = "<group>"; };
+		D612A27F1A03768100A3E93A /* NewHomePageItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewHomePageItemCell.m; sourceTree = "<group>"; };
+		D612A2841A038F6C00A3E93A /* AllMerchandiseMallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMerchandiseMallViewController.h; sourceTree = "<group>"; };
+		D612A2851A038F6C00A3E93A /* AllMerchandiseMallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMerchandiseMallViewController.m; sourceTree = "<group>"; };
 		D62FBDFF19A61B0A0041195B /* social_sharing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social_sharing@2x.png"; sourceTree = "<group>"; };
 		D62FBE0119A61B150041195B /* survey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey@2x.png"; sourceTree = "<group>"; };
 		D62FBE0319A61B280041195B /* product_experience@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "product_experience@2x.png"; sourceTree = "<group>"; };
@@ -1330,6 +1348,10 @@
 				D685BEF119E90724003BE462 /* WXPayRequest.m */,
 				D673E5BC19ED0A94008568E9 /* AliPaymentModal.h */,
 				D673E5BD19ED0A94008568E9 /* AliPaymentModal.m */,
+				D612A2741A0357E800A3E93A /* ColumnView.h */,
+				D612A2751A0357E800A3E93A /* ColumnView.m */,
+				D612A2771A0358B600A3E93A /* RowView.h */,
+				D612A2781A0358B600A3E93A /* RowView.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1971,6 +1993,8 @@
 				D65F9F6519C2E2F40012231C /* ActivitiesService.m */,
 				D6A171FC19C9D35B00C89283 /* TaskLevelService.h */,
 				D6A171FD19C9D35B00C89283 /* TaskLevelService.m */,
+				D612A27A1A035B9600A3E93A /* HomePageTemplateService.h */,
+				D612A27B1A035B9600A3E93A /* HomePageTemplateService.m */,
 			);
 			name = service;
 			sourceTree = "<group>";
@@ -2251,11 +2275,14 @@
 		D612A2541A01EB6000A3E93A /* new_common */ = {
 			isa = PBXGroup;
 			children = (
+				D612A27D1A03766200A3E93A /* cell */,
 				D612A2581A02073F00A3E93A /* view */,
 				D612A2551A01EBB600A3E93A /* HomePageViewController.h */,
 				D612A2561A01EBB600A3E93A /* HomePageViewController.m */,
 				D612A2631A022E6300A3E93A /* XiaoJiRecommendMallViewController.h */,
 				D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */,
+				D612A2841A038F6C00A3E93A /* AllMerchandiseMallViewController.h */,
+				D612A2851A038F6C00A3E93A /* AllMerchandiseMallViewController.m */,
 			);
 			name = new_common;
 			sourceTree = "<group>";
@@ -2271,8 +2298,19 @@
 				D612A2611A02249000A3E93A /* XiaoJiRecommendView.m */,
 				D612A2661A02785500A3E93A /* XiaoJiMerchandisesDetailsView.h */,
 				D612A2671A02785500A3E93A /* XiaoJiMerchandisesDetailsView.m */,
+				D612A2711A0336A700A3E93A /* UnderlinedLabel.h */,
+				D612A2721A0336A700A3E93A /* UnderlinedLabel.m */,
 			);
 			name = view;
+			sourceTree = "<group>";
+		};
+		D612A27D1A03766200A3E93A /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				D612A27E1A03768100A3E93A /* NewHomePageItemCell.h */,
+				D612A27F1A03768100A3E93A /* NewHomePageItemCell.m */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 		D66B497E19B45392002615CC /* settings */ = {
@@ -2826,11 +2864,13 @@
 				6F363306193EF31700340645 /* Merchandise.m in Sources */,
 				6F4189751948250000F9DC2C /* ReturnMessage.m in Sources */,
 				6F2C52CC19751D510045BFC1 /* GuideViewController.m in Sources */,
+				D612A2791A0358B600A3E93A /* RowView.m in Sources */,
 				6F57538419B5DE52005A4605 /* TaskListViewController.m in Sources */,
 				6F72A3FC193E1ED2001DAA3E /* PasswordForgotViewController.m in Sources */,
 				D683A04B199D987B001E3DA9 /* UpdateContactInfoViewController.m in Sources */,
 				6F3632F8193EBF9D00340645 /* DefaultStyleTextField.m in Sources */,
 				6F5B5E2B19B58DBE00495F0C /* AdPlatformPickerView.m in Sources */,
+				D612A2731A0336A700A3E93A /* UnderlinedLabel.m in Sources */,
 				6FE655A41942D679009617C9 /* ActivityMerchandiseTableViewCell.m in Sources */,
 				6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */,
 				6F8823D21940531F00757633 /* MessageInterceptor.m in Sources */,
@@ -2866,6 +2906,7 @@
 				6F970982193F4E2600EA5E3A /* NSMutableDictionary+Extension.m in Sources */,
 				6F66B5A4194AD0D4008A948C /* PointsOrderService.m in Sources */,
 				D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */,
+				D612A27C1A035B9600A3E93A /* HomePageTemplateService.m in Sources */,
 				6FB714DC196E623700598457 /* MerchandiseDetailViewController2.m in Sources */,
 				6F8823B7193F5FA000757633 /* HttpClient.m in Sources */,
 				6F2C52AF1974D4780045BFC1 /* MerchandiseParametersPicker.m in Sources */,
@@ -2888,6 +2929,7 @@
 				6F8823E71940A40500757633 /* NumberPicker.m in Sources */,
 				D6C7CC8B199B910D00EC3061 /* SelectContactAddressViewController.m in Sources */,
 				6F8823BD19404DE200757633 /* BaseModel.m in Sources */,
+				D612A2761A0357E800A3E93A /* ColumnView.m in Sources */,
 				6F53EFEB194B55050080B4DD /* ShopShoppingItems.m in Sources */,
 				6F7BD33219540A620031D2DD /* QRCode.m in Sources */,
 				6FFE4E8D1952BCF500954E71 /* DiskCacheManager.m in Sources */,
@@ -2957,6 +2999,7 @@
 				6F8F2E8919569D5700E8B274 /* FixedTextField.m in Sources */,
 				6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */,
 				6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */,
+				D612A2861A038F6C00A3E93A /* AllMerchandiseMallViewController.m in Sources */,
 				D698655C19B5B86700781F54 /* TextViewController2.m in Sources */,
 				D67913D719CA7D1500154C37 /* AnswerOptions.m in Sources */,
 				6DD563E113FFAD3D252A3F80 /* DrawerViewController.m in Sources */,
@@ -2981,6 +3024,7 @@
 				6F97097F193F4E0000EA5E3A /* NSDictionary+Extension.m in Sources */,
 				6F72C18919762DD200100D12 /* DynamicGroupButtonView.m in Sources */,
 				D67913D419CA6F5200154C37 /* UpgradeTask.m in Sources */,
+				D612A2801A03768100A3E93A /* NewHomePageItemCell.m in Sources */,
 				6F5B5E1A19B41B3200495F0C /* TaskCategory.m in Sources */,
 				6FECF3EE19BEC91500CAB301 /* ShoppingItemConfirmFooterView.m in Sources */,
 				D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */,

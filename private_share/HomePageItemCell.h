@@ -14,4 +14,5 @@
 @property (nonatomic,strong)UILabel *bg_lable;
 @property (nonatomic,strong)UILabel *title_lable;
 @property (nonatomic,strong)UILabel *context;
+
 @end

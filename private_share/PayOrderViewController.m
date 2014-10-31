@@ -142,7 +142,7 @@
         NSMutableDictionary *tempD = [[NSMutableDictionary alloc] initWithDictionary:[_wxPayment toJson]];
         [[XXAlertView currentAlertView] setMessage:@"正在打开微信支付..." forType:AlertViewTypeWaitting];
         [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
-        
+        //1、向服务器申请access_token
         MerchandiseService *service = [[MerchandiseService alloc] init];
         [service submitPayRequestBody:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitWXPayRequestSuccess:) failure:@selector(submitFailure:) userInfo:nil];
 
@@ -233,6 +233,7 @@
             [_wxPayment setAccess_tokens:access_token_json];
         }
         
+        //2、从微信服务器获取prepayid
         NSMutableDictionary *paramsD = [NSMutableDictionary dictionary];
         [paramsD setObject:_wxPayment.wxAppId forKey:@"appid"];
         [paramsD setObject:_wxPayment.noncestr forKey:@"noncestr"];
@@ -257,7 +258,6 @@
         [mrequest addValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
         //设置编码
         [mrequest setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
-        
         [mrequest setHTTPBody:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:mrequest];
@@ -269,22 +269,24 @@
                 _wxPayment.prepayid = [prepayid_json objectForKey:@"prepayid"];
                 NSLog(@"prepay ID:%@",_wxPayment.prepayid);
                 
+                //3、向服务器申请支付的sign
                 NSDictionary *paySignDict = @{@"prepayid": _wxPayment.prepayid,
                                               @"package": @"Sign=WXPay",
                                               @"noncestr": _wxPayment.noncestr,
                                               @"timestamp": _wxPayment.timestamp
                                               };
-                
                 MerchandiseService *service = [[MerchandiseService alloc] init];
                 [service submitWXPaySign:[JsonUtil createJsonDataFromDictionary:paySignDict] target:self success:@selector(submitWXPaySignSuccess:) failure:@selector(submitFailure:) userInfo:nil];
             }else{
                 [[XXAlertView currentAlertView] setMessage:@"打开微信支付失败!" forType:AlertViewTypeFailed];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                return ;
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[XXAlertView currentAlertView] setMessage:@"打开微信支付错误!" forType:AlertViewTypeFailed];
             [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
             NSLog(@"Error: %@", error);
+            return ;
         }];
         [operation start];
         
@@ -308,7 +310,7 @@
         payRequest.nonceStr = _wxPayment.noncestr;
         payRequest.timeStamp = (UInt32)[_wxPayment.timestamp longLongValue];
         payRequest.sign = _wxPayment.sign;
-        
+        //4、调起微信支付
         if ([WXApi isWXAppInstalled]) {
             [WXApi safeSendReq:payRequest];
         }else{

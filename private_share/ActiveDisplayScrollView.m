@@ -8,6 +8,9 @@
 
 #import "ActiveDisplayScrollView.h"
 #import "UIColor+App.h"
+#import "Constants.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "ImageItem.h"
 
 @implementation ActiveDisplayScrollView
 {
@@ -63,7 +66,9 @@
         imageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         [imageView addGestureRecognizer:tapGesture];
-        imageView.image = [imageItems objectAtIndex:i];
+        
+        ImageItem *imageItem = [_imageItems objectAtIndex:i];
+        [imageView setImageWithURL:[NSURL URLWithString:imageItem.url] placeholderImage:nil];
         [_scrollView addSubview:imageView];
     }
     

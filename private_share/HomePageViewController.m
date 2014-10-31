@@ -15,6 +15,14 @@
 #import "MerchandiseService.h"
 #import "MallViewController.h"
 #import "XiaoJiRecommendMallViewController.h"
+#import "ActivitiesService.h"
+#import "ActivityDetailViewController.h"
+#import "HomePageTemplateService.h"
+#import "RowView.h"
+#import "ColumnView.h"
+#import "NewHomePageItemCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "AllMerchandiseMallViewController.h"
 
 @interface HomePageViewController ()
 
@@ -29,6 +37,8 @@
     
     NSString *_cell_identifier_;
     NSMutableArray *recommendedMerchandises;
+    NSMutableArray *_activities_;
+    NSMutableArray *_rowView_;
 
 }
 
@@ -45,7 +55,7 @@
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height ) collectionViewLayout:layout];
     _collectionView.backgroundColor = [UIColor clearColor];
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_cell_identifier_];
+    [_collectionView registerClass:[NewHomePageItemCell class] forCellWithReuseIdentifier:_cell_identifier_];
     _collectionView.alwaysBounceVertical = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -64,10 +74,10 @@
     [_collectionView insertSubview:activeDisplaySV atIndex:0];
     _collectionView.contentInset = UIEdgeInsetsMake(viewHeight-20, 0, 0, 0);
     
-    UIImage *image1 = [UIImage imageNamed:@"11"];
-    UIImage *image2 = [UIImage imageNamed:@"12"];
-
-    activeDisplaySV.imageItems = [[NSArray alloc] initWithObjects:image1,image2, nil];
+//    UIImage *image1 = [UIImage imageNamed:@"11"];
+//    UIImage *image2 = [UIImage imageNamed:@"12"];
+//
+//    activeDisplaySV.imageItems = [[NSArray alloc] initWithObjects:image1,image2, nil];
 
     UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 10 : 0), 55, 55)];
     [settingButton setImage:[UIImage imageNamed:@"setup5"] forState:UIControlStateNormal];
@@ -80,6 +90,7 @@
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
 
+    [self getTemplate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -87,8 +98,95 @@
     [super viewDidAppear:animated];
     
     [self getEcommendedMerchandisesForDiskCache];
+    [self mayRefreshActivities];
 }
 
+- (void)getTemplate
+{
+    HomePageTemplateService *service = [[HomePageTemplateService alloc] init];
+    [service getHomePageTemlateTarget:self success:@selector(getTemplateSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+- (void)getTemplateSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil)
+    {
+        if (_rowView_ == nil) {
+            _rowView_ = [[NSMutableArray alloc] init];
+        } else {
+            [_rowView_ removeAllObjects];
+        }
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        for (int i = 0; i<jsonArray.count; i++) {
+            NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+            RowView *rowView = [[RowView alloc] initWithJson:jsonObject];
+//            NSLog(@"%@",jsonObject);
+            [_rowView_ addObject:rowView];
+        }
+        
+        [_collectionView reloadData];
+        return;
+    }{
+        [self handleFailureHttpResponse:resp];
+    }
+}
+
+//轮播活动
+- (void)mayRefreshActivities {
+    BOOL isExpired;
+    NSArray *activities = [[DiskCacheManager manager] activities:&isExpired];
+    if (activities != nil) {
+        _activities_ = [NSMutableArray arrayWithArray:activities];
+        NSMutableArray *images = [[NSMutableArray alloc]init];
+        for (int i = 0; i<activities.count; i++) {
+            Merchandise *merchandise = [activities objectAtIndex:i];
+            ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
+            [images addObject:item];
+        }
+        activeDisplaySV.imageItems = images;
+    }
+    if (isExpired || activities == nil) {
+        [self getActivitiesInfo];
+    }
+}
+
+#pragma mark -
+#pragma mark Request activities
+
+- (void)getActivitiesInfo {
+    ActivitiesService *activitiesService = [[ActivitiesService alloc]init];
+    [activitiesService getActivitiesInfo:self success:@selector(getActivitiesSuccess:) failure:@selector(handleFailureHttpResponse:)];
+}
+
+- (void)getActivitiesSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil) {
+        if (_activities_ == nil) {
+            _activities_ = [[NSMutableArray alloc] init];
+        } else {
+            [_activities_ removeAllObjects];
+        }
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        NSMutableArray *imagearray = [[NSMutableArray alloc]init];
+        if (jsonArray != nil) {
+            for (int i = 0; i<jsonArray.count; i++) {
+                NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+                Merchandise *merchandise = [[Merchandise alloc]initWithJson:jsonObject];
+                ImageItem *item = [[ImageItem alloc] initWithUrl:[merchandise.imageUrls objectAtIndex:0] title:nil];
+                [imagearray addObject:item];
+                [_activities_ addObject:merchandise];
+            }
+        }
+        activeDisplaySV.imageItems = imagearray;
+        [[DiskCacheManager manager] setActivities:_activities_];
+        return;
+    } else {
+        [self handleFailureHttpResponse:resp];
+    }
+}
+
+
+
+//小吉推荐商品
 - (void)getEcommendedMerchandisesForDiskCache{
     BOOL isExpired;
     NSArray *_recommendedMerchandises_ = [[DiskCacheManager manager] recommendedMerchandises:&isExpired];
@@ -169,44 +267,79 @@
 
 }
 
-#pragma mark - ImageScrollView delegate
+#pragma mark - ActiveDisplayScrollView delegate
 - (void)activeDisplayScrollView:(ActiveDisplayScrollView *)activeDisplayScrollView didTapOnPageIndex:(NSUInteger)pageIndex
 {
 #ifdef DEBUG
     NSLog(@"点击了第%d个页面",pageIndex);
 #endif
-    
+    if(_activities_ != nil && _activities_.count > pageIndex) {
+        ActivityDetailViewController *merchandiseDetailViewController = [[ActivityDetailViewController alloc] initWithActivityMerchandise:[_activities_ objectAtIndex:pageIndex]];
+        [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+    }
 }
 
 #pragma mark -
 #pragma mark Collection view delegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 2;
+    return _rowView_.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 3;
-    }
-    else
-        return 1;
+    RowView *row = [_rowView_ objectAtIndex:section];
+    return row.sizes;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cell_identifier_ forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    NewHomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cell_identifier_ forIndexPath:indexPath];
+    RowView *row = [_rowView_ objectAtIndex:indexPath.section];
+    ColumnView *column = [row.columnViews objectAtIndex:indexPath.row];
+    [cell.bg_image setImageWithURL:[NSURL URLWithString:column.imgUrl] placeholderImage:DEFAULT_IMAGES];
+
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    RowView *row = [_rowView_ objectAtIndex:indexPath.section];
+    ColumnView *column = [row.columnViews objectAtIndex:indexPath.row];
+    
+    //类别 1为活动,2为店铺
+    if (column.types == 1) { //活动
+
+    }else if (column.types == 2){ //店铺
+        //视图类别 1,2,3,4  ，
+        if (column.viewType == 1) { //1是原全部商品列表样式
+            AllMerchandiseMallViewController *allMall = [[AllMerchandiseMallViewController alloc] init];
+            allMall.column = column;
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:allMall];
+            [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+            [self rightPresentViewController:navigationController animated:YES];
+        }else if (column.viewType == 2){ //2是原小吉推荐商品列表样式
+            
+        }else if (column.viewType == 3){
+            
+        }else{}
+    }
 }
 
 //大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    indexPath.section
     CGSize size ;
-    if (indexPath.section == 0) {
-        size =  CGSizeMake(self.view.bounds.size.width/2-2.5, 140);
-    }else if (indexPath.section == 1){
-        size = CGSizeMake(self.view.bounds.size.width, 200);
+    CGFloat viewWidth;
+    RowView *row = [_rowView_ objectAtIndex:indexPath.section];
+    
+    if (row.sizes == 1) {//一行只有一个元素  一个section 16:9
+        size = CGSizeMake(self.view.bounds.size.width, 180);
+    }else if (row.sizes == 2) {
+        viewWidth = (self.view.bounds.size.width-5)/2;
+        size =  CGSizeMake(viewWidth, viewWidth);
+    }else if (row.sizes == 3){
+        viewWidth = (self.view.bounds.size.width-10)/3;
+        size =  CGSizeMake(viewWidth, viewWidth);
+    }else if (row.sizes == 4){
+        viewWidth = (self.view.bounds.size.width-15)/4;
+        size =  CGSizeMake(viewWidth, viewWidth);
     }
     return size;
 }
@@ -229,12 +362,12 @@
 #pragma mark -
 #pragma mark Animation controller delegate
 
-- (UIViewController *)leftPresentationViewController {
-    MallViewController *mallViewController = [[MallViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    return navigationController;
-}
+//- (UIViewController *)leftPresentationViewController {
+//    MallViewController *mallViewController = [[MallViewController alloc] init];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
+//    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+//    return navigationController;
+//}
 
 
 - (UIViewController *)rightPresentationViewController {
