@@ -27,6 +27,8 @@ NSString * const kFileNameMerchandisesIds = @"merchandises-ids";
 NSString * const kUserInfos = @"userInfos";
 NSString * const kFileNameActivitieIds = @"activitiesids";
 
+NSString * const kFielNameMerchandiseTemplate = @"merchandise-template";
+
 @implementation DiskCacheManager {
     NSString *_serve_account_;
     
@@ -46,6 +48,8 @@ NSString * const kFileNameActivitieIds = @"activitiesids";
     CacheData *_pay_points_orders_data_;
     CacheData *_shopping_cart_data_;
     CacheData *_account_info_data_;
+    
+    CacheData *_merchandise_template_data_;
 }
 
 + (DiskCacheManager *)manager {
@@ -270,8 +274,28 @@ NSString * const kFileNameActivitieIds = @"activitiesids";
     return activities;
 }
 
+- (NSArray *)merchandisesTemplate:(BOOL *)isExpired
+{
+    NSArray *merchandises_template = nil;
+    if (_merchandise_template_data_ == nil) {
+        _merchandise_template_data_ = [self cacheDataFromDisk:kFielNameMerchandiseTemplate inUserDirectory:NO];
+    }
+    if (_merchandise_template_data_ != nil && _merchandise_template_data_.data != nil) {
+        merchandises_template = [NSArray arrayWithArray:_merchandise_template_data_.data];
+    }
+    return merchandises_template;
+}
+
 #pragma mark -
 #pragma mark Cache data set and save
+- (void)setMerchandisesTemplate:(NSArray *)merchandise_template
+{
+    if (_merchandise_template_data_ == nil) {
+        _merchandise_template_data_ = [[CacheData alloc] init];
+    }
+    [self setCacheData:_merchandise_template_data_ jsonEntities:merchandise_template fileName:kFielNameMerchandiseTemplate inUserDirectory:NO];
+}
+
 - (void)setActivitiesIds:(NSArray *)activitieIds
 {
     if (_activities_ids_data == nil) {

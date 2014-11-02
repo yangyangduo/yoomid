@@ -38,12 +38,14 @@ extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;
 - (NSArray *)recommendedMerchandises:(BOOL *)isExpired;
 - (NSArray *)taskCategories:(BOOL *)isExpired;
 - (NSArray *)completedTaskIds;
+- (NSArray *)merchandisesTemplate:(BOOL *)isExpired;
 
 - (void)setActivities:(NSArray *)activities;
 - (void)setMerchandises:(NSArray *)merchandises;
 - (void)setRecommendedMerchandises:(NSArray *)merchandises;
 - (void)setTaskCategories:(NSArray *)taskCategories;
 - (void)setCompletedTaskIds:(NSArray *)taskIds;
+- (void)setMerchandisesTemplate:(NSArray *)merchandise_template;
 
 /**
  * user data source

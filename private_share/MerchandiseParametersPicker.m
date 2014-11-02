@@ -61,7 +61,7 @@
         
         pointsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(merchandiseNameLabel.frame.origin.x, merchandiseNameLabel.frame.origin.y + merchandiseNameLabel.frame.size.height + 12, 20, 20)];
         pointsImageView.image = [UIImage imageNamed:@"points_blue"];
-        [self addSubview:pointsImageView];
+//        [self addSubview:pointsImageView];
         
         pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsImageView.frame.origin.x + pointsImageView.frame.size.width + 5, pointsImageView.frame.origin.y, 100, 20)];
         pointsLabel.center = CGPointMake(pointsLabel.center.x, pointsImageView.center.y);
@@ -69,7 +69,7 @@
         pointsLabel.font = [UIFont systemFontOfSize:15.f];
         pointsLabel.text = [NSString stringWithFormat:@"%ld%@", (long)_merchandise_.points, NSLocalizedString(@"points", @"")];
         pointsLabel.textColor = [UIColor appTextColor];
-        [self addSubview:pointsLabel];
+//        [self addSubview:pointsLabel];
         
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 49.f / 2 - 10, 40, 49.f / 2, 49.f / 2)];
         [closeButton addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
@@ -127,10 +127,12 @@
         lastY += 11.f;
         
         pointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lastY) paymentType:PaymentTypePoints points:_merchandise_.points returnPoints:0];
-        pointsPaymentButton.selected = YES;
+//        pointsPaymentButton.selected = YES;
+        pointsPaymentButton.hidden = YES;
         [scrollView addSubview:pointsPaymentButton];
         
-        cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + 10, lastY) paymentType:PaymentTypeCash points:_merchandise_.price returnPoints:_merchandise_.returnPoints];
+        cashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(/*pointsPaymentButton.frame.origin.x + pointsPaymentButton.bounds.size.width + */10, lastY) paymentType:PaymentTypeCash points:_merchandise_.price returnPoints:_merchandise_.returnPoints];
+        cashPaymentButton.selected = YES;
 //        cashPaymentButton.hidden = YES;
         [scrollView addSubview:cashPaymentButton];
         

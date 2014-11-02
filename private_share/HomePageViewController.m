@@ -14,7 +14,7 @@
 #import "DiskCacheManager.h"
 #import "MerchandiseService.h"
 #import "MallViewController.h"
-#import "XiaoJiRecommendMallViewController.h"
+//#import "XiaoJiRecommendMallViewController.h"
 #import "ActivitiesService.h"
 #import "ActivityDetailViewController.h"
 #import "HomePageTemplateService.h"
@@ -22,7 +22,10 @@
 #import "ColumnView.h"
 #import "NewHomePageItemCell.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "AllMerchandiseMallViewController.h"
+//#import "AllMerchandiseMallViewController.h"
+#import "XiaoJiRecommendTemplateViewController.h"
+#import "MerchandiseTemplateTwoViewController.h"
+#import "MerchandiseTemplateOneViewController.h"
 
 @interface HomePageViewController ()
 
@@ -84,8 +87,6 @@
     [miRepositoryButton setImage:[UIImage imageNamed:@"like5"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
-
-    [self getTemplate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -94,15 +95,29 @@
     
     [self getEcommendedMerchandisesForDiskCache];
     [self mayRefreshActivities];
+    [self refreshMerchandisesTemplate];
 }
 
-- (void)getTemplate
+- (void)refreshMerchandisesTemplate{
+    BOOL isExpired;
+    NSArray *merchandisesTemplate = [[DiskCacheManager manager] merchandisesTemplate:&isExpired];
+    if (merchandisesTemplate != nil) {
+        _rowView_ = [NSMutableArray arrayWithArray:merchandisesTemplate];
+        [_collectionView reloadData];
+    }
+    
+    if (isExpired || merchandisesTemplate == nil) {
+        [self getMerchandisesTemplate];
+    }
+}
+
+- (void)getMerchandisesTemplate
 {
     HomePageTemplateService *service = [[HomePageTemplateService alloc] init];
-    [service getHomePageTemlateTarget:self success:@selector(getTemplateSuccess:) failure:@selector(handleFailureHttpResponse:)];
+    [service getHomePageTemlateTarget:self success:@selector(getMerchandisesTemplateSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
-- (void)getTemplateSuccess:(HttpResponse *)resp {
+- (void)getMerchandisesTemplateSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200 && resp.body != nil)
     {
         if (_rowView_ == nil) {
@@ -120,6 +135,7 @@
         }
         
         [_collectionView reloadData];
+        [[DiskCacheManager manager] setMerchandisesTemplate:_rowView_];
         return;
     }{
         [self handleFailureHttpResponse:resp];
@@ -255,8 +271,8 @@
 
 - (void)didClickMoreXiaoJiRecommend
 {
-    XiaoJiRecommendMallViewController *xiaojiMall = [[XiaoJiRecommendMallViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:xiaojiMall];
+    XiaoJiRecommendTemplateViewController *xiaojiTemplate = [[XiaoJiRecommendTemplateViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:xiaojiTemplate];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
 
@@ -290,7 +306,9 @@
     NewHomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cell_identifier_ forIndexPath:indexPath];
     RowView *row = [_rowView_ objectAtIndex:indexPath.section];
     ColumnView *column = [row.columnViews objectAtIndex:indexPath.row];
-    [cell.bg_image setImageWithURL:[NSURL URLWithString:column.imgUrl] placeholderImage:DEFAULT_IMAGES];
+    if (column != nil && column.imgUrl != nil) {
+        [cell.bg_image setImageWithURL:[NSURL URLWithString:column.imgUrl] placeholderImage:DEFAULT_IMAGES];
+    }
 
     return cell;
 }
@@ -299,22 +317,37 @@
     RowView *row = [_rowView_ objectAtIndex:indexPath.section];
     ColumnView *column = [row.columnViews objectAtIndex:indexPath.row];
     
+    if (column == nil) {
+        return;
+    }
+    
     //类别 1为活动,2为店铺
     if (column.types == 1) { //活动
 
     }else if (column.types == 2){ //店铺
         //视图类别 1,2,3,4  ，
+        
+        id merchandiseTemplate = nil;
         if (column.viewType == 1) { //1是原全部商品列表样式
-            AllMerchandiseMallViewController *allMall = [[AllMerchandiseMallViewController alloc] init];
-            allMall.column = column;
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:allMall];
-            [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-            [self rightPresentViewController:navigationController animated:YES];
-        }else if (column.viewType == 2){ //2是原小吉推荐商品列表样式
+//            AllMerchandiseMallViewController *allMall = [[AllMerchandiseMallViewController alloc] init];
+//            allMall.column = column;
             
+            MerchandiseTemplateTwoViewController *merchandiseTemplateTwoVC = [[MerchandiseTemplateTwoViewController alloc] init];
+            merchandiseTemplateTwoVC.column = column;
+            merchandiseTemplate = merchandiseTemplateTwoVC;
+        }else if (column.viewType == 2){ //2是原小吉推荐商品列表样式
+            MerchandiseTemplateOneViewController *merchandiseTemplateOneVC = [[MerchandiseTemplateOneViewController alloc] init];
+            merchandiseTemplateOneVC.column = column;
+            merchandiseTemplate = merchandiseTemplateOneVC;
         }else if (column.viewType == 3){
             
         }else{}
+        
+        if (merchandiseTemplate != nil) {
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:merchandiseTemplate];
+            [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+            [self rightPresentViewController:navigationController animated:YES];
+        }
     }
 }
 

@@ -43,7 +43,7 @@
         OriginalPrice = [[UnderlinedLabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.width, self.bounds.size.width/2, 30)];
         OriginalPrice.textAlignment = NSTextAlignmentCenter;
         OriginalPrice.textColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
-        OriginalPrice.text = @"33.0";
+//        OriginalPrice.text = @"33.0";
         OriginalPrice.font = [UIFont systemFontOfSize:13.f];
         OriginalPrice.lineType = LineTypeMiddle;
         [self addSubview:OriginalPrice];

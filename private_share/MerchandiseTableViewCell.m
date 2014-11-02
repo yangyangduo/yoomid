@@ -11,6 +11,7 @@
 #import "ProgressView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "Account.h"
+#import "UnderlinedLabel.h"
 
 #define DEFAULT_IMAGE [UIImage imageNamed:@"image_loading_gray"]
 
@@ -23,6 +24,7 @@
     UILabel *pointsLabel;
     UILabel *rmbLabel;
     UILabel *messageLabel;
+    UnderlinedLabel *OriginalPrice;
     
     UIImageView *bao;
     UIImageView *rmb ;
@@ -77,13 +79,19 @@
         pointsLabel.textColor = [UIColor appColor];
         pointsLabel.backgroundColor = [UIColor clearColor];
         pointsLabel.text = @"";
-        [bootomView addSubview:pointsLabel];
+//        [bootomView addSubview:pointsLabel];
         
         bao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"points_blue"]];
         bao.frame = CGRectMake(125, pointsLabel.frame.origin.y+10, 32/2, 32/2);
-        [bootomView addSubview:bao];
+//        [bootomView addSubview:bao];
         
-        rmbLabel = [[UILabel alloc] initWithFrame:CGRectMake(125+20, pointsLabel.frame.origin.y + pointsLabel.bounds.size.height-18, 125, 36)];
+        OriginalPrice = [[UnderlinedLabel alloc] initWithFrame:CGRectMake(125, titleLabel.frame.origin.y + titleLabel.bounds.size.height-15, 125, 36)];
+        OriginalPrice.font = [UIFont systemFontOfSize:14.f];
+        OriginalPrice.textColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];;
+        OriginalPrice.lineType = LineTypeMiddle;
+        [bootomView addSubview:OriginalPrice];
+        
+        rmbLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, pointsLabel.frame.origin.y + pointsLabel.bounds.size.height-15, 125, 36)];
         rmbLabel.font = [UIFont systemFontOfSize:20.f];
         rmbLabel.textColor = [UIColor appColor];
         rmbLabel.backgroundColor = [UIColor clearColor];
@@ -91,7 +99,7 @@
         
         rmb = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"rmb_blue"]];
         rmb.frame = CGRectMake(125, rmbLabel.frame.origin.y+10, 32/2, 32/2);
-        [bootomView addSubview:rmb];
+//        [bootomView addSubview:rmb];
         
         messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 91, 100, 34)];
         messageLabel.font = [UIFont systemFontOfSize:14.f];
@@ -135,22 +143,26 @@
         CGSize titleLabelSize = [merchandise.name boundingRectWithSize:CGSizeMake(145, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         titleLabel.frame = CGRectMake(125, 13, titleLabelSize.width, titleLabelSize.height);
         
-        NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
-        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
+//        NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
+//        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld ", (long)merchandise.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
         
-        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"points", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
-        pointsLabel.attributedText = pointsString;
-        //(titleLabel.frame.origin.y+titleLabelSize.height)
-        pointsLabel.frame = CGRectMake(125+20, 45, 125, 36);
-        bao.frame = CGRectMake(125, pointsLabel.frame.origin.y + 10,32/2, 32/2);
+//        [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"points", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
+//        pointsLabel.attributedText = pointsString;
+//        //(titleLabel.frame.origin.y+titleLabelSize.height)
+//        pointsLabel.frame = CGRectMake(125+20, 45, 125, 36);
+//        bao.frame = CGRectMake(125, pointsLabel.frame.origin.y + 10,32/2, 32/2);
+//        merchandise.originalPrice = 22.f;
+        if (merchandise.originalPrice > 0.0) {
+            OriginalPrice.text = [NSString stringWithFormat:@"¥ %.1f",merchandise.originalPrice];
+        }
         
         NSMutableAttributedString *rmbString = [[NSMutableAttributedString alloc] init];
-        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.1f", merchandise.price/*(float)merchandise.points / 100.f*/] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
+        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥ %.1f", merchandise.price/*(float)merchandise.points / 100.f*/] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
         
-        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"yuan", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
+//        [rmbString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"yuan", @"") attributes:@{ NSForegroundColorAttributeName : [UIColor appColor], NSFontAttributeName :  [UIFont systemFontOfSize:12.f] }]];
         rmbLabel.attributedText = rmbString;
-        rmbLabel.frame = CGRectMake(125+20,pointsLabel.frame.origin.y + 22, 125, 36);
-        rmb.frame = CGRectMake(125, rmbLabel.frame.origin.y + 10, 32/2, 32/2);
+//        rmbLabel.frame = CGRectMake(125,pointsLabel.frame.origin.y + 22, 125, 36);
+//        rmb.frame = CGRectMake(125, rmbLabel.frame.origin.y + 10, 32/2, 32/2);
 
         messageLabel.text = [NSString stringWithFormat:@"%ld%@!", (long)merchandise.exchangeCount, NSLocalizedString(@"has_exchanges", @"")];
         /*

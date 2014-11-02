@@ -56,7 +56,7 @@
     xiaoji.backgroundColor = [UIColor clearColor];
     xiaoji.tableHeaderView = xiaojiHeaderView;
     [self.view addSubview:xiaoji];
-    xiaoji.pullTableIsLoadingMore = NO;
+    xiaoji.pullTableIsRefreshing = NO;
     
     UIView *merchandisesHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 15)];
     merchandisesHeaderView.backgroundColor = [UIColor clearColor];

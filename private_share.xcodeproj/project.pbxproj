@@ -345,6 +345,10 @@
 		D676302A19A774740015CADF /* level1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D676302919A774740015CADF /* level1@2x.png */; };
 		D67913D419CA6F5200154C37 /* UpgradeTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D67913D319CA6F5200154C37 /* UpgradeTask.m */; };
 		D67913D719CA7D1500154C37 /* AnswerOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = D67913D619CA7D1500154C37 /* AnswerOptions.m */; };
+		D679B0E01A050F0A009797F2 /* PullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D679B0DF1A050F0A009797F2 /* PullRefreshTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D679B0E31A051067009797F2 /* XiaoJiRecommendTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D679B0E21A051067009797F2 /* XiaoJiRecommendTemplateViewController.m */; };
+		D679B0E61A05150B009797F2 /* MerchandiseTemplateOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D679B0E51A05150B009797F2 /* MerchandiseTemplateOneViewController.m */; };
+		D679B0E91A05157A009797F2 /* MerchandiseTemplateTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D679B0E81A05157A009797F2 /* MerchandiseTemplateTwoViewController.m */; };
 		D67ACA5119ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */; };
 		D67ACA5719ACBB40005EF9E8 /* exchange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */; };
 		D67ACA5919ACBB4C005EF9E8 /* good2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D67ACA5819ACBB4C005EF9E8 /* good2@2x.png */; };
@@ -966,6 +970,14 @@
 		D67913D319CA6F5200154C37 /* UpgradeTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeTask.m; sourceTree = "<group>"; };
 		D67913D519CA7D1500154C37 /* AnswerOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerOptions.h; sourceTree = "<group>"; };
 		D67913D619CA7D1500154C37 /* AnswerOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerOptions.m; sourceTree = "<group>"; };
+		D679B0DE1A050F0A009797F2 /* PullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableView.h; sourceTree = "<group>"; };
+		D679B0DF1A050F0A009797F2 /* PullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableView.m; sourceTree = "<group>"; };
+		D679B0E11A051067009797F2 /* XiaoJiRecommendTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoJiRecommendTemplateViewController.h; sourceTree = "<group>"; };
+		D679B0E21A051067009797F2 /* XiaoJiRecommendTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoJiRecommendTemplateViewController.m; sourceTree = "<group>"; };
+		D679B0E41A05150B009797F2 /* MerchandiseTemplateOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseTemplateOneViewController.h; sourceTree = "<group>"; };
+		D679B0E51A05150B009797F2 /* MerchandiseTemplateOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseTemplateOneViewController.m; sourceTree = "<group>"; };
+		D679B0E71A05157A009797F2 /* MerchandiseTemplateTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandiseTemplateTwoViewController.h; sourceTree = "<group>"; };
+		D679B0E81A05157A009797F2 /* MerchandiseTemplateTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandiseTemplateTwoViewController.m; sourceTree = "<group>"; };
 		D67ACA4F19ACB157005EF9E8 /* XiaojiRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaojiRecommendTableViewCell.h; sourceTree = "<group>"; };
 		D67ACA5019ACB157005EF9E8 /* XiaojiRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaojiRecommendTableViewCell.m; sourceTree = "<group>"; };
 		D67ACA5619ACBB3F005EF9E8 /* exchange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exchange@2x.png"; sourceTree = "<group>"; };
@@ -1873,6 +1885,8 @@
 				6F8823C71940531F00757633 /* PullTableView.m */,
 				6F2BD0B8194EB2A60092BA23 /* PullCollectionView.h */,
 				6F2BD0B9194EB2A60092BA23 /* PullCollectionView.m */,
+				D679B0DE1A050F0A009797F2 /* PullRefreshTableView.h */,
+				D679B0DF1A050F0A009797F2 /* PullRefreshTableView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2271,6 +2285,7 @@
 		D612A2541A01EB6000A3E93A /* new_common */ = {
 			isa = PBXGroup;
 			children = (
+				D679B0AE1A04D63E009797F2 /* merchandiseTemplate */,
 				D612A27D1A03766200A3E93A /* cell */,
 				D612A2581A02073F00A3E93A /* view */,
 				D612A2551A01EBB600A3E93A /* HomePageViewController.h */,
@@ -2363,6 +2378,19 @@
 				D673E5A919ECD5AF008568E9 /* DataVerifier.h */,
 			);
 			path = RSA;
+			sourceTree = "<group>";
+		};
+		D679B0AE1A04D63E009797F2 /* merchandiseTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				D679B0E11A051067009797F2 /* XiaoJiRecommendTemplateViewController.h */,
+				D679B0E21A051067009797F2 /* XiaoJiRecommendTemplateViewController.m */,
+				D679B0E41A05150B009797F2 /* MerchandiseTemplateOneViewController.h */,
+				D679B0E51A05150B009797F2 /* MerchandiseTemplateOneViewController.m */,
+				D679B0E71A05157A009797F2 /* MerchandiseTemplateTwoViewController.h */,
+				D679B0E81A05157A009797F2 /* MerchandiseTemplateTwoViewController.m */,
+			);
+			name = merchandiseTemplate;
 			sourceTree = "<group>";
 		};
 		D67EAC3219E67470008EFC85 /* WeChatSDK_1.4.1 */ = {
@@ -2842,6 +2870,7 @@
 				6F53EFE2194B3E4F0080B4DD /* Constants.m in Sources */,
 				6FA327111956890700570BCC /* AccountInfoUpdatedEvent.m in Sources */,
 				6F418971194803EA00F9DC2C /* HttpResponseAuthorizationFilter.m in Sources */,
+				D679B0E91A05157A009797F2 /* MerchandiseTemplateTwoViewController.m in Sources */,
 				6F5B5E2719B5807100495F0C /* ModalView.m in Sources */,
 				6FE79C5D197CEF5B005B11E1 /* SettlementView.m in Sources */,
 				D673E5BE19ED0A94008568E9 /* AliPaymentModal.m in Sources */,
@@ -2874,6 +2903,7 @@
 				D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */,
 				6F7BD3241953F5F50031D2DD /* QRCodeScannerViewController.m in Sources */,
 				6F970985193F4E4F00EA5E3A /* XXStringUtils.m in Sources */,
+				D679B0E31A051067009797F2 /* XiaoJiRecommendTemplateViewController.m in Sources */,
 				6F7261EF195A6DA800BD17D8 /* Address.m in Sources */,
 				6F2B51C4195538570069798A /* XXAllAllowedEventFilter.m in Sources */,
 				D6A152C619A5D3300094B565 /* TaskService.m in Sources */,
@@ -2928,9 +2958,11 @@
 				6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */,
 				6FB0E1A619B6D898002F9A18 /* Task.m in Sources */,
 				6FB8073319B86903003ABF77 /* YoomidSemicircleModalView.m in Sources */,
+				D679B0E61A05150B009797F2 /* MerchandiseTemplateOneViewController.m in Sources */,
 				6F8823EF1940C45E00757633 /* ShoppingCart.m in Sources */,
 				6FD8A1DA1977D87100514C17 /* ShoppingItemCell.m in Sources */,
 				6FFB8DA119792717008F0BBB /* ShoppingItemHeaderView.m in Sources */,
+				D679B0E01A050F0A009797F2 /* PullRefreshTableView.m in Sources */,
 				6F970990193F52B500EA5E3A /* PointsService.m in Sources */,
 				6F72A3ED193DF33B001DAA3E /* UINavigationViewInitializer.m in Sources */,
 				6F2BD0C9194ECFAE0092BA23 /* UIParameterButton.m in Sources */,

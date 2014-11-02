@@ -1,50 +1,47 @@
 //
-//  XiaoJiRecommendMallViewController.m
+//  MerchandiseTemplateTwoViewController.m
 //  private_share
 //
-//  Created by 曹大为 on 14/10/30.
+//  Created by 曹大为 on 14/11/1.
 //  Copyright (c) 2014年 hentre. All rights reserved.
 //
 
-#import "XiaoJiRecommendMallViewController.h"
-#import "XiaojiRecommendTableViewCell.h"
+#import "MerchandiseTemplateTwoViewController.h"
+#import "Merchandise.h"
 #import "MerchandiseService.h"
+#import "MerchandiseTableViewCell.h"
+#import "XiaojiRecommendTableViewCell.h"
 #import "DiskCacheManager.h"
 
-@interface XiaoJiRecommendMallViewController ()
-
-@end
-
-@implementation XiaoJiRecommendMallViewController
+@implementation MerchandiseTemplateTwoViewController
 {
-    PullTableView *tblXiaoJi;
+    NSMutableArray *merchandises;
     NSInteger pageIndex;
+    PullTableView *tblMerchandises;
 }
 
 @synthesize column;
 
-@synthesize recommendedMerchandises = _recommendedMerchandises;
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
-
-    self.title = column.names == nil ? @"小吉推荐" : column.names;
+    self.title = column.names;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController)];
     
-    UIView *xiaojiHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
-    xiaojiHeaderView.backgroundColor = [UIColor clearColor];
-    tblXiaoJi = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
-    tblXiaoJi.delegate = self;
-    tblXiaoJi.dataSource = self;
-    tblXiaoJi.pullDelegate = self;
-    tblXiaoJi.separatorStyle = NO;
-    tblXiaoJi.backgroundColor = [UIColor clearColor];
-    [tblXiaoJi setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    tblXiaoJi.tableHeaderView = xiaojiHeaderView;
-    [self.view addSubview:tblXiaoJi];
-    
+    UIView *merchandisesHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 15)];
+    merchandisesHeaderView.backgroundColor = [UIColor clearColor];
+    tblMerchandises = [[PullTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
+    tblMerchandises.delegate = self;
+    tblMerchandises.dataSource = self;
+    tblMerchandises.pullDelegate = self;
+    tblMerchandises.backgroundColor = [UIColor clearColor];
+    [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    tblMerchandises.tableHeaderView = merchandisesHeaderView;
+    [self.view addSubview:tblMerchandises];
+
 }
 
 - (void)dismissViewController {
@@ -55,43 +52,39 @@
 {
     [super viewWillAppear:animated];
     
-    if (column.names == nil) {
-        [self refreshXiaoji];
-    }else{
-        [self refresh];
-    }
+    [self refresh];
 }
 
 - (void)refresh {
     pageIndex = 0;
     MerchandiseService *service = [[MerchandiseService alloc] init];
-    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex target:self success:@selector(getMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)  userInfo:[NSNumber numberWithInteger:pageIndex]];
+    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex target:self success:@selector(getMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:)  userInfo:[NSNumber numberWithInteger:pageIndex]];
 }
 
 - (void)loadMore {
     MerchandiseService *service = [[MerchandiseService alloc] init];
-    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex + 1 target:self success:@selector(getMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)  userInfo:[NSNumber numberWithInteger:pageIndex + 1]];
+    [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex + 1 target:self success:@selector(getMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:)  userInfo:[NSNumber numberWithInteger:pageIndex + 1]];
 }
 
 - (void)getMerchandisesSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 200) {
         NSInteger page = ((NSNumber *)resp.userInfo).integerValue;
-        if(_recommendedMerchandises == nil) {
-            _recommendedMerchandises = [NSMutableArray array];
+        if(merchandises == nil) {
+            merchandises = [NSMutableArray array];
         } else {
             if(page == 0) {
-                [_recommendedMerchandises removeAllObjects];
+                [merchandises removeAllObjects];
             }
         }
         
         NSMutableArray *indexPaths = [NSMutableArray array];
-        NSUInteger lastIndex = _recommendedMerchandises.count;
+        NSUInteger lastIndex = merchandises.count;
         
         NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(jsonArray != nil) {
             for(int i=0; i<jsonArray.count; i++) {
                 NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
-                [_recommendedMerchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
+                [merchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
                 if(page > 0) {
                     [indexPaths addObject:[NSIndexPath indexPathForRow:lastIndex + i inSection:0]];
                 }
@@ -101,16 +94,16 @@
         if(page > 0) {
             if(jsonArray != nil && jsonArray.count > 0) {
                 pageIndex++;
-                [tblXiaoJi beginUpdates];
-                [tblXiaoJi insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                [tblXiaoJi endUpdates];
+                [tblMerchandises beginUpdates];
+                [tblMerchandises insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [tblMerchandises endUpdates];
             } else {
                 [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"no_more", @"") forType:AlertViewTypeFailed];
                 [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
             }
         } else {
-            tblXiaoJi.pullLastRefreshDate = [NSDate date];
-            [tblXiaoJi reloadData];
+            tblMerchandises.pullLastRefreshDate = [NSDate date];
+            [tblMerchandises reloadData];
             
             // if page index is 0, need save to disk cache
             //            [[DiskCacheManager manager] setMerchandises:merchandises];
@@ -122,45 +115,13 @@
         return;
     }
     
-    [self handleFailureHttpResponse:resp];
+    [self getMerchandisesfailure:resp];
 }
 
-
-
-//小吉推荐模式没有商铺id
--(void)refreshXiaoji
-{
-    MerchandiseService *service = [[MerchandiseService alloc] init];
+- (void)getMerchandisesfailure:(HttpResponse *)resp {
+    [self cancelRefresh];
+    [self cancelLoadMore];
     
-    [service getEcommendedMerchandisesTarget:self success:@selector(getEcommendedMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)];
-}
-
-- (void)getEcommendedMerchandisesSuccess:(HttpResponse *)resp {
-    if (resp.statusCode == 200) {
-        if (_recommendedMerchandises == nil) {
-            _recommendedMerchandises = [[NSMutableArray alloc] init];
-        }
-        else
-        {
-            [_recommendedMerchandises removeAllObjects];
-        }
-        
-        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        if (jsonArray != nil) {
-            for (int i = 0; i<jsonArray.count; i++) {
-                NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
-                [_recommendedMerchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
-            }
-        }
-        
-        tblXiaoJi.pullLastRefreshDate = [NSDate date];
-        [tblXiaoJi reloadData];
-        
-        [[DiskCacheManager manager] setRecommendedMerchandises:_recommendedMerchandises];
-        [self cancelRefresh];
-        [self cancelLoadMore];
-        return;
-    }
     [self handleFailureHttpResponse:resp];
 }
 
@@ -169,9 +130,9 @@
 {
     UIView * v=[sender superview];
     XiaojiRecommendTableViewCell *cell=(XiaojiRecommendTableViewCell *)[v superview];//找到cell
-    NSIndexPath *indexPath=[tblXiaoJi indexPathForCell:cell];//找到cell所在的行
+    NSIndexPath *indexPath=[tblMerchandises indexPathForCell:cell];//找到cell所在的行
     //
-    Merchandise *merchand = [_recommendedMerchandises objectAtIndex:indexPath.row];
+    Merchandise *merchand = [merchandises objectAtIndex:indexPath.row];
     NSString *merchandisesStr = merchand.identifier ;
     
     //从本地缓存中取出已点赞的商品id
@@ -217,20 +178,20 @@
 - (void)sendGoodSuccess:(HttpResponse *)resp {
     if (resp.statusCode == 200) {
         //        NSLog(@"赞成功");
-        [self refreshXiaoji];
+        [self refresh];
     }
 }
 
 
 #pragma mark -
-#pragma mark tableview delegate
+#pragma mark
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _recommendedMerchandises.count;
+    return  merchandises == nil ? 0 : merchandises.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -244,9 +205,9 @@
         [goodBtn setImage:[UIImage imageNamed:@"good3"] forState:UIControlStateNormal];
         [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:goodBtn];
-            
+        
     }
-    cell.merchandise = [_recommendedMerchandises objectAtIndex:indexPath.row];
+    cell.merchandise = [merchandises objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -256,43 +217,38 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Merchandise *merchandise = [_recommendedMerchandises objectAtIndex:indexPath.row];
+    Merchandise *merchandise = [merchandises objectAtIndex:indexPath.row];
     MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
     [self rightPresentViewController:merchandiseDetailViewController animated:YES];
-
+    
 }
 
+#pragma mark -
 #pragma mark Pull Table View Delegate
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView {
-    if (tblXiaoJi.pullTableIsLoadingMore) {
+    if(tblMerchandises.pullTableIsLoadingMore) {
         [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
         return;
     }
-    if (column.names == nil) {
-        [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.3f];
-    }else{
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
-    }
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
+    
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView {
-    if(tblXiaoJi.pullTableIsRefreshing) {
+    if(tblMerchandises.pullTableIsRefreshing) {
         [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
         return;
     }
-    if (column.names != nil) {
-        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
-    }
+    [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
 }
 
 - (void)cancelRefresh {
-    tblXiaoJi.pullTableIsRefreshing = NO;
+    tblMerchandises.pullTableIsRefreshing = NO;
 }
 
 - (void)cancelLoadMore {
-    tblXiaoJi.pullTableIsLoadingMore = NO;
+    tblMerchandises.pullTableIsLoadingMore = NO;
 }
-
 
 @end
