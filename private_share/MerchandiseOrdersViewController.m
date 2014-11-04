@@ -67,9 +67,13 @@
     _collectionView_ = [[PullCollectionView alloc] initWithFrame:CGRectMake(0, _segmentedControl_.bounds.size.height + 17 + 15, self.view.bounds.size.width, self.view.bounds.size.height - _segmentedControl_.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64 : 44) - 17 - 15) collectionViewLayout:layout];
     _collectionView_.backgroundColor = [UIColor clearColor];
     [_collectionView_ registerClass:[ShoppingItemConfirmCell class] forCellWithReuseIdentifier:orderItemCellIdentifier];
-    [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
-    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifierFirst];
-    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
+//    [_collectionView_ registerClass:[ShoppingItemFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
+    [_collectionView_ registerClass:[MerchandisesOrderFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:orderFooterViewIdentifier];
+
+//    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifierFirst];
+//    [_collectionView_ registerClass:[ShoppingItemHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
+    [_collectionView_ registerClass:[MerchandisesOrderHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifierFirst];
+    [_collectionView_ registerClass:[MerchandisesOrderHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:orderHeaderViewIdentifier];
     _collectionView_.alwaysBounceVertical = YES;
     _collectionView_.delegate = self;
     _collectionView_.dataSource = self;
@@ -212,6 +216,7 @@
     }
     [self cancelRefresh];
     [self cancelLoadMore];
+    [self handleFailureHttpResponse:resp];
 }
 
 #pragma mark -
@@ -277,7 +282,12 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(self.view.bounds.size.width, 60);
+    MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:section];
+    CGFloat viewHeight = 26.f;
+    if (merchandiseOrder.totalPoints > 0.0) {
+        viewHeight = 50.0f;
+    }
+    return CGSizeMake(self.view.bounds.size.width, viewHeight);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
@@ -288,20 +298,24 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     MerchandiseOrder *merchandiseOrder = [merchandiseOrders objectAtIndex:indexPath.section];
     if(UICollectionElementKindSectionFooter == kind) {
-        ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
+//        ShoppingItemFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
+        MerchandisesOrderFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:orderFooterViewIdentifier forIndexPath:indexPath];
+        [footerView setMerchandiseOrder:merchandiseOrder];
         
-       [footerView setTotalPayment:[[Payment alloc] initWithPoints:merchandiseOrder.totalPoints cash:merchandiseOrder.totalCash]];
+//       [footerView setTotalPayment:[[Payment alloc] initWithPoints:merchandiseOrder.totalPoints cash:merchandiseOrder.totalCash]];
     
         return footerView;
     } else {
         NSString *identifier = (indexPath.section == 0 ? orderHeaderViewIdentifierFirst : orderHeaderViewIdentifier);
         
-        ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-        [headerView setSelectButtonHidden];
-        [headerView setOrderId:merchandiseOrder.orderId];
-        if (orderState == MerchandiseOrderStateUnCashPayment) {
+//        ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+        MerchandisesOrderHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+//        [headerView setSelectButtonHidden];
+//        [headerView setOrderId:merchandiseOrder.orderId];
+//        if (orderState == MerchandiseOrderStateUnCashPayment) {
             headerView.delegate = self;
-            [headerView setMoreButtonShow];
+//            [headerView setMoreButtonShow];
+            [headerView setMerchandiseOrder:merchandiseOrder];
             WXPayRequest *wxPay = [[WXPayRequest alloc] init];
             AliPaymentModal *aliPay = [[AliPaymentModal alloc] init];
             
@@ -329,14 +343,14 @@
             wxPay.merchandiseName = merchandiseStr;
             wxPay.bodys = shopBodys;
             aliPay.body = merchandiseStr;
-            headerView.total_points = merchandiseOrder.totalPoints;
+//            headerView.total_points = merchandiseOrder.totalPoints;
             headerView.wxPay = wxPay;
             headerView.aliPay = aliPay;
-        }
-        else
-        {
-            [headerView setMoreButtonHidden];
-        }
+//        }
+//        else
+//        {
+//            [headerView setMoreButtonHidden];
+//        }
         return headerView;
     }
     return nil;

@@ -12,6 +12,7 @@
 #import "Contact.h"
 #import "PointsOrder.h"
 #import "Merchandise.h"
+#import "RowView.h"
 
 extern NSString * const YOOMID_DIRECTORY_NAME;
 extern NSTimeInterval const CACHE_DATA_EXPIRED_MINUTES_INTERVAL;

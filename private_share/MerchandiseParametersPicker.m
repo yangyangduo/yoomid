@@ -40,6 +40,7 @@
     return picker;
 }
 
+//商品参数选择 view
 - (instancetype)initWithFrame:(CGRect)frame merchandise:(Merchandise *)merchandise {
     self = [super initWithFrame:frame];
     if(self) {
@@ -225,6 +226,7 @@
     }
 }
 
+//确定按钮
 - (void)confirmMerchandiseSelect:(id)sender {
     NSMutableArray *properties = [NSMutableArray array];
     if(groupButtonsViews != nil) {
@@ -246,8 +248,9 @@
         return;
     }
     
-    PaymentType paymentType = pointsPaymentButton.selected ? PaymentTypePoints : PaymentTypeCash;
-    
+//    PaymentType paymentType = pointsPaymentButton.selected ? PaymentTypePoints : PaymentTypeCash;
+    PaymentType paymentType = PaymentTypeCash;
+
     if(self.delegate != nil && [self.delegate respondsToSelector:@selector(merchandiseParametersPicker:didPickMerchandiseWithPaymentType:number:properties:)]) {
         [self.delegate merchandiseParametersPicker:self didPickMerchandiseWithPaymentType:paymentType number:numberPicker.number properties:properties];
     }

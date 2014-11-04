@@ -12,6 +12,8 @@
 #import "ShoppingItemConfirmCell.h"
 #import "ShoppingItemHeaderView.h"
 #import "ShoppingItemFooterView.h"
+#import "MerchandisesOrderFooterView.h"
+#import "MerchandisesOrderHeaderView.h"
 
 @interface MerchandiseOrdersViewController : BackViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PullCollectionViewDelegate, deleteOrdersRefreshDelegate>
 

@@ -19,4 +19,5 @@
 
 - (void)refreshSettlementView;
 
+- (void)refreshSettlementView:(BOOL)isArrivedCash;
 @end

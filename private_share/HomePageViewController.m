@@ -68,6 +68,8 @@
     CGFloat viewHeight = 170;//_xiaojiView height = 170   商品图片1：1
     xiaoJiView = [[XiaoJiRecommendView alloc] initWithFrame:CGRectMake(0, -viewHeight, self.view.bounds.size.width, viewHeight)];
     xiaoJiView.delegate = self;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [xiaoJiView addGestureRecognizer:tapGesture];
     [_collectionView insertSubview:xiaoJiView atIndex:0];
     
     viewHeight += 190;//activeDisplaySV height = 180;间距 ＝ 10
@@ -87,6 +89,8 @@
     [miRepositoryButton setImage:[UIImage imageNamed:@"like5"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
+    
+    [self getMerchandisesTemplate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -95,7 +99,7 @@
     
     [self getEcommendedMerchandisesForDiskCache];
     [self mayRefreshActivities];
-    [self refreshMerchandisesTemplate];
+//    [self refreshMerchandisesTemplate];
 }
 
 - (void)refreshMerchandisesTemplate{
@@ -135,7 +139,7 @@
         }
         
         [_collectionView reloadData];
-        [[DiskCacheManager manager] setMerchandisesTemplate:_rowView_];
+//        [[DiskCacheManager manager] setMerchandisesTemplate:_rowView_];
         return;
     }{
         [self handleFailureHttpResponse:resp];
@@ -263,11 +267,16 @@
 #pragma mark - XiaoJiRecommendView Delegate
 - (void)didClickXiaoJiMerchandise:(NSInteger)index
 {
-    Merchandise *merchandise = [recommendedMerchandises objectAtIndex:index];
-    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
-    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
-    
+//    Merchandise *merchandise = [recommendedMerchandises objectAtIndex:index];
+//    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
+//    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+//    
 }
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+    [self didClickMoreXiaoJiRecommend];
+}
+
 
 - (void)didClickMoreXiaoJiRecommend
 {
@@ -306,8 +315,14 @@
     NewHomePageItemCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cell_identifier_ forIndexPath:indexPath];
     RowView *row = [_rowView_ objectAtIndex:indexPath.section];
     ColumnView *column = [row.columnViews objectAtIndex:indexPath.row];
+    
+//    NSString *strUrl = [column.imgUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:strUrl]];
+
     if (column != nil && column.imgUrl != nil) {
-        [cell.bg_image setImageWithURL:[NSURL URLWithString:column.imgUrl] placeholderImage:DEFAULT_IMAGES];
+        [cell.bg_image setImageWithURL:[NSURL URLWithString:[column.imgUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:DEFAULT_IMAGES];
+//        [cell.bg_image setImageWithURLRequest:request placeholderImage:DEFAULT_IMAGES success:nil failure:nil];
+//        [cell.bg_image setImageWithURL:[NSURL URLWithString:column.imgUrl]];
     }
 
     return cell;
@@ -390,12 +405,12 @@
 #pragma mark -
 #pragma mark Animation controller delegate
 
-- (UIViewController *)leftPresentationViewController {
-    MallViewController *mallViewController = [[MallViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    return navigationController;
-}
+//- (UIViewController *)leftPresentationViewController {
+//    MallViewController *mallViewController = [[MallViewController alloc] init];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mallViewController];
+//    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+//    return navigationController;
+//}
 
 - (UIViewController *)rightPresentationViewController {
     return [[MyPointsRecordViewController alloc] init];

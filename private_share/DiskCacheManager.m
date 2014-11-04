@@ -27,7 +27,7 @@ NSString * const kFileNameMerchandisesIds = @"merchandises-ids";
 NSString * const kUserInfos = @"userInfos";
 NSString * const kFileNameActivitieIds = @"activitiesids";
 
-NSString * const kFielNameMerchandiseTemplate = @"merchandise-template";
+NSString * const kFileNameMerchandiseTemplate = @"merchandise-template";
 
 @implementation DiskCacheManager {
     NSString *_serve_account_;
@@ -278,22 +278,39 @@ NSString * const kFielNameMerchandiseTemplate = @"merchandise-template";
 {
     NSArray *merchandises_template = nil;
     if (_merchandise_template_data_ == nil) {
-        _merchandise_template_data_ = [self cacheDataFromDisk:kFielNameMerchandiseTemplate inUserDirectory:NO];
+        _merchandise_template_data_ = [self cacheDataFromDisk:kFileNameMerchandiseTemplate inUserDirectory:NO];
     }
-    if (_merchandise_template_data_ != nil && _merchandise_template_data_.data != nil) {
-        merchandises_template = [NSArray arrayWithArray:_merchandise_template_data_.data];
+    if (_merchandise_template_data_ != nil) {
+        merchandises_template = [self arrayFromCacheData:_merchandise_template_data_ withEntityClass:[RowView class]];
     }
+    
+    *isExpired = [self cacheDataIsExpired:_merchandise_template_data_];
     return merchandises_template;
+    
+    //****
+//    NSArray *merchandises = nil;
+//    
+//    if(_recommended_merchandises_data_ == nil) {
+//        _recommended_merchandises_data_ = [self cacheDataFromDisk:kFileNameRecommendedMerchandises inUserDirectory:NO];
+//    }
+//    
+//    if(_recommended_merchandises_data_ != nil) {
+//        merchandises = [self arrayFromCacheData:_recommended_merchandises_data_ withEntityClass:[Merchandise class]];
+//    }
+//    
+//    *isExpired = [self cacheDataIsExpired:_recommended_merchandises_data_];
+//    return merchandises;
+//
 }
 
 #pragma mark -
 #pragma mark Cache data set and save
 - (void)setMerchandisesTemplate:(NSArray *)merchandise_template
 {
-    if (_merchandise_template_data_ == nil) {
+    if(_merchandise_template_data_ == nil) {
         _merchandise_template_data_ = [[CacheData alloc] init];
     }
-    [self setCacheData:_merchandise_template_data_ jsonEntities:merchandise_template fileName:kFielNameMerchandiseTemplate inUserDirectory:NO];
+    [self setCacheData:_merchandise_template_data_ jsonEntities:merchandise_template fileName:kFileNameMerchandiseTemplate inUserDirectory:NO];
 }
 
 - (void)setActivitiesIds:(NSArray *)activitieIds

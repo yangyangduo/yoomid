@@ -41,7 +41,7 @@
 //        [self addSubview:merchandisePoints];
         
         OriginalPrice = [[UnderlinedLabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.width, self.bounds.size.width/2, 30)];
-        OriginalPrice.textAlignment = NSTextAlignmentCenter;
+        OriginalPrice.textAlignment = NSTextAlignmentLeft;
         OriginalPrice.textColor = [UIColor colorWithRed:200.f / 255.f green:200.f / 255.f blue:200.f / 255.f alpha:1.0f];
 //        OriginalPrice.text = @"33.0";
         OriginalPrice.font = [UIFont systemFontOfSize:13.f];
@@ -65,7 +65,8 @@
         
         if (merchandise.originalPrice > 0.0) {
             merchandisePrice.frame = CGRectMake(0, self.bounds.size.width, self.bounds.size.width/2, 30);
-            merchandisePoints.textAlignment = NSTextAlignmentCenter;
+            merchandisePoints.textAlignment = NSTextAlignmentRight;
+            OriginalPrice.text = [NSString stringWithFormat:@"¥%.1f",_merchandise.originalPrice];
         }else{
             OriginalPrice.text = @"";
         }

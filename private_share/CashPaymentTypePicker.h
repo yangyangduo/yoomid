@@ -16,5 +16,7 @@
 @property (nonatomic, strong, readonly) UIScrollView *scrollView;
 
 - (instancetype)initWithSize:(CGSize)size message:(NSString *)message buttonItems:(NSArray *)buttonItems;
+
+- (instancetype)initWithSize:(CGSize)size message:(NSString *)message title1:(NSString *)title1 title2:(NSString *)title2;
 @end
 

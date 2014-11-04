@@ -29,8 +29,8 @@
     self = [super initWithFrame:frame];
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
-        
-        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 120, 30)];
+        //30 - 23;
+        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 120, 23)];
         summariesLabel.backgroundColor = [UIColor clearColor];
         summariesLabel.font = [UIFont systemFontOfSize:13.f];
         [self setMerchandiseNumber:0];
@@ -38,20 +38,21 @@
         
         pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 8, 5 + 2, 16, 16)];
         pointsPaymentImageView.image = [UIImage imageNamed:@"points_blue"];
-        [self addSubview:pointsPaymentImageView];
+//        [self addSubview:pointsPaymentImageView];
         
         pointsPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x + pointsPaymentImageView.bounds.size.width + 5, pointsPaymentImageView.frame.origin.y - 2, 80, 20)];
         pointsPaymentLabel.backgroundColor = [UIColor clearColor];
         pointsPaymentLabel.font = [UIFont systemFontOfSize:14.f];
         pointsPaymentLabel.textColor = [UIColor lightGrayColor];
         pointsPaymentLabel.text = @"";
-        [self addSubview:pointsPaymentLabel];
+//        [self addSubview:pointsPaymentLabel];
         
         cashPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x, pointsPaymentImageView.bounds.size.height + pointsPaymentImageView.frame.origin.y + 5, 16, 16)];
         cashPaymentImageView.image = [UIImage imageNamed:@"rmb_blue"];
-        [self addSubview:cashPaymentImageView];
+//        [self addSubview:cashPaymentImageView];
         
         cashPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentLabel.frame.origin.x, cashPaymentImageView.frame.origin.y - 2, 80, 20)];
+        cashPaymentLabel.frame = CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 8, 2, 80, 20);
         cashPaymentLabel.backgroundColor = [UIColor clearColor];
         cashPaymentLabel.font = [UIFont systemFontOfSize:14.f];
         cashPaymentLabel.textColor = [UIColor lightGrayColor];
@@ -79,17 +80,17 @@
                                                   NSFontAttributeName : [UIFont systemFontOfSize:15.f],
                                                   NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
     
-    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
-                                           @{
-                                             NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                             NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
+//    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+//                                           @{
+//                                             NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+//                                             NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
     
     return attributePaymentString;
 }
 
 - (void)setTotalPayment:(Payment *)payment {
     NSAttributedString *pointsPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
-    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", payment.cash] paymentType:PaymentTypeCash];
+    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"¥ %.1f ", payment.cash] paymentType:PaymentTypeCash];
 
     
     CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
@@ -101,27 +102,27 @@
         width = cashSize.width;
     }
     
-    CGRect pFrame = pointsPaymentLabel.frame;
-    pFrame.size.width = width;
-    pFrame.origin.x = self.bounds.size.width - width - 12;
-    pointsPaymentLabel.frame = pFrame;
-    
-    CGRect cFrame = cashPaymentLabel.frame;
-    cFrame.size.width = width;
-    cFrame.origin.x = pFrame.origin.x;
-    cashPaymentLabel.frame = cFrame;
-    
-    CGRect piFrame = pointsPaymentImageView.frame;
-    piFrame.origin.x = pFrame.origin.x - piFrame.size.width - 10;
-    pointsPaymentImageView.frame = piFrame;
-    
-    CGRect ciFrame = cashPaymentImageView.frame;
-    ciFrame.origin.x = piFrame.origin.x;
-    cashPaymentImageView.frame = ciFrame;
-    
-    CGRect sFrame = summariesLabel.frame;
-    sFrame.origin.x = piFrame.origin.x - sFrame.size.width - 10;
-    summariesLabel.frame = sFrame;
+//    CGRect pFrame = pointsPaymentLabel.frame;
+//    pFrame.size.width = width;
+//    pFrame.origin.x = self.bounds.size.width - width - 12;
+//    pointsPaymentLabel.frame = pFrame;
+//    
+//    CGRect cFrame = cashPaymentLabel.frame;
+//    cFrame.size.width = width;
+//    cFrame.origin.x = pFrame.origin.x;
+//    cashPaymentLabel.frame = cFrame;
+//    
+//    CGRect piFrame = pointsPaymentImageView.frame;
+//    piFrame.origin.x = pFrame.origin.x - piFrame.size.width - 10;
+//    pointsPaymentImageView.frame = piFrame;
+//    
+//    CGRect ciFrame = cashPaymentImageView.frame;
+//    ciFrame.origin.x = piFrame.origin.x;
+//    cashPaymentImageView.frame = ciFrame;
+//    
+//    CGRect sFrame = summariesLabel.frame;
+//    sFrame.origin.x = piFrame.origin.x - sFrame.size.width - 10;
+//    summariesLabel.frame = sFrame;
     
     pointsPaymentLabel.attributedText = pointsPaymentString;
     cashPaymentLabel.attributedText = cashPaymentString;

@@ -31,7 +31,7 @@
         moreBtn.frame = CGRectMake(0, 0, self.bounds.size.width, 30);
 //        moreBtn.backgroundColor = [UIColor redColor];
         [moreBtn addTarget:self action:@selector(actionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:moreBtn];
+//        [self addSubview:moreBtn];
         
         shopName = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, 100, 23)];
         shopName.text = @"小吉推荐";
@@ -53,9 +53,9 @@
         for (int i = 0; i < 3; i++) {
             XiaoJiMerchandisesDetailsView *xiaoji1 = [[XiaoJiMerchandisesDetailsView alloc] initWithFrame:CGRectMake(i*viewWidthOrHeight, 31, viewWidthOrHeight, viewWidthOrHeight+50)];
             xiaoji1.tag = i;
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+//            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
             [views addObject:xiaoji1];
-            [xiaoji1 addGestureRecognizer:tapGesture];
+//            [xiaoji1 addGestureRecognizer:tapGesture];
             [self addSubview:xiaoji1];
         }
     }
@@ -84,9 +84,9 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    UIView *viewClicked=[tapGesture view];
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didClickXiaoJiMerchandise:)]) {
-        [self.delegate didClickXiaoJiMerchandise:viewClicked.tag];
-    }
+//    UIView *viewClicked=[tapGesture view];
+//    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didClickXiaoJiMerchandise:)]) {
+//        [self.delegate didClickXiaoJiMerchandise:viewClicked.tag];
+//    }
 }
 @end

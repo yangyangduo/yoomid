@@ -20,6 +20,9 @@
 @synthesize orderState;
 @synthesize merchandiseLists;
 
+@synthesize loginame;
+@synthesize sendno;
+
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self && json) {
@@ -31,6 +34,9 @@
         self.shopName = [json noNilStringForKey:@"shopName"];
         self.orderState = [json numberForKey:@"orderState"].unsignedIntegerValue;
         self.createTime = [json dateWithMillisecondsForKey:@"createTime"];
+        
+        self.loginame = [json noNilStringForKey:@"loginame"];
+        self.sendno = [json noNilStringForKey:@"sendno"];
         
         self.merchandiseLists = [NSMutableArray array];
     }

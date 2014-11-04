@@ -398,6 +398,8 @@
 		D6C7CC8B199B910D00EC3061 /* SelectContactAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C7CC8A199B910D00EC3061 /* SelectContactAddressViewController.m */; };
 		D6C7CC8E199B99F300EC3061 /* SelectContactAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C7CC8D199B99F300EC3061 /* SelectContactAddressTableViewCell.m */; };
 		D6C7CC90199BA91000EC3061 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C7CC8F199BA91000EC3061 /* line.png */; };
+		D6D16A361A0871DB00EE56B6 /* MerchandisesOrderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D16A351A0871DB00EE56B6 /* MerchandisesOrderFooterView.m */; };
+		D6D16A391A0884F700EE56B6 /* MerchandisesOrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D16A381A0884F700EE56B6 /* MerchandisesOrderHeaderView.m */; };
 		D6DD76A619D0798B00133CD1 /* libSocialInstagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD768E19D0798B00133CD1 /* libSocialInstagram.a */; };
 		D6DD76A719D0798B00133CD1 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD769119D0798B00133CD1 /* libSocialSina.a */; };
 		D6DD76A819D0798B00133CD1 /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DD769419D0798B00133CD1 /* libSocialQQ.a */; };
@@ -1045,6 +1047,10 @@
 		D6C7CC8C199B99F300EC3061 /* SelectContactAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactAddressTableViewCell.h; sourceTree = "<group>"; };
 		D6C7CC8D199B99F300EC3061 /* SelectContactAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactAddressTableViewCell.m; sourceTree = "<group>"; };
 		D6C7CC8F199BA91000EC3061 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		D6D16A341A0871DB00EE56B6 /* MerchandisesOrderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandisesOrderFooterView.h; sourceTree = "<group>"; };
+		D6D16A351A0871DB00EE56B6 /* MerchandisesOrderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandisesOrderFooterView.m; sourceTree = "<group>"; };
+		D6D16A371A0884F700EE56B6 /* MerchandisesOrderHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchandisesOrderHeaderView.h; sourceTree = "<group>"; };
+		D6D16A381A0884F700EE56B6 /* MerchandisesOrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchandisesOrderHeaderView.m; sourceTree = "<group>"; };
 		D6DD768E19D0798B00133CD1 /* libSocialInstagram.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialInstagram.a; sourceTree = "<group>"; };
 		D6DD768F19D0798B00133CD1 /* UMSocialInstagramHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialInstagramHandler.h; sourceTree = "<group>"; };
 		D6DD769119D0798B00133CD1 /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
@@ -2318,6 +2324,10 @@
 			children = (
 				D612A27E1A03768100A3E93A /* NewHomePageItemCell.h */,
 				D612A27F1A03768100A3E93A /* NewHomePageItemCell.m */,
+				D6D16A341A0871DB00EE56B6 /* MerchandisesOrderFooterView.h */,
+				D6D16A351A0871DB00EE56B6 /* MerchandisesOrderFooterView.m */,
+				D6D16A371A0884F700EE56B6 /* MerchandisesOrderHeaderView.h */,
+				D6D16A381A0884F700EE56B6 /* MerchandisesOrderHeaderView.m */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -2893,6 +2903,7 @@
 				6F5B5E2B19B58DBE00495F0C /* AdPlatformPickerView.m in Sources */,
 				D612A2731A0336A700A3E93A /* UnderlinedLabel.m in Sources */,
 				6FE655A41942D679009617C9 /* ActivityMerchandiseTableViewCell.m in Sources */,
+				D6D16A391A0884F700EE56B6 /* MerchandisesOrderHeaderView.m in Sources */,
 				6F2BD0BD194EB5D30092BA23 /* DateTimeUtil.m in Sources */,
 				6F8823D21940531F00757633 /* MessageInterceptor.m in Sources */,
 				6FF5333D19387206001D607C /* ButtonUtil.m in Sources */,
@@ -2986,6 +2997,7 @@
 				6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */,
 				D612A2621A02249000A3E93A /* XiaoJiRecommendView.m in Sources */,
 				6F72A3F3193DFF17001DAA3E /* ViewControllerAccessor.m in Sources */,
+				D6D16A361A0871DB00EE56B6 /* MerchandisesOrderFooterView.m in Sources */,
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */,
 				6F97097C193F4DAC00EA5E3A /* SecurityConfig.m in Sources */,

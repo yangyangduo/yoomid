@@ -146,17 +146,17 @@ CGFloat const ImageViewHeight3 = 60.f;
         if(PaymentTypePoints == _shoppingItem_.paymentType) {
             _payment_string_ = [NSString stringWithFormat:@"%ld", (long)shoppingItem.singlePayment.points];
         } else {
-            _payment_string_ = [NSString stringWithFormat:@"%.1f", shoppingItem.singlePayment.cash];
+            _payment_string_ = [NSString stringWithFormat:@"¥ %.1f", shoppingItem.singlePayment.cash];
         }
         NSMutableAttributedString *paymentString = [[NSMutableAttributedString alloc] initWithString:_payment_string_ attributes:
                                                     @{
                                                       NSFontAttributeName : [UIFont systemFontOfSize:16.f],
                                                       NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
         
-        [paymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == _shoppingItem_.paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
-                                               @{
-                                                 NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                                 NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
+//        [paymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == _shoppingItem_.paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+//                                               @{
+//                                                 NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+//                                                 NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
         
         paymentLabel.attributedText = paymentString;
         

@@ -51,6 +51,8 @@
     
     WXPayRequest *wxPayRequest;
     AliPaymentModal *aliPay;
+    
+    NSString *_arrivedCash;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
@@ -60,6 +62,8 @@
         _is_from_shopping_cart_ = isFromShoppingCart;
         resignKeyboardGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureOnKeyboardShow:)];
         _select = 0;
+        
+        _arrivedCash = @"0";//0 不抵用现金  1抵用现金
     }
     return self;
 }
@@ -315,6 +319,34 @@
         [settlementView setPayment:totalPayment];
     }
 }
+//米米抵现金switch 事件
+- (void)refreshSettlementView:(BOOL)isArrivedCash
+{
+    if (isArrivedCash) {
+        _arrivedCash = @"1";
+        Payment *totalPayment = nil;
+        
+        if(_is_from_shopping_cart_) {
+            totalPayment = [ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay;
+//            [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPaymentWithPostPay];
+        } else {
+            totalPayment = [Payment emptyPayment];
+            for(int i=0; i<_shopShoppingItemss_.count; i++) {
+                ShopShoppingItems *ssis = [_shopShoppingItemss_ objectAtIndex:i];
+                [totalPayment addWithPayment:ssis.totalSelectPaymentWithPostPay];
+            }
+        }
+//        totalPayment.cash = 15.0;
+//        [Account currentAccount].points = 2600.0;
+        CGFloat pointToCash = [Account currentAccount].points/100.0f;
+        totalPayment.cash = totalPayment.cash-pointToCash <= 0 ? 0.f : totalPayment.cash-pointToCash;
+        [settlementView setPayment:totalPayment];
+    }else
+    {
+        _arrivedCash = @"0";
+        [self refreshSettlementView];
+    }
+}
 
 #pragma mark -
 #pragma mark Modal view delegate
@@ -437,7 +469,8 @@
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     
     MerchandiseService *service =  [[MerchandiseService alloc] init];
-    [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+//    [service submitOrders:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
+    [service submitOrdersDiyong:_arrivedCash body:[JsonUtil createJsonDataFromArray:ordersToSubmit] target:self success:@selector(submitOrdersSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
 }
 //提交订单成功,返回 订单号、需要支付的现金、积分
 - (void)submitOrdersSuccess:(HttpResponse *)resp {

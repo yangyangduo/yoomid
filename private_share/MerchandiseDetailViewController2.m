@@ -156,6 +156,7 @@
     [self rightDismissViewControllerAnimated:YES];
 }
 
+//显示 选择商品参数的 view
 - (void)showParameterPickerView:(UIButton *)sender {
     MerchandiseParametersPicker *picker = [MerchandiseParametersPicker pickerWithMerchandise:self.merchandise];
     picker.delegate = self;

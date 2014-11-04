@@ -17,6 +17,8 @@
 
 - (void)submitOrders:(NSData *)orders target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
+- (void)submitOrdersDiyong:(NSString *)diyong body:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
+
 - (void)getMerchandisesWithShopId:(NSString *)shopId pageIndex:(NSInteger)pageIndex target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
 - (void)getHentreStoreMerchandisesByPageIndex:(NSInteger)pageIndex target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;

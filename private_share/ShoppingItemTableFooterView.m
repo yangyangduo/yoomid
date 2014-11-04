@@ -13,6 +13,7 @@
 #import "Payment.h"
 #import "ShoppingItem.h"
 #import "PaymentButton.h"
+#import "Account.h"
 
 @implementation RemarkTextField
 
@@ -52,6 +53,9 @@
     
     PaymentButton *postPointsPaymentButton;
     PaymentButton *postCashPaymentButton;
+    
+    UILabel *ArrivedCashLabel;
+    UISwitch *arrivedCashSwitch;
 }
 
 @synthesize shopShoppingItems = _shopShoppingItems_;
@@ -79,14 +83,16 @@
             cashPostPay = 5;
         }
         
-        postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:pointPostPay returnPoints:0];
-        postCashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(postPointsPaymentButton.frame.origin.x + postPointsPaymentButton.bounds.size.width + 10, postPointsPaymentButton.frame.origin.y) paymentType:PaymentTypeCash points:cashPostPay returnPoints:0];
+//        postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:pointPostPay returnPoints:0];
+        postCashPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypeCash points:cashPostPay returnPoints:0];
         
-        [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        [postPointsPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        [postCashPaymentButton addTarget:self action:@selector(paymentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 //        postCashPaymentButton.hidden = YES;
+        postPointsPaymentButton.hidden = YES;
+        postCashPaymentButton.selected = YES;
         
-        [self addSubview:postPointsPaymentButton];
+//        [self addSubview:postPointsPaymentButton];
         [self addSubview:postCashPaymentButton];
         
         UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(10, postCashPaymentButton.bounds.size.height + postCashPaymentButton.frame.origin.y + 10, frame.size.width - 20, 0.5f)];
@@ -107,7 +113,7 @@
         //        remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10
         //lineView2.frame.origin.y + lineView2.bounds.size.height + 10
         
-        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];
+        summariesLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, remarkTextField.frame.origin.y + remarkTextField.bounds.size.height + 10, 120, 30)];
         summariesLabel.backgroundColor = [UIColor clearColor];
         summariesLabel.font = [UIFont systemFontOfSize:13.f];
         [self setMerchandiseNumber:0];
@@ -115,20 +121,21 @@
         
         pointsPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width + 5, summariesLabel.frame.origin.y + 8, 16, 16)];
         pointsPaymentImageView.image = [UIImage imageNamed:@"points_blue"];
-        [self addSubview:pointsPaymentImageView];
+//        [self addSubview:pointsPaymentImageView];
         
         pointsPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x + pointsPaymentImageView.bounds.size.width + 5, pointsPaymentImageView.frame.origin.y - 2, 80, 20)];
         pointsPaymentLabel.backgroundColor = [UIColor clearColor];
         pointsPaymentLabel.font = [UIFont systemFontOfSize:14.f];
         pointsPaymentLabel.textColor = [UIColor lightGrayColor];
         pointsPaymentLabel.text = @"";
-        [self addSubview:pointsPaymentLabel];
+//        [self addSubview:pointsPaymentLabel];
         
         cashPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x, pointsPaymentImageView.bounds.size.height + pointsPaymentImageView.frame.origin.y + 5, 16, 16)];
         cashPaymentImageView.image = [UIImage imageNamed:@"rmb_blue"];
-        [self addSubview:cashPaymentImageView];
+//        [self addSubview:cashPaymentImageView];
         
-        cashPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentLabel.frame.origin.x, cashPaymentImageView.frame.origin.y - 2, 80, 20)];
+        cashPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x, cashPaymentImageView.frame.origin.y - 2, 80, 20)];
+        cashPaymentLabel.frame = CGRectMake(summariesLabel.frame.origin.x + summariesLabel.frame.size.width, summariesLabel.frame.origin.y + 6, 80, 20);
         cashPaymentLabel.backgroundColor = [UIColor clearColor];
         cashPaymentLabel.font = [UIFont systemFontOfSize:14.f];
         cashPaymentLabel.textColor = [UIColor lightGrayColor];
@@ -136,19 +143,45 @@
         [self addSubview:cashPaymentLabel];
         
         postPaymentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(pointsPaymentImageView.frame.origin.x, cashPaymentImageView.bounds.size.height + cashPaymentImageView.frame.origin.y + 5, 16, 16)];
+        postPaymentImageView.frame = CGRectMake(cashPaymentLabel.frame.origin.x - 18, cashPaymentLabel.frame.origin.y + cashPaymentLabel.bounds.size.height, 16, 16);
         postPaymentImageView.image = [UIImage imageNamed:@"shipping"];
         [self addSubview:postPaymentImageView];
         
         postPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointsPaymentLabel.frame.origin.x, postPaymentImageView.frame.origin.y - 2, 80, 20)];
+        postPaymentLabel.frame = CGRectMake(cashPaymentLabel.frame.origin.x, postPaymentImageView.frame.origin.y, 80, 20);
         postPaymentLabel.backgroundColor = [UIColor clearColor];
         postPaymentLabel.font = [UIFont systemFontOfSize:14.f];
         postPaymentLabel.textColor = [UIColor lightGrayColor];
         postPaymentLabel.text = @"";
         [self addSubview:postPaymentLabel];
         
+        UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(10, postPaymentLabel.frame.origin.y + postPaymentLabel.bounds.size.height+5, frame.size.width - 20, 0.5f)];
+        lineView3.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
+        [self addSubview:lineView3];
+
+        ArrivedCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, postPaymentLabel.frame.origin.y + postPaymentLabel.bounds.size.height+10 , 200, 30)];
+        ArrivedCashLabel.textAlignment = NSTextAlignmentLeft;
+        ArrivedCashLabel.font = [UIFont systemFontOfSize:14.f];
+        [self addSubview:ArrivedCashLabel];
+        
+        arrivedCashSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(postPaymentLabel.frame.origin.x, ArrivedCashLabel.frame.origin.y, 15, 20)];
+        [arrivedCashSwitch setOn:NO];
+        [arrivedCashSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:arrivedCashSwitch];
+        
         self.shopShoppingItems = shopShoppingItems;
     }
     return self;
+}
+
+- (void)switchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if(self.purchaseViewController != nil && [self.purchaseViewController isKindOfClass:[PurchaseViewController class]]) {
+        PurchaseViewController *pVC = (PurchaseViewController *)self.purchaseViewController;
+        [pVC refreshSettlementView:isButtonOn];
+    }
 }
 
 - (void)setMerchandiseNumber:(NSUInteger)number {
@@ -161,17 +194,17 @@
                                                            NSFontAttributeName : [UIFont systemFontOfSize:15.f],
                                                            NSForegroundColorAttributeName :  [UIColor appLightBlue] }];
     
-    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
-                                                    @{
-                                                      NSFontAttributeName : [UIFont systemFontOfSize:13.f],
-                                                      NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
+//    [attributePaymentString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:(PaymentTypePoints == paymentType ? NSLocalizedString(@"points", @"") : NSLocalizedString(@"yuan", @"")) attributes:
+//                                                    @{
+//                                                      NSFontAttributeName : [UIFont systemFontOfSize:13.f],
+//                                                      NSForegroundColorAttributeName :  [UIColor appTextColor] }]];
     
     return attributePaymentString;
 }
 
 - (void)setTotalPayment:(Payment *)payment postPaymentType:(PaymentType)postPaymentType postPoints:(NSInteger)postPoints postCash:(float)postCash {
     NSAttributedString *pointsPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
-    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", payment.cash] paymentType:PaymentTypeCash];
+    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.1f ", payment.cash] paymentType:PaymentTypeCash];
     
     NSAttributedString *postPaymentString = nil;
     if(PaymentTypePoints == postPaymentType) {
@@ -179,7 +212,7 @@
         postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", postPoints] paymentType:PaymentTypePoints];
     } else {
         postCashPaymentButton.selected = YES;
-        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%.1f ", postCash] paymentType:PaymentTypeCash];
+        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.1f ", postCash] paymentType:PaymentTypeCash];
     }
     
     CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;
@@ -198,36 +231,36 @@
         width = postSize.width;
     }
     
-    CGRect pFrame = pointsPaymentLabel.frame;
-    pFrame.size.width = width;
-    pFrame.origin.x = self.bounds.size.width - width - 12;
-    pointsPaymentLabel.frame = pFrame;
-    
-    CGRect cFrame = cashPaymentLabel.frame;
-    cFrame.size.width = width;
-    cFrame.origin.x = pFrame.origin.x;
-    cashPaymentLabel.frame = cFrame;
-    
-    CGRect postFrame = postPaymentLabel.frame;
-    postFrame.size.width = width;
-    postFrame.origin.x = pFrame.origin.x;
-    postPaymentLabel.frame = postFrame;
-    
-    CGRect piFrame = pointsPaymentImageView.frame;
-    piFrame.origin.x = pFrame.origin.x - piFrame.size.width - 10;
-    pointsPaymentImageView.frame = piFrame;
-    
-    CGRect ciFrame = cashPaymentImageView.frame;
-    ciFrame.origin.x = piFrame.origin.x;
-    cashPaymentImageView.frame = ciFrame;
-    
-    CGRect postIFrame = postPaymentImageView.frame;
-    postIFrame.origin.x = piFrame.origin.x;
-    postPaymentImageView.frame = postIFrame;
-    
-    CGRect sFrame = summariesLabel.frame;
-    sFrame.origin.x = piFrame.origin.x - sFrame.size.width - 10;
-    summariesLabel.frame = sFrame;
+//    CGRect pFrame = pointsPaymentLabel.frame;
+//    pFrame.size.width = width;
+//    pFrame.origin.x = self.bounds.size.width - width - 12;
+//    pointsPaymentLabel.frame = pFrame;
+//    
+//    CGRect cFrame = cashPaymentLabel.frame;
+//    cFrame.size.width = width;
+//    cFrame.origin.x = pFrame.origin.x;
+//    cashPaymentLabel.frame = cFrame;
+//    
+//    CGRect postFrame = postPaymentLabel.frame;
+//    postFrame.size.width = width;
+//    postFrame.origin.x = pFrame.origin.x;
+//    postPaymentLabel.frame = postFrame;
+//    
+//    CGRect piFrame = pointsPaymentImageView.frame;
+//    piFrame.origin.x = pFrame.origin.x - piFrame.size.width - 10;
+//    pointsPaymentImageView.frame = piFrame;
+//    
+//    CGRect ciFrame = cashPaymentImageView.frame;
+//    ciFrame.origin.x = piFrame.origin.x;
+//    cashPaymentImageView.frame = ciFrame;
+//    
+//    CGRect postIFrame = postPaymentImageView.frame;
+//    postIFrame.origin.x = piFrame.origin.x;
+//    postPaymentImageView.frame = postIFrame;
+//    
+//    CGRect sFrame = summariesLabel.frame;
+//    sFrame.origin.x = piFrame.origin.x - sFrame.size.width - 10;
+//    summariesLabel.frame = sFrame;
     
     pointsPaymentLabel.attributedText = pointsPaymentString;
     cashPaymentLabel.attributedText = cashPaymentString;
@@ -275,6 +308,41 @@
     } else {
         remarkTextField.text = @"";
     }
+//    [Account currentAccount].points = 0;
+    if ([Account currentAccount].points > 0) {
+        arrivedCashSwitch.hidden = NO;
+
+        NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] initWithString:@"可以用" attributes:
+                                                   @{
+                                                     NSFontAttributeName : [UIFont systemFontOfSize:14.f],
+                                                     NSForegroundColorAttributeName :  [UIColor blackColor] }];
+        
+        [pointsString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",[Account currentAccount].points] attributes:
+                                              @{
+                                                NSFontAttributeName : [UIFont systemFontOfSize:15.f],
+                                                NSForegroundColorAttributeName :  [UIColor appLightBlue] }]];
+        [pointsString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"米米抵现金" attributes:
+                                              @{
+                                                NSFontAttributeName : [UIFont systemFontOfSize:14.f],
+                                                NSForegroundColorAttributeName :  [UIColor blackColor] }]];
+        
+        CGFloat pointF = [Account currentAccount].points;
+        [pointsString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.2f",pointF/100] attributes:
+                                              @{
+                                                NSFontAttributeName : [UIFont systemFontOfSize:14.f],
+                                                NSForegroundColorAttributeName :  [UIColor appLightBlue] }]];
+        
+        [pointsString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"元" attributes:
+                                              @{
+                                                NSFontAttributeName : [UIFont systemFontOfSize:14.f],
+                                                NSForegroundColorAttributeName :  [UIColor blackColor] }]];
+        
+        ArrivedCashLabel.attributedText = pointsString;
+    }else{
+        ArrivedCashLabel.text = @"您现在的米米为0,不能抵现金!";
+        arrivedCashSwitch.hidden = YES;
+    }
+    
 }
 
 - (BOOL)isActivityPay:(ShopShoppingItems *)shopShoppingItems {

@@ -27,4 +27,6 @@ typedef NS_ENUM(NSUInteger, MerchandiseOrderState) {
 @property (nonatomic, assign) MerchandiseOrderState orderState;
 @property (nonatomic, strong) NSMutableArray *merchandiseLists;
 
+@property (nonatomic, strong) NSString *loginame;
+@property (nonatomic, strong) NSString *sendno;
 @end

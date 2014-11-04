@@ -19,6 +19,11 @@
     [self.httpClient post:[NSString stringWithFormat:@"/merchandise_orders?%@", self.authenticationString] contentType:@"application/json" body:orders target:target success:success failure:failure userInfo:userInfo];
 }
 
+- (void)submitOrdersDiyong:(NSString *)diyong body:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient post:[NSString stringWithFormat:@"/merchandise_orders?diyong=%@&%@",diyong,self.authenticationString] contentType:@"application/json" body:body target:target success:success failure:failure userInfo:userInfo];
+}
+
 - (void)submitActivityWithShopId:(NSString *)shopId activityId:(NSString *)activityId target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo {
     NSDictionary *dictionary = @{
                                  @"shopId" : shopId,

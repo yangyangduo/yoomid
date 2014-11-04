@@ -19,7 +19,7 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
-        self.postPaymentType = PaymentTypePoints;
+        self.postPaymentType = PaymentTypeCash;
     }
     return self;
 }
