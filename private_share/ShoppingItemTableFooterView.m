@@ -159,7 +159,7 @@
         lineView3.backgroundColor = [UIColor colorWithRed:229.f / 255.f green:229.f / 255.f blue:229.f / 255.f alpha:1.0f];
         [self addSubview:lineView3];
 
-        ArrivedCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, postPaymentLabel.frame.origin.y + postPaymentLabel.bounds.size.height+10 , 200, 30)];
+        ArrivedCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, postPaymentLabel.frame.origin.y + postPaymentLabel.bounds.size.height+10 , 250, 30)];
         ArrivedCashLabel.textAlignment = NSTextAlignmentLeft;
         ArrivedCashLabel.font = [UIFont systemFontOfSize:14.f];
         [self addSubview:ArrivedCashLabel];

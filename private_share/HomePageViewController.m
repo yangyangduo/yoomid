@@ -323,14 +323,14 @@
 //}
 
 
-//- (void)didClickMoreXiaoJiRecommend
-//{
+- (void)didClickMoreXiaoJiRecommend
+{
 //    XiaoJiRecommendTemplateViewController *xiaojiTemplate = [[XiaoJiRecommendTemplateViewController alloc] init];
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:xiaojiTemplate];
 //    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
 //    [self rightPresentViewController:navigationController animated:YES];
 //
-//}
+}
 
 #pragma mark - ActiveDisplayScrollView delegate
 - (void)activeDisplayScrollView:(ActiveDisplayScrollView *)activeDisplayScrollView didTapOnPageIndex:(NSUInteger)pageIndex

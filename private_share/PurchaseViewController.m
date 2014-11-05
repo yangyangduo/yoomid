@@ -475,57 +475,60 @@
 //提交订单成功,返回 订单号、需要支付的现金、积分
 - (void)submitOrdersSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
-
-        NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        if(_order_result_json_ != nil) {
-            OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
-            [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
-                if(orderResult.cashNeedToPay > 0) {//需要支付现金
-                    NSString *message = nil;
-                    float prickHeight = 0.f;
-                    if (orderResult.pointsPaid > 0) {
-                        prickHeight = 385;
-                        message = [NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay];
-                    }else{
-                        prickHeight = 360;
-                        message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
+//        [self dismissViewControllerAnimated:NO completion:^{
+            NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+            if(_order_result_json_ != nil) {
+                OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
+                [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
+                    if(orderResult.cashNeedToPay > 0) {//需要支付现金
+                        NSString *message = nil;
+                        float prickHeight = 0.f;
+                        if (orderResult.pointsPaid > 0) {
+                            prickHeight = 385;
+                            message = [NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay];
+                        }else{
+                            prickHeight = 360;
+                            message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
+                        }
+                        //微信支付
+                        wxPayRequest.out_trade_no = orderResult.orderIds;
+                        wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
+                        //  wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
+                        wxPayRequest.traceid = orderResult.orderIds;
+                        
+                        //支付宝支付
+                        aliPay.out_trade_no = orderResult.orderIds;
+                        aliPay.total_fee = [NSString stringWithFormat:@"%.2f",orderResult.cashNeedToPay];
+                        //                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
+                        
+                        NSMutableArray *categories = [NSMutableArray array];
+                        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
+                        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+                        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
+                        
+                        CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, prickHeight)message:message buttonItems:categories];
+                        modalView.btnItemDelegate = self;
+                        //                    modalView.modalViewDelegate = self;
+                        [modalView showInView:self.navigationController.view completion:nil];
                     }
-                    //微信支付
-                    wxPayRequest.out_trade_no = orderResult.orderIds;
-                    wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",orderResult.cashNeedToPay * 100];
-                  //  wxPayRequest.total_fee = [NSString stringWithFormat:@"%.0f",1.f];
-                    wxPayRequest.traceid = orderResult.orderIds;
-                    
-                    //支付宝支付
-                    aliPay.out_trade_no = orderResult.orderIds;
-                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",orderResult.cashNeedToPay];
-//                    aliPay.total_fee = [NSString stringWithFormat:@"%.2f",0.01f];
-                    
-                    NSMutableArray *categories = [NSMutableArray array];
-                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
-                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
-                    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
-                    
-                    CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, prickHeight)message:message buttonItems:categories];
-                    modalView.btnItemDelegate = self;
-//                    modalView.modalViewDelegate = self;
-                    [modalView showInView:self.navigationController.view completion:nil];
-                }
-                else{  //不需要支付现金,购买成功！
-                    YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
-                    modal.shareDeletage = self;
-                    [modal showInView:self.navigationController.view completion:nil];
-                }
-            }];
-
+                    else{  //不需要支付现金,购买成功！
+                        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                        modal.shareDeletage = self;
+                        [modal showInView:self.navigationController.view completion:nil];
+                        
+                    }
+                }];
+                
 #ifdef DEBUG
 #endif
-            if(_is_from_shopping_cart_) {
-                [[ShoppingCart myShoppingCart] clearAllSelectShoppingItems];
+                if(_is_from_shopping_cart_) {
+                    [[ShoppingCart myShoppingCart] clearAllSelectShoppingItems];
+                }
+                
+                [[Account currentAccount] refresh];
             }
-            
-            [[Account currentAccount] refresh];
-        }
+
+//        }];
         return;
     }
     [self submitOrdersFailure:resp];
@@ -573,26 +576,14 @@
     if ([identifier isEqualToString:@"weixinPay"]) {
         payOrderVC.paymentMode = PaymentModeWXPay;
         payOrderVC.wxPayment = wxPayRequest;
-//        [self.navigationController pushViewController:payOrderVC animated:YES];
         [self.navigationController presentViewController:navigationController animated:YES completion:^{
         }];
-//        return;
-//        [wxPayRequest payCash];
-        
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
         payOrderVC.paymentMode = PaymentModeAliPay;
         payOrderVC.aliPayment = aliPay;
         [self.navigationController presentViewController:navigationController animated:YES completion:^{
         }];
-//        [self.navigationController pushViewController:payOrderVC animated:YES];
-//        return;
-        
-//        NSDictionary *tempD = @{@"info": [aliPay toStrings]};
-//        
-//        MerchandiseService *service = [[MerchandiseService alloc] init];
-//        [service submitAliPaySign:[JsonUtil createJsonDataFromDictionary:tempD] target:self success:@selector(submitAliPaySignSuccess:) failure:@selector(submitOrdersFailure:) userInfo:nil];
-        
     }else if ([identifier isEqualToString:@"alterPay"])
     {
         
