@@ -53,9 +53,9 @@
         for (int i = 0; i < 3; i++) {
             XiaoJiMerchandisesDetailsView *xiaoji1 = [[XiaoJiMerchandisesDetailsView alloc] initWithFrame:CGRectMake(i*viewWidthOrHeight, 31, viewWidthOrHeight, viewWidthOrHeight+50)];
             xiaoji1.tag = i;
-//            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
             [views addObject:xiaoji1];
-//            [xiaoji1 addGestureRecognizer:tapGesture];
+            [xiaoji1 addGestureRecognizer:tapGesture];
             [self addSubview:xiaoji1];
         }
     }
@@ -84,9 +84,9 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-//    UIView *viewClicked=[tapGesture view];
-//    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didClickXiaoJiMerchandise:)]) {
-//        [self.delegate didClickXiaoJiMerchandise:viewClicked.tag];
-//    }
+    UIView *viewClicked=[tapGesture view];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didClickXiaoJiMerchandise:)]) {
+        [self.delegate didClickXiaoJiMerchandise:viewClicked.tag];
+    }
 }
 @end

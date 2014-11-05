@@ -26,6 +26,7 @@
 #import "XiaoJiRecommendTemplateViewController.h"
 #import "MerchandiseTemplateTwoViewController.h"
 #import "MerchandiseTemplateOneViewController.h"
+#import "DMOfferWallManager.h"
 
 @interface HomePageViewController ()
 
@@ -42,6 +43,8 @@
     NSMutableArray *recommendedMerchandises;
     NSMutableArray *_activities_;
     NSMutableArray *_rowView_;
+    
+    ModalView *currentModalView;
 
 }
 
@@ -68,8 +71,8 @@
     CGFloat viewHeight = 170;//_xiaojiView height = 170   商品图片1：1
     xiaoJiView = [[XiaoJiRecommendView alloc] initWithFrame:CGRectMake(0, -viewHeight, self.view.bounds.size.width, viewHeight)];
     xiaoJiView.delegate = self;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    [xiaoJiView addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+//    [xiaoJiView addGestureRecognizer:tapGesture];
     [_collectionView insertSubview:xiaoJiView atIndex:0];
     
     viewHeight += 190;//activeDisplaySV height = 180;间距 ＝ 10
@@ -79,16 +82,21 @@
     [_collectionView insertSubview:activeDisplaySV atIndex:0];
     _collectionView.contentInset = UIEdgeInsetsMake(viewHeight-20, 0, 0, 0);
 
-    UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 10 : 0), 55, 55)];
-    [settingButton setImage:[UIImage imageNamed:@"setup5"] forState:UIControlStateNormal];
+    UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 50, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 20 : 0), 44, 44)];
+    [settingButton setImage:[UIImage imageNamed:@"newsetup"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
 
     
-    UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 10 : 0), 55, 55)];
-    [miRepositoryButton setImage:[UIImage imageNamed:@"like5"] forState:UIControlStateNormal];
+    UIButton *miRepositoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, ([UIDevice systemVersionIsMoreThanOrEqual7] ? 20 : 0), 44, 44)];
+    [miRepositoryButton setImage:[UIImage imageNamed:@"shopping4"] forState:UIControlStateNormal];
     [miRepositoryButton addTarget:self action:@selector(showMiRepository:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:miRepositoryButton];
+    
+    UIButton *experienceCenterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, self.view.bounds.size.height - 100, 105/2, 131/2)];
+    [experienceCenterButton setImage:[UIImage imageNamed:@"up_down1"] forState:UIControlStateNormal];
+    [experienceCenterButton addTarget:self action:@selector(showExperienceCenter:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:experienceCenterButton];
     
     [self getMerchandisesTemplate];
 }
@@ -100,6 +108,37 @@
     [self getEcommendedMerchandisesForDiskCache];
     [self mayRefreshActivities];
 //    [self refreshMerchandisesTemplate];
+}
+
+
+
+//体验中心
+- (void)showExperienceCenter:(id *)sender {
+    AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 320)];
+    modalView.delegate = self;
+    modalView.modalViewDelegate = self;
+    currentModalView = modalView;
+    [self.animationController disableGesture];
+    [modalView showInView:self.view completion:^{  }];
+
+}
+
+- (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
+    if([@"domob" isEqualToString:identifier]) {
+        DMOfferWallManager *domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
+        domobOfferWall.disableStoreKit = YES;
+        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
+    }
+    
+    [currentModalView closeViewAnimated:NO completion:nil];
+}
+
+#pragma mark -
+#pragma mark Modal view delegate
+
+- (void)modalViewDidClosed:(ModalView *)modalView {
+    [self.animationController enableGesture];
+    currentModalView = nil;
 }
 
 - (void)refreshMerchandisesTemplate{
@@ -241,6 +280,7 @@
         
         [[DiskCacheManager manager] setRecommendedMerchandises:recommendedMerchandises];
         xiaoJiView.recommendedMerchandises = recommendedMerchandises;
+
         return;
     }
     [self handleFailureHttpResponse:resp];
@@ -270,22 +310,27 @@
 //    Merchandise *merchandise = [recommendedMerchandises objectAtIndex:index];
 //    MerchandiseDetailViewController2 *merchandiseDetailViewController = [[MerchandiseDetailViewController2 alloc] initWithMerchandise:merchandise];
 //    [self rightPresentViewController:merchandiseDetailViewController animated:YES];
-//    
-}
-
-- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    [self didClickMoreXiaoJiRecommend];
-}
-
-
-- (void)didClickMoreXiaoJiRecommend
-{
-    XiaoJiRecommendTemplateViewController *xiaojiTemplate = [[XiaoJiRecommendTemplateViewController alloc] init];
+    
+    XiaoJiRecommendTemplateViewController *xiaojiTemplate = [[XiaoJiRecommendTemplateViewController alloc] initWithIndex:index Merchandise:recommendedMerchandises];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:xiaojiTemplate];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
 
 }
+
+//- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+//    [self didClickMoreXiaoJiRecommend];
+//}
+
+
+//- (void)didClickMoreXiaoJiRecommend
+//{
+//    XiaoJiRecommendTemplateViewController *xiaojiTemplate = [[XiaoJiRecommendTemplateViewController alloc] init];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:xiaojiTemplate];
+//    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+//    [self rightPresentViewController:navigationController animated:YES];
+//
+//}
 
 #pragma mark - ActiveDisplayScrollView delegate
 - (void)activeDisplayScrollView:(ActiveDisplayScrollView *)activeDisplayScrollView didTapOnPageIndex:(NSUInteger)pageIndex
@@ -343,17 +388,16 @@
         //视图类别 1,2,3,4  ，
         
         id merchandiseTemplate = nil;
-        if (column.viewType == 1) { //1是原全部商品列表样式
+        if (column.viewType == 1) { //1:单列大图，小吉推荐列表样式
 //            AllMerchandiseMallViewController *allMall = [[AllMerchandiseMallViewController alloc] init];
 //            allMall.column = column;
-            
-            MerchandiseTemplateTwoViewController *merchandiseTemplateTwoVC = [[MerchandiseTemplateTwoViewController alloc] init];
-            merchandiseTemplateTwoVC.column = column;
-            merchandiseTemplate = merchandiseTemplateTwoVC;
-        }else if (column.viewType == 2){ //2是原小吉推荐商品列表样式
             MerchandiseTemplateOneViewController *merchandiseTemplateOneVC = [[MerchandiseTemplateOneViewController alloc] init];
             merchandiseTemplateOneVC.column = column;
             merchandiseTemplate = merchandiseTemplateOneVC;
+        }else if (column.viewType == 2){ //2：单列小图，全部商品列表样式
+            MerchandiseTemplateTwoViewController *merchandiseTemplateTwoVC = [[MerchandiseTemplateTwoViewController alloc] init];
+            merchandiseTemplateTwoVC.column = column;
+            merchandiseTemplate = merchandiseTemplateTwoVC;
         }else if (column.viewType == 3){
             
         }else{}

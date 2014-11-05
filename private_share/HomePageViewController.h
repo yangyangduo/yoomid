@@ -9,7 +9,9 @@
 #import "TransitionViewController.h"
 #import "ActiveDisplayScrollView.h"
 #import "XiaoJiRecommendView.h"
+#import "AdPlatformPickerView.h"
+#import "CategoryButtonItem.h"
 
-@interface HomePageViewController : TransitionViewController<ActiveDisplayScrollViewDelegate,XiaoJiRecommendViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HomePageViewController : TransitionViewController<ActiveDisplayScrollViewDelegate,XiaoJiRecommendViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,CategoryButtonItemDelegate,ModalViewDelegate>
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation PaymentButton
 
-- (instancetype)initWithPoint:(CGPoint)point paymentType:(PaymentType)paymentType points:(NSInteger)points returnPoints:(NSInteger)returnPoints {
+- (instancetype)initWithPoint:(CGPoint)point paymentType:(PaymentType)paymentType points:(CGFloat)points returnPoints:(NSInteger)returnPoints {
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 4, 22, 22)];
     
 //    imageView.image = [UIImage imageNamed:(PaymentTypePoints == paymentType ? @"points_blue" : @"rmb_blue")];
@@ -20,7 +20,7 @@
         titleString = [NSString stringWithFormat:@"%ld ", (long)points];
     } else {
 //        titleString = [NSString stringWithFormat:@"%.1f ", ((float)points) / 100.f];
-        titleString = [NSString stringWithFormat:@"¥ %.1f ", (float)points];
+        titleString = [NSString stringWithFormat:@"¥ %.2f ", (float)points];
     }
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:titleString attributes:@{

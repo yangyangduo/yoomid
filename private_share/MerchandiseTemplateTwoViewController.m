@@ -1,5 +1,5 @@
 //
-//  MerchandiseTemplateTwoViewController.m
+//  MerchandiseTemplateOneViewController.m
 //  private_share
 //
 //  Created by 曹大为 on 14/11/1.
@@ -7,11 +7,8 @@
 //
 
 #import "MerchandiseTemplateTwoViewController.h"
-#import "Merchandise.h"
 #import "MerchandiseService.h"
 #import "MerchandiseTableViewCell.h"
-#import "XiaojiRecommendTableViewCell.h"
-#import "DiskCacheManager.h"
 
 @implementation MerchandiseTemplateTwoViewController
 {
@@ -125,64 +122,6 @@
     [self handleFailureHttpResponse:resp];
 }
 
-//点赞
-- (void)actionGoodBtn:(UIButton *)sender
-{
-    UIView * v=[sender superview];
-    XiaojiRecommendTableViewCell *cell=(XiaojiRecommendTableViewCell *)[v superview];//找到cell
-    NSIndexPath *indexPath=[tblMerchandises indexPathForCell:cell];//找到cell所在的行
-    //
-    Merchandise *merchand = [merchandises objectAtIndex:indexPath.row];
-    NSString *merchandisesStr = merchand.identifier ;
-    
-    //从本地缓存中取出已点赞的商品id
-    NSMutableArray *merchandisesIds = nil;
-    NSArray *cacheData = [DiskCacheManager manager].merchandisesIds;
-    if (cacheData == nil) {
-        merchandisesIds = [NSMutableArray array];
-    }
-    else{
-        merchandisesIds = [NSMutableArray arrayWithArray:cacheData];
-    }
-    
-    if (merchandisesIds.count == 0) {
-        MerchandiseService *service = [[MerchandiseService alloc]init];
-        [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
-        [merchandisesIds addObject:merchandisesStr];
-        [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
-    }
-    else{
-        BOOL isZan = NO;
-        for (int i = 0; i<merchandisesIds.count; i++) {
-            NSString *merchandisesIdStr = [merchandisesIds objectAtIndex:i];
-            if ([merchandisesStr isEqualToString:merchandisesIdStr]) {
-                isZan = YES;
-                break;
-            }
-        }
-        
-        if (isZan) {
-            [[XXAlertView currentAlertView] setMessage:@"您已经赞过该商品了" forType:AlertViewTypeSuccess];
-            [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
-            return;
-        }else{
-            //.....没赞过
-            MerchandiseService *service = [[MerchandiseService alloc]init];
-            [service sendGoodWithMerchandiseId:merchandisesStr target:self success:@selector(sendGoodSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
-            [merchandisesIds addObject:merchandisesStr];
-            [[DiskCacheManager manager] setMerchandisesIds:merchandisesIds];
-        }
-    }
-}
-
-- (void)sendGoodSuccess:(HttpResponse *)resp {
-    if (resp.statusCode == 200) {
-        //        NSLog(@"赞成功");
-        [self refresh];
-    }
-}
-
-
 #pragma mark -
 #pragma mark
 
@@ -196,16 +135,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cellIdentifier";
-    XiaojiRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    MerchandiseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell == nil)
     {
-        cell = [[XiaojiRecommendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        UIButton *goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        goodBtn.frame = CGRectMake(20, 10, 51/2, 51/2);
-        [goodBtn setImage:[UIImage imageNamed:@"good3"] forState:UIControlStateNormal];
-        [goodBtn addTarget:self action:@selector(actionGoodBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell addSubview:goodBtn];
-        
+        cell = [[MerchandiseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     cell.merchandise = [merchandises objectAtIndex:indexPath.row];
     
@@ -213,7 +147,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 410;
+    return kMerchandiseTableViewCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -250,5 +184,4 @@
 - (void)cancelLoadMore {
     tblMerchandises.pullTableIsLoadingMore = NO;
 }
-
 @end

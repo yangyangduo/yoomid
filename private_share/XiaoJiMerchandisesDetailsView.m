@@ -71,7 +71,7 @@
             OriginalPrice.text = @"";
         }
         NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc] init];
-        [priceString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%.1f", _merchandise.price] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:14.f] }]];
+        [priceString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%.2f", _merchandise.price] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:14.f] }]];
         merchandisePrice.attributedText = priceString;
 
 //        NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];

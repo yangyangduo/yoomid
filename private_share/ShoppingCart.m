@@ -57,7 +57,7 @@
     return nil;
 }
 
-- (void)putMerchandise:(Merchandise *)merchandise shopID:(NSString *)shopID number:(NSUInteger)number paymentType:(PaymentType)paymentType properties:(NSArray *)properties {
+- (void)putMerchandise:(Merchandise *)merchandise shopID:(NSString *)shopID  number:(NSUInteger)number paymentType:(PaymentType)paymentType properties:(NSArray *)properties {
     if(number == 0 || merchandise == nil || shopID == nil) return;
     
     BOOL needAddShop = NO;
@@ -69,7 +69,7 @@
         shopShoppingItems.shopID = shopID;
         needAddShop = YES;
     }
-    
+
     ShoppingItem *item = [shopShoppingItems shoppingItemWithMerchandiseId:merchandise.identifier paymentType:paymentType properties:properties];
     
     // exists merchandise

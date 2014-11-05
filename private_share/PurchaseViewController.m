@@ -485,10 +485,10 @@
                     float prickHeight = 0.f;
                     if (orderResult.pointsPaid > 0) {
                         prickHeight = 385;
-                        message = [NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.1f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay];
+                        message = [NSString stringWithFormat:@"订单生成成功!您已支付%d米米;您还需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付",orderResult.pointsPaid, orderResult.cashNeedToPay];
                     }else{
                         prickHeight = 360;
-                        message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.1f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
+                        message = [NSString stringWithFormat:@"订单生成成功!您需要支付现金%.2f元,请选择支付方式。您也可以进入我的商品页面'未支付'进行支付", orderResult.cashNeedToPay];
                     }
                     //微信支付
                     wxPayRequest.out_trade_no = orderResult.orderIds;

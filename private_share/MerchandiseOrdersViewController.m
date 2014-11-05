@@ -333,8 +333,12 @@
                 [shopBodys appendString:@"有米得商城:"];
                 wxPay.mallName = @"有米得商城";
                 aliPay.subject = @"有米得商城";
+            }else{
+                [shopBodys appendString:merchandiseOrder.shopName];
+                wxPay.mallName = merchandiseOrder.shopName;
+                aliPay.subject = merchandiseOrder.shopName;
             }
-            
+        
             NSMutableString *merchandiseStr = [NSMutableString string];
             for (ShoppingItem *si in merchandiseOrder.merchandiseLists) {
                 [shopBodys appendString:[NSString stringWithFormat:@"%@;",si.merchandise.name]];

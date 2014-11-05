@@ -18,6 +18,7 @@
 
 @protocol XiaoJiRecommendViewDelegate <NSObject>
 
+
 - (void)didClickMoreXiaoJiRecommend;
 - (void)didClickXiaoJiMerchandise:(NSInteger)index;
 @end

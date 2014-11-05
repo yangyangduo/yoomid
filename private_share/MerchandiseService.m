@@ -82,4 +82,9 @@
 {
     [self.httpClient post:[NSString stringWithFormat:@"/tbpay/pay_sign_request?%@",self.authenticationString] contentType:@"application/json" body:body target:target success:success failure:failure userInfo:nil];
 }
+
+- (void)getShopInfoTarget:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo
+{
+    [self.httpClient get:[NSString stringWithFormat:@"/shop/all_app?%@",self.authenticationString] target:target success:success failure:failure userInfo:userInfo];
+}
 @end

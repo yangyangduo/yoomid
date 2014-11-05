@@ -180,7 +180,9 @@
     [picker closeView];
     
     if(MerchandisePickerModeForShoppingCart == picker.pickerMode) {
-        [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:number paymentType:paymentType properties:properties];
+//        [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:number paymentType:paymentType properties:properties];
+        [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:_merchandise_.shopId number:number paymentType:paymentType properties:properties];
+        
         [[XXAlertView currentAlertView] setMessage:@"已加入米库" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
     } else {

@@ -16,6 +16,19 @@
 {
     NSMutableArray *recommendedMerchandises;
     PullRefreshTableView *tblXiaoJi;
+    
+    NSInteger _index;
+}
+
+- (instancetype)initWithIndex:(NSInteger)index Merchandise:(NSMutableArray *)merchandise
+{
+    self = [super init];
+    if (self) {
+        _index = index;
+        recommendedMerchandises = [[NSMutableArray alloc] initWithArray:merchandise];
+        [self merchandiseSort];
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -44,10 +57,22 @@
     [self rightDismissViewControllerAnimated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+//商品排序
+- (void)merchandiseSort
 {
-    [self refreshXiaoji];
+    if (recommendedMerchandises.count > 0) {
+        if (_index != 0 && _index < recommendedMerchandises.count) {
+            Merchandise *_merchandise = [recommendedMerchandises objectAtIndex:_index];
+            [recommendedMerchandises removeObjectAtIndex:_index];
+            [recommendedMerchandises insertObject:_merchandise atIndex:0];
+        }
+    }
 }
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [self refreshXiaoji];
+//}
 
 //小吉推荐模式没有商铺id
 -(void)refreshXiaoji
@@ -74,11 +99,12 @@
                 [recommendedMerchandises addObject:[[Merchandise alloc] initWithJson:jsonObject]];
             }
         }
-        
+        [self merchandiseSort];
+
         tblXiaoJi.pullLastRefreshDate = [NSDate date];
         [tblXiaoJi reloadData];
         
-        [[DiskCacheManager manager] setRecommendedMerchandises:recommendedMerchandises];
+//        [[DiskCacheManager manager] setRecommendedMerchandises:recommendedMerchandises];
         [self cancelRefresh];
         return;
     }

@@ -96,7 +96,7 @@
 
 - (void)setPayment:(Payment *)payment {
 //    pointsPaymentLabel.attributedText = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
-    cashPaymentLabel.attributedText = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"¥ %.1f ", payment.cash] paymentType:PaymentTypeCash];
+    cashPaymentLabel.attributedText = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"¥ %.2f ", payment.cash] paymentType:PaymentTypeCash];
     
     if(!selectButtonHidden) {
         selectButton.selected = [ShoppingCart myShoppingCart].allSelect;

@@ -43,4 +43,6 @@
 
 - (void)submitAliPaySign:(NSData *)body target:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 
+
+- (void)getShopInfoTarget:(id)target success:(SEL)success failure:(SEL)failure userInfo:(id)userInfo;
 @end

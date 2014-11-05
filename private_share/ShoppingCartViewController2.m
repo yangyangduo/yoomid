@@ -21,6 +21,9 @@
 #import "ShoppingCart.h"
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
+#import "ShoppingCart.h"
+#import "MerchandiseService.h"
+#import "Shop.h"
 
 NSString * const ShoppingItemCellIdentifier   = @"ShoppingItemCellIdentifier";
 NSString * const ShoppingItemHeaderIdentifier = @"ShoppingItemHeaderIdentifier";
@@ -30,6 +33,8 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     UIView *backgroundView;
     UICollectionView *_collectionView_;
     SettlementView *settlementView;
+    
+    NSMutableArray *_shop;
 }
     
 - (void)viewDidLoad {
@@ -69,6 +74,8 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     _collectionView_.delegate = self;
     _collectionView_.dataSource = self;
     [self.view addSubview:_collectionView_];
+    
+    [self getShopInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,6 +107,37 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     }
 }
 
+//获得所有商城的信息
+- (void)getShopInfo
+{
+    MerchandiseService *service = [[MerchandiseService alloc] init];
+    [service getShopInfoTarget:self success:@selector(getShopInfoSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+}
+
+- (void)getShopInfoSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil)
+    {
+        if (_shop == nil) {
+            _shop = [[NSMutableArray alloc] init];
+        } else {
+            [_shop removeAllObjects];
+        }
+
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        for (int i = 0; i<jsonArray.count; i++) {
+            NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+            NSLog(@"%@",jsonObject);
+            Shop *shop = [[Shop alloc]initWithJson:jsonObject];
+            [_shop addObject:shop];
+            
+            [_collectionView_ reloadData];
+        }
+        return;
+    }{
+        [self handleFailureHttpResponse:resp];
+    }
+}
+
 - (void)refreshSettlementView {
     [settlementView setPayment:[ShoppingCart myShoppingCart].totalSelectPayment];
 }
@@ -115,6 +153,22 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
     }
+    //不同商城的商品不能一起付款
+    if ([ShoppingCart myShoppingCart].selectShopShoppingItemss.count > 1) {
+        ShopShoppingItems *_ssi_ = [[ShoppingCart myShoppingCart].selectShopShoppingItemss objectAtIndex:0];
+        for (int i = 1; i<[ShoppingCart myShoppingCart].selectShopShoppingItemss.count; i++) {
+            ShopShoppingItems *ssi = [[ShoppingCart myShoppingCart].selectShopShoppingItemss objectAtIndex:i];
+            if (![_ssi_.shopID isEqualToString:ssi.shopID]) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"亲,不同商城的商品要分开付款哦!"message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//                [[XXAlertView currentAlertView] setMessage:@"亲,不同商城的商品要分开付款哦!" forType:AlertViewTypeFailed];
+//                [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+                [alertView show];
+                return;
+            }
+            _ssi_ = ssi;
+        }
+    }
+    
     [self.navigationController pushViewController:
         [[PurchaseViewController alloc] initWithShopShoppingItemss:[ShoppingCart myShoppingCart].selectShopShoppingItemss isFromShoppingCart:YES] animated:YES];
 }
@@ -177,6 +231,19 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     } else {
         ShoppingItemHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ShoppingItemHeaderIdentifier forIndexPath:indexPath];
         headerView.shopId = shopShoppingItems.shopID;
+        if (_shop.count > 0) {
+            NSString *shopname = nil;
+            for (int i = 0; i < _shop.count; i++) {
+                Shop *shopinfo = [_shop objectAtIndex:i];
+                if ([shopinfo.shopId isEqualToString:shopShoppingItems.shopID]) {
+                    shopname = shopinfo.shopName;
+                }else if ([shopShoppingItems.shopID isEqualToString:@"0000"]){
+                    shopname = @"有米得商城";
+                }
+            }
+            
+            headerView.shopName = shopname;
+        }
         return headerView;
     }
     return nil;

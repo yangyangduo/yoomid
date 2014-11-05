@@ -204,7 +204,7 @@
 
 - (void)setTotalPayment:(Payment *)payment postPaymentType:(PaymentType)postPaymentType postPoints:(NSInteger)postPoints postCash:(float)postCash {
     NSAttributedString *pointsPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", payment.points] paymentType:PaymentTypePoints];
-    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.1f ", payment.cash] paymentType:PaymentTypeCash];
+    NSAttributedString *cashPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.2f ", payment.cash] paymentType:PaymentTypeCash];
     
     NSAttributedString *postPaymentString = nil;
     if(PaymentTypePoints == postPaymentType) {
@@ -212,7 +212,7 @@
         postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", postPoints] paymentType:PaymentTypePoints];
     } else {
         postCashPaymentButton.selected = YES;
-        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.1f ", postCash] paymentType:PaymentTypeCash];
+        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.2f ", postCash] paymentType:PaymentTypeCash];
     }
     
     CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;

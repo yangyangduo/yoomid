@@ -24,6 +24,7 @@
 }
 
 @synthesize shopId = _shopId_;
+@synthesize shopName = _shopName;
 
 @synthesize wxPay = _wxPay;
 @synthesize total_points = _total_points;
@@ -74,9 +75,18 @@
 
 - (void)setShopId:(NSString *)shopId {
     _shopId_ = shopId;
-    titleLabel.text = @"小吉商城";
+//    titleLabel.text = @"小吉商城";
+    titleLabel.text = shopId;
     if(!hideSelectButton) {
         selectButton.selected = [[ShoppingCart myShoppingCart] selectWithShopId:_shopId_];
+    }
+}
+
+- (void)setShopName:(NSString *)shopName
+{
+    _shopName = shopName;
+    if (_shopName != nil) {
+        titleLabel.text = _shopName;
     }
 }
 

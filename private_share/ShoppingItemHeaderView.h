@@ -25,6 +25,8 @@
 @property (nonatomic, strong) WXPayRequest *wxPay;
 @property (nonatomic, strong) AliPaymentModal *aliPay;
 
+@property (nonatomic, strong) NSString *shopName;
+
 @property (nonatomic, assign) id<deleteOrdersRefreshDelegate> delegate;
 
 - (void)setSelectButtonHidden;

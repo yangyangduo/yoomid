@@ -11,4 +11,6 @@
 
 @interface XiaoJiRecommendTemplateViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullRefreshTableViewDelegate>
 
+- (instancetype) initWithIndex:(NSInteger)index Merchandise:(NSMutableArray *)merchandise;
+
 @end
