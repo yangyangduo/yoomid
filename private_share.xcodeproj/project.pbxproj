@@ -303,6 +303,7 @@
 		D668AF3D1A0B0C5B00940200 /* PersonCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF3C1A0B0C5B00940200 /* PersonCenterViewController.m */; };
 		D668AF401A0B0D9F00940200 /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */; };
 		D668AF431A0B551000940200 /* AllShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF421A0B551000940200 /* AllShopInfo.m */; };
+		D668AF461A0BA18F00940200 /* DisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF451A0BA18F00940200 /* DisclaimerViewController.m */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
 		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
@@ -922,6 +923,8 @@
 		D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSettingViewController.m; sourceTree = "<group>"; };
 		D668AF411A0B551000940200 /* AllShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllShopInfo.h; sourceTree = "<group>"; };
 		D668AF421A0B551000940200 /* AllShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllShopInfo.m; sourceTree = "<group>"; };
+		D668AF441A0BA18F00940200 /* DisclaimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclaimerViewController.h; sourceTree = "<group>"; };
+		D668AF451A0BA18F00940200 /* DisclaimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclaimerViewController.m; sourceTree = "<group>"; };
 		D66A88FA19B997AC002CE48C /* UserInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoService.h; sourceTree = "<group>"; };
 		D66A88FB19B997AC002CE48C /* UserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoService.m; sourceTree = "<group>"; };
 		D66AF64A19B8516500B9185C /* PickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPopupView.h; sourceTree = "<group>"; };
@@ -2326,6 +2329,8 @@
 				D668AF3C1A0B0C5B00940200 /* PersonCenterViewController.m */,
 				D668AF3E1A0B0D9F00940200 /* NewSettingViewController.h */,
 				D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */,
+				D668AF441A0BA18F00940200 /* DisclaimerViewController.h */,
+				D668AF451A0BA18F00940200 /* DisclaimerViewController.m */,
 			);
 			name = new_common;
 			sourceTree = "<group>";
@@ -2998,6 +3003,7 @@
 				6F8823BD19404DE200757633 /* BaseModel.m in Sources */,
 				D612A2761A0357E800A3E93A /* ColumnView.m in Sources */,
 				6F53EFEB194B55050080B4DD /* ShopShoppingItems.m in Sources */,
+				D668AF461A0BA18F00940200 /* DisclaimerViewController.m in Sources */,
 				6F7BD33219540A620031D2DD /* QRCode.m in Sources */,
 				6FFE4E8D1952BCF500954E71 /* DiskCacheManager.m in Sources */,
 				6F66B5A1194AC2CC008A948C /* UIParameterAlertView.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "GuideViewController.h"
 #import "UIDevice+ScreenSize.h"
+#import "SecurityConfig.h"
 
 @implementation GuideViewController {
     UIScrollView *scrollView;
@@ -58,7 +59,10 @@
 }
 
 - (void)goButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:^{}];
+    [self dismissViewControllerAnimated:NO completion:^{
+        [SecurityConfig defaultConfig].isFirstLogin = NO;
+        [[SecurityConfig defaultConfig] saveConfig];
+    }];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "AccountService.h"
 #import "FixedTextField.h"
 #import "AppDelegate.h"
+#import "DisclaimerViewController.h"
 
 @interface RegisterViewController ()
 
@@ -230,11 +231,11 @@
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
     }
-    if([XXStringUtils isBlank:invitationCodeTextField.text]) {
-        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"invitation_code_required", @"") forType:AlertViewTypeFailed];
-        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
-        return;
-    }
+//    if([XXStringUtils isBlank:invitationCodeTextField.text]) {
+//        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"invitation_code_required", @"") forType:AlertViewTypeFailed];
+//        [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
+//        return;
+//    }
     
     [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"waitting", @"") forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
@@ -277,8 +278,9 @@
     passwordTextField.text = passwordTextField.text;
 }
 
+//免责声明
 - (void)btnShowDisclaimerButtonPressed:(id)sender {
-    
+    [self.navigationController pushViewController:[[DisclaimerViewController alloc] init] animated:YES];
 }
 
 - (void)checkBoxValueDidChanged:(CheckBox *)checkBox {
