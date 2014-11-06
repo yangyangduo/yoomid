@@ -80,7 +80,7 @@
         
         if(![self isActivityPay:shopShoppingItems]) {
             pointPostPay = 300;
-            cashPostPay = 5;
+//            cashPostPay = 5;   //邮费为0,为了测试
         }
         
 //        postPointsPaymentButton = [[PaymentButton alloc] initWithPoint:CGPointMake(10, lineView.frame.origin.y + lineView.bounds.size.height + 10) paymentType:PaymentTypePoints points:pointPostPay returnPoints:0];
@@ -212,7 +212,9 @@
         postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"%d ", postPoints] paymentType:PaymentTypePoints];
     } else {
         postCashPaymentButton.selected = YES;
-        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.2f ", postCash] paymentType:PaymentTypeCash];
+//        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.2f ", postCash] paymentType:PaymentTypeCash];
+        postPaymentString = [self paymentAttributeStringWithString:[NSString stringWithFormat:@"￥ %.2f ", 0.00f] paymentType:PaymentTypeCash];  //邮费为0 ，为了测试
+
     }
     
     CGSize pointsSize = [pointsPaymentString boundingRectWithSize:CGSizeMake(150, pointsPaymentLabel.bounds.size.height) options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) context:nil].size;

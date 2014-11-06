@@ -61,7 +61,7 @@
                                                              @{
                                                                NSFontAttributeName : [UIFont systemFontOfSize:13.f],
                                                                NSForegroundColorAttributeName :  [UIColor blackColor] }];
-        [attributePostageString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥ 5.0"] attributes:
+        [attributePostageString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥ 0.0"] attributes:  //邮费改为0 ，为了测试
                                            @{
                                              NSFontAttributeName : [UIFont systemFontOfSize:13.f],
                                              NSForegroundColorAttributeName :  [UIColor appLightBlue] }]];
@@ -78,7 +78,7 @@
                                                           NSForegroundColorAttributeName :  [UIColor appLightBlue] }]];
         totalLabel.attributedText = attributeTotalString;
         
-        if (merchandiseOrder.totalPoints > 0.0f) {
+        if (merchandiseOrder.totalPoints > 0.00f) {
             NSMutableAttributedString *attributePointString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d ",merchandiseOrder.totalPoints] attributes:
                                                                @{
                                                                  NSFontAttributeName : [UIFont systemFontOfSize:13.f],

@@ -27,6 +27,9 @@
 #import "MerchandiseTemplateTwoViewController.h"
 #import "MerchandiseTemplateOneViewController.h"
 #import "DMOfferWallManager.h"
+#import "NewSettingViewController.h"
+#import "Shop.h"
+#import "AllShopInfo.h"
 
 @interface HomePageViewController ()
 
@@ -108,8 +111,35 @@
     [self getEcommendedMerchandisesForDiskCache];
     [self mayRefreshActivities];
 //    [self refreshMerchandisesTemplate];
+    
+    [self getAllShopInfo];
 }
 
+//获得所有商铺的信息
+- (void)getAllShopInfo{
+    MerchandiseService *service = [[MerchandiseService alloc] init];
+    [service getShopInfoTarget:self success:@selector(getShopInfoSuccess:) failure:@selector(handleFailureHttpResponse:) userInfo:nil];
+}
+
+- (void)getShopInfoSuccess:(HttpResponse *)resp {
+    if (resp.statusCode == 200 && resp.body != nil)
+    {
+        NSMutableArray *_allShopInfo_ = [[NSMutableArray alloc] init];
+        
+        NSArray *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        for (int i = 0; i<jsonArray.count; i++) {
+            NSDictionary *jsonObject = [jsonArray objectAtIndex:i];
+            //            NSLog(@"%@",jsonObject);
+            Shop *shop = [[Shop alloc]initWithJson:jsonObject];
+            [_allShopInfo_ addObject:shop];
+    }
+    [[AllShopInfo allShopInfo] setAllShopInfo:_allShopInfo_];
+
+    return;
+    }{
+        [self handleFailureHttpResponse:resp];
+    }
+}
 
 
 //体验中心
@@ -291,7 +321,8 @@
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
-    SettingViewController *settingVC = [[SettingViewController alloc] init];
+//    SettingViewController *settingVC = [[SettingViewController alloc] init];
+    NewSettingViewController *settingVC = [[NewSettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     [self rightPresentViewController:navigationController animated:YES];
@@ -339,8 +370,31 @@
     NSLog(@"点击了第%d个页面",pageIndex);
 #endif
     if(_activities_ != nil && _activities_.count > pageIndex) {
-        ActivityDetailViewController *merchandiseDetailViewController = [[ActivityDetailViewController alloc] initWithActivityMerchandise:[_activities_ objectAtIndex:pageIndex]];
-        [self rightPresentViewController:merchandiseDetailViewController animated:YES];
+        Merchandise *merchandises_ = [_activities_ objectAtIndex:pageIndex];
+        ColumnView *column = [[ColumnView alloc] init];
+        column.cid = merchandises_.shopId;
+        id merchandiseTemplate = nil;
+
+        if ([merchandises_.viewType isEqual:@"1"]) { //单列大图,小吉推荐列表模式
+            MerchandiseTemplateOneViewController *merchandiseTemplateOneVC = [[MerchandiseTemplateOneViewController alloc] init];
+            merchandiseTemplateOneVC.column = column;
+            merchandiseTemplate = merchandiseTemplateOneVC;
+
+        }else if ([merchandises_.viewType isEqual:@"2"])
+        {
+            MerchandiseTemplateTwoViewController *merchandiseTemplateTwoVC = [[MerchandiseTemplateTwoViewController alloc] init];
+            merchandiseTemplateTwoVC.column = column;
+            merchandiseTemplate = merchandiseTemplateTwoVC;
+        }
+        
+        if (merchandiseTemplate != nil) {
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:merchandiseTemplate];
+            [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+            [self rightPresentViewController:navigationController animated:YES];
+        }
+
+//        ActivityDetailViewController *merchandiseDetailViewController = [[ActivityDetailViewController alloc] initWithActivityMerchandise:merchandises_];
+//        [self rightPresentViewController:merchandiseDetailViewController animated:YES];
     }
 }
 

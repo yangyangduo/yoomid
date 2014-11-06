@@ -31,6 +31,8 @@
 #import "AliPaymentModal.h"
 #import "alipay/AlixLibService.h"
 #import "PayOrderViewController.h"
+#import "AllShopInfo.h"
+#import "Shop.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -422,12 +424,9 @@
     NSMutableString *shopBodys = [[NSMutableString alloc] init];
     NSMutableString *aliShopBodys = [[NSMutableString alloc] init];
 
+    NSString *shopIdStr = nil;
     for(ShopShoppingItems *ssi in _shopShoppingItemss_) {
-        if ([ssi.shopID isEqualToString:@"0000"]) {
-            [shopBodys appendString:@"有米得商城:"];
-            aliPay.subject = @"有米得商城";
-            wxPayRequest.mallName = @"有米得商城";
-        }
+        shopIdStr = ssi.shopID;
         
         NSMutableArray *shoppingItems = [NSMutableArray array];
         NSMutableString *merchandiseName = [[NSMutableString alloc] init];
@@ -458,6 +457,25 @@
         
         wxPayRequest.merchandiseName = merchandiseName;
     }
+    
+    NSArray *allshopInfo = [[AllShopInfo allShopInfo] getAllShopInfo];
+    NSString *shopname = nil;
+
+    if (allshopInfo.count > 0) {
+        for (int i = 0; i < allshopInfo.count; i++) {
+            Shop *shopinfo = [allshopInfo objectAtIndex:i];
+            if ([shopinfo.shopId isEqualToString:shopIdStr]) {
+                shopname = shopinfo.shopName;
+            }else if ([shopIdStr isEqualToString:@"0000"]){
+                shopname = @"有米得商城";
+            }
+        }
+    }
+    
+    [shopBodys appendString:[NSString stringWithFormat:@"%@:",shopname]];
+    aliPay.subject = shopname;
+    wxPayRequest.mallName = shopname;
+    
     wxPayRequest.bodys = shopBodys;
     aliPay.body = aliShopBodys;
     

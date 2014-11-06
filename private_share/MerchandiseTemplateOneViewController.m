@@ -37,6 +37,7 @@
     tblMerchandises.delegate = self;
     tblMerchandises.dataSource = self;
     tblMerchandises.pullDelegate = self;
+    tblMerchandises.pullTableIsRefreshing = YES;
     tblMerchandises.backgroundColor = [UIColor clearColor];
     [tblMerchandises setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     tblMerchandises.tableHeaderView = merchandisesHeaderView;

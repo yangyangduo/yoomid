@@ -108,8 +108,8 @@
         messageLabel.text = @"";
         [bootomView addSubview:messageLabel];
         
-        UIImageView *cartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(245, 88, 51 / 2, 51.f / 2)];
-        cartImageView.image = [UIImage imageNamed:@"shopping"];
+        UIImageView *cartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(245, 80, 88 / 2, 88 / 2)];
+        cartImageView.image = [UIImage imageNamed:@"shopping4"];
         [bootomView addSubview:cartImageView];
     }
     return self;

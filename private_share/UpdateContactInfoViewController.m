@@ -147,7 +147,7 @@
     
     if (indexPath.row == 0) {
         textField.tag = 100;
-        textField.keyboardType = UIKeyboardTypeNamePhonePad;
+//        textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.returnKeyType = UIReturnKeyNext;
         textField.placeholder = @"收货人姓名";
         textField.text = contact.name;
@@ -165,7 +165,7 @@
     else if (indexPath.row == 2)
     {
         textField.tag = 300;
-        textField.keyboardType = UIKeyboardTypeNamePhonePad;
+//        textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.returnKeyType = UIReturnKeyDone;
         textField.placeholder = @"详细地址";
         textField.text = contact.address;

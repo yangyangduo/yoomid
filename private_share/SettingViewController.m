@@ -81,12 +81,12 @@
     tableview.tableFooterView = bottomView;
     
     UIButton *exitBtn =[[UIButton alloc]initWithFrame:CGRectMake(20, 15, tableview.bounds.size.width-40, 40)];
-    [exitBtn setTitle:NSLocalizedString(@"logout", @"") forState:UIControlStateNormal];
+    [exitBtn setTitle:@"保存" forState:UIControlStateNormal];
     exitBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [exitBtn setTintColor:[UIColor whiteColor]];
     [exitBtn setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
     [exitBtn setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
-    [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [exitBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:exitBtn];
 
     [self getUserInfo];
@@ -254,35 +254,10 @@
     }
 }
 
-- (void)exitBtnClick {
-    [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"being_logout", @"") forType:AlertViewTypeWaitting];
-    [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
-    [self performSelector:@selector(delayLogout) withObject:nil afterDelay:0.6f];
-}
-
-- (void)delayLogout {
-
-    [self dismissViewControllerAnimated:NO completion:^{
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [app doAfterLogout];
-        UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-        [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        //.homeViewController
-        [[ViewControllerAccessor defaultAccessor].homePageViewController presentViewController:loginNavigationViewController animated:YES completion:^{
-            [self dismissViewController];
-
-        }];
-        [[XXAlertView currentAlertView] setMessage:@"已退出" forType:AlertViewTypeSuccess];
-        [[XXAlertView currentAlertView] delayDismissAlertView];
-    }];
-}
-
 #pragma mark- shareView delegate
 - (void)showShare
 {
-//    [self showShareTitle:@"分享" text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80"];
     [self showShareTitle:nil text:@"设置信息也能得米米呢，哈尼快抓紧哦~" imageName:@"icon80" imageUrl:nil contentUrl:nil];
-
 }
 
 #pragma mark -
@@ -324,7 +299,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 6;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -428,37 +403,38 @@
         ((UILabel *)[cell viewWithTag:200]).text = [userInfoDictionary objectForKey:@"company"] == nil ? @"单位/学校名称:" : [NSString stringWithFormat:@"单位/学校名称:  %@",[userInfoDictionary objectForKey:@"company"]];
         imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
         
-        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
-        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
-        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
-        
-        imageview.image = image;
-    }
-    else if (indexPath.row == 6)
-    {
-        ((UILabel *)[cell viewWithTag:200]).text = @"收货地址管理";
-        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
-        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
-        
-        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
-        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
-        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
-        
-        imageview.image = image;
-    }
-    else if (indexPath.row == 7)
-    {
-        ((UILabel *)[cell viewWithTag:200]).text = @"修改密码";
-        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
-        [(UIView *)[cell viewWithTag:300] setHidden:YES];
-        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
-        
         rect = CGRectMake(0, 50, 97, 47);//创建矩形框
         image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
         image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
         
         imageview.image = image;
-    }else{}
+    }
+//    else if (indexPath.row == 6)
+//    {
+//        ((UILabel *)[cell viewWithTag:200]).text = @"收货地址管理";
+//        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
+//        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
+//        
+//        rect = CGRectMake(0, 20, 97, 47);//创建矩形框
+//        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+//        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+//        
+//        imageview.image = image;
+//    }
+//    else if (indexPath.row == 7)
+//    {
+//        ((UILabel *)[cell viewWithTag:200]).text = @"修改密码";
+//        ((UILabel *)[cell viewWithTag:200]).frame = CGRectMake(15, 0, 150, 47);
+//        [(UIView *)[cell viewWithTag:300] setHidden:YES];
+//        imageview.frame = CGRectMake(0, 0, cell.bounds.size.width-30, 47);
+//        
+//        rect = CGRectMake(0, 50, 97, 47);//创建矩形框
+//        image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([bgImage CGImage], rect)];//截取背景图片
+//        image = [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];//拉伸背景图片
+//        
+//        imageview.image = image;
+//    }
+    else{}
 
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -526,16 +502,16 @@
             [self.navigationController pushViewController:textView animated:YES];
             break;
         }
-        case 6:
-        {
-            [self.navigationController pushViewController:[[ManageContactInfoViewController alloc] initWithContactInfo:contacts] animated:YES];
-            break;
-        }
-        case 7:
-        {
-            [self.navigationController pushViewController:[[PasswordChangeViewController alloc] init] animated:YES];
-            break;
-        }
+//        case 6:
+//        {
+//            [self.navigationController pushViewController:[[ManageContactInfoViewController alloc] initWithContactInfo:contacts] animated:YES];
+//            break;
+//        }
+//        case 7:
+//        {
+//            [self.navigationController pushViewController:[[PasswordChangeViewController alloc] init] animated:YES];
+//            break;
+//        }
     
         default:
             break;

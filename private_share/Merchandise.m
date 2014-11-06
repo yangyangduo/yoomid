@@ -33,6 +33,8 @@
 @synthesize price;
 @synthesize originalPrice;
 
+@synthesize viewType;
+
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super initWithJson:json];
     if(self && json != nil) {
@@ -48,6 +50,8 @@
         
         self.price = [json numberForKey:@"price"].doubleValue;
         self.originalPrice = [json numberForKey:@"originalPrice"].doubleValue;
+        
+        self.viewType = [json noNilStringForKey:@"viewType"];
         
         NSMutableArray *propers = [NSMutableArray array];
         NSArray *_properties_ = [json arrayForKey:@"properties"];
@@ -103,6 +107,10 @@
     
     [json setDouble:self.price forKey:@"price"];
     [json setDouble:self.originalPrice forKey:@"originalPrice"];
+    
+    if (self.viewType != nil) {
+        [json setNoNilObject:self.viewType forKey:@"viewType"];
+    }
     
     NSMutableArray *propertiesJsonArray = [NSMutableArray array];
     if(self.properties != nil) {

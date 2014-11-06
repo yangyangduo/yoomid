@@ -36,6 +36,9 @@
 @property (nonatomic, assign) double price;
 @property (nonatomic, assign) double originalPrice;
 
+//首页广告轮播，用来判断店铺模板类型：1、单列大图，小吉推荐模式  2、单列小图，全部商品列表模式
+@property (nonatomic, strong) NSString *viewType;
+
 // 1 : 1 其他
 - (NSString *)firstImageUrl;
 // 3 : 4 小吉推荐

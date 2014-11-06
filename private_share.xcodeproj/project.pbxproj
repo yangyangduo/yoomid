@@ -300,6 +300,9 @@
 		D65B712A19ED4E0700803BFD /* PayOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B712919ED4E0700803BFD /* PayOrderViewController.m */; };
 		D65F9F6619C2E2F40012231C /* ActivitiesService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65F9F6519C2E2F40012231C /* ActivitiesService.m */; };
 		D6684FF919B70C930064F9B1 /* levelbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6684FF819B70C930064F9B1 /* levelbg@2x.png */; };
+		D668AF3D1A0B0C5B00940200 /* PersonCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF3C1A0B0C5B00940200 /* PersonCenterViewController.m */; };
+		D668AF401A0B0D9F00940200 /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */; };
+		D668AF431A0B551000940200 /* AllShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF421A0B551000940200 /* AllShopInfo.m */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
 		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
@@ -913,6 +916,12 @@
 		D65F9F6419C2E2F40012231C /* ActivitiesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesService.h; sourceTree = "<group>"; };
 		D65F9F6519C2E2F40012231C /* ActivitiesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesService.m; sourceTree = "<group>"; };
 		D6684FF819B70C930064F9B1 /* levelbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg@2x.png"; sourceTree = "<group>"; };
+		D668AF3B1A0B0C5B00940200 /* PersonCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCenterViewController.h; sourceTree = "<group>"; };
+		D668AF3C1A0B0C5B00940200 /* PersonCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCenterViewController.m; sourceTree = "<group>"; };
+		D668AF3E1A0B0D9F00940200 /* NewSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSettingViewController.h; sourceTree = "<group>"; };
+		D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSettingViewController.m; sourceTree = "<group>"; };
+		D668AF411A0B551000940200 /* AllShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllShopInfo.h; sourceTree = "<group>"; };
+		D668AF421A0B551000940200 /* AllShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllShopInfo.m; sourceTree = "<group>"; };
 		D66A88FA19B997AC002CE48C /* UserInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoService.h; sourceTree = "<group>"; };
 		D66A88FB19B997AC002CE48C /* UserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoService.m; sourceTree = "<group>"; };
 		D66AF64A19B8516500B9185C /* PickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPopupView.h; sourceTree = "<group>"; };
@@ -1969,6 +1978,8 @@
 				6F3F65F61942146A007A41E0 /* ShoppingItem.m */,
 				6F53EFE9194B55050080B4DD /* ShopShoppingItems.h */,
 				6F53EFEA194B55050080B4DD /* ShopShoppingItems.m */,
+				D668AF411A0B551000940200 /* AllShopInfo.h */,
+				D668AF421A0B551000940200 /* AllShopInfo.m */,
 			);
 			name = shopping;
 			sourceTree = "<group>";
@@ -2311,6 +2322,10 @@
 				D612A2641A022E6300A3E93A /* XiaoJiRecommendMallViewController.m */,
 				D612A2841A038F6C00A3E93A /* AllMerchandiseMallViewController.h */,
 				D612A2851A038F6C00A3E93A /* AllMerchandiseMallViewController.m */,
+				D668AF3B1A0B0C5B00940200 /* PersonCenterViewController.h */,
+				D668AF3C1A0B0C5B00940200 /* PersonCenterViewController.m */,
+				D668AF3E1A0B0D9F00940200 /* NewSettingViewController.h */,
+				D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */,
 			);
 			name = new_common;
 			sourceTree = "<group>";
@@ -2941,6 +2956,7 @@
 				6F50BF32196BCF3E006C9F1F /* ImagesScrollView.m in Sources */,
 				6F2BFDF61982419500426757 /* PurchaseViewController.m in Sources */,
 				6F363311193F039700340645 /* MerchandiseTableViewCell.m in Sources */,
+				D668AF431A0B551000940200 /* AllShopInfo.m in Sources */,
 				6FF5333A1938657A001D607C /* UIColor+App.m in Sources */,
 				6F72C18D19762F6700100D12 /* NameValue.m in Sources */,
 				6F72C1961976831900100D12 /* PaymentButton.m in Sources */,
@@ -3053,6 +3069,7 @@
 				6F8F2E8919569D5700E8B274 /* FixedTextField.m in Sources */,
 				6F12F35D194FE08200B47132 /* UIImage+Color.m in Sources */,
 				6F288013193819DD00197C83 /* LeftDrawerViewController.m in Sources */,
+				D668AF401A0B0D9F00940200 /* NewSettingViewController.m in Sources */,
 				D612A2861A038F6C00A3E93A /* AllMerchandiseMallViewController.m in Sources */,
 				D698655C19B5B86700781F54 /* TextViewController2.m in Sources */,
 				D67913D719CA7D1500154C37 /* AnswerOptions.m in Sources */,
@@ -3062,6 +3079,7 @@
 				6F41896D1948005900F9DC2C /* HttpFilterContext.m in Sources */,
 				6F76F78919653ABD00C2FD52 /* PortalViewController.m in Sources */,
 				D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */,
+				D668AF3D1A0B0C5B00940200 /* PersonCenterViewController.m in Sources */,
 				6F97098D193F52A900EA5E3A /* MerchandiseService.m in Sources */,
 				6F8F2E8619569D0C00E8B274 /* PasswordChangeViewController.m in Sources */,
 				6F72A3F9193E1EC2001DAA3E /* RegisterViewController.m in Sources */,
@@ -3169,7 +3187,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "57a2ff78-306a-4279-8673-382f23b74b4d";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -3205,7 +3223,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "57a2ff78-306a-4279-8673-382f23b74b4d";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;

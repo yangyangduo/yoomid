@@ -33,7 +33,7 @@
 "system_error"                         =     "系统异常";
 "server_error"                         =     "服务器异常";
 "network_error"                        =     "网络异常";
-"waitting"                             =     "请稍后";
+"waitting"                             =     "请稍候";
 "tips"                                 =     "提示";
 "done"                                 =     "完成";
 "close"                                =     "关闭";
@@ -118,7 +118,7 @@
 "points_not_enough"                    =     "积分不够";
 "points_exchange_total"                =     "积分兑换小计";
 "cash_exchange_total"                  =     "现金兑换小计";
-"added_to_shopping_cart"               =     "已加入米库";
+"added_to_shopping_cart"               =     "已加入购物车";
 "submit_order"                         =     "提交订单";
 "shopping_first"                       =     "请先选择商品";
 "order_being_submitted"                =     "正在提交订单";
@@ -131,7 +131,7 @@
 "remark"                               =     "备       注";
 "remark_no_blank"                      =     "备注";
 "delivery_address"                     =     "收获地址";
-"mi_repo2"                             =     "米库";
+"mi_repo2"                             =     "购物车";
 "contact_info_modify"                  =     "信息修改";
 "order_unfinished"                     =     "未完成";
 "order_finished"                       =     "已完成";

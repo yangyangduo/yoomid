@@ -52,7 +52,7 @@
     
     UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 0, 90, 30)];
     purchaseButton.tag = 300;
-    UIButton *showMiRepoButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 12.f, 20, 20)];
+    UIButton *showMiRepoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     
     [addToShoppingCartButton setTitle:NSLocalizedString(@"add_to_exchange", @"") forState:UIControlStateNormal];
     [addToShoppingCartButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
@@ -60,7 +60,7 @@
     [purchaseButton setTitle:NSLocalizedString(@"purchase", @"") forState:UIControlStateNormal];
     [purchaseButton setBackgroundImage:[UIImage imageNamed:@"bottom_button"] forState:UIControlStateNormal];
     
-    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"miku_blue"] forState:UIControlStateNormal];
+    [showMiRepoButton setBackgroundImage:[UIImage imageNamed:@"shopping4"] forState:UIControlStateNormal];
     
     purchaseButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
     purchaseButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -183,7 +183,7 @@
 //        [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:kHentreStoreID number:number paymentType:paymentType properties:properties];
         [[ShoppingCart myShoppingCart] putMerchandise:_merchandise_ shopID:_merchandise_.shopId number:number paymentType:paymentType properties:properties];
         
-        [[XXAlertView currentAlertView] setMessage:@"已加入米库" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] setMessage:@"已加入购物车" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
     } else {
         ShopShoppingItems *shopShoppingItems = [[ShopShoppingItems alloc] init];

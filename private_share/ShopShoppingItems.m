@@ -122,7 +122,8 @@
             if(PaymentTypePoints == self.postPaymentType) {
                 payment = [[Payment alloc] initWithPoints:300 cash:0];
             } else if(PaymentTypeCash == self.postPaymentType) {
-                payment = [[Payment alloc] initWithPoints:0 cash:5.f];
+//                payment = [[Payment alloc] initWithPoints:0 cash:5.f];
+                payment = [[Payment alloc] initWithPoints:0 cash:0.f];  //邮费为0，为了测试
             }
         }
     }
