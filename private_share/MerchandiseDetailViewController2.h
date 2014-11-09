@@ -11,6 +11,7 @@
 #import "PullScrollZoomImagesView.h"
 #import "MerchandiseParametersPicker.h"
 #import "TransitionViewController.h"
+#import "PurchaseViewController.h"
 
 @interface MerchandiseDetailViewController2 : TransitionViewController<UIScrollViewDelegate, UIWebViewDelegate, MerchandiseParametersPickerDelegate>
 

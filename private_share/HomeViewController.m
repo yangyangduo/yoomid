@@ -18,8 +18,6 @@
 #import "UIDevice+ScreenSize.h"
 #import "Account.h"
 
-#import "DMOfferWallManager.h"
-
 #import "CashPaymentTypePicker.h"
 #import "YoomidRectModalView.h"
 
@@ -294,9 +292,6 @@
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
     if([@"domob" isEqualToString:identifier]) {
-        DMOfferWallManager *domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
-        domobOfferWall.disableStoreKit = YES;
-        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
     }
     
     [currentModalView closeViewAnimated:NO completion:nil];

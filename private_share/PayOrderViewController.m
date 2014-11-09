@@ -16,6 +16,8 @@
 #import "alipay/AlixLibService.h"
 #import "alipay/AlixPayResult.h"
 #import "alipay/RSA/DataVerifier.h"
+#import "MerchandiseOrdersViewController.h"
+#import "UINavigationViewInitializer.h"
 
 @interface PayOrderViewController ()
 
@@ -33,7 +35,16 @@
 
 @synthesize aliPayment = _aliPayment;
 @synthesize wxPayment = _wxPayment;
+@synthesize index;
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        index = 0;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -177,7 +188,7 @@
 {
     AlixPayResult* result = notif.object;
     if (result.statusCode == 9000) {
-        [self dismissViewController];
+        [self PaySuccess];
     }
 }
 
@@ -202,7 +213,7 @@
                 //验证签名成功，交易结果无篡改
                 [[XXAlertView currentAlertView] setMessage:@"payOrderVC支付宝支付成功!" forType:AlertViewTypeSuccess];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-                [self dismissViewController];
+                [self PaySuccess];
 			}
         }
         else if (result.statusCode == 6001)
@@ -357,10 +368,10 @@
         case WXSuccess:
             [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
             [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-            [self dismissViewController];
+            [self PaySuccess];
             break;
         case WXErrCodeUserCancel:
-            [[XXAlertView currentAlertView] setMessage:@"支付取消!" forType:AlertViewTypeFailed];
+            [[XXAlertView currentAlertView] setMessage:@"支付被取消!" forType:AlertViewTypeFailed];
             [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
             break;
         default:
@@ -370,9 +381,27 @@
     }
 }
 
+- (void)PaySuccess
+{
+    if (index == 0) {
+        [self dismissViewController];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        MerchandiseOrdersViewController *order = [[MerchandiseOrdersViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:order];
+        [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+        [self.navigationController pushViewController:order animated:YES];
+    }
+}
 
 - (void)dismissViewController {
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+//    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 @end

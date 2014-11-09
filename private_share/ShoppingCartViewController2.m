@@ -182,6 +182,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if([ShoppingCart myShoppingCart].shopShoppingItemss == nil) return 0;
+    NSLog(@"多少：%d", [ShoppingCart myShoppingCart].shopShoppingItemss.count);
     return [ShoppingCart myShoppingCart].shopShoppingItemss.count;
 }
 
@@ -201,6 +202,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+
     ShopShoppingItems *ssi = [[ShoppingCart myShoppingCart].shopShoppingItemss objectAtIndex:indexPath.section];
     CGFloat height = [ShoppingItemCell calcCellHeightWithShoppingItem:[ssi.shoppingItems objectAtIndex:indexPath.row]];
     return CGSizeMake(self.view.bounds.size.width, height);

@@ -136,8 +136,6 @@
 		6F72C1961976831900100D12 /* PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72C1951976831900100D12 /* PaymentButton.m */; };
 		6F74E1D01949EE7F00C7E3D6 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74E1CF1949EE7F00C7E3D6 /* Account.m */; };
 		6F75A53A1957FE7700E4FE52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12F37E195020C500B47132 /* MapKit.framework */; };
-		6F75A541195800EA00E4FE52 /* DomobOfferWallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F75A53D195800EA00E4FE52 /* DomobOfferWallBundle.bundle */; };
-		6F75A542195800EA00E4FE52 /* libDMOfferWallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F75A540195800EA00E4FE52 /* libDMOfferWallSDK.a */; };
 		6F75A5431958011C00E4FE52 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F75A5231957F85E00E4FE52 /* CoreMedia.framework */; };
 		6F75A5441958012B00E4FE52 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F75A5251957F86700E4FE52 /* AVFoundation.framework */; };
 		6F75A5451958013E00E4FE52 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F75A5271957F87400E4FE52 /* CoreLocation.framework */; };
@@ -304,6 +302,10 @@
 		D668AF401A0B0D9F00940200 /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */; };
 		D668AF431A0B551000940200 /* AllShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF421A0B551000940200 /* AllShopInfo.m */; };
 		D668AF461A0BA18F00940200 /* DisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF451A0BA18F00940200 /* DisclaimerViewController.m */; };
+		D668AF491A0C6E0000940200 /* ConsigneeManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF481A0C6E0000940200 /* ConsigneeManageViewController.m */; };
+		D668AF4C1A0C78A300940200 /* Consignee.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF4B1A0C78A300940200 /* Consignee.m */; };
+		D668AF4F1A0C996800940200 /* ConsigneeModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF4E1A0C996800940200 /* ConsigneeModifyViewController.m */; };
+		D668AF521A0FB7E400940200 /* ConsigneeAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF511A0FB7E400940200 /* ConsigneeAddViewController.m */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
 		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
@@ -666,9 +668,6 @@
 		6F75A5251957F86700E4FE52 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6F75A5271957F87400E4FE52 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6F75A5381957FE4F00E4FE52 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		6F75A53D195800EA00E4FE52 /* DomobOfferWallBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DomobOfferWallBundle.bundle; sourceTree = "<group>"; };
-		6F75A53F195800EA00E4FE52 /* DMOfferWallManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMOfferWallManager.h; sourceTree = "<group>"; };
-		6F75A540195800EA00E4FE52 /* libDMOfferWallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDMOfferWallSDK.a; sourceTree = "<group>"; };
 		6F75A547195801F400E4FE52 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6F7657DF19345C7C003BF61C /* private_share.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = private_share.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7657E219345C7C003BF61C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -925,6 +924,14 @@
 		D668AF421A0B551000940200 /* AllShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllShopInfo.m; sourceTree = "<group>"; };
 		D668AF441A0BA18F00940200 /* DisclaimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclaimerViewController.h; sourceTree = "<group>"; };
 		D668AF451A0BA18F00940200 /* DisclaimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclaimerViewController.m; sourceTree = "<group>"; };
+		D668AF471A0C6E0000940200 /* ConsigneeManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeManageViewController.h; sourceTree = "<group>"; };
+		D668AF481A0C6E0000940200 /* ConsigneeManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeManageViewController.m; sourceTree = "<group>"; };
+		D668AF4A1A0C78A300940200 /* Consignee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consignee.h; sourceTree = "<group>"; };
+		D668AF4B1A0C78A300940200 /* Consignee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Consignee.m; sourceTree = "<group>"; };
+		D668AF4D1A0C996800940200 /* ConsigneeModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeModifyViewController.h; sourceTree = "<group>"; };
+		D668AF4E1A0C996800940200 /* ConsigneeModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeModifyViewController.m; sourceTree = "<group>"; };
+		D668AF501A0FB7E400940200 /* ConsigneeAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeAddViewController.h; sourceTree = "<group>"; };
+		D668AF511A0FB7E400940200 /* ConsigneeAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeAddViewController.m; sourceTree = "<group>"; };
 		D66A88FA19B997AC002CE48C /* UserInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoService.h; sourceTree = "<group>"; };
 		D66A88FB19B997AC002CE48C /* UserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoService.m; sourceTree = "<group>"; };
 		D66AF64A19B8516500B9185C /* PickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPopupView.h; sourceTree = "<group>"; };
@@ -1162,7 +1169,6 @@
 				D6DD76A919D0798B00133CD1 /* TencentOpenAPI.framework in Frameworks */,
 				6F66B5BC194AEB09008A948C /* CFNetwork.framework in Frameworks */,
 				6F5B5E1F19B5689000495F0C /* libMobClickLibrary.a in Frameworks */,
-				6F75A542195800EA00E4FE52 /* libDMOfferWallSDK.a in Frameworks */,
 				6F7657E719345C7C003BF61C /* UIKit.framework in Frameworks */,
 				D6DD76B019D0798B00133CD1 /* libWeChatSDK.a in Frameworks */,
 				6F7657E319345C7C003BF61C /* Foundation.framework in Frameworks */,
@@ -1389,6 +1395,8 @@
 				D612A2781A0358B600A3E93A /* RowView.m */,
 				D609BDCB1A09D55200798541 /* Shop.h */,
 				D609BDCC1A09D55200798541 /* Shop.m */,
+				D668AF4A1A0C78A300940200 /* Consignee.h */,
+				D668AF4B1A0C78A300940200 /* Consignee.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1605,7 +1613,6 @@
 		6F66B5A7194AEAB6008A948C /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				6F75A53B1957FF7600E4FE52 /* domob */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -1637,32 +1644,6 @@
 				6F72C1951976831900100D12 /* PaymentButton.m */,
 			);
 			name = image_button;
-			sourceTree = "<group>";
-		};
-		6F75A53B1957FF7600E4FE52 /* domob */ = {
-			isa = PBXGroup;
-			children = (
-				6F75A53C195800EA00E4FE52 /* DMOfferWallSDK */,
-			);
-			name = domob;
-			sourceTree = "<group>";
-		};
-		6F75A53C195800EA00E4FE52 /* DMOfferWallSDK */ = {
-			isa = PBXGroup;
-			children = (
-				6F75A53D195800EA00E4FE52 /* DomobOfferWallBundle.bundle */,
-				6F75A53E195800EA00E4FE52 /* Header */,
-				6F75A540195800EA00E4FE52 /* libDMOfferWallSDK.a */,
-			);
-			path = DMOfferWallSDK;
-			sourceTree = "<group>";
-		};
-		6F75A53E195800EA00E4FE52 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				6F75A53F195800EA00E4FE52 /* DMOfferWallManager.h */,
-			);
-			path = Header;
 			sourceTree = "<group>";
 		};
 		6F7657D619345C7C003BF61C = {
@@ -2331,6 +2312,12 @@
 				D668AF3F1A0B0D9F00940200 /* NewSettingViewController.m */,
 				D668AF441A0BA18F00940200 /* DisclaimerViewController.h */,
 				D668AF451A0BA18F00940200 /* DisclaimerViewController.m */,
+				D668AF471A0C6E0000940200 /* ConsigneeManageViewController.h */,
+				D668AF481A0C6E0000940200 /* ConsigneeManageViewController.m */,
+				D668AF4D1A0C996800940200 /* ConsigneeModifyViewController.h */,
+				D668AF4E1A0C996800940200 /* ConsigneeModifyViewController.m */,
+				D668AF501A0FB7E400940200 /* ConsigneeAddViewController.h */,
+				D668AF511A0FB7E400940200 /* ConsigneeAddViewController.m */,
 			);
 			name = new_common;
 			sourceTree = "<group>";
@@ -2755,7 +2742,6 @@
 				D69612C019D3FC300012DC84 /* images3@2x.png in Resources */,
 				D6B3382F19E7D87400851535 /* pay_after@2x.png in Resources */,
 				6FE79C59197CE5CE005B11E1 /* cb_unselect@2x.png in Resources */,
-				6F75A541195800EA00E4FE52 /* DomobOfferWallBundle.bundle in Resources */,
 				D6DD76AA19D0798B00133CD1 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D670D6C419B0770800FB241D /* button@2x.png in Resources */,
 				D6DD76CD19D079CF00133CD1 /* UMSocialLocalizable.strings in Resources */,
@@ -2946,6 +2932,7 @@
 				6FF5333D19387206001D607C /* ButtonUtil.m in Sources */,
 				D69612B419D3B7B60012DC84 /* ShareTaskModalView.m in Sources */,
 				6F8823BA193FFDBD00757633 /* HttpResponse.m in Sources */,
+				D668AF4F1A0C996800940200 /* ConsigneeModifyViewController.m in Sources */,
 				6F53EFE5194B3E6D0080B4DD /* AdPlatform.m in Sources */,
 				6F76F7971966880A00C2FD52 /* MerchandiseView.m in Sources */,
 				D641D90A199C8CEE00CBB929 /* ManageContactInfoViewController.m in Sources */,
@@ -3037,12 +3024,14 @@
 				6FDC950E19AD9F8A00F51E8D /* BackViewController.m in Sources */,
 				D612A2621A02249000A3E93A /* XiaoJiRecommendView.m in Sources */,
 				6F72A3F3193DFF17001DAA3E /* ViewControllerAccessor.m in Sources */,
+				D668AF4C1A0C78A300940200 /* Consignee.m in Sources */,
 				D6D16A361A0871DB00EE56B6 /* MerchandisesOrderFooterView.m in Sources */,
 				6FE009491953DF5C002A675D /* WebViewController.m in Sources */,
 				6F970996193F52CF00EA5E3A /* AccountPoints.m in Sources */,
 				6F97097C193F4DAC00EA5E3A /* SecurityConfig.m in Sources */,
 				D66D120819C0219C005BF0FA /* NotificationsViewController.m in Sources */,
 				D673E5B219ECD5B0008568E9 /* SBJsonWriter.m in Sources */,
+				D668AF491A0C6E0000940200 /* ConsigneeManageViewController.m in Sources */,
 				6FF533271938512E001D607C /* DrawerViewControllerConfig.m in Sources */,
 				6F0177C4196A4DC7003DD9E3 /* ProgressView.m in Sources */,
 				D673E5B019ECD5B0008568E9 /* SBJsonBase.m in Sources */,
@@ -3084,6 +3073,7 @@
 				6F2B51CF19553B740069798A /* ShoppingItemsChangedEvent.m in Sources */,
 				6F41896D1948005900F9DC2C /* HttpFilterContext.m in Sources */,
 				6F76F78919653ABD00C2FD52 /* PortalViewController.m in Sources */,
+				D668AF521A0FB7E400940200 /* ConsigneeAddViewController.m in Sources */,
 				D698655319B58EDE00781F54 /* AgePickerPopupView.m in Sources */,
 				D668AF3D1A0B0C5B00940200 /* PersonCenterViewController.m in Sources */,
 				6F97098D193F52A900EA5E3A /* MerchandiseService.m in Sources */,
@@ -3173,8 +3163,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 大为 曹 (442DA5AY5L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 大为 曹 (442DA5AY5L)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3193,7 +3183,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "57a2ff78-306a-4279-8673-382f23b74b4d";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -3215,8 +3205,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Changsha Hentre Information Technology Co., Ltd. (JJH6E5JL26)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 大为 曹 (442DA5AY5L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 大为 曹 (442DA5AY5L)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3229,7 +3219,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PROVISIONING_PROFILE = "57a2ff78-306a-4279-8673-382f23b74b4d";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
@@ -3264,13 +3254,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
-					"$(PROJECT_DIR)/private_share/libPunchBoxAd",
-					"$(PROJECT_DIR)/private_share/DMOfferWallSDK",
-					"$(PROJECT_DIR)/private_share/DianRuLib",
-					"$(PROJECT_DIR)/private_share/DianRuLib/TalkingData",
-					"$(PROJECT_DIR)/private_share/AdwoLib",
-					"$(PROJECT_DIR)/private_share/AdwoLib/res",
-					"$(PROJECT_DIR)/private_share/MiidiLib",
 					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
 					"$(PROJECT_DIR)/private_share/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_4.1",
@@ -3341,13 +3324,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/private_share",
-					"$(PROJECT_DIR)/private_share/libPunchBoxAd",
-					"$(PROJECT_DIR)/private_share/DMOfferWallSDK",
-					"$(PROJECT_DIR)/private_share/DianRuLib",
-					"$(PROJECT_DIR)/private_share/DianRuLib/TalkingData",
-					"$(PROJECT_DIR)/private_share/AdwoLib",
-					"$(PROJECT_DIR)/private_share/AdwoLib/res",
-					"$(PROJECT_DIR)/private_share/MiidiLib",
 					"$(PROJECT_DIR)/private_share/UMAnalytics_Sdk_3.1.2",
 					"$(PROJECT_DIR)/private_share/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/private_share/UMSocial_Sdk_4.1",

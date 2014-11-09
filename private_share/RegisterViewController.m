@@ -114,21 +114,21 @@
     UILabel *invitationCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, passwordCodeLabel.frame.origin.y+passwordCodeLabel.bounds.size.height+10, 80, 36)];
     invitationCodeLabel.text = @"邀请码:";
     [invitationCodeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    [scrollView addSubview:invitationCodeLabel];
+//    [scrollView addSubview:invitationCodeLabel];
     invitationCodeTextField = [[DefaultStyleTextField alloc]initWithFrame:CGRectMake(90, invitationCodeLabel.frame.origin.y+2, 155, 32)];
     invitationCodeTextField.tag = 500;
     invitationCodeTextField.delegate = self;
     invitationCodeTextField.font = [UIFont systemFontOfSize:14.f];
-    invitationCodeTextField.placeholder = @"6-16位字母+数字";
+    invitationCodeTextField.placeholder = @"没有可以不填";
     invitationCodeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     invitationCodeTextField.borderStyle = UITextBorderStyleRoundedRect;
     invitationCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     invitationCodeTextField.backgroundColor = [UIColor whiteColor];
     invitationCodeTextField.returnKeyType = UIReturnKeyDone;
-    [scrollView addSubview:invitationCodeTextField];
+//    [scrollView addSubview:invitationCodeTextField];
     
     registerButton = [[UIButton alloc]initWithFrame:CGRectMake(60, invitationCodeTextField.frame.origin.y+invitationCodeTextField.bounds.size.height+25, 200, 36)];
-    
+    registerButton.frame = CGRectMake(60, passwordCodeLabel.frame.origin.y+passwordCodeLabel.bounds.size.height+25, 200, 36);
     [registerButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
     [registerButton setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
     registerButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
@@ -240,7 +240,7 @@
     [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"waitting", @"") forType:AlertViewTypeWaitting];
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
     AccountService *accountService = [[AccountService alloc] init];
-    [accountService registerWithUserName:mobileTextField.text verifyCode:verifyCodeTextField.text invitationCode:invitationCodeTextField.text password:passwordTextField.text target:self success:@selector(registerSuccess:) failure:@selector(handleFailureHttpResponse:)];
+    [accountService registerWithUserName:mobileTextField.text verifyCode:verifyCodeTextField.text invitationCode:@"" password:passwordTextField.text target:self success:@selector(registerSuccess:) failure:@selector(handleFailureHttpResponse:)];
     
 }
 

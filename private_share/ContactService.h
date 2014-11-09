@@ -11,9 +11,11 @@
 @interface ContactService : BaseService
 
 
--(void)addContactName:(NSString*)name phoneNumber:(NSString*)phoneNumber address:(NSString*)address target:(id)target success:(SEL)success failure:(SEL)failure;
+-(void)addContactIsDefaule:(NSString *)isDefaule name:(NSString*)name phoneNumber:(NSString*)phoneNumber address:(NSString*)address target:(id)target success:(SEL)success failure:(SEL)failure;
 
 -(void)getContactInfo:(id)target success:(SEL)success failure:(SEL)failure;
 -(void)deleteContactInfo:(NSString*)contactID target:(id)target success:(SEL)success failure:(SEL)failure;
 -(void)updateContactInfo:(NSString*)contactID name:(NSString*)name phoneNumber:(NSString*)phoneNumber address:(NSString*)address target:(id)target success:(SEL)success failure:(SEL)failure;
+
+- (void)setDefauleContact:(NSString *)contactID target:(id)target success:(SEL)success failure:(SEL)failure;
 @end

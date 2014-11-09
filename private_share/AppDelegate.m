@@ -156,6 +156,7 @@
                         //验证签名成功，交易结果无篡改
                 [[XXAlertView currentAlertView] setMessage:@"支付成功!" forType:AlertViewTypeSuccess];
                 [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"AliPaymentResult" object:result];
             }
         }
         else if (result.statusCode == 6001)
@@ -174,7 +175,6 @@
     {
         //失败
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"AliPaymentResult" object:result];
 
 }
 - (AlixPayResult *)resultFromURL:(NSURL *)url {

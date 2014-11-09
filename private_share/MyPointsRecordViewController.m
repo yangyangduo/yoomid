@@ -222,7 +222,7 @@ NSString * const kLevelKey = @"levels.key";
         UpgradeBtn.enabled = NO;
         if (jsonD != nil) {
             UpgradeTask *upgradeTask =[[UpgradeTask alloc]initWithJson:jsonD];
-            UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"答对升级奖励任务,获额外米米!"  upgradeTask:upgradeTask];
+            UsersUpgradeModalView *upgrade = [[UsersUpgradeModalView alloc]initWithSize:CGSizeMake(500/2, 761/2) backgroundImage:[UIImage imageNamed:@"bg6"] titleMessage:@"恭喜哈尼升级了,么么哒!" message:@"恭喜哈尼答对了!"  upgradeTask:upgradeTask];
             upgrade.deletage = self;
             upgrade.shareType = ShareTypeUser;
             [upgrade showInView:[UIApplication sharedApplication].keyWindow completion:nil];

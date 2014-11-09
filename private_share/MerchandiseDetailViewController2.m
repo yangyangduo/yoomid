@@ -11,8 +11,8 @@
 #import "UIImage+Color.h"
 #import "UIDevice+ScreenSize.h"
 #import "ShoppingCartViewController2.h"
-#import "PurchaseViewController.h"
 #import "UINavigationViewInitializer.h"
+#import "PayOrderViewController.h"
 
 @implementation MerchandiseDetailViewController2 {
     UIWebView *htmlView;
@@ -203,6 +203,8 @@
         [self rightPresentViewController:navigationController animated:YES];
     }
 }
+
+#pragma mark - 
 
 - (NSString *)errorHtml {
     NSMutableString *html = [[NSMutableString alloc] init];

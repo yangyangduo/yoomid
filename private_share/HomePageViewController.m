@@ -26,7 +26,6 @@
 #import "XiaoJiRecommendTemplateViewController.h"
 #import "MerchandiseTemplateTwoViewController.h"
 #import "MerchandiseTemplateOneViewController.h"
-#import "DMOfferWallManager.h"
 #import "NewSettingViewController.h"
 #import "Shop.h"
 #import "AllShopInfo.h"
@@ -98,8 +97,8 @@
     
     UIButton *experienceCenterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 60, self.view.bounds.size.height - 100, 105/2, 131/2)];
     [experienceCenterButton setImage:[UIImage imageNamed:@"up_down1"] forState:UIControlStateNormal];
-    [experienceCenterButton addTarget:self action:@selector(showExperienceCenter:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:experienceCenterButton];
+//    [experienceCenterButton addTarget:self action:@selector(showExperienceCenter:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:experienceCenterButton];
     
     [self getMerchandisesTemplate];
 }
@@ -144,22 +143,16 @@
 
 //体验中心
 - (void)showExperienceCenter:(id *)sender {
-    AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 320)];
-    modalView.delegate = self;
-    modalView.modalViewDelegate = self;
-    currentModalView = modalView;
-    [self.animationController disableGesture];
-    [modalView showInView:self.view completion:^{  }];
+//    AdPlatformPickerView *modalView = [[AdPlatformPickerView alloc] initWithSize:CGSizeMake(300, 320)];
+//    modalView.delegate = self;
+//    modalView.modalViewDelegate = self;
+//    currentModalView = modalView;
+//    [self.animationController disableGesture];
+//    [modalView showInView:self.view completion:^{  }];
 
 }
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    if([@"domob" isEqualToString:identifier]) {
-        DMOfferWallManager *domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
-        domobOfferWall.disableStoreKit = YES;
-        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
-    }
-    
     [currentModalView closeViewAnimated:NO completion:nil];
 }
 
@@ -373,6 +366,13 @@
         Merchandise *merchandises_ = [_activities_ objectAtIndex:pageIndex];
         ColumnView *column = [[ColumnView alloc] init];
         column.cid = merchandises_.shopId;
+        
+        for (Shop *shopping in [[AllShopInfo allShopInfo] getAllShopInfo]) {
+            if ([shopping.shopId isEqualToString:merchandises_.shopId]) {
+                column.names = shopping.shopName;
+                break;
+            }
+        }
         id merchandiseTemplate = nil;
 
         if ([merchandises_.viewType isEqual:@"1"]) { //单列大图,小吉推荐列表模式

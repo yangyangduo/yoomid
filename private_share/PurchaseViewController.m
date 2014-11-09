@@ -27,12 +27,11 @@
 #import "OrderResult.h"
 #import "ReturnMessage.h"
 #import "CashPaymentTypePicker.h"
-#import "WXPayRequest.h"
-#import "AliPaymentModal.h"
 #import "alipay/AlixLibService.h"
 #import "PayOrderViewController.h"
 #import "AllShopInfo.h"
 #import "Shop.h"
+#import "Consignee.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -98,8 +97,11 @@
     _table_view_.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table_view_];
     
+//    contactDisplayView = [[ContactDisplayView alloc] initWithFrame:
+//                          CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0) contact:[ShoppingCart myShoppingCart].orderContact];
+    
     contactDisplayView = [[ContactDisplayView alloc] initWithFrame:
-                          CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0) contact:[ShoppingCart myShoppingCart].orderContact];
+                          CGRectMake(0, -kContactDisplayViewHeight, [UIScreen mainScreen].bounds.size.width, 0)];
     
     UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushContactInfo:)];
     [contactDisplayView addGestureRecognizer:tapGesture2];
@@ -206,18 +208,18 @@
 }
 
 - (void)mayGetContactInfo {
-    BOOL isExpired;
-    NSArray *_contacts_ = [[DiskCacheManager manager] contacts:&isExpired];
+//    BOOL isExpired;
+//    NSArray *_contacts_ = [[DiskCacheManager manager] contacts:&isExpired];
+//    
+//    if(_contacts_ != nil) {
+//        contacts = [NSMutableArray arrayWithArray:_contacts_];
+//        [contactDisplayView setCurrentContact:[self defaultContact]];
+//        [ShoppingCart myShoppingCart].orderContact = [self defaultContact];
+//    }
     
-    if(_contacts_ != nil) {
-        contacts = [NSMutableArray arrayWithArray:_contacts_];
-        [contactDisplayView setCurrentContact:[self defaultContact]];
-        [ShoppingCart myShoppingCart].orderContact = [self defaultContact];
-    }
-    
-    if(isExpired || _contacts_ == nil) {
+//    if(isExpired || _contacts_ == nil) {
         [self getContactInfo];
-    }
+//    }
 }
 
 - (void)getContactInfo {
@@ -232,6 +234,19 @@
         } else {
             [contacts removeAllObjects];
         }
+        NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        if(_contacts_ != nil) {
+            for(int i=0; i<_contacts_.count; i++) {
+                NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
+                Consignee *consignee = [[Consignee alloc] initWithJson:contactJson];
+                if ([consignee.isDefault isEqualToString:@"1"]) {
+                    [contactDisplayView setCurrentConsignee:consignee];
+                }
+                [contacts addObject:consignee];
+            }
+        }
+        
+        /*
         Contact *defaultContact = nil;
         NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         if(_contacts_ != nil) {
@@ -258,6 +273,7 @@
         
         [ShoppingCart myShoppingCart].orderContact = defaultContact == nil ? nil : [defaultContact copy];
         [contactDisplayView setCurrentContact:defaultContact];
+         */
     } else {
         [self handleFailureHttpResponse:resp];
     }
@@ -277,16 +293,16 @@
 }
 
 - (void)pushContactInfo:(id)sender {
-    if (contacts == nil || contacts.count == 0) {
-        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
-        [self.navigationController pushViewController:add animated:YES];
-    }
-    else
-    {
+//    if (contacts == nil || contacts.count == 0) {
+//        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
+//        [self.navigationController pushViewController:add animated:YES];
+//    }
+//    else
+//    {
         SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
         selectContactAddress.delegate = self;
         [self.navigationController pushViewController:selectContactAddress animated:YES];
-    }
+//    }
 }
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
@@ -414,7 +430,8 @@
 #pragma mark Submit merchandise order
 
 - (void)purchaseButtonPressed:(id)sender {
-    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
+//    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
+    if(contactDisplayView.currentConsignee == nil) {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"contact_required", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
@@ -448,7 +465,8 @@
                                     @"basicInfo" : @{
                                     @"shopId" : ssi.shopID,
                                     @"shippingPaymentType" : [NSNumber numberWithInteger:ssi.postPaymentType],
-                                    @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
+//                                    @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
+                                    @"contactId" : contactDisplayView.currentConsignee.identifier,
                                     @"remark" : (ssi.remark == nil ? @"" : ssi.remark),
                                     },
                                     @"shoppingItems" : shoppingItems
@@ -530,7 +548,7 @@
                         [modalView showInView:self.navigationController.view completion:nil];
                     }
                     else{  //不需要支付现金,购买成功！
-                        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享" ] cancelButtonIndex:0];
+                        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享",@"确定" ] cancelButtonIndex:0];
                         modal.shareDeletage = self;
                         [modal showInView:self.navigationController.view completion:nil];
                         
@@ -591,20 +609,29 @@
     PayOrderViewController *payOrderVC = [[PayOrderViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:payOrderVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+
+    
     if ([identifier isEqualToString:@"weixinPay"]) {
         payOrderVC.paymentMode = PaymentModeWXPay;
         payOrderVC.wxPayment = wxPayRequest;
-        [self.navigationController presentViewController:navigationController animated:YES completion:^{
-        }];
+        payOrderVC.index = 1;
+        [self.navigationController pushViewController:payOrderVC animated:YES];
+//        [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        
+//        }];
     }else if ([identifier isEqualToString:@"taobaoPay"])
     {
         payOrderVC.paymentMode = PaymentModeAliPay;
         payOrderVC.aliPayment = aliPay;
-        [self.navigationController presentViewController:navigationController animated:YES completion:^{
-        }];
+        payOrderVC.index = 1;
+        [self.navigationController pushViewController:payOrderVC animated:YES];
+//        [self.navigationController presentViewController:navigationController animated:YES completion:^{
+//        }];
     }else if ([identifier isEqualToString:@"alterPay"])
     {
-        
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
     }
 }
 

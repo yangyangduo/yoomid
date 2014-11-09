@@ -12,8 +12,20 @@
 #import "TransitionViewController.h"
 #import "YoomidRectModalView.h"
 #import "CategoryButtonItem.h"
+#import "WXPayRequest.h"
+#import "AliPaymentModal.h"
+
+//@protocol PurchanseVCDelegate <NSObject>
+//
+//- (void)WXPay:(WXPayRequest *)wxPay;
+//- (void)AilPay:(AliPaymentModal *)aliPay;
+//- (void)PointPay;
+//
+//@end
 
 @interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage,CategoryButtonItemDelegate>
+
+//@property (nonatomic, assign) id<PurchanseVCDelegate>delegate;
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart;
 

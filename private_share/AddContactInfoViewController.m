@@ -114,7 +114,7 @@
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
 
     ContactService *contactSerice = [[ContactService alloc]init];
-    [contactSerice addContactName:name.text phoneNumber:phoneNumber.text address:address.text target:self success:@selector(addContactSucess:) failure:@selector(handleFailureHttpResponse:)];
+    [contactSerice addContactIsDefaule:nil name:name.text phoneNumber:phoneNumber.text address:address.text target:self success:@selector(addContactSucess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 -(void)addContactSucess:(HttpResponse *)resp

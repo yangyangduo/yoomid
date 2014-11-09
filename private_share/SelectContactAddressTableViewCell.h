@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Contact.h"
+#import "Consignee.h"
 
 @interface SelectContactAddressTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)Contact *contact;
+@property (nonatomic,strong)Consignee *consignee;
 @property (nonatomic,strong)UIImageView *selectedImageView;
 @end

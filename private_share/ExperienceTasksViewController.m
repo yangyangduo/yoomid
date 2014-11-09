@@ -8,16 +8,16 @@
 
 #import "ExperienceTasksViewController.h"
 
-#import "DMOfferWallManager.h"
+//#import "DMOfferWallManager.h"
 #import "SecurityConfig.h"
 #import "Constants.h"
-#import <immobSDK/immobView.h>
+//#import <immobSDK/immobView.h>
 
 @implementation ExperienceTasksViewController {
     UITableView *taskTableView;
     
-    DMOfferWallManager *domobOfferWall;
-    immobView *limeiAdWall;
+//    DMOfferWallManager *domobOfferWall;
+//    immobView *limeiAdWall;
 }
 
 //adwo error list
@@ -92,43 +92,43 @@ static NSString* const errCodeList[] = {
         cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     }
     
-    if(indexPath.row == 0) {
-        cell.textLabel.text = NSLocalizedString(@"youmi", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    } else if(indexPath.row == 1) {
-        cell.textLabel.text = NSLocalizedString(@"domob", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_domob"];
-    } else if(indexPath.row == 2) {
-        cell.textLabel.text = NSLocalizedString(@"cocounion", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    } else if(indexPath.row == 3) {
-        cell.textLabel.text = NSLocalizedString(@"dianru", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    }else if(indexPath.row == 4) {
-        cell.textLabel.text = NSLocalizedString(@"limei", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    }else if(indexPath.row == 5) {
-        cell.textLabel.text = NSLocalizedString(@"adwo", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    }else if(indexPath.row == 6) {
-        cell.textLabel.text = NSLocalizedString(@"miidi", @"");
-        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
-    }
+//    if(indexPath.row == 0) {
+//        cell.textLabel.text = NSLocalizedString(@"youmi", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    } else if(indexPath.row == 1) {
+//        cell.textLabel.text = NSLocalizedString(@"domob", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_domob"];
+//    } else if(indexPath.row == 2) {
+//        cell.textLabel.text = NSLocalizedString(@"cocounion", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    } else if(indexPath.row == 3) {
+//        cell.textLabel.text = NSLocalizedString(@"dianru", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    }else if(indexPath.row == 4) {
+//        cell.textLabel.text = NSLocalizedString(@"limei", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    }else if(indexPath.row == 5) {
+//        cell.textLabel.text = NSLocalizedString(@"adwo", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    }else if(indexPath.row == 6) {
+//        cell.textLabel.text = NSLocalizedString(@"miidi", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"icon_experience"];
+//    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0) {
+//    if(indexPath.row == 0) {
 //        [YouMiWall showOffers:YES didShowBlock:^{
 //        } didDismissBlock:^{
 //        }];
-    } else if(indexPath.row == 1) {
-        if(domobOfferWall == nil) {
-            domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
-            domobOfferWall.disableStoreKit = YES;
-        }
-        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
-    }
+//    } else if(indexPath.row == 1) {
+//        if(domobOfferWall == nil) {
+//            domobOfferWall = [[DMOfferWallManager alloc] initWithPublisherID:kDomobSecretKey andUserID:[SecurityConfig defaultConfig].userName];
+//            domobOfferWall.disableStoreKit = YES;
+//        }
+//        [domobOfferWall presentOfferWallWithType:eDMOfferWallTypeList];
+//    }
 //    else if(indexPath.row == 2) {
 //        [[PBOfferWall sharedOfferWall] loadOfferWall:[PBADRequest request]];
 //        [[PBOfferWall sharedOfferWall] showOfferWallWithScale:0.9f];

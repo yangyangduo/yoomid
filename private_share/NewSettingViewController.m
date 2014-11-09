@@ -16,6 +16,7 @@
 #import "MerchandiseOrdersViewController.h"
 #import "ManageContactInfoViewController.h"
 #import "DiskCacheManager.h"
+#import "ConsigneeManageViewController.h"
 
 @implementation NewSettingViewController
 {
@@ -212,7 +213,8 @@
                 [self.navigationController pushViewController:[[MerchandiseOrdersViewController alloc] init] animated:YES];
             }else  //收获地址管理
             {
-                [self.navigationController pushViewController:[[ManageContactInfoViewController alloc] initWithContactInfo:contacts] animated:YES];
+//                [self.navigationController pushViewController:[[ManageContactInfoViewController alloc] initWithContactInfo:contacts] animated:YES];
+                [self.navigationController pushViewController:[[ConsigneeManageViewController alloc] init] animated:YES];
             }
         }
             break;

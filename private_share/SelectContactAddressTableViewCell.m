@@ -45,6 +45,30 @@
     return self;
 }
 
+-(void)setConsignee:(Consignee *)consignee
+{
+    if (consignee == nil) {
+        return;
+    }
+    NSString *nameAndPhoneStr = [NSString stringWithFormat:@"%@  %@",consignee.name,consignee.phoneNumber];
+    nameAndPhone.text = nameAndPhoneStr;
+    
+    NSMutableAttributedString *addressAttributedStr = [[NSMutableAttributedString alloc] init];
+    if ([consignee.isDefault isEqualToString:@"1"]) {
+        [addressAttributedStr appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", @"[默认]"] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:11.f] }]];
+    }
+    [addressAttributedStr appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"收货地址:%@",consignee.address] attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName :  [UIFont systemFontOfSize:11.f] }]];
+    
+    
+    NSString *addressStr = [NSString stringWithFormat:@"[默认]收货地址:%@",consignee.address];
+    
+    address.attributedText = addressAttributedStr;
+    
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:11.f]};
+    CGSize addressLabelSize = [addressStr boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-70, 100) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    address.frame = CGRectMake(20, 38, addressLabelSize.width, addressLabelSize.height);
+}
+
 -(void)setContact:(Contact *)contact
 {
     if (contact == nil)return;

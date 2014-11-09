@@ -76,7 +76,7 @@
 - (void)setShopId:(NSString *)shopId {
     _shopId_ = shopId;
 //    titleLabel.text = @"小吉商城";
-    titleLabel.text = shopId;
+//    titleLabel.text = shopId;
     if(!hideSelectButton) {
         selectButton.selected = [[ShoppingCart myShoppingCart] selectWithShopId:_shopId_];
     }

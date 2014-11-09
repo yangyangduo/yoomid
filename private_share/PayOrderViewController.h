@@ -20,6 +20,8 @@ typedef NS_ENUM (NSUInteger, PaymentMode){
 
 @interface PayOrderViewController : BaseViewController<WXApiDelegate>
 
+@property (nonatomic, assign) NSInteger index;
+
 @property (nonatomic, assign) PaymentMode paymentMode;
 @property (nonatomic, strong) WXPayRequest *wxPayment;
 @property (nonatomic, strong) AliPaymentModal *aliPayment;
