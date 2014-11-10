@@ -32,6 +32,8 @@
 #import "alipay/RSA/DataVerifier.h"
 
 #import "HomePageViewController.h"
+#import "AccountService.h"
+
 @implementation AppDelegate
 
 
@@ -97,19 +99,55 @@
 //    [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
     [ViewControllerAccessor defaultAccessor].homePageViewController = homePageViewController;
 
+    if ([SecurityConfig defaultConfig].isFirstLogin) {
+        [navigationController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{}];
+    }
     
-    if(![SecurityConfig defaultConfig].isLogin) {
-        UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-        [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
-        [homePageViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
-        if ([SecurityConfig defaultConfig].isFirstLogin) {
-                    [loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
-        }
-    } else {
+    if ([[SecurityConfig defaultConfig].userName isEqualToString:@"guest"]) {
+        [self guestLogin];
+    }else
+    {
         [self doAfterLogin];
     }
     
+//    return YES;
+//    
+//    if(![SecurityConfig defaultConfig].isLogin) {
+//        UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+//        [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
+//        [homePageViewController presentViewController:loginNavigationViewController animated:NO completion:^{ }];
+//        if ([SecurityConfig defaultConfig].isFirstLogin) {
+//                    [loginNavigationViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{ }];
+//        }
+//    } else {
+//        [self doAfterLogin];
+//    }
+    
     return YES;
+}
+
+//游客登陆
+- (void)guestLogin{
+    AccountService *accountService = [[AccountService alloc] init];
+    [accountService loginWithUserName:@"guest" password:@"123456" target:self success:@selector(loginSuccess:) failure:@selector(lofinFailure:)];
+}
+
+- (void)loginSuccess:(HttpResponse *)resp {
+    if(resp.statusCode == 201) {
+        NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+//        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [self doAfterLoginWithUserName:@"guest" securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
+        
+        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] delayDismissAlertView];
+    
+        return;
+    }
+    [self lofinFailure:resp];
+}
+
+- (void)lofinFailure:(HttpResponse *)resp {
+    [[ViewControllerAccessor defaultAccessor].homePageViewController handleFailureHttpResponse:resp];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -250,7 +288,7 @@
 
 - (void)doAfterLogin {
     if([SecurityConfig defaultConfig].isLogin) {
-        [self initAdPlatforms];
+//        [self initAdPlatforms];
         [Account currentAccount].accountId = [SecurityConfig defaultConfig].userName;
         [[Account currentAccount] refresh];
         [[DiskCacheManager manager] serveForAccount:[SecurityConfig defaultConfig].userName];

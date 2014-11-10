@@ -158,6 +158,11 @@
 
 //显示 选择商品参数的 view
 - (void)showParameterPickerView:(UIButton *)sender {
+    if ([[SecurityConfig defaultConfig] isGuestLogin]) {
+        [self userLogin];
+        return;
+    }
+
     MerchandiseParametersPicker *picker = [MerchandiseParametersPicker pickerWithMerchandise:self.merchandise];
     picker.delegate = self;
     if(sender.tag == 200) {
@@ -169,6 +174,12 @@
 }
 
 - (void)showMiRepo:(id)sender {
+    //判断是否是游客,是就要登陆
+    if ([[SecurityConfig defaultConfig] isGuestLogin]) {
+        [self userLogin];
+        return;
+    }
+
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];

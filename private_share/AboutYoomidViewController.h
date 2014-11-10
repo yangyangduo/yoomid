@@ -7,8 +7,8 @@
 //
 
 #import "BaseViewController.h"
-#import "WebViewController.h"
+#import "BackViewController.h"
 
-@interface AboutYoomidViewController : WebViewController
+@interface AboutYoomidViewController : BackViewController
 
 @end

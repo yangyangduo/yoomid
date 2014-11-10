@@ -10,6 +10,8 @@
 #import "ReturnMessage.h"
 #import "AppDelegate.h"
 #import "ViewControllerAccessor.h"
+#import "LoginViewController.h"
+#import "UINavigationViewInitializer.h"
 
 @interface BaseViewController ()
 
@@ -180,6 +182,13 @@
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIViewController *topViewController = app.topViewController;
     NSLog(@"Top view controller is [%@].", [[topViewController class] description]);
+}
+
+//如果是游客,就显示登陆界面
+- (void)userLogin{
+    UINavigationController *loginNavigationViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+    [UINavigationViewInitializer initialWithDefaultStyle:loginNavigationViewController];
+    [self presentViewController:loginNavigationViewController animated:YES completion:^{ }];
 }
 
 - (void)showShareTitle:(NSString *)title text:(NSString *)text imageName:(NSString *)imageName imageUrl:(NSString *)imageurl contentUrl:(NSString *)contentUrl

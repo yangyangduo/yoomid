@@ -20,4 +20,5 @@
 - (void)saveConfig;
 - (void)clearAuthenticationInfo;
 
+- (BOOL)isGuestLogin;
 @end

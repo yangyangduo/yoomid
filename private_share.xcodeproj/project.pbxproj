@@ -306,6 +306,7 @@
 		D668AF4C1A0C78A300940200 /* Consignee.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF4B1A0C78A300940200 /* Consignee.m */; };
 		D668AF4F1A0C996800940200 /* ConsigneeModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF4E1A0C996800940200 /* ConsigneeModifyViewController.m */; };
 		D668AF521A0FB7E400940200 /* ConsigneeAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D668AF511A0FB7E400940200 /* ConsigneeAddViewController.m */; };
+		D668AF541A1050F600940200 /* weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D668AF531A1050F600940200 /* weixin@2x.png */; };
 		D66A88FC19B997AC002CE48C /* UserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = D66A88FB19B997AC002CE48C /* UserInfoService.m */; };
 		D66AF64C19B8516500B9185C /* PickerPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = D66AF64B19B8516500B9185C /* PickerPopupView.m */; };
 		D66B497619B416C9002615CC /* add2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D66B497519B416C9002615CC /* add2@2x.png */; };
@@ -932,6 +933,7 @@
 		D668AF4E1A0C996800940200 /* ConsigneeModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeModifyViewController.m; sourceTree = "<group>"; };
 		D668AF501A0FB7E400940200 /* ConsigneeAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeAddViewController.h; sourceTree = "<group>"; };
 		D668AF511A0FB7E400940200 /* ConsigneeAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeAddViewController.m; sourceTree = "<group>"; };
+		D668AF531A1050F600940200 /* weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weixin@2x.png"; sourceTree = "<group>"; };
 		D66A88FA19B997AC002CE48C /* UserInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoService.h; sourceTree = "<group>"; };
 		D66A88FB19B997AC002CE48C /* UserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoService.m; sourceTree = "<group>"; };
 		D66AF64A19B8516500B9185C /* PickerPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPopupView.h; sourceTree = "<group>"; };
@@ -1419,6 +1421,7 @@
 		6F3D22DD1963EC4A00F52F18 /* activities */ = {
 			isa = PBXGroup;
 			children = (
+				D668AF531A1050F600940200 /* weixin@2x.png */,
 				D6BD165919D11FAB006AE1C1 /* bg_gray_transport_big@2x.png */,
 				6F7261F9195AAFCA00BD17D8 /* black_bottom@2x.png */,
 				6F7261F6195A92C500BD17D8 /* black_top@2x.png */,
@@ -2804,6 +2807,7 @@
 				6F2C52C519751D2C0045BFC1 /* guide3@2x.png in Resources */,
 				D676302819A7741C0015CADF /* level10@2x.png in Resources */,
 				6F86B68719778AB800B4FCDE /* go@2x.png in Resources */,
+				D668AF541A1050F600940200 /* weixin@2x.png in Resources */,
 				D673E5AB19ECD5B0008568E9 /* Alixpay.bundle in Resources */,
 				D681286D19D4FCFF00751784 /* tuxing@2x.png in Resources */,
 				D69612B619D3F0340012DC84 /* setup5@2x.png in Resources */,

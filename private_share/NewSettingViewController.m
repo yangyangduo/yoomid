@@ -17,6 +17,7 @@
 #import "ManageContactInfoViewController.h"
 #import "DiskCacheManager.h"
 #import "ConsigneeManageViewController.h"
+#import "AboutYoomidViewController.h"
 
 @implementation NewSettingViewController
 {
@@ -224,7 +225,8 @@
                 [self.navigationController pushViewController:[[PasswordChangeViewController alloc] init] animated:YES];
             }else  //关于有米得
             {
-                
+                AboutYoomidViewController *about = [[AboutYoomidViewController alloc] init];
+                [self.navigationController pushViewController:about animated:YES];
             }
         }
             break;

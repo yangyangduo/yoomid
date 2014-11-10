@@ -77,8 +77,8 @@
     wxPayRequest = [[WXPayRequest alloc]init];
     aliPay = [[AliPaymentModal alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
     
@@ -192,20 +192,20 @@
 #pragma mark -
 #pragma mark Contacts
 
-- (void)deleteContactArray:(NSNotification*)notif {
-    contacts = notif.object;
-    if (contacts.count > 0) {
-        _select = 0;
-        [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:0];
-    }
-    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-}
-
-- (void)updateContactArray:(NSNotification*)notif {
-    contacts = notif.object;
-    [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:_select];
-    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-}
+//- (void)deleteContactArray:(NSNotification*)notif {
+//    contacts = notif.object;
+//    if (contacts.count > 0) {
+//        _select = 0;
+//        [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:0];
+//    }
+//    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+//}
+//
+//- (void)updateContactArray:(NSNotification*)notif {
+//    contacts = notif.object;
+//    [ShoppingCart myShoppingCart].orderContact = [contacts objectAtIndex:_select];
+//    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+//}
 
 - (void)mayGetContactInfo {
 //    BOOL isExpired;
@@ -235,14 +235,21 @@
             [contacts removeAllObjects];
         }
         NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+        Consignee *defauleContact = nil;
         if(_contacts_ != nil) {
             for(int i=0; i<_contacts_.count; i++) {
                 NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
                 Consignee *consignee = [[Consignee alloc] initWithJson:contactJson];
                 if ([consignee.isDefault isEqualToString:@"1"]) {
-                    [contactDisplayView setCurrentConsignee:consignee];
+                    defauleContact = consignee;
                 }
                 [contacts addObject:consignee];
+                
+                if (defauleContact == nil) {
+                    defauleContact = [contacts objectAtIndex:0];
+                }
+                [contactDisplayView setCurrentConsignee:defauleContact];
+
             }
         }
         
@@ -279,18 +286,18 @@
     }
 }
 
-- (Contact *)defaultContact {
-    _default_contact_id_ = nil;
-    if(contacts == nil || contacts.count == 0) return nil;
-    for(int i=0; i<contacts.count; i++) {
-        Contact *contact = [contacts objectAtIndex:i];
-        if(contact.isDefault) {
-            _default_contact_id_ = contact.identifier;
-            return contact;
-        }
-    }
-    return nil;
-}
+//- (Contact *)defaultContact {
+//    _default_contact_id_ = nil;
+//    if(contacts == nil || contacts.count == 0) return nil;
+//    for(int i=0; i<contacts.count; i++) {
+//        Contact *contact = [contacts objectAtIndex:i];
+//        if(contact.isDefault) {
+//            _default_contact_id_ = contact.identifier;
+//            return contact;
+//        }
+//    }
+//    return nil;
+//}
 
 - (void)pushContactInfo:(id)sender {
 //    if (contacts == nil || contacts.count == 0) {
@@ -307,7 +314,8 @@
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
     [ShoppingCart myShoppingCart].orderContact = contact;
-    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+//    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
+    [contactDisplayView setCurrentConsignee:[contacts objectAtIndex:select]];
     _select = select;
 }
 
@@ -471,6 +479,8 @@
                                     },
                                     @"shoppingItems" : shoppingItems
         };
+//        Consignee *cc = [contacts objectAtIndex:0];
+//        Consignee *ccc = [contacts objectAtIndex:1];
         [ordersToSubmit addObject:shopOrder];
         
         wxPayRequest.merchandiseName = merchandiseName;

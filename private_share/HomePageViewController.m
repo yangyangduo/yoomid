@@ -29,6 +29,7 @@
 #import "NewSettingViewController.h"
 #import "Shop.h"
 #import "AllShopInfo.h"
+#import "LoginViewController.h"
 
 @interface HomePageViewController ()
 
@@ -314,7 +315,10 @@
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
-//    SettingViewController *settingVC = [[SettingViewController alloc] init];
+    if ([[SecurityConfig defaultConfig] isGuestLogin]) {
+        [self userLogin];
+        return;
+    }
     NewSettingViewController *settingVC = [[NewSettingViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
@@ -322,6 +326,10 @@
 }
 
 -(void)showMiRepository:(id)sender {
+    if ([[SecurityConfig defaultConfig] isGuestLogin]) {
+        [self userLogin];
+        return;
+    }
     ShoppingCartViewController2 *shoppingCartVC = [[ShoppingCartViewController2 alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shoppingCartVC];
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];

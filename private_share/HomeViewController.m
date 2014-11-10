@@ -268,10 +268,10 @@
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
-    SettingViewController *settingVC = [[SettingViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
-    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
-    [self rightPresentViewController:navigationController animated:YES];
+        SettingViewController *settingVC = [[SettingViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingVC];
+        [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+        [self rightPresentViewController:navigationController animated:YES];
 }
 
 - (void)showNotifications:(id)sender {

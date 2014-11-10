@@ -9,6 +9,7 @@
 #import "SelectContactAddressViewController.h"
 #import "ManageContactInfoViewController.h"
 #import "UIImage+Color.h"
+#import "ConsigneeManageViewController.h"
 
 @interface SelectContactAddressViewController ()
 
@@ -37,8 +38,8 @@
     // Do any additional setup after loading the view.
     self.title = @"收获地址";
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -85,8 +86,9 @@
 
 -(void)manageContactAddress:(id)sender
 {
-    ManageContactInfoViewController *add = [[ManageContactInfoViewController alloc]initWithContactInfo:contactArray];
-    [self.navigationController pushViewController:add animated:YES];
+//    ManageContactInfoViewController *add = [[ManageContactInfoViewController alloc]initWithContactInfo:contactArray];
+    ConsigneeManageViewController *manage = [[ConsigneeManageViewController alloc] init];
+    [self.navigationController pushViewController:manage animated:YES];
 }
 
 #pragma mark UITableView delegate mothed
@@ -108,7 +110,9 @@
         cell = [[SelectContactAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
     }
     
-    cell.contact = [contactArray objectAtIndex:indexPath.row];
+//    cell.contact = [contactArray objectAtIndex:indexPath.row];
+
+    cell.consignee = [contactArray objectAtIndex:indexPath.row];
 
     if (indexPath.row == _select) {
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_select"];
@@ -145,8 +149,8 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"updateContactArray" object:nil];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"deleteContactArray" object:nil];
 }
 
 @end

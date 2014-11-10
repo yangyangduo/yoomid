@@ -93,6 +93,17 @@
     [loginButton addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:loginButton];
     
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, loginButton.frame.origin.y + loginButton.frame.size.height + 10, 200, 86/2)];
+    [button1 setTitle:@"随便逛逛" forState:UIControlStateNormal];
+    button1.center = CGPointMake(self.view.center.x, button1.center.y);
+    [button1 setBackgroundImage:[UIImage imageNamed:@"newlogin"] forState:UIControlStateNormal];
+    [button1 setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
+    button1.layer.cornerRadius = 8;
+    [button1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(Button1Pressed) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:button1];
+
+    
     UILabel *seperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, 5, 44)];
     seperatorLabel.text = @"|";
     seperatorLabel.font = [UIFont systemFontOfSize:17];
@@ -129,6 +140,11 @@
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)Button1Pressed
+{
+    [self dismissViewController:nil];
 }
 
 - (void)dismissViewController:(id)sender {

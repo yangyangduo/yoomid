@@ -36,7 +36,7 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *config = [defaults objectForKey:kGlobalConfigKey];
         if(config == nil) {
-            self.userName = @"";
+            self.userName = @"guest";
             self.securityKey = @"";
             self.isFirstLogin = YES;
         } else {
@@ -70,7 +70,7 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
 
 - (void)clearAuthenticationInfo {
     @synchronized(self) {
-        self.userName = @"";
+        self.userName = @"guest";
         self.securityKey = @"";
         [self saveConfigInternal];
     }
@@ -82,6 +82,11 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
         return YES;
     }
     return NO;
+}
+
+- (BOOL)isGuestLogin
+{
+    return [self.userName isEqualToString:@"guest"];
 }
 
 @end
