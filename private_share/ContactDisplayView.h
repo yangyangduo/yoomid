@@ -22,7 +22,7 @@ extern CGFloat const kContactDisplayViewHeight;
 
 - (instancetype)initWithFrame:(CGRect)frame contact:(Contact *)contact;
 
-- (instancetype)initWithFrame1:(CGRect)frame;
+//- (instancetype)initWithFrame1:(CGRect)frame;
 
 //- (void)setCurrentContact:(Contact *)currentContact;
 @end

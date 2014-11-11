@@ -69,23 +69,7 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.navigationController.navigationBar.translucent = NO;
     }
-    
-//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [backButton addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
-//    [backButton setImage:[UIImage imageNamed:@"new_back"] forState:UIControlStateNormal];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
-
-//-(void)actionBack
-//{
-//    if (fag) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    else
-//    {
-//        [self.navigationController popToRootViewControllerAnimated:YES];
-//    }
-//}
 
 -(void)addContactAddress:(id)sender
 {
@@ -114,79 +98,23 @@
     [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:NO];
 
     ContactService *contactSerice = [[ContactService alloc]init];
-    [contactSerice addContactIsDefaule:nil name:name.text phoneNumber:phoneNumber.text address:address.text target:self success:@selector(addContactSucess:) failure:@selector(handleFailureHttpResponse:)];
+    [contactSerice addContactIsDefaule:@"1" name:name.text phoneNumber:phoneNumber.text address:address.text target:self success:@selector(addContactSucess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 -(void)addContactSucess:(HttpResponse *)resp
 {
-  //  NSInteger code = resp.statusCode;
     if (resp.statusCode == 201) {
         [[XXAlertView currentAlertView] setMessage:@"保存成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
-        
-        [self getContactInfo];
-    }else
-    {
-        [self handleFailureHttpResponse:resp];
-    }
-
-}
-
--(void)getContactInfo
-{
-    ContactService *contactService = [[ContactService alloc]init];
-    [contactService getContactInfo:self success:@selector(getContactSuccess:) failure:@selector(handleFailureHttpResponse:)];
-}
-
--(void)getContactSuccess:(HttpResponse *)resp
-{
-    if(resp.statusCode == 200 && resp.body != nil)
-    {
-        if(contactArray == nil) {
-            contactArray = [NSMutableArray array];
-        } else {
-            [contactArray removeAllObjects];
+        if (self.addDelegate != nil && [self.addDelegate respondsToSelector:@selector(addContactSuccess)]) {
+            [self.addDelegate addContactSuccess];
         }
-//        NSMutableDictionary *contactDictionary =  [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        NSMutableArray *_contacts_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-
-        if (_contacts_ != nil) {
-            for (int i = 0; i<_contacts_.count; i++) {
-                NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
-                Contact *contact = [[Contact alloc] initWithJson:contactJson];
-                [contactArray addObject:contact];
-                
-                if (i == 0) {
-                    contact.isDefault = YES;
-                }
-                else
-                {
-                    contact.isDefault = NO;
-                }
-            }
-        }
-        
-        [[DiskCacheManager manager] setContacts:contactArray];
-
-        
-//        for (NSDictionary *tmpDic in contactDictionary)
-//        {
-//            [contactArray addObject:tmpDic];
-//        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateContactArray" object:contactArray];
-        
         [self.navigationController popViewControllerAnimated:YES];
     }else
     {
         [self handleFailureHttpResponse:resp];
     }
-}
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark UITableView delegate mothed
@@ -265,11 +193,6 @@
         UITextField *nextTextField = [textFields objectAtIndex:1];
         [nextTextField becomeFirstResponder];
     }
-//    else if(200 == textField.tag)
-//    {
-//        UITextField *nextTextField = [textFields objectAtIndex:2];
-//        [nextTextField becomeFirstResponder];
-//    }
     else if(300 == textField.tag)
     {
         [self addContactAddress:nil];
@@ -277,15 +200,5 @@
     return YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

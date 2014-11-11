@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *securityKey;
 @property (nonatomic, assign) BOOL isFirstLogin;
+@property (nonatomic, assign) NSString *passWord;
 
 + (instancetype)defaultConfig;
 

@@ -9,8 +9,15 @@
 #import "ContactService.h"
 #import "BackViewController.h"
 
+@protocol AddContactInfoDelegate <NSObject>
+
+- (void)addContactSuccess;
+
+@end
+
 @interface AddContactInfoViewController : BackViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 -(instancetype)initWithContactArray:(NSInteger)fag;
+@property (nonatomic, assign) id<AddContactInfoDelegate> addDelegate;
 
 @end

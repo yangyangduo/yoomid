@@ -208,7 +208,7 @@
         
         // do after login
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [app doAfterLoginWithUserName:userNameTextField.text securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
+        [app doAfterLoginWithUserName:userNameTextField.text password:passwordTextField.text securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
         
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];

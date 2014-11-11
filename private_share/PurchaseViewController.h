@@ -14,6 +14,7 @@
 #import "CategoryButtonItem.h"
 #import "WXPayRequest.h"
 #import "AliPaymentModal.h"
+#import "AddContactInfoViewController.h"
 
 //@protocol PurchanseVCDelegate <NSObject>
 //
@@ -23,7 +24,7 @@
 //
 //@end
 
-@interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage,CategoryButtonItemDelegate,YoomidRectModalViewDelegate>
+@interface PurchaseViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, SettlementViewDelegate, selectContactInfoDelegate, UIAlertViewDelegate, ModalViewDelegate, UITextFieldDelegate,ShareDeletage,CategoryButtonItemDelegate,YoomidRectModalViewDelegate,AddContactInfoDelegate>
 
 //@property (nonatomic, assign) id<PurchanseVCDelegate>delegate;
 

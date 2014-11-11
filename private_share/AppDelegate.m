@@ -103,12 +103,13 @@
         [navigationController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{}];
     }
     
-    if ([[SecurityConfig defaultConfig].userName isEqualToString:@"guest"]) {
-        [self guestLogin];
-    }else
-    {
-        [self doAfterLogin];
-    }
+    [self guestLogin];
+//    if ([[SecurityConfig defaultConfig].userName isEqualToString:@"guest"]) {
+//        [self guestLogin];
+//    }else
+//    {
+//        [self doAfterLogin];
+//    }
     
 //    return YES;
 //    
@@ -126,20 +127,20 @@
     return YES;
 }
 
-//游客登陆
+//
 - (void)guestLogin{
     AccountService *accountService = [[AccountService alloc] init];
-    [accountService loginWithUserName:@"guest" password:@"123456" target:self success:@selector(loginSuccess:) failure:@selector(lofinFailure:)];
+    [accountService loginWithUserName:[SecurityConfig defaultConfig].userName password:[SecurityConfig defaultConfig].passWord target:self success:@selector(loginSuccess:) failure:@selector(lofinFailure:)];
 }
 
 - (void)loginSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
         NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
 //        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [self doAfterLoginWithUserName:@"guest" securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
+        [self doAfterLoginWithUserName:[SecurityConfig defaultConfig].userName password:[SecurityConfig defaultConfig].passWord securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];
         
-        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
-        [[XXAlertView currentAlertView] delayDismissAlertView];
+//        [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"login_success", @"") forType:AlertViewTypeSuccess];
+//        [[XXAlertView currentAlertView] delayDismissAlertView];
     
         return;
     }
@@ -147,6 +148,7 @@
 }
 
 - (void)lofinFailure:(HttpResponse *)resp {
+    [[SecurityConfig defaultConfig] clearAuthenticationInfo];
     [[ViewControllerAccessor defaultAccessor].homePageViewController handleFailureHttpResponse:resp];
 }
 
@@ -295,10 +297,11 @@
     }
 }
 
-- (void)doAfterLoginWithUserName:(NSString *)userName securityKey:(NSString *)securityKey isFirstLogin:(BOOL)isFirstLogin {
+- (void)doAfterLoginWithUserName:(NSString *)userName password:(NSString *)password securityKey:(NSString *)securityKey isFirstLogin:(BOOL)isFirstLogin {
     [SecurityConfig defaultConfig].userName = userName;
     [SecurityConfig defaultConfig].securityKey = securityKey;
     [SecurityConfig defaultConfig].isFirstLogin = isFirstLogin;
+    [SecurityConfig defaultConfig].passWord = password;
     [[SecurityConfig defaultConfig] saveConfig];
     [self doAfterLogin];
 }

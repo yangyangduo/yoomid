@@ -14,12 +14,14 @@ NSString * const kGlobalConfigKey   =   @"global.config.key";
 NSString * const kUserNameKey       =   @"global.username.key";
 NSString * const kSecurityKeyKey    =   @"global.securitykey.key";
 NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
+NSString * const kPassWordKey       =   @"global.password.key";
 
 @implementation SecurityConfig
 
 @synthesize userName;
 @synthesize securityKey;
 @synthesize isFirstLogin;
+@synthesize passWord;
 
 + (instancetype)defaultConfig {
     static SecurityConfig *config;
@@ -39,10 +41,12 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
             self.userName = @"guest";
             self.securityKey = @"";
             self.isFirstLogin = YES;
+            self.passWord = @"123456";
         } else {
             self.userName = [config noNilStringForKey:kUserNameKey];
             self.securityKey = [config noNilStringForKey:kSecurityKeyKey];
             self.isFirstLogin = [config booleanForKey:kIsFirstLoginKey];
+            self.passWord = [config noNilStringForKey:kPassWordKey];
         }
     }
     return self;
@@ -53,6 +57,7 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
     [dictionary setMayBlankString:self.userName forKey:kUserNameKey];
     [dictionary setMayBlankString:self.securityKey forKey:kSecurityKeyKey];
     [dictionary setBoolean:self.isFirstLogin forKey:kIsFirstLoginKey];
+    [dictionary setMayBlankString:self.passWord forKey:kPassWordKey];
     return dictionary;
 }
 
@@ -72,6 +77,7 @@ NSString * const kIsFirstLoginKey   =   @"global.isfirstloginkey.key";
     @synchronized(self) {
         self.userName = @"guest";
         self.securityKey = @"";
+        self.passWord = @"123456";
         [self saveConfigInternal];
     }
 }

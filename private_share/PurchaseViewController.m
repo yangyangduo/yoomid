@@ -10,7 +10,6 @@
 
 #import "PurchaseViewController.h"
 #import "HomeViewController.h"
-#import "AddContactInfoViewController.h"
 
 #import "ContactDisplayView.h"
 #import "ShoppingItemTableViewCell.h"
@@ -302,17 +301,24 @@
 //    return nil;
 //}
 
+#pragma mark AddContactInfo delegate
+- (void)addContactSuccess
+{
+    [self getContactInfo];
+}
+
 - (void)pushContactInfo:(id)sender {
-//    if (contacts == nil || contacts.count == 0) {
-//        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
-//        [self.navigationController pushViewController:add animated:YES];
-//    }
-//    else
-//    {
+    if (contacts == nil || contacts.count == 0) {
+        AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
+        add.addDelegate = self;
+        [self.navigationController pushViewController:add animated:YES];
+    }
+    else
+    {
         SelectContactAddressViewController *selectContactAddress = [[SelectContactAddressViewController alloc]initWithContactInfo:contacts selected:_select];
         selectContactAddress.delegate = self;
         [self.navigationController pushViewController:selectContactAddress animated:YES];
-//    }
+    }
 }
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
