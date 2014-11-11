@@ -109,6 +109,8 @@
     [super viewDidAppear:animated];
     
     [self getEcommendedMerchandisesForDiskCache];
+//    [self getEcommendedMerchandises];
+    
     [self mayRefreshActivities];
 //    [self refreshMerchandisesTemplate];
     
@@ -309,7 +311,6 @@
     }
     [self handleFailureHttpResponse:resp];
 }
-
 
 #pragma mark -
 #pragma mark Show view controllers

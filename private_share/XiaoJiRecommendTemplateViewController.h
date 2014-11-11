@@ -8,8 +8,9 @@
 
 #import "TransitionViewController.h"
 #import "PullRefreshTableView.h"
+#import "XiaojiRecommendTableViewCell.h"
 
-@interface XiaoJiRecommendTemplateViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullRefreshTableViewDelegate>
+@interface XiaoJiRecommendTemplateViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullRefreshTableViewDelegate,XiaojiRecommendTableViewCellDelegate>
 
 - (instancetype) initWithIndex:(NSInteger)index Merchandise:(NSMutableArray *)merchandise;
 

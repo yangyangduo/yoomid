@@ -10,7 +10,15 @@
 #import "UIDevice+ScreenSize.h"
 #import "Merchandise.h"
 
+@protocol XiaojiRecommendTableViewCellDelegate <NSObject>
+
+- (void)actionClickGood:(NSString *)ids;
+
+@end
+
 @interface XiaojiRecommendTableViewCell : UITableViewCell
+
+@property (nonatomic ,assign) id<XiaojiRecommendTableViewCellDelegate> delegate;
 @property (nonatomic, strong) Merchandise *merchandise;
 @property (nonatomic, strong) UILabel *zanLabel;
 @end

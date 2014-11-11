@@ -116,7 +116,7 @@
             rightView2.image = [[UIImage imageNamed:@"categoryRight"] stretchableImageWithLeftCapWidth:30 topCapHeight:5];
             [_scrollView_ addSubview:rightView2];
             UILabel *sendnoLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rightView2.bounds.size.width, rightView2.bounds.size.height)];
-            sendnoLabel1.textAlignment = NSTextAlignmentLeft;
+            sendnoLabel1.textAlignment = NSTextAlignmentCenter;
             sendnoLabel1.numberOfLines = 2;
             sendnoLabel1.textColor = [UIColor whiteColor];
             sendnoLabel1.text = title2;

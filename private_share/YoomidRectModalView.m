@@ -57,6 +57,8 @@
                 button.titleEdgeInsets = UIEdgeInsetsMake(9, 0, 0, 0);
                 if(cancelButtonIndex == i) {
                     [button addTarget:self action:@selector(closeViewInternal) forControlEvents:UIControlEventTouchUpInside];
+                }else{
+                    [button addTarget:self action:@selector(OKbtn) forControlEvents:UIControlEventTouchUpInside];
                 }
                 [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
                 [self addSubview:button];
@@ -72,7 +74,14 @@
             [self.shareDeletage showShare];
         }
     }];
-    
+}
+
+- (void)OKbtn{
+    [self closeViewAnimated:YES completion:^{
+        if (self.yoomidDelegate != nil && [self.yoomidDelegate respondsToSelector:@selector(OKbtn)]) {
+            [self.yoomidDelegate OKbtn];
+        }
+    }];
 }
 
 @end

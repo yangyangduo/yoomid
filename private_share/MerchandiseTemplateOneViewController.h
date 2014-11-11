@@ -15,8 +15,9 @@
 #import "ColumnView.h"
 #import "PullTableView.h"
 #import "MerchandiseDetailViewController2.h"
+#import "XiaojiRecommendTableViewCell.h"
 
-@interface MerchandiseTemplateOneViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
+@interface MerchandiseTemplateOneViewController : TransitionViewController<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate,XiaojiRecommendTableViewCellDelegate>
 
 @property (nonatomic, strong) ColumnView *column;
 

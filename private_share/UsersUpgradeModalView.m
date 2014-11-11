@@ -210,7 +210,7 @@
             [service postAnswers:content target:self success:@selector(postAnswersSuccess:) failure:@selector(handleFailureHttpResponse:) taskResult:1];
             
             NSMutableAttributedString *pointsString = [[NSMutableAttributedString alloc] init];
-            [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"哈尼的信息完整了" attributes:@{ NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
+            [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:@"哈尼竟然答对了勒" attributes:@{ NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName :  [UIFont systemFontOfSize:18.f] }]];
             
 //            [pointsString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",upgradeTask.points] attributes:@{ NSForegroundColorAttributeName : [UIColor appLightBlue], NSFontAttributeName :  [UIFont systemFontOfSize:24.f] }]];
 //            

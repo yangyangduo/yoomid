@@ -54,6 +54,8 @@
     AliPaymentModal *aliPay;
     
     NSString *_arrivedCash;
+    
+    NSString *orderStr;
 }
 
 - (instancetype)initWithShopShoppingItemss:(NSArray *)shopShoppingItemss isFromShoppingCart:(BOOL)isFromShoppingCart {
@@ -73,6 +75,8 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"confirm_order", @"");
+    
+    orderStr = nil;
     
     wxPayRequest = [[WXPayRequest alloc]init];
     aliPay = [[AliPaymentModal alloc] init];
@@ -218,7 +222,7 @@
 //    }
     
 //    if(isExpired || _contacts_ == nil) {
-        [self getContactInfo];
+    [self getContactInfo];
 //    }
 }
 
@@ -248,9 +252,8 @@
                 if (defauleContact == nil) {
                     defauleContact = [contacts objectAtIndex:0];
                 }
-                [contactDisplayView setCurrentConsignee:defauleContact];
-
             }
+            [contactDisplayView setCurrentConsignee:defauleContact];
         }
         
         /*
@@ -445,6 +448,12 @@
         return;
     }
     
+    if (orderStr != nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已生成订单,请不要重复操作.您可以点击右上角的我的商品页面查看订单信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
     NSMutableArray *ordersToSubmit = [NSMutableArray array];
     NSMutableString *shopBodys = [[NSMutableString alloc] init];
     NSMutableString *aliShopBodys = [[NSMutableString alloc] init];
@@ -525,6 +534,7 @@
             NSDictionary *_order_result_json_ = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
             if(_order_result_json_ != nil) {
                 OrderResult *orderResult = [[OrderResult alloc] initWithJson:_order_result_json_];
+                orderStr = orderResult.orderIds;
                 [[XXAlertView currentAlertView] dismissAlertViewCompletion:^{
                     if(orderResult.cashNeedToPay > 0) {//需要支付现金
                         NSString *message = nil;
@@ -558,8 +568,9 @@
                         [modalView showInView:self.navigationController.view completion:nil];
                     }
                     else{  //不需要支付现金,购买成功！
-                        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享",@"确定" ] cancelButtonIndex:0];
+                        YoomidRectModalView *modal = [[YoomidRectModalView alloc] initWithSize:CGSizeMake(280, 350) image:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"happy@2x" ofType:@"png"]] message:@"恭喜,购买成功!" buttonTitles:@[ @"立刻分享",@"确 定" ] cancelButtonIndex:0];
                         modal.shareDeletage = self;
+                        modal.yoomidDelegate = self;
                         [modal showInView:self.navigationController.view completion:nil];
                         
                     }
@@ -643,6 +654,14 @@
                 
             }];
     }
+}
+
+//积分购买成功后，点击确定 代理
+- (void)OKbtn{
+    MerchandiseOrdersViewController *order = [[MerchandiseOrdersViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:order];
+    [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+    [self.navigationController pushViewController:order animated:YES];
 }
 
 //- (void)submitAliPaySignSuccess:(HttpResponse *)resp {
