@@ -13,15 +13,12 @@
 #import "GuideViewController.h"
 #import "ViewControllerAccessor.h"
 #import "UINavigationViewInitializer.h"
-#import "UMessage.h"
 
 #import "Account.h"
 #import "SecurityConfig.h"
 #import "Constants.h"
 #import "ShoppingCart.h"
 #import "DiskCacheManager.h"
-
-#import "MobClick.h"
 
 #import "UMSocialWechatHandler.h"
 #import "UMSocialData.h"
@@ -62,19 +59,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self initUMAnalytics];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-//    [UMessage startWithAppkey:@"54052fe0fd98c5170d06988e" launchOptions:launchOptions];
-//    //(iOS 8.0以下)
-//    [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
-//     |UIRemoteNotificationTypeSound
-//     |UIRemoteNotificationTypeAlert];
-//    
-//    [UMessage setLogEnabled:YES];
-//    [UMSocialData openLog:YES];
     [WXApi registerApp:@"wxb3bc53583590b23f"];
     
     [UMSocialData setAppKey:@"54052fe0fd98c5170d06988e"];
@@ -82,11 +70,7 @@
     [UMSocialWechatHandler setWXAppId:@"wxb3bc53583590b23f" appSecret:@"a39d046b07684bab942b68e709ae137b" url:@"http://yoomid.com"];
     [UMSocialQQHandler setQQWithAppId:@"1102346164" appKey:@"T4tsAiwGE3oZNBVf" url:@"http://yoomid.com"];
     [UMSocialQQHandler setSupportWebView:YES];
-//    [UMSocialInstagramHandler openInstagramWithScale:NO paddingColor:[UIColor blackColor]];
-    
-//    [WXApi registerApp:@"wxb3bc53583590b23f"];
 
-    
 //    HomeViewController *homeViewController = [[HomeViewController alloc] init];
     HomePageViewController *homePageViewController = [[HomePageViewController alloc] init];
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
@@ -95,12 +79,12 @@
     [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-    
+
 //    [ViewControllerAccessor defaultAccessor].homeViewController = homeViewController;
     [ViewControllerAccessor defaultAccessor].homePageViewController = homePageViewController;
 
     if ([SecurityConfig defaultConfig].isFirstLogin) {
-        [navigationController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{}];
+        [homePageViewController presentViewController:[[GuideViewController alloc] init] animated:NO completion:^{}];
     }
     
     [self guestLogin];
@@ -123,7 +107,7 @@
 //    } else {
 //        [self doAfterLogin];
 //    }
-    
+
     return YES;
 }
 
@@ -236,8 +220,6 @@
 	return result;
 }
 
-
-
 //微信支付回调
 - (void)onResp:(BaseResp *)resp
 {
@@ -245,18 +227,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WXPaymentResult" object:resp];
     }
 }
-
-
-//-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-//{
-//    [UMessage registerDeviceToken:deviceToken];
-//}
-//
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-//{
-//    [UMessage didReceiveRemoteNotification:userInfo];
-//    NSLog(@"userInfo:%@",userInfo);
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -290,7 +260,6 @@
 
 - (void)doAfterLogin {
     if([SecurityConfig defaultConfig].isLogin) {
-//        [self initAdPlatforms];
         [Account currentAccount].accountId = [SecurityConfig defaultConfig].userName;
         [[Account currentAccount] refresh];
         [[DiskCacheManager manager] serveForAccount:[SecurityConfig defaultConfig].userName];
@@ -329,36 +298,6 @@
         return NO;
     }
     return YES;
-}
-
-#pragma mark -
-#pragma mark Ad platforms initialization
-
-- (void)initAdPlatforms {
-    // init youmi platform
-//    [YouMiConfig setUserID:[SecurityConfig defaultConfig].userName];
-//    [YouMiConfig launchWithAppID:kYoumiAppID appSecret:kYoumiSecretKey];
-//    [YouMiWall enable];
-    
-    /*
-    // init cocounion platform
-    [PunchBoxAd startSession:kCocounionSecretKey];
-    [PunchBoxAd setUserInfo:[SecurityConfig defaultConfig].userName];
-    
-    // init miidi adwall
-    [MiidiManager setAppPublisher:kMiidiAppId withAppSecret:kMiidiAppSecretKey];
-    [MiidiAdWall setUserParam:[SecurityConfig defaultConfig].userName];
-     */
-}
-
-#pragma mark -
-#pragma mark uMeng initalization
-
-- (void)initUMAnalytics {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    
-    [MobClick startWithAppkey:kUMengAppKey reportPolicy:BATCH channelId:@"Web"];
-    [MobClick setAppVersion:version];
 }
 
 #pragma mark -

@@ -23,6 +23,8 @@
     UIButton *btnCancel;
     
     XXAlertViewCancelledBlock _cancelled_block_;
+    
+    NSMutableArray  *arrayM;
 }
 
 @synthesize alertViewType;
@@ -45,6 +47,12 @@
     if (self) {
         [self initDefaults];
         [self initUI];
+        
+        arrayM=[NSMutableArray array];
+        for (int i=0; i<4; i++) {
+            [arrayM addObject:[UIImage imageNamed:[NSString stringWithFormat:@"postbear%d",i+1]]];
+        }
+
     }
     return self;
 }
@@ -228,5 +236,25 @@
     NSArray *windows = [UIApplication sharedApplication].windows;
     return [windows objectAtIndex:windows.count - 1];
 }
+
+- (void)setPostBearMessage:(NSString *)message
+{
+    if (arrayM == nil || arrayM.count == 0) {
+        return;
+    }
+    
+    indicatorView.hidden = YES;
+    imgTips.hidden = NO;
+    
+    if(message == nil) message = @"";
+    lblMessage.text = message;
+    
+    [imgTips setAnimationImages:arrayM];
+    [imgTips setAnimationDuration:arrayM.count*0.075];
+    [imgTips startAnimating];
+    
+    [self alertForLock:NO autoDismiss:NO];
+}
+
 
 @end

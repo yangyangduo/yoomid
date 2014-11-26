@@ -18,6 +18,7 @@
 #import "DiskCacheManager.h"
 #import "ConsigneeManageViewController.h"
 #import "AboutYoomidViewController.h"
+#import "AllConsignee.h"
 
 @implementation NewSettingViewController
 {
@@ -34,11 +35,13 @@
     
     self.title = @"设置";
     
+    [[AllConsignee myAllConsignee] getContact];
+    
     self.animationController.rightPanAnimationType = PanAnimationControllerTypeDismissal;
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewController)];
     
-    _items = @[@[@"资料管理"],@[@"我的订单", @"收获地址管理"],@[ @"修改密码", @"关于有米得"]];
+    _items = @[@[@"资料管理"],@[@"我的订单", @"收货地址管理"],@[ @"修改密码", @"关于有米得"]];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [UIColor clearColor];

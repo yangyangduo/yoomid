@@ -8,6 +8,7 @@
 
 #import "ConsigneeAddViewController.h"
 #import "ContactService.h"
+#import "AllConsignee.h"
 
 @implementation ConsigneeAddViewController
 {
@@ -122,10 +123,11 @@
 -(void)addContactSucess:(HttpResponse *)resp
 {
     if (resp.statusCode == 201) {
+        [[AllConsignee myAllConsignee] getContact];
         [[XXAlertView currentAlertView] setMessage:@"保存成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
-        [self.navigationController popViewControllerAnimated:YES];
         
+        [self performSelector:@selector(closeViewController) withObject:nil afterDelay:1.0f];
     }else
     {
         [self handleFailureHttpResponse:resp];
@@ -133,4 +135,7 @@
     
 }
 
+- (void)closeViewController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

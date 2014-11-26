@@ -90,7 +90,7 @@
 
 
 "my_exchange"                          =     "我的兑换";
-"add_to_exchange"                      =     "加入米库";
+"add_to_exchange"                      =     "加入购物车";
 "purchase"                             =     "立即购买";
 "points"                               =     "米米";
 "points_short"                         =     "分";
@@ -130,7 +130,7 @@
 "contact_phone"                        =     "联系电话";
 "remark"                               =     "备       注";
 "remark_no_blank"                      =     "备注";
-"delivery_address"                     =     "收获地址";
+"delivery_address"                     =     "收货地址";
 "mi_repo2"                             =     "购物车";
 "contact_info_modify"                  =     "信息修改";
 "order_unfinished"                     =     "未完成";
@@ -178,17 +178,6 @@
 
 "qr_code_scanner"                      =     "扫一扫";
 "qr_code_tips"                         =     "将二维码放入框内 即可自动扫描";
-
-
-"platform"                             =     "平台";
-"youmi"                                =     "有米";
-"yijifen"                              =     "易积分";
-"domob"                                =     "多盟";
-"cocounion"                            =     "触控";
-"dianru"                               =     "点入";
-"limei"                                =     "力美";
-"adwo"                                 =     "安沃";
-"miidi"                                =     "米迪";
 
 "my_account"                           =     "我的账户";
 "logout"                               =     "退出当前账号";

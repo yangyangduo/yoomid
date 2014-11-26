@@ -40,4 +40,6 @@ typedef void(^XXAlertViewCancelledBlock)(void);
 - (void)dismissAlertView;
 - (void)dismissAlertViewCompletion:(void (^)(void))completion;
 
+- (void)setPostBearMessage:(NSString *)message;
+
 @end

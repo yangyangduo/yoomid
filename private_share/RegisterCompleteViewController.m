@@ -76,7 +76,7 @@
 
 - (void)registerSuccess:(HttpResponse *)resp {
     if(resp.statusCode == 201) {
-        NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+//        NSDictionary *result = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
         
 //        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //        [app doAfterLoginWithUserName:_userName_ securityKey:[result objectForKey:@"securityKey"] isFirstLogin:[SecurityConfig defaultConfig].isFirstLogin];

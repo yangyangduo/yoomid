@@ -49,6 +49,7 @@
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(selectButton.bounds.size.width, 0, 260, 44)];
         titleLabel.text = @"";
+        titleLabel.textColor = [UIColor appLightBlue];
         titleLabel.font = [UIFont systemFontOfSize:17.f];
         [backgroundView addSubview:titleLabel];
         
@@ -111,7 +112,7 @@
 - (void)moreButtonPressed:(id)sender {
     NSMutableArray *categories = [NSMutableArray array];
     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
-    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+    [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"支付宝支付" imageName:@"taobaopay"]];
     [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"deleteOrders" title:@"删除订单" imageName:@"order_delete"]];
     
     NSString *message = nil;

@@ -12,6 +12,7 @@
 #import "Consignee.h"
 #import "ConsigneeModifyViewController.h"
 #import "ConsigneeAddViewController.h"
+#import "AllConsignee.h"
 
 @implementation ConsigneeManageViewController
 {
@@ -23,7 +24,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.title = @"收获地址管理";
+    self.title = @"收货地址管理";
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - ([UIDevice systemVersionIsMoreThanOrEqual7] ? 64:44)) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [UIColor clearColor];
@@ -53,7 +54,9 @@
 {
     [super viewWillAppear:animated];
     
-    [self getConsigneeInfo];
+    _consignee = [[AllConsignee myAllConsignee] consignee];
+    [tableview reloadData];
+//    [self getConsigneeInfo];
 }
 
 - (void)getConsigneeInfo{

@@ -113,7 +113,7 @@
     cashLabel.font = [UIFont systemFontOfSize:16];
     [imageView2 addSubview:cashLabel];
 
-    UIButton *payBtn =[[UIButton alloc]initWithFrame:CGRectMake(20, [UIDevice is4InchDevice] ? self.view.bounds.size.height - 140 : 125, scrollView_.bounds.size.width-40, 40)];
+    UIButton *payBtn =[[UIButton alloc]initWithFrame:CGRectMake(20, scrollView_.bounds.size.height - 130, scrollView_.bounds.size.width-40, 40)];
     [payBtn setTitle:@"确认支付" forState:UIControlStateNormal];
     payBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [payBtn setTintColor:[UIColor whiteColor]];

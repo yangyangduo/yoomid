@@ -31,6 +31,7 @@
 #import "AllShopInfo.h"
 #import "Shop.h"
 #import "Consignee.h"
+#import "AllConsignee.h"
 
 @implementation PurchaseViewController {
     UITableView *_table_view_;
@@ -66,6 +67,12 @@
         _select = 0;
         
         _arrivedCash = @"0";//0 不抵用现金  1抵用现金
+        
+        [ShoppingCart myShoppingCart].orderConsignee = nil;
+        
+//        if ([[AllConsignee myAllConsignee] isEmpty]) {
+            [[AllConsignee myAllConsignee] getContact];
+//        }
     }
     return self;
 }
@@ -119,7 +126,7 @@
     }
     
     [self refreshSettlementView];
-    [self mayGetContactInfo];
+//    [self mayGetContactInfo];
 }
 
 #pragma mark -
@@ -129,6 +136,9 @@
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    Consignee * consignee = [[AllConsignee myAllConsignee] currentConsignee];
+    [contactDisplayView setCurrentConsignee:consignee];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -243,16 +253,25 @@
             for(int i=0; i<_contacts_.count; i++) {
                 NSDictionary *contactJson = [_contacts_ objectAtIndex:i];
                 Consignee *consignee = [[Consignee alloc] initWithJson:contactJson];
-                if ([consignee.isDefault isEqualToString:@"1"]) {
-                    defauleContact = consignee;
-                }
                 [contacts addObject:consignee];
                 
-                if (defauleContact == nil) {
-                    defauleContact = [contacts objectAtIndex:0];
+                //购物车里的收货人为空的话，也就是第一次进入 确认订单页面
+                if ([ShoppingCart myShoppingCart].orderConsignee == nil) {
+                    if ([consignee.isDefault isEqualToString:@"1"]) {  //读取默认收货人 到 购物车收货人
+                        defauleContact = consignee;
+                    }
+                    if (defauleContact == nil) {  //读取第一个 到 购物车收货人
+                        defauleContact = [contacts objectAtIndex:0];
+                    }
+                    [ShoppingCart myShoppingCart].orderConsignee = defauleContact;
+                }else{   //购物车里的收货人不为空  更新、
+                    if ([[ShoppingCart myShoppingCart].orderConsignee.identifier isEqualToString:consignee.identifier]) {
+                        [ShoppingCart myShoppingCart].orderConsignee = consignee;
+                    }
                 }
             }
-            [contactDisplayView setCurrentConsignee:defauleContact];
+//            [contactDisplayView setCurrentConsignee:defauleContact];
+            [contactDisplayView setCurrentConsignee:[ShoppingCart myShoppingCart].orderConsignee];
         }
         
         /*
@@ -308,7 +327,8 @@
 }
 
 - (void)pushContactInfo:(id)sender {
-    if (contacts == nil || contacts.count == 0) {
+//    if (contacts == nil || contacts.count == 0) {
+    if ([[AllConsignee myAllConsignee] isEmpty]) {
         AddContactInfoViewController *add = [[AddContactInfoViewController alloc]init];
         add.addDelegate = self;
         [self.navigationController pushViewController:add animated:YES];
@@ -323,8 +343,11 @@
 
 -(void)contactInfo:(Contact *)contact selectd:(NSInteger)select {
     [ShoppingCart myShoppingCart].orderContact = contact;
+    [ShoppingCart myShoppingCart].orderConsignee = [contacts objectAtIndex:select];
 //    [contactDisplayView setCurrentContact:[ShoppingCart myShoppingCart].orderContact];
-    [contactDisplayView setCurrentConsignee:[contacts objectAtIndex:select]];
+//    [contactDisplayView setCurrentConsignee:[contacts objectAtIndex:select]];
+//    [contactDisplayView setCurrentConsignee:[ShoppingCart myShoppingCart].orderConsignee];
+    [contactDisplayView setCurrentConsignee:[[AllConsignee myAllConsignee] currentConsignee]];
     _select = select;
 }
 
@@ -445,10 +468,11 @@
 
 #pragma mark -
 #pragma mark Submit merchandise order
-
+//下订单按钮
 - (void)purchaseButtonPressed:(id)sender {
 //    if([ShoppingCart myShoppingCart].orderContact.isEmpty) {
-    if(contactDisplayView.currentConsignee == nil) {
+//    if([ShoppingCart myShoppingCart].orderConsignee == nil) {
+    if([AllConsignee myAllConsignee].currentConsignee == nil) {
         [[XXAlertView currentAlertView] setMessage:NSLocalizedString(@"contact_required", @"") forType:AlertViewTypeFailed];
         [[XXAlertView currentAlertView] alertForLock:NO autoDismiss:YES];
         return;
@@ -488,8 +512,9 @@
                                     @"basicInfo" : @{
                                     @"shopId" : ssi.shopID,
                                     @"shippingPaymentType" : [NSNumber numberWithInteger:ssi.postPaymentType],
-//                                    @"contactId" : [ShoppingCart myShoppingCart].orderContact.identifier,
-                                    @"contactId" : contactDisplayView.currentConsignee.identifier,
+//                                    @"contactId" : [ShoppingCart myShoppingCart].orderConsignee.identifier,
+//                                    @"contactId" : contactDisplayView.currentConsignee.identifier,
+                                    @"contactId" : [AllConsignee myAllConsignee].currentConsignee.identifier,
                                     @"remark" : (ssi.remark == nil ? @"" : ssi.remark),
                                     },
                                     @"shoppingItems" : shoppingItems
@@ -565,7 +590,7 @@
                         
                         NSMutableArray *categories = [NSMutableArray array];
                         [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
-                        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+                        [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"支付宝支付" imageName:@"taobaopay"]];
                         [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"alterPay" title:@"以后支付" imageName:@"pay_after"]];
                         
                         CashPaymentTypePicker *modalView = [[CashPaymentTypePicker alloc] initWithSize:CGSizeMake(280, prickHeight)message:message buttonItems:categories];
@@ -656,9 +681,10 @@
 //        }];
     }else if ([identifier isEqualToString:@"alterPay"])
     {
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+        MerchandiseOrdersViewController *order = [[MerchandiseOrdersViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:order];
+        [UINavigationViewInitializer initialWithDefaultStyle:navigationController];
+        [self.navigationController pushViewController:order animated:YES];
     }
 }
 

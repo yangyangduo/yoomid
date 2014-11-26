@@ -8,6 +8,7 @@
 
 #import "ConsigneeModifyViewController.h"
 #import "ContactService.h"
+#import "AllConsignee.h"
 
 @implementation ConsigneeModifyViewController
 {
@@ -127,7 +128,7 @@
     [deleteConsigneeView addGestureRecognizer:tapGesture];
     
     UILabel *deleteConsigneeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, deleteConsigneeView.bounds.size.width, deleteConsigneeView.bounds.size.height)];
-    deleteConsigneeLabel.text = @"删除收获地址";
+    deleteConsigneeLabel.text = @"删除收货地址";
     deleteConsigneeLabel.textAlignment = NSTextAlignmentCenter;
     deleteConsigneeLabel.textColor = [UIColor redColor];
     [deleteConsigneeView addSubview:deleteConsigneeLabel];
@@ -166,10 +167,12 @@
 {
     if(resp.statusCode == 200)
     {
-        [[XXAlertView currentAlertView] setMessage:@"设置成功" forType:AlertViewTypeWaitting];
-        [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
-        [self.navigationController popViewControllerAnimated:YES];
+        [[AllConsignee myAllConsignee] getContact];
 
+        [[XXAlertView currentAlertView] setMessage:@"设置成功" forType:AlertViewTypeSuccess];
+        [[XXAlertView currentAlertView] alertForLock:YES autoDismiss:YES];
+        
+        [self performSelector:@selector(closeViewController) withObject:nil afterDelay:1.0f];
         return;
     }else{
         [self handleFailureHttpResponse:resp];
@@ -193,6 +196,7 @@
 {
     if(resp.statusCode == 200)
     {
+        [[AllConsignee myAllConsignee] deleteConsigneeWithID:_consignee_.identifier];
         [[XXAlertView currentAlertView] setMessage:@"删除成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
         [self.navigationController popViewControllerAnimated:YES];
@@ -235,7 +239,10 @@
 -(void)updateContactSucess:(HttpResponse *)resp
 {
     if (resp.statusCode == 200) {
+        NSDictionary *tempD = @{@"id" : _consignee_.identifier, @"name" : nameTextField.text, @"contactPhone" : phoneTextField.text, @"deliveryAddress" : addressTextField.text, @"isDefault" : _consignee_.isDefault};
+        Consignee *consi = [[Consignee alloc] initWithJson:tempD];
         
+        [[AllConsignee myAllConsignee] modifyConsigneeWithID:consi];
         [[XXAlertView currentAlertView] setMessage:@"修改成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
         
@@ -246,4 +253,7 @@
     }
 }
 
+- (void)closeViewController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

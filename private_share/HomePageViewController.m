@@ -30,6 +30,10 @@
 #import "Shop.h"
 #import "AllShopInfo.h"
 #import "LoginViewController.h"
+#import "GuideViewController.h"
+
+#import "MerchandiseTemplateThreeViewController.h"
+#import "MerchandiseTemplateFourViewController.h"
 
 @interface HomePageViewController ()
 
@@ -50,6 +54,37 @@
     ModalView *currentModalView;
 
 }
+
+- (void)showGuidanceImage
+{
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    
+    UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    backgroundView.backgroundColor=[UIColor blackColor];
+    //    backgroundView.alpha=0;
+    [UIDevice is4InchDevice];
+    UIImageView *imageView=[[UIImageView alloc]initWithFrame:backgroundView.frame];
+    imageView.image=[UIImage imageNamed:[UIDevice is4InchDevice] ? @"daohangs5" : @"daohangs4"];
+    imageView.tag=1;
+    [backgroundView addSubview:imageView];
+    [window addSubview:backgroundView];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideImage:)];
+    [backgroundView addGestureRecognizer: tap];
+    
+}
+
+- (void)hideImage:(UITapGestureRecognizer*)tap {
+    UIView *backgroundView=tap.view;
+    [UIView animateWithDuration:0.3 animations:^{
+        backgroundView.alpha=0;
+    } completion:^(BOOL finished) {
+        [backgroundView removeFromSuperview];
+    }];
+    [SecurityConfig defaultConfig].isFirstLogin = NO;
+    [[SecurityConfig defaultConfig] saveConfig];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -104,10 +139,15 @@
     [self getMerchandisesTemplate];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+   
     [self getEcommendedMerchandisesForDiskCache];
 //    [self getEcommendedMerchandises];
     
@@ -265,7 +305,6 @@
 }
 
 
-
 //小吉推荐商品
 - (void)getEcommendedMerchandisesForDiskCache{
     BOOL isExpired;
@@ -316,6 +355,12 @@
 #pragma mark Show view controllers
 
 - (void)showSettings:(id)sender {
+//    MerchandiseTemplateFourViewController *threeVC = [[MerchandiseTemplateFourViewController alloc] init];
+//    UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:threeVC];
+//    [UINavigationViewInitializer initialWithDefaultStyle:navigationController1];
+//    [self rightPresentViewController:navigationController1 animated:YES];
+//    return;
+    
     if ([[SecurityConfig defaultConfig] isGuestLogin]) {
         [self userLogin];
         return;
@@ -384,17 +429,27 @@
         }
         id merchandiseTemplate = nil;
 
-        if ([merchandises_.viewType isEqual:@"1"]) { //单列大图,小吉推荐列表模式
+        if ([merchandises_.viewType isEqualToString:@"1"]) { //单列大图,小吉推荐列表模式
             MerchandiseTemplateOneViewController *merchandiseTemplateOneVC = [[MerchandiseTemplateOneViewController alloc] init];
             merchandiseTemplateOneVC.column = column;
             merchandiseTemplate = merchandiseTemplateOneVC;
 
-        }else if ([merchandises_.viewType isEqual:@"2"])
+        }else if ([merchandises_.viewType isEqualToString:@"2"])
         {
             MerchandiseTemplateTwoViewController *merchandiseTemplateTwoVC = [[MerchandiseTemplateTwoViewController alloc] init];
             merchandiseTemplateTwoVC.column = column;
             merchandiseTemplate = merchandiseTemplateTwoVC;
-        }
+        }else if ([merchandises_.viewType isEqualToString:@"3"])
+        {
+            MerchandiseTemplateThreeViewController *merchandiseTemplateFreeVC = [[MerchandiseTemplateThreeViewController alloc] init];
+            merchandiseTemplateFreeVC.column = column;
+            merchandiseTemplate = merchandiseTemplateFreeVC;
+        }else if ([merchandises_.viewType isEqualToString:@"4"]){
+            MerchandiseTemplateFourViewController *merchandiseTemplateFourVC = [[MerchandiseTemplateFourViewController alloc]init];
+            merchandiseTemplateFourVC.column = column;
+            merchandiseTemplate = merchandiseTemplateFourVC;
+        }else{}
+
         
         if (merchandiseTemplate != nil) {
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:merchandiseTemplate];
@@ -462,7 +517,14 @@
             merchandiseTemplateTwoVC.column = column;
             merchandiseTemplate = merchandiseTemplateTwoVC;
         }else if (column.viewType == 3){
-            
+            MerchandiseTemplateThreeViewController *merchandiseTemplateThreeVC = [[MerchandiseTemplateThreeViewController alloc] init];
+            merchandiseTemplateThreeVC.column = column;
+            merchandiseTemplate = merchandiseTemplateThreeVC;
+        }else if (column.viewType == 4)
+        {
+            MerchandiseTemplateFourViewController *merchandiseTemplateFourVC = [[MerchandiseTemplateFourViewController alloc] init];
+            merchandiseTemplateFourVC.column = column;
+            merchandiseTemplate = merchandiseTemplateFourVC;
         }else{}
         
         if (merchandiseTemplate != nil) {
@@ -520,6 +582,9 @@
 //}
 
 - (UIViewController *)rightPresentationViewController {
+    if ([[SecurityConfig defaultConfig] isGuestLogin]) {
+        return nil;
+    }
     return [[MyPointsRecordViewController alloc] init];
 }
 

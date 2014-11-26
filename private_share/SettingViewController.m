@@ -223,11 +223,9 @@
             if (cacheData != nil) {  //判断是否已经获得设置完全部信息的 奖励积分了没有 ，yes 获得过了 ，
             }
             else{
-                
                 UserInfoService *service = [[UserInfoService alloc]init];
                 [service getSettingPointsTarget:self success:@selector(getSettingPointsSuccess:) failure:@selector(handleFailureHttpResponse:)];
             }
-
         }
         else{
         }
@@ -245,10 +243,10 @@
         NSArray *array = [[NSArray alloc]initWithObjects:tempD, nil];
         [[DiskCacheManager manager] setUserInfo:array];
         
-        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
-        NSInteger number = jsonArray.integerValue;
+//        NSNumber *jsonArray = [JsonUtil createDictionaryOrArrayFromJsonData:resp.body];
+//        NSInteger number = jsonArray.integerValue;
 
-        YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 761.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"恭喜哈尼百分百完成信息!" message:[NSString stringWithFormat:@"额外获得%d%@", number, NSLocalizedString(@"points", @"")] buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
+        YoomidSemicircleModalView *modal = [[YoomidSemicircleModalView alloc] initWithSize:CGSizeMake(500.f / 2, 800.f / 2) backgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"modal_success@2x" ofType:@"png"]] titleMessage:@"设置完成!" message:@"恭喜哈尼的个人信息都完整了勒!" buttonTitles:@[ @"确定", @"分享好友" ] cancelButtonIndex:0];
         modal.deletage = self;
         [modal showInView:self.navigationController.view completion:nil];
     }

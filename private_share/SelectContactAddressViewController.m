@@ -10,6 +10,7 @@
 #import "ManageContactInfoViewController.h"
 #import "UIImage+Color.h"
 #import "ConsigneeManageViewController.h"
+#import "AllConsignee.h"
 
 @interface SelectContactAddressViewController ()
 
@@ -19,6 +20,8 @@
 {
     NSMutableArray *contactArray;
     NSInteger _select;
+    
+    NSMutableArray *consignee;
 }
 
 -(instancetype)initWithContactInfo:(NSMutableArray *)contactArrays selected:(NSInteger)select
@@ -28,6 +31,7 @@
         contactArray = [[NSMutableArray alloc]init];
         contactArray = contactArrays;
         _select = select;
+        
     }
     return self;
 }
@@ -36,7 +40,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"收获地址";
+    self.title = @"收货地址";
 
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactArray:) name:@"updateContactArray" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteContactArray:) name:@"deleteContactArray" object:nil];
@@ -82,6 +86,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    consignee = [[AllConsignee myAllConsignee] consignee];
+    [_tableView reloadData];
+
 }
 
 -(void)manageContactAddress:(id)sender
@@ -99,7 +107,8 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return contactArray.count;
+    return consignee.count;
+//    return contactArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,7 +121,9 @@
     
 //    cell.contact = [contactArray objectAtIndex:indexPath.row];
 
-    cell.consignee = [contactArray objectAtIndex:indexPath.row];
+//    cell.consignee = [contactArray objectAtIndex:indexPath.row];
+    cell.consignee = [consignee objectAtIndex:indexPath.row];
+
 
     if (indexPath.row == _select) {
         cell.selectedImageView.image = [UIImage imageNamed:@"cb_select"];
@@ -145,6 +156,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.delegate contactInfo:[contactArray objectAtIndex:indexPath.row] selectd:indexPath.row];
     [self.navigationController popViewControllerAnimated:YES];
+    
+    [[AllConsignee myAllConsignee] setCurrentConsignee:indexPath.row];
 }
 
 - (void)dealloc

@@ -14,4 +14,5 @@
 
 @interface HomePageViewController : TransitionViewController<ActiveDisplayScrollViewDelegate,XiaoJiRecommendViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,CategoryButtonItemDelegate,ModalViewDelegate>
 
+- (void)showGuidanceImage;
 @end

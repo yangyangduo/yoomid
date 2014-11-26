@@ -10,6 +10,7 @@
 #import "ShopShoppingItems.h"
 #import "BaseModel.h"
 #import "Contact.h"
+#import "Consignee.h"
 
 typedef NS_ENUM(NSUInteger, CashPaymentType) {
     CashPaymentTypeNone,
@@ -21,6 +22,9 @@ typedef NS_ENUM(NSUInteger, CashPaymentType) {
 @interface ShoppingCart : NSObject
 
 @property (nonatomic, strong) Contact *orderContact;
+
+@property (nonatomic, strong) Consignee *orderConsignee;
+
 
 + (instancetype)myShoppingCart;
 

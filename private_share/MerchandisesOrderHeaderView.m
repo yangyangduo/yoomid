@@ -56,7 +56,7 @@
 
         if (_order_.orderState == MerchandiseOrderStateUnCashPayment) {//订单状态：未支付
             [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"weixinPay" title:@"微信支付" imageName:@"wxpay"]];
-            [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"淘宝支付" imageName:@"taobaopay"]];
+            [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"taobaoPay" title:@"支付宝支付" imageName:@"taobaopay"]];
             [categories addObject:[[CategoryButtonItem alloc] initWithIdentifier:@"deleteOrders" title:@"删除订单" imageName:@"order_delete"]];
             NSString *message = nil;
             float pickerHeight = 0.f;

@@ -19,6 +19,7 @@
 }
 
 @synthesize orderContact = _orderContact_;
+@synthesize orderConsignee = _orderConsignee;
 
 + (instancetype)myShoppingCart {
     static dispatch_once_t onceToken;
@@ -312,5 +313,13 @@
     }
     return _orderContact_;
 }
+
+//- (Consignee *)orderConsignee
+//{
+//    if (_orderConsignee == nil) {
+//        _orderConsignee = [[Consignee alloc] init];
+//    }
+//    return _orderConsignee;
+//}
 
 @end

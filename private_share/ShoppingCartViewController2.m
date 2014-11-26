@@ -56,7 +56,7 @@ NSString * const ShoppingItemFooterIdentifier = @"ShoppingItemFooterIdentifier";
     backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, 1008/2)];
     imageView.center = CGPointMake(self.view.center.x, imageView.center.y);
-    imageView.image = [UIImage imageNamed:@"miku2"];
+    imageView.image = [UIImage imageNamed:@"emply_shopcar"];
     backgroundView.backgroundColor = [UIColor whiteColor];
     backgroundView.hidden = YES;
     [backgroundView addSubview:imageView];

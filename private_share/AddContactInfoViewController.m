@@ -10,6 +10,7 @@
 #import "XXStringUtils.h"
 #import "Contact.h"
 #import "DiskCacheManager.h"
+#import "AllConsignee.h"
 
 @interface AddContactInfoViewController ()
 
@@ -104,11 +105,12 @@
 -(void)addContactSucess:(HttpResponse *)resp
 {
     if (resp.statusCode == 201) {
+        [[AllConsignee myAllConsignee] getContact];
         [[XXAlertView currentAlertView] setMessage:@"保存成功" forType:AlertViewTypeSuccess];
         [[XXAlertView currentAlertView] delayDismissAlertView];
-        if (self.addDelegate != nil && [self.addDelegate respondsToSelector:@selector(addContactSuccess)]) {
-            [self.addDelegate addContactSuccess];
-        }
+//        if (self.addDelegate != nil && [self.addDelegate respondsToSelector:@selector(addContactSuccess)]) {
+//            [self.addDelegate addContactSuccess];
+//        }
         [self.navigationController popViewControllerAnimated:YES];
     }else
     {

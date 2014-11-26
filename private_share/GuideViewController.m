@@ -9,6 +9,7 @@
 #import "GuideViewController.h"
 #import "UIDevice+ScreenSize.h"
 #import "SecurityConfig.h"
+#import "ViewControllerAccessor.h"
 
 @implementation GuideViewController {
     UIScrollView *scrollView;
@@ -31,9 +32,12 @@
     BOOL is4InchDevice = [UIDevice is4InchDevice];
     for(int i=0; i<5; i++) {
         NSMutableString *imageName = [[NSMutableString alloc] initWithString:@"guide"];
-        [imageName appendFormat:@"%d", (i + 1)];
+//        [imageName appendFormat:@"%d", (i + 1)];
         if(is4InchDevice) {
-            [imageName appendString:@"-568h"];
+            [imageName appendFormat:@"5_%d",(i + 1)];
+//            [imageName appendString:@"-568h"];
+        }else{
+            [imageName appendFormat:@"4_%d",(i + 1)];
         }
         [imageName appendString:@"@2x"];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * scrollView.bounds.size.width, 0, scrollView.bounds.size.width, scrollView.bounds.size.height)];
@@ -60,9 +64,10 @@
 
 - (void)goButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:NO completion:^{
-        [SecurityConfig defaultConfig].isFirstLogin = NO;
-        [[SecurityConfig defaultConfig] saveConfig];
+        //新手导航页面
+        if ([SecurityConfig defaultConfig].isFirstLogin) {
+            [[ViewControllerAccessor defaultAccessor].homePageViewController showGuidanceImage];
+        }
     }];
 }
-
 @end

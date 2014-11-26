@@ -64,6 +64,9 @@
 
 - (void)setRecommendedMerchandises:(NSMutableArray *)recommendedMerchandises
 {
+    if (recommendedMerchandises.count == 0) {
+        return;
+    }
     if (recommendedMerchandises != nil) {
         _recommendedMerchandises = [NSMutableArray arrayWithArray:recommendedMerchandises] ;
     }else{

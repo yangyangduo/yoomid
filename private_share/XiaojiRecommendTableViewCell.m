@@ -65,7 +65,7 @@
         [bottomView addSubview:exchangeImageView];
         
         UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(8, 13.5, 95, 35)];
-        lable.text = @"我要兑";
+        lable.text = @"我要购买";
         lable.textAlignment = NSTextAlignmentCenter;
         lable.textColor = [UIColor whiteColor];
         lable.font = [UIFont systemFontOfSize:14.f];

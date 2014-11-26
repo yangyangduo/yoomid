@@ -12,7 +12,7 @@
 @implementation UIDevice (Identifier)
 
 + (NSString *)idfaString {
-    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    return @"123";
 }
 
 @end

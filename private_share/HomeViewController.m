@@ -163,14 +163,6 @@
     [self mayRefreshActivities];
     [self mayRefreshTaskCategories];
     [[Account currentAccount] mayRefresh];
-
-    //新手导航页判断
-    if ([SecurityConfig defaultConfig].isFirstLogin && ![[SecurityConfig defaultConfig].userName isEqualToString:@"1111"]) {
-       // [self showGuidanceImage];
-    }else if ([[SecurityConfig defaultConfig].userName isEqualToString:@"1111"] && [SecurityConfig defaultConfig].isFirstLogin){
-        [SecurityConfig defaultConfig].isFirstLogin = NO;
-        [[SecurityConfig defaultConfig] saveConfig];
-    }
 }
 
 - (void)mayRefreshTaskCategories {
@@ -291,9 +283,6 @@
 #pragma mark Category button item delegate
 
 - (void)categoryButtonItemDidSelectedWithIdentifier:(NSString *)identifier {
-    if([@"domob" isEqualToString:identifier]) {
-    }
-    
     [currentModalView closeViewAnimated:NO completion:nil];
 }
 
