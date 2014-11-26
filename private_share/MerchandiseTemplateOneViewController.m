@@ -56,17 +56,23 @@
 }
 
 - (void)refresh {
+    [[XXAlertView currentAlertView] setPostBearMessage:@"加载中..."];
+
     pageIndex = 0;
     MerchandiseService *service = [[MerchandiseService alloc] init];
     [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex target:self success:@selector(getMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:)  userInfo:[NSNumber numberWithInteger:pageIndex]];
 }
 
 - (void)loadMore {
+    [[XXAlertView currentAlertView] setPostBearMessage:@"加载中..."];
+
     MerchandiseService *service = [[MerchandiseService alloc] init];
     [service getMerchandisesWithShopId:column.cid pageIndex:pageIndex + 1 target:self success:@selector(getMerchandisesSuccess:) failure:@selector(getMerchandisesfailure:)  userInfo:[NSNumber numberWithInteger:pageIndex + 1]];
 }
 
 - (void)getMerchandisesSuccess:(HttpResponse *)resp {
+    [[XXAlertView currentAlertView] dismissAlertView];
+
     if(resp.statusCode == 200) {
         NSInteger page = ((NSNumber *)resp.userInfo).integerValue;
         if(merchandises == nil) {
@@ -175,7 +181,8 @@
         [self performSelector:@selector(cancelRefresh) withObject:nil afterDelay:1.5f];
         return;
     }
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3f];
+
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.0f];
     
 }
 
@@ -184,7 +191,8 @@
         [self performSelector:@selector(cancelLoadMore) withObject:nil afterDelay:1.5f];
         return;
     }
-    [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3f];
+
+    [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.0f];
 }
 
 - (void)cancelRefresh {

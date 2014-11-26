@@ -52,7 +52,8 @@
         for (int i=0; i<4; i++) {
             [arrayM addObject:[UIImage imageNamed:[NSString stringWithFormat:@"postbear%d",i+1]]];
         }
-
+        [imgTips setAnimationImages:arrayM];
+        [imgTips setAnimationDuration:arrayM.count*0.075];
     }
     return self;
 }
@@ -198,6 +199,9 @@
 }
 
 - (void)setMessage:(NSString *)message forType:(AlertViewType)type {
+    if ([imgTips isAnimating]) {
+        [imgTips stopAnimating];
+    }
     if(message == nil) message = @"";
     lblMessage.text = message;
     alertViewType = type;
@@ -248,9 +252,7 @@
     
     if(message == nil) message = @"";
     lblMessage.text = message;
-    
-    [imgTips setAnimationImages:arrayM];
-    [imgTips setAnimationDuration:arrayM.count*0.075];
+ 
     [imgTips startAnimating];
     
     [self alertForLock:NO autoDismiss:NO];

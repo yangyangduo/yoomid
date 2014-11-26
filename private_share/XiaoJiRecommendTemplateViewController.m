@@ -77,11 +77,11 @@
 -(void)refreshXiaoji
 {
     MerchandiseService *service = [[MerchandiseService alloc] init];
-    
     [service getEcommendedMerchandisesTarget:self success:@selector(getEcommendedMerchandisesSuccess:) failure:@selector(handleFailureHttpResponse:)];
 }
 
 - (void)getEcommendedMerchandisesSuccess:(HttpResponse *)resp {
+    [[XXAlertView currentAlertView] dismissAlertView];
     if (resp.statusCode == 200) {
         if (recommendedMerchandises == nil) {
             recommendedMerchandises = [[NSMutableArray alloc] init];
@@ -155,6 +155,8 @@
 #pragma mark Pull Table View Delegate
 
 - (void)pullTableViewDidTriggerRefresh:(PullRefreshTableView *)pullTableView {
+    [[XXAlertView currentAlertView] setPostBearMessage:@"加载中..."];
+
     [self performSelector:@selector(refreshXiaoji) withObject:nil afterDelay:0.3f];
 }
 
